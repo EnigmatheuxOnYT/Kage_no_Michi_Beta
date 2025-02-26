@@ -179,11 +179,11 @@ class Cinematics:
         assert bg in list(self.cinematics_bgs.keys()), "Le fond n'est pas dans la liste des fonds"
         assert kind in [0,1,2,3], "Le nombre de personnage (kind) doit être entre 0 et 3"
         assert type(line1) == str, "La ligne 1 n'est pas une chaîne de caractères"
-        assert len(line1) <= 78, f"La ligne 1 est trop longue ({len(line1)-78} caractères en trop)."
+        assert len(line1) <= 78, f"La ligne 1 est trop longue ({len(line1)-78} caractère(s) en trop)."
         assert type(line2) == str, "La ligne 2 n'est pas une chaîne de caractères."
-        assert len(line2) <= 78, f"La ligne 2 est trop longue ({len(line2)-78} caractères en trop)."
+        assert len(line2) <= 78, f"La ligne 2 est trop longue ({len(line2)-78} caractère(s) en trop)."
         assert type(line3) == str, "La ligne 3 n'est pas une chaîne de caractères."
-        assert len(line3) <= 78, f"La ligne 3 est trop longue ({len(line3)-78} caractères en trop)."
+        assert len(line3) <= 78, f"La ligne 3 est trop longue ({len(line3)-78} caractère(s) en trop)."
         assert type(kind_info) == list, "Les informations supplémentaires ne sont pas dans une liste."
         if kind == 1:
             assert len(kind_info) >= 3, f"L'argument kind_info doit âtre au moins de longueur 3 (ici, il est de longueur {len(kind_info)})."
@@ -485,12 +485,66 @@ class Cinematics:
             screen.blit(self.text_bg,pygame.Rect(0,390,1280,330))
             pygame.display.flip()
         
-    def choice_frame (self,screen:pygame.surface.Surface,bg:str,kind:list=[0,2],choices:List[str]=["","","",""],chars:List[List[str]]=[],timer:int=0):
+    def choice_frame (self,screen:pygame.surface.Surface,bg:str,kind:list=[0,4],choices:List[str]=["","","",""],chars:List[List[str]]=[],timer:int=0):
+        """
+        Parameters
+        ----------
+        screen : pygame.surface.Surface
+            Surface de l'écran sur laquelle la cinématique sera affichée.
+        bg : str
+            Fond d'écran, doit faire partie des fonds disponibles dans self.cinematics_bgs.
+        kind : List[int], optional
+            Dans cet ordre :
+                - Nombre de personnages qui seront affichés (0,1,2 ou 3). Par défaut sans personne affiché : 0.
+                - Nombre de choix proposés au joueur.
+        choices : List[str], optional
+            Une liste des choix proposés au joueur, de même longueur que le deuxième paramètre de kind
+        chars : List[List[str]], optional
+            Une liste contenant une liste par parsonnage à afficher. Chacune des listes de personnage contient dans l'ordre :
+                    - L'abréviation du nom.
+                    - Le style du personnage.
+        timer : int, optional
+            Le temps (en milisecondes) qu'à le joueur pour répondre. Mettre -1 pour laisser un temps infini.
+        
+
+        Returns
+        -------
+        Affiche et conserve le choix à l'écran.
+        
+        Retourne une liste contenant en premier élément la raison pour laquelle la fonction s'est terminée :
+            - 'QUIT' pour la fermeture du jeu.
+                - Pas de second élément.
+            - 'timer_end' pour la fin du temps.
+                - Pas de second élément.
+            - 'choice' pour un choix :
+                - Le second élément est l'entier (de 1 à 4) correspondant au choix fait (dans l'ordre des choix entrés dans choices)
+        """
+        
+        assert type(screen)==pygame.surface.Surface, "screen n'est pas une surface affichable"
+        assert bg in list(self.cinematics_bgs.keys()), "le fond ne fait pas partie de la liste des fonds disponibles (voir self.cinematic_bgs)"
+        assert type(kind)==list, "kind doit être une liste"
+        assert len(kind)==2, "kind doit être de longueur 2"
+        assert kind[0] in [0,1,2,3], "le nombre de personnages doit être un entier entre 1 et 3"
+        assert kind[1] in [2,3,4], "le nombre de choix doit être entre 2 et 4"
+        assert type(choices)==list, "choices doit être la liste des choix"
+        assert len(choices) == kind[1], f"il doit y avoir autant de choix que le second paramètre de kind ({kind[1]})"
+        for i in choices:
+            assert type(i)==str, f"les choix doivent être des chaînes de caractères, ce n'est pas le cas du choix {i+1}"
+            assert len(i) <= 19, f"le choix {i} est trop long ({len(i)-19} caractère(s) en trop)"
+        assert type(chars)==list, "les personnages doivent être rangés dans une liste"
+        assert len(chars)==kind[0], f"il doit y avoir autant de personnages que le premier paramètre de kind ({kind[0]})"
+        for i in chars:
+            assert type(i)==list, "chaque personnage doit être une liste"
+            assert i[0] in list(self.sprites.keys()), f"{i[0]} ne fait pas partie de la liste des persos : {list(self.sprites.keys())}"
+            assert i[1] in list(self.sprites[i[0]]['right'].keys())+list(self.sprites[i[0]]['left'].keys()), f"le personnage {i[0]} n'a pas l'apparence {i[1]}"
+        assert type(timer)==int, "timer doit correspondre à un temps en milisecondes, donc un entier"
+        assert timer>=-1, "le timer doit avoir un temps positif ou valant -1"
+        
         chosen = False
         timer_end = False
         
-        button_light_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERT_330p.png")
-        button_dark_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERTF_330p.png")
+        button_light_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERT_300p.png")
+        button_dark_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERTF_300p.png")
         current_buttons_surfaces = {str(i):button_light_surface for i in range(kind[1])}
         buttons_rects = {str(i):button_light_surface.get_rect() for i in range (kind[1])}
         
@@ -514,7 +568,7 @@ class Cinematics:
             for i in range (0,3,2):
                 for j in range(2):
                     buttons_rects[str(i+j)].center = (1280*(j+1)/3,500+55*i)
-                    choices_objects[str(i)]["rect"].center = (1280*(j+1)/3,500+55*i)
+                    choices_objects[str(i+j)]["rect"].center = (1280*(j+1)/3,500+55*i)
 
         depart_timer = pygame.time.get_ticks()
         cooldown = True
@@ -942,6 +996,6 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    output = c.choice_frame(screen,"mgm1",[3,3],choices=["A","B","C","D"],chars=[["SM","no_weapon"],["KM","no_weapon"],["TK","no_weapon"]])
+    output = c.choice_frame(screen,"mgm1",[3,4],choices=["1","2","3","4"],chars=[["SM","no_weapon"],["KM","no_weapon"],["TK","no_weapon"]])
     print(output)
     pygame.quit()
