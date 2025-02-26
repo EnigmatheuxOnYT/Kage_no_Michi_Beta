@@ -10,7 +10,7 @@ Created on Mon Jan 13 15:47:37 2025
 """
 
 import pygame
-
+from typing import List
 from Characters_sprites import Characters_sprites
 from Audio import Music,Sound
 
@@ -485,7 +485,7 @@ class Cinematics:
             screen.blit(self.text_bg,pygame.Rect(0,390,1280,330))
             pygame.display.flip()
         
-    def choice_frame (self,screen:pygame.surface.Surface,bg:str,kind:list=[0,2],choices:[str]=["","","",""],chars:[[str]]=[],timer:int=0):
+    def choice_frame (self,screen:pygame.surface.Surface,bg:str,kind:list=[0,2],choices:List[str]=["","","",""],chars:List[List[str]]=[],timer:int=0):
         chosen = False
         timer_end = False
         
