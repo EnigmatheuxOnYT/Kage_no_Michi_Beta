@@ -39,7 +39,7 @@ class minigm_collect :
         self.music,self.sound = Music(),Sound()
         
         ### Variables ###
-        self.gp_phases = Enum("Phase","BEGIN SEARCH LEAVING WIN PERFECT_WIN")
+        self.gp_phases = Enum("Phase","BEGIN SEARCH LEAVING LOOSE WIN PERFECT_WIN")
          
         self.obtained_objects = 0
         self.load_assets()
@@ -100,22 +100,45 @@ class minigm_collect :
         #Appeler ici la fonction self.cin.cinematic_frame()
         #Exemple d'utilisation que vous pouvez copier coller (attention, TOUJOURS finir l'appel par running=self.running):
         
-        self.cin.cinematic_frame(screen,'mgm1',running=self.running)
+        self.cin.cinematic_frame(screen,'mgm1',3, "Baladez-vous dans la forêt à la recherche de vivres !", "Récoltez des vivres à 5 endroits à travers la forêt, puis revenez.", kind_info=[["SM", "no-weapon"], ["KM", "no_weapon"], ["VL1","no_weapon"],0], running=self.running)
+        self.cin.cinematic_frame(screen,'mgm1',3, "Vous pouvez trouver également 5 autres objets.", "Ce ne sont pas des vivres, mais ils peuvent être utiles !", "Ramassez-en, et vous obtiendrez la position de vivres.", kind_info=[["SM", "no-weapon"], ["KM", "no_weapon"], ["VL1","no_weapon"],0], running=self.running)
         
         #À la toute fin de la fonction
         self.in_minigm = True
+        self.task_timer = pygame.time.get_ticks()
         self.current_gp_phase = self.gp_phases.SEARCH
     
     def leave(self,screen,saved):
-        self.cin.cinematic_frame(screen,"forest2",3, "Vous voulez rentrer ?", "Est-ce que vous avez fini de récolter des vivres ?", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL3","no_weapon"],3])
-        self.current_gp_phase = self.gp_phases.SEARCH
+        self.cin.cinematic_frame(screen,"forest2",3, "Vous voulez rentrer ?", "Est-ce que vous avez fini de récolter des vivres ?", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
+        choice = self.cin.choice_frame(screen, "forest2",[3,2], ["Rentrer","Rester"], [["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"]])
+        if choice[0] == 'QUIT':
+            self.playing=False
+            self.running = False
+        elif choice[0]=='choice':
+            if choice[1]==1:
+                self.in_minigm=False
+            elif choice[1]==2:
+                self.current_gp_phase = self.gp_phases.SEARCH
+                self.map.map_manager.teleport_player_spawn()
     
     def end(self,screen,saved):
         #Appeler ici la fonction self.cin.cinematic_frame()
-        if self.current_gp_phase == self.gp_phases.PERFECT_WIN:
+        if self.obtained_objects<=4:
+            self.current_gp_phase = self.gp_phases.LOOSE
+        elif self.obtained_objects == 5:
+            final_time = pygame.time.get_ticks()-self.task_timer
+            if final_timer < 120000:
+                self.current_gp_phase = self.gp_phases.PERFECT_WIN
+            else:
+                self.current_gp_phase = self.gp_phases.WIN
+
+        if self.current_gp_phase == self.gp_phases.LOOSE:
             pass
-        elif self.current_gp_phase == self.gp_phases.WIN:
-            pass
+        else:
+            if self.current_gp_phase == self.gp_phases.PERFECT_WIN:
+                pass
+            elif self.current_gp_phase == self.gp_phases.WIN:
+                pass
         
         #À la toute fin de la fonction
         self.playing = False
@@ -178,10 +201,6 @@ class minigm_collect :
                 self.current_arrow_target = self.arrow_queue[0]
                 self.arrow_update(self.hot_spots[str(self.current_arrow_target)]['name'])
             self.display_arrow = self.arrow_get_busy()
-        elif self.current_gp_phase == self.gp_phases.LEAVING:
-            pass
-        elif self.current_gp_phase in [self.gp_phases.WIN,self.gp_phases.PERFECT_WIN]:
-            self.in_minigm = False
     
     def handle_zone_events (self,events):
         for i in range(len(events)):
@@ -247,11 +266,11 @@ class minigm_collect :
                     self.display_object_obtained_text = False
             if self.display_arrow and self.arrow_initiated:
                 screen.blit(self.current_arrow_surface,self.current_arrow_rect)
+            #Mise à jour de l'écran
+            pygame.display.flip()
         elif self.current_gp_phase == self.gp_phases.LEAVING:
             self.leave(screen,saved)
         
-        #Mise à jour de l'écran
-        pygame.display.flip()
     
    
     ########## Boucle mini-jeu ##########

@@ -45,6 +45,9 @@ class Cinematics:
                       'TW': self.font_MFMG25.render("Guerrier Takahiro",False,(0,0,0)),
                       'TW_H': self.font_MFMG25.render("Guerrier Takahiro",False,(0,0,0)),
                       'TWs' : self.font_MFMG25.render("Guerriers Takahiro",False,(0,0,0)),
+                      'VL1' : self.font_MFMG25.render("Villageois",False,(0,0,0)),
+                      'VL2' : self.font_MFMG25.render("Villageois",False,(0,0,0)),
+                      'VL3' : self.font_MFMG25.render("Villageoise",False,(0,0,0)),
                       }
         
         self.rect_names = pygame.Rect(60,460,200,50)
