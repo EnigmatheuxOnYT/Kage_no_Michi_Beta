@@ -75,14 +75,14 @@ class minigm_collect :
         ### Importation de la police d'écriture (taille des textes des dialogues)
         self.font_MFMG30 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",30)
 
-        object_counter_text = self.font_MFMG30.render(f"Objets Trouvés : {self.obtained_objects}/5")
+        object_counter_text = self.font_MFMG30.render(f"Objets Trouvés : {self.obtained_objects}/5",False,"black")
         self.object_counter_text_rect = self.set_rect(object_counter_text,"tr")
 
         self.catch_text = self.font_MFMG30.render("Appuyez sur A pour ramasser", False, "red")
         self.catch_text_rect = self.set_rect(self.catch_text,"mb")
         
         object_obtained_text_placeholder = self.get_object_obtained_text()
-        self.object_obtained_text_rect = self.set_rect(object_obtained_text_placeholder)
+        self.object_obtained_text_rect = self.set_rect(object_obtained_text_placeholder,"mb")
         self.display_object_obtained_text = False
 
     def get_object_obtained_text (self): return self.font_MFMG30.render(f"Objet obtenu ! ({self.obtained_objects}/5)", False, "black")
@@ -107,6 +107,7 @@ class minigm_collect :
         self.current_gp_phase = self.gp_phases.SEARCH
     
     def leave(self,screen,saved):
+        self.cin.cinematic_frame(screen,"forest2",3, "Vous voulez rentrer ?", "Est-ce que vous avez fini de récolter des vivres ?", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL3","no_weapon"],3])
         self.current_gp_phase = self.gp_phases.SEARCH
     
     def end(self,screen,saved):
@@ -232,6 +233,8 @@ class minigm_collect :
             #Remplissage avec du noir (fond)
             screen.fill((0,0,0))
             self.map.map_manager.draw()
+            obtained_objects_couter = self.font_MFMG30.render(f"Objets Trouvés : {self.obtained_objects}/5",False,"black")
+            screen.blit(obtained_objects_couter,self.object_counter_text_rect)
             if self.on_object[0]:
                 screen.blit(self.catch_text,self.catch_text_rect)
             elif self.display_object_obtained_text:

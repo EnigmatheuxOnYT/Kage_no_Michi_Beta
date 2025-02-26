@@ -10,7 +10,7 @@ Created on Mon Jan 13 15:47:37 2025
 """
 
 import pygame
-
+from typing import List
 from Characters_sprites import Characters_sprites
 from Audio import Music,Sound
 
@@ -29,6 +29,7 @@ class Cinematics:
         self.lowercase = False
         self.current_font_color = 'black'
         self.is_lowercase_auto_fixed = False
+        self.text_bg_rect = pygame.Rect(0,390,1280,330)
         ########## Noms ##########
         self.names = {'none': self.font_MFMG25.render("",False,(0,0,0)),
                       "P" : self.font_MFMG25.render('Pancarte',False,(0,0,0)),
@@ -50,7 +51,7 @@ class Cinematics:
         
         ########## Dictionnaire des fonds de cinématiques ##########
         self.cinematics_bgs = {'forest1': self.load("bgs","Fond_Menu_V2_1280p").convert(),
-                               'forest2':0,
+                               'forest2': self.load("bgs","Fond_Entrée_Forêt_Dense_1").convert(),
                                'forest3':0,
                                'bamboo1' : self.load("bgs","Fond_Forêt_Bambou_1").convert(),
                                'bamboo2' : self.load("bgs","Fond_Forêt_Bambou_2").convert(),
@@ -484,7 +485,94 @@ class Cinematics:
             screen.blit(self.text_bg,pygame.Rect(0,390,1280,330))
             pygame.display.flip()
         
+    def choice_frame (self,screen:pygame.surface.Surface,bg:str,kind:list=[0,2],choices:List[str]=["","","",""],chars:List[List[str]]=[],timer:int=0):
+        chosen = False
+        timer_end = False
         
+        button_light_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERT_330p.png")
+        button_dark_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERTF_330p.png")
+        current_buttons_surfaces = {str(i):button_light_surface for i in range(kind[1])}
+        buttons_rects = {str(i):button_light_surface.get_rect() for i in range (kind[1])}
+        
+        
+        choices_objects = {"0":{},"1":{},"2":{},"3":{}}
+        for i in range(kind[1]):
+            choices_objects[str(i)]["surface"] = self.font_MFMG30.render(choices[i],False,'black')
+            choices_objects[str(i)]["rect"] = choices_objects[str(i)]["surface"].get_rect()
+
+        if kind[1] == 2:
+            for i in range(2):
+                buttons_rects[str(i)].center = (1280*(i+1)/3,555)
+                choices_objects[str(i)]["rect"].center = (1280*(i+1)/3,555)
+        elif kind[1] == 3:
+            #buttons_rects["0"].center = (640,500)
+            #choices_objects["0"]["rect"].center = (640,500)
+            for i in range(3):
+                buttons_rects[str(i)].center = (1280*(i+1)/4,555)
+                choices_objects[str(i)]["rect"].center = (1280*(i+1)/4,555)
+        elif kind[1] == 4:
+            for i in range (0,3,2):
+                for j in range(2):
+                    buttons_rects[str(i+j)].center = (1280*(j+1)/3,500+55*i)
+                    choices_objects[str(i)]["rect"].center = (1280*(j+1)/3,500+55*i)
+
+        depart_timer = pygame.time.get_ticks()
+        cooldown = True
+
+        while not chosen and not timer_end:
+            if timer != 0:
+                remaining_time=max(pygame.time.get_ticks()-depart_timer-timer,0)
+                if remaining_time == 0:
+                    timer_end = True
+                    return ['timer_end']
+                else:
+                    timer_text = self.font_MFMG30.render(str(remaining_time/1000))
+                    timer_rect = timer_text.get_rect()
+                    timer_rect.topleft = (0,0)
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.event.post(event)
+                    return ['QUIT']
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    self.sound.play(self.sound.click)
+                    for i in range(kind[1]):
+                        if buttons_rects[str(i)].collidepoint(pygame.mouse.get_pos()):
+                            chosen = True
+                            return ['choice',i+1]
+            
+            if pygame.key.get_pressed()[pygame.K_F11]:
+                if not cooldown:
+                    pygame.display.toggle_fullscreen()
+            else:
+                cooldown=False
+            
+            for i in range(kind[1]):
+                if buttons_rects[str(i)].collidepoint(pygame.mouse.get_pos()):
+                    current_buttons_surfaces[str(i)] = button_dark_surface
+                else:
+                    current_buttons_surfaces[str(i)] = button_light_surface
+
+
+
+            screen.blit(self.cinematics_bgs[bg], pygame.Rect(0,0,1280,720))
+
+            if kind[0]==2:
+                sides=['right','left']
+                rect_sides = ['right','left']
+            else:
+                sides=['right','right','left']
+                rect_sides = ['right','right2','left']
+            for i in range(kind[0]):
+                screen.blit(self.sprites[chars[i][0]][sides[i]][chars[i][1]]["secondary"],self.rects_caracters[rect_sides[i]])
+            
+            screen.blit(self.text_bg,self.text_bg_rect)
+
+            for i in range(kind[1]):
+                screen.blit(current_buttons_surfaces[str(i)],buttons_rects[str(i)])
+                screen.blit(choices_objects[str(i)]["surface"],choices_objects[str(i)]["rect"])
+            
+            pygame.display.flip()
     
     def refresh_fullscreen(self):
         pass
@@ -854,5 +942,6 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    c.cinematic_09(screen,"KM")
+    output = c.choice_frame(screen,"mgm1",[3,3],choices=["A","B","C","D"],chars=[["SM","no_weapon"],["KM","no_weapon"],["TK","no_weapon"]])
+    print(output)
     pygame.quit()
