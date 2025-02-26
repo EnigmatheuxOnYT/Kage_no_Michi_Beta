@@ -1,0 +1,4 @@
+python>=3.8.10
+pygame==2.6.1
+pytmx==3.32
+pyscroll==2.31

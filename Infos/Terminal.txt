@@ -1,0 +1,31 @@
+V0.3.2.0 :
+- Commandes fonctionelles :
+	- /leave ou / :
+		- Ferme le terminal
+	- /cinematic [numéro de la cinématique] :
+		- Ouvre la cinématique correspondante
+	- /choice [numéro du choix] [choix] :
+		- Permet de tester les différentes versions dans cinématiques et mini-jeux en fonction du choix en fin de cinématique 1
+	- /tp [x],[y] :
+		- Téléporte aux coordonnées précisées
+	- /tp [raccourci de nom de ville] :
+		- Téléporte à l’endroit précisé
+	- /minigm [numéro de mini jeu] :
+		- Lance le mini-jeu
+	- /map [numéro de la carte] :
+		- Ouvre la carte indiquée
+	- /speed [vitesse] :
+		- Modifie la vitesse du personnage
+	- /noclip [on/off] :
+		- Active ou désactive le no-clip
+	- /spawn :
+		- Vous emmène au spawn de la carte où vous vous trouvez	
+	- La commande /arrow [on/off/point] :
+		- Active ou désactive le rendu de la flèche, qui par défaut est désactivé.
+		- /arrow point [nom du point] avec n’importe quel point de la carte fera indiquer à la flèche ce point. Par défaut indique le spawn.
+	- La commande /devmode [on/off] :
+		- Active ou désactive le mode développeur (seulement implémenté pour le mini-jeu 5 pour le moment).
+
+
+
+Pour les personnages sauvés : "none" pour aucun, "KM" pour Keiko, "KT" pour Takeshi

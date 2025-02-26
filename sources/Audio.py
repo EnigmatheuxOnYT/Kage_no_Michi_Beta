@@ -1,0 +1,65 @@
+#Projet : Kage no Michi
+#Auteurs : Alptan Korkmaz, Clément Roux--Bénabou, Maxime Rousseaux, Ahmed-Adam Rezkallah, Cyril Zhao
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Feb  3 17:38:30 2025
+
+@author: clementroux--benabou
+"""
+
+import pygame
+
+pygame.mixer.init()
+pygame.mixer.music.set_endevent(100)
+
+class Music:
+    def __init__ (self):
+    
+        self.placeholder = "Musique_Placeholder.mp3"
+        self.menu = "japanese-traditional-festival-164421.mp3"
+        self.intro = "Music_Game_1.mp3"
+        self.jeu1 = "Music_Game_1.mp3"
+        self.mg7 = "Music_BMG_4.mp3"
+    
+    def play (self,file="Musique_Placeholder.mp3",fade=500,offset=0):
+        if file == "Musique_Placeholder.mp3":
+            pass
+            #print("musique inconnue")
+        is_playing = pygame.mixer.music.get_busy()
+        if is_playing:
+            pygame.mixer.music.fadeout(fade)
+            pygame.mixer.music.queue(f"../data/assets/musics/{file}",loops=-1)
+        else:
+            pygame.mixer.music.load(f"../data/assets/musics/{file}")
+            pygame.mixer.music.play(loops=-1,start=offset,fade_ms=fade)
+            pygame.mixer.music.set_pos(offset)
+    
+
+class Sound:
+    
+    def __init__(self):
+        self.click = self.sound("SFX_ClickSound_2")
+        self.click.set_volume(0.35)
+        
+
+        self.win = self.sound("SFX_Achievement_1")
+        self.lose = self.sound("SFX_ClickSound_1")
+        self.error = self.sound("SFX_Wrong_1")
+        self.correct1 = self.sound("SFX_Cash_1")
+        self.incorrect1 = self.sound("SFX_Wrong_1")
+    
+    
+    def sound (self,file):
+        return pygame.mixer.Sound(f"../data/assets/sounds/{file}.mp3")
+    
+    def play (self,sound):
+        sound.play()
+
+if __name__ == '__main__':
+    music=Music()
+    sound=Sound()
+    music.play(music.intro)
+    sound.play(sound.incorrect2)
+    
