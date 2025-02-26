@@ -1,3 +1,7 @@
+#Projet : Kage no Michi
+#Auteurs : Alptan Korkmaz, Maxime Rousseaux, Ahmed-Adam Rezkallah, Clément Roux--Bénabou, Cyril Zhao
+
+
 import pygame
 
 from map.src.animation import AnimateSprite
