@@ -62,15 +62,7 @@ class Characters_sprites:
                                                }
                                       },
                                #Keiko Musashi
-                               'KM': {'right': {'no_weapon': {'main': self.ldc("Keiko_16bit_Droite_SansArme_V1.png"),
-                                                              'secondary': self.ldc("Keiko_16bit_Droite_SansArme_Ombre_V1.png")
-                                                              }
-                                                },
-                                      'left': {'no_weapon': {'main': self.ldc("Keiko_16bit_Gauche_SansArme_V1.png"),
-                                                             'secondary': self.ldc("Keiko_16bit_Gauche_SansArme_Ombre_V1.png")
-                                                             }
-                                               }
-                                      },
+                               'KM': self.load_character("Keiko"),
                                #Kurosawa Takeshi
                                'KT': {'right': {'no_weapon': {'main': self.ldc("Takeshi_16bit_Droite_SansArme_V1.png"),
                                                               'secondary': self.ldc("Takeshi_16bit_Droite_SansArme_Ombre_V1.png")
@@ -93,26 +85,18 @@ class Characters_sprites:
                                                               }
                                               }
                                       },
-                               #Jizo Ma
+                               #Juzo Ma
                                'JM': {'right': {'no_weapon': {'main': self.ldc("Juzo_16bit_Droite_V1.png"),
                                                               'secondary': self.ldc("Juzo_16bit_Droite_Ombre_V1.png")
-                                                              }
+                                                               },
                                                 },
-                                      'left': {'no_weapon': {'main': self.ldc("Juzo_16bit_Gauche_V1.png"),
-                                                             'secondary': self.ldc("Juzo_16bit_Gauche_Ombre_V1.png")
-                                                             }
-                                               }
+                                      'left':{'no_weapon': {'main': self.ldc("Juzo_16bit_Gauche_V1.png"),
+                                                            'secondary': self.ldc("Juzo_16bit_Gauche_Ombre_V1.png")
+                                                            }
+                                              }
                                       },
                                #Yoshiro
-                               'Y?' : {'right': {'no_weapon': {'main': self.ldc("Yoshiro_16bit_Droite_SansArme_V1.png"),
-                                                               'secondary': self.ldc("Yoshiro_16bit_Droite_SansArme_Ombre_V1.png")
-                                                               }
-                                                 },
-                                       'left':{'no_weapon': {'main': self.ldc("Yoshiro_16bit_Gauche_SansArme_V1.png"),
-                                                             'secondary': self.ldc("Yoshiro_16bit_Gauche_SansArme_Ombre_V1.png")
-                                                             }
-                                               }
-                                       },
+                               'Y?' : self.load_character("Yoshiro"),
                                # Guerrier takahiro
                                'TW' : {'right': {'no_weapon': {'main': self.ldc("Soldat_16bit_Droite_SansCapuche_SansArme_V1.png"),
                                                                'secondary': self.ldc("Soldat_16bit_Droite_SansCapuche_SansArme_Ombre_V1.png")
@@ -149,8 +133,12 @@ class Characters_sprites:
                                                                 }
                                                   }
                                          },
-                               'P' : {'left': {'no_weapon': {'main': self.ldc('Pancarte_Dialogues_V4.png')}}},
+
+                                'P' : {'left': {'no_weapon': {'main': self.ldc('Pancarte_Dialogues_V4.png')}}},
                                }
+        
+        for i in range(1,4):
+            self.for_cinematics[f"VL{i}"] = self.load_villager(i)
         
         self.for_mgm = {"villager1": self.ldm("Femme_1.png"),
                         "villager2": self.ldm("Femme_1.png"),
@@ -174,3 +162,28 @@ class Characters_sprites:
     
     def ldm (self,file):
         return pygame.image.load("../data/assets/minigm/"+file)
+    
+    def load_character (self,name):
+        char = {'right': {'no_weapon': {'main': self.ldc(f"{name}_16bit_Droite_SansArme_V1.png"),
+                                        'secondary': self.ldc(f"{name}_16bit_Droite_SansArme_Ombre_V1.png")
+                                         },
+                        },
+                'left':{'no_weapon': {'main': self.ldc(f"{name}_16bit_Gauche_SansArme_V1.png"),
+                                      'secondary': self.ldc(f"{name}_16bit_Gauche_SansArme_Ombre_V1.png")
+                                      }
+                        }
+                }
+        return char
+
+    def load_villager (self,no):
+        name=str(no)
+        char = {'right': {'no_weapon': {'main': self.ldc(f"Villager{name}_Droite_V1.png"),
+                                        'secondary': self.ldc(f"Villager{name}_Droite_Ombre_V1.png")
+                                         },
+                        },
+                'left':{'no_weapon': {'main': self.ldc(f"Villager{name}_Gauche_V1.png"),
+                                      'secondary': self.ldc(f"Villager{name}_Gauche_Ombre_V1.png")
+                                      }
+                        }
+                }
+        return char

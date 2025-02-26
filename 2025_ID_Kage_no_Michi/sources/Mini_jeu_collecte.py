@@ -107,7 +107,7 @@ class minigm_collect :
         self.current_gp_phase = self.gp_phases.SEARCH
     
     def leave(self,screen,saved):
-        self.cin.cinematic_frame(screen,"forest2",3, "Vous voulez rentrer ?", "Est-ce que vous avez fini de récolter des vivres ?", )
+        self.cin.cinematic_frame(screen,"forest2",3, "Vous voulez rentrer ?", "Est-ce que vous avez fini de récolter des vivres ?", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL3","no_weapon"],3])
         self.current_gp_phase = self.gp_phases.SEARCH
     
     def end(self,screen,saved):
