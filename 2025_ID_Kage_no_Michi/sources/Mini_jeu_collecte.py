@@ -101,7 +101,7 @@ class minigm_collect :
         #Exemple d'utilisation que vous pouvez copier coller (attention, TOUJOURS finir l'appel par running=self.running):
         
         self.cin.cinematic_frame(screen,'mgm1',3, "Baladez-vous dans la forêt à la recherche de vivres !", "Récoltez des vivres à 5 endroits à travers la forêt, puis revenez.", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], ["VL1","no_weapon"],0], running=self.running)
-        self.cin.cinematic_frame(screen,'mgm1',3, "Vous pouvez trouver également 5 autres objets.", "Ce ne sont pas des vivres, mais ils peuvent être utiles !", "Ramassez-en, et vous obtiendrez la position de vivres.", kind_info=[["SM", "no-weapon"], ["KM", "no_weapon"], ["VL1","no_weapon"],0], running=self.running)
+        self.cin.cinematic_frame(screen,'mgm1',3, "Vous pouvez trouver également 5 autres objets.", "Ce ne sont pas des vivres, mais ils peuvent être utiles !", "Ramassez-en, et vous obtiendrez la position de vivres.", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], ["VL1","no_weapon"],0], running=self.running)
         
         #À la toute fin de la fonction
         self.in_minigm = True
@@ -136,9 +136,16 @@ class minigm_collect :
             self.cin.cinematic_frame(screen,"forest2",3, "Vous n'avez malheureusement pas récupéré assez de vivres...", "N'hésitez pas à revenir !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
         else:
             if self.current_gp_phase == self.gp_phases.PERFECT_WIN:
-                pass
+                self.cin.cinematic_frame(screen,"forest2",3, "Vous êtes impressionnant Samouraï, vous avez fait si vite !", "N'hésitez pas à revenir, votre aide est toujours appreciée.",  kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
+                self.cin.cinematic_frame(screen,"forest2",3, "Au revoir, monsieur.", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],1])
+                if saved=="KM":
+                    self.cin.cinematic_frame(screen,"forest2",3, "Au revoir et bonne chance.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL1","no_weapon"],2])
+                elif saved=="KT":
+                    self.cin.cinematic_frame(screen,"forest2",3, "Bonne chance à vous, et au revoir.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1","no_weapon"],2])
             elif self.current_gp_phase == self.gp_phases.WIN:
-                pass
+                self.cin.cinematic_frame(screen,"forest2",3, "Bien joué, vous avez ramassé assez de vivres.","Merci pour votre aide", "N'hésitez pas à revenir !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
+                self.cin.cinematic_frame(screen,"forest2",3, "Merci monsieur, et bonne chanec à vous", "", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],2])
+                self.cin.cinematic_frame(screen,"forest2",3, "Bonne chance !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],1])
         
         #À la toute fin de la fonction
         self.playing = False
