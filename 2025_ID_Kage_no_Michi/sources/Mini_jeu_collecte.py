@@ -127,7 +127,7 @@ class minigm_collect :
             self.current_gp_phase = self.gp_phases.LOOSE
         elif self.obtained_objects == 5:
             final_time = pygame.time.get_ticks()-self.task_timer
-            if final_timer < 120000:
+            if final_time < 120000:
                 self.current_gp_phase = self.gp_phases.PERFECT_WIN
             else:
                 self.current_gp_phase = self.gp_phases.WIN
