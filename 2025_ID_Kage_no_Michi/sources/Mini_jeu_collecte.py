@@ -75,8 +75,11 @@ class minigm_collect :
         ### Importation de la police d'écriture (taille des textes des dialogues)
         self.font_MFMG30 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",30)
 
+        object_counter_text = self.font_MFMG30.render(f"Objets Trouvés : {self.obtained_objects}/5")
+        self.object_counter_text_rect = self.set_rect(object_counter_text,"tr")
+
         self.catch_text = self.font_MFMG30.render("Appuyez sur A pour ramasser", False, "red")
-        self.catch_text_rect = self.set_rect(self.catch_text)
+        self.catch_text_rect = self.set_rect(self.catch_text,"mb")
         
         object_obtained_text_placeholder = self.get_object_obtained_text()
         self.object_obtained_text_rect = self.set_rect(object_obtained_text_placeholder)
@@ -84,10 +87,12 @@ class minigm_collect :
 
     def get_object_obtained_text (self): return self.font_MFMG30.render(f"Objet obtenu ! ({self.obtained_objects}/5)", False, "black")
 
-    def set_rect (self,text_surface:pygame.surface.Surface,pos="mb"):
+    def set_rect (self,text_surface:pygame.surface.Surface,pos):
         rect = text_surface.get_rect()
         if pos == "mb":
             rect.midbottom = (640,720)
+        elif pos == "tr":
+            rect.topright = (1280,0)
         return rect
      
     ########## Intro/Fin ##########
