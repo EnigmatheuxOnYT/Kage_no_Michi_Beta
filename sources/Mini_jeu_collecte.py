@@ -9,12 +9,6 @@ Created on Mon Jan 20 17:38:15 2025
 @author: clementroux--benabou
 """
 
-
-#############
-"""Placer le fichier dans le même dossier que le reste des fichiers python"""
-#############
-
-
 import pygame
 import math
 import random
