@@ -103,7 +103,7 @@ class Commands:
     def tp_loc (self):
         loc = self.cmd[3:]
         if loc in self.locations_shortcut:
-            point = self.locations[loc]
+            point = self.locations[loc][0]
         else:
             point=loc
         print(f"Téléportation à {point}")

@@ -62,6 +62,7 @@ class minigm_collect :
         self.on_object = [False]
         self.obtained_objects = 0
         print(self.items_hotspots)
+        self.got_timer = 0
         self.task_timer = pygame.time.get_ticks()
      
     def load_assets(self):
@@ -73,9 +74,19 @@ class minigm_collect :
         
         ### Importation de la police d'écriture (taille des textes des dialogues)
         self.font_MFMG30 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",30)
-        self.catch_text = self.font_MFMG30.render(" Appuyez sur A pour ramasser", False, "red")
-        self.catch_text_rect = self.catch_text.get_rect()
-        self.catch_text_rect.midbottom = (640,720)
+
+        self.catch_text = self.font_MFMG30.render("Appuyez sur A pour ramasser", False, "red")
+        self.catch_text_rect = self.set_rect(self.catch_text)
+        
+        self.object_obtained_text = self.font_MFMG30.render("Objet obtenu !", False, "black")
+        self.object_obtained_text_rect = self.set_rect(self.object_obtained_text)
+        self.display_object_obtained_text = False
+
+    def set_rect (self,text_surface:pygame.surface.Surface,pos="mb"):
+        rect = text_surface.get_rect()
+        if pos == "mb":
+            rect.midbottom = (640,720)
+        return rect
      
     ########## Intro/Fin ##########
     def intro(self,screen,saved):
@@ -130,6 +141,8 @@ class minigm_collect :
     def catch (self):
         obj_num = self.on_object[1]
         self.hot_spots[str(obj_num)]['found'] = True
+        self.got_timer = pygame.time.get_ticks()
+        self.display_object_obtained_text = True
         if obj_num in self.items_hotspots :
             self.obtained_objects += 1
             if self.arrow_get_busy():
@@ -147,14 +160,20 @@ class minigm_collect :
     
     ########## Partie 2 : Mise à jour ##########
     def minigm_update (self):
-        self.on_object = [False]
-        self.map.update()
-        events=self.map.map_manager.get_current_active_events()
-        self.handle_zone_events(events)
-        if self.arrow_get_busy() and self.arrow_initiated:
-            self.current_arrow_target = self.arrow_queue[0]
-            self.arrow_update(self.hot_spots[str(self.current_arrow_target)]['name'])
-        self.display_arrow = self.arrow_get_busy()
+        
+        if self.current_gp_phase == self.gp_phases.SEARCH:
+            self.on_object = [False]
+            self.map.update()
+            events=self.map.map_manager.get_current_active_events()
+            self.handle_zone_events(events)
+            if self.arrow_get_busy() and self.arrow_initiated:
+                self.current_arrow_target = self.arrow_queue[0]
+                self.arrow_update(self.hot_spots[str(self.current_arrow_target)]['name'])
+            self.display_arrow = self.arrow_get_busy()
+        elif self.current_gp_phase == self.gp_phases.LEAVING:
+            pass
+        elif self.current_gp_phase in [self.gp_phases.WIN,self.gp_phases.PERFECT_WIN]:
+            self.in_minigm = False
     
     def handle_zone_events (self,events):
         for i in range(len(events)):
@@ -199,18 +218,23 @@ class minigm_collect :
     
     
     ########## Partie 3 : Affichage ##########
-    def minigm_draw (self,screen):
-        #Remplissage avec du noir (fond)
-        screen.fill((0,0,0))
+    def minigm_draw (self,screen,saved):
         
         #Affichage, utiliser principalement la fonction screen.blit([surface à afficher],[ractangle dans lequel afficher la surface])
-        self.map.map_manager.draw()
-        
         if self.current_gp_phase == self.gp_phases.SEARCH:
+            #Remplissage avec du noir (fond)
+            screen.fill((0,0,0))
+            self.map.map_manager.draw()
             if self.on_object[0]:
                 screen.blit(self.catch_text,self.catch_text_rect)
+            elif self.display_object_obtained_text:
+                if pygame.time.get_ticks-self.got_timer <500:
+                    alpha_value = ((500-pygame.time.get_ticks+self.got_timer)*255/500
+                    screen.blit(self.object_obtained_text,self.object_obtained_text_rect)
             if self.display_arrow and self.arrow_initiated:
                 screen.blit(self.current_arrow_surface,self.current_arrow_rect)
+        elif self.current_gp_phase == self.gp_phases.LEAVING:
+            self.leave(screen,saved)
         
         #Mise à jour de l'écran
         pygame.display.flip()
@@ -226,7 +250,7 @@ class minigm_collect :
         while self.playing and self.running and self.in_minigm:
             self.minigm_events()
             self.minigm_update()
-            self.minigm_draw(screen)
+            self.minigm_draw(screen,saved)
             pygame.time.Clock().tick(60)
             
         if self.playing and self.running:
