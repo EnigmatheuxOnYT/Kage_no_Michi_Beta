@@ -50,7 +50,7 @@ class Cinematics:
         
         ########## Dictionnaire des fonds de cinématiques ##########
         self.cinematics_bgs = {'forest1': self.load("bgs","Fond_Menu_V2_1280p").convert(),
-                               'forest2':0,
+                               'forest2': self.load("bgs","Fond_Entrée_Forêt_Dense_1").convert(),
                                'forest3':0,
                                'bamboo1' : self.load("bgs","Fond_Forêt_Bambou_1").convert(),
                                'bamboo2' : self.load("bgs","Fond_Forêt_Bambou_2").convert(),
