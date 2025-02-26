@@ -41,7 +41,7 @@ class minigm_collect :
         ### Variables ###
         self.gp_phases = Enum("Phase","BEGIN SEARCH LEAVING WIN PERFECT_WIN")
          
-
+        self.obtained_objects = 0
         self.load_assets()
         
     ########## Démarrage du mini-jeu ##########
@@ -78,9 +78,11 @@ class minigm_collect :
         self.catch_text = self.font_MFMG30.render("Appuyez sur A pour ramasser", False, "red")
         self.catch_text_rect = self.set_rect(self.catch_text)
         
-        self.object_obtained_text = self.font_MFMG30.render("Objet obtenu !", False, "black")
-        self.object_obtained_text_rect = self.set_rect(self.object_obtained_text)
+        object_obtained_text_placeholder = self.get_object_obtained_text()
+        self.object_obtained_text_rect = self.set_rect(object_obtained_text_placeholder)
         self.display_object_obtained_text = False
+
+    def get_object_obtained_text (self): return self.font_MFMG30.render(f"Objet obtenu ! ({self.obtained_objects}/5)", False, "black")
 
     def set_rect (self,text_surface:pygame.surface.Surface,pos="mb"):
         rect = text_surface.get_rect()
@@ -228,9 +230,13 @@ class minigm_collect :
             if self.on_object[0]:
                 screen.blit(self.catch_text,self.catch_text_rect)
             elif self.display_object_obtained_text:
-                if pygame.time.get_ticks-self.got_timer <500:
-                    alpha_value = ((500-pygame.time.get_ticks+self.got_timer)*255/500
-                    screen.blit(self.object_obtained_text,self.object_obtained_text_rect)
+                if pygame.time.get_ticks()-self.got_timer <1000:
+                    alpha_value = ((500-pygame.time.get_ticks()+self.got_timer)*255/100)
+                    object_obtained_text = self.get_object_obtained_text()
+                    object_obtained_text.set_alpha(alpha_value)
+                    screen.blit(object_obtained_text,self.object_obtained_text_rect)
+                else:
+                    self.display_object_obtained_text = False
             if self.display_arrow and self.arrow_initiated:
                 screen.blit(self.current_arrow_surface,self.current_arrow_rect)
         elif self.current_gp_phase == self.gp_phases.LEAVING:
