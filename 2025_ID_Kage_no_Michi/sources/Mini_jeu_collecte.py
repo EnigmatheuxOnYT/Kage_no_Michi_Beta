@@ -100,7 +100,7 @@ class minigm_collect :
         #Appeler ici la fonction self.cin.cinematic_frame()
         #Exemple d'utilisation que vous pouvez copier coller (attention, TOUJOURS finir l'appel par running=self.running):
         
-        self.cin.cinematic_frame(screen,'mgm1',3, "Baladez-vous dans la forêt à la recherche de vivres !", "Récoltez des vivres à 5 endroits à travers la forêt, puis revenez.", kind_info=[["SM", "no-weapon"], ["KM", "no_weapon"], ["VL1","no_weapon"],0], running=self.running)
+        self.cin.cinematic_frame(screen,'mgm1',3, "Baladez-vous dans la forêt à la recherche de vivres !", "Récoltez des vivres à 5 endroits à travers la forêt, puis revenez.", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], ["VL1","no_weapon"],0], running=self.running)
         self.cin.cinematic_frame(screen,'mgm1',3, "Vous pouvez trouver également 5 autres objets.", "Ce ne sont pas des vivres, mais ils peuvent être utiles !", "Ramassez-en, et vous obtiendrez la position de vivres.", kind_info=[["SM", "no-weapon"], ["KM", "no_weapon"], ["VL1","no_weapon"],0], running=self.running)
         
         #À la toute fin de la fonction
@@ -133,7 +133,7 @@ class minigm_collect :
                 self.current_gp_phase = self.gp_phases.WIN
 
         if self.current_gp_phase == self.gp_phases.LOOSE:
-            pass
+            self.cin.cinematic_frame(screen,"forest2",3, "Vous n'avez malheureusement pas récupéré assez de vivres...", "N'hésitez pas à revenir !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
         else:
             if self.current_gp_phase == self.gp_phases.PERFECT_WIN:
                 pass
