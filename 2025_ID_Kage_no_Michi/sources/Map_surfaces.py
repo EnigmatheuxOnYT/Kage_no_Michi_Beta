@@ -15,5 +15,9 @@ surfaces_32x32 = {"none":pygame.surface.Surface((32,32)),
                   "placeholder":pygame.image.load("../data/assets/map/32x32_placehlder.png"),
                   "money_bag":pygame.image.load("../data/assets/map/32x32_placehlder.png"),
                   "heal_potion":pygame.image.load("../data/assets/map/32x32_placehlder.png"),
-                  "food":pygame.image.load("../data/assets/map/32x32_placehlder.png")
+                  "food1":pygame.image.load("../data/assets/map/32x32_placehlder.png"),
+                  "food2":pygame.image.load("../data/assets/map/32x32_placehlder.png"),
+                  "food3":pygame.image.load("../data/assets/map/32x32_placehlder.png"),
+                  "food4":pygame.image.load("../data/assets/map/32x32_placehlder.png"),
+                  "food5":pygame.image.load("../data/assets/map/32x32_placehlder.png"),
                   }

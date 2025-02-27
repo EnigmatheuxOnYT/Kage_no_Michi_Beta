@@ -16,6 +16,7 @@ from enum import Enum
 from Cinematics import Cinematics
 from map.src.game import Game_map
 from Audio import Music,Sound
+from Map_surfaces import surfaces_32x32
 
 class minigm_collect :
     
@@ -54,10 +55,15 @@ class minigm_collect :
         self.arrow_initiated = False
 
         self.map.map_manager.change_map("mg8")
+        self.possible_alternate_objects = ["money_bag", "heal_potion"]
         self.items_hotspots = random.sample([i for i in range(1,11)],5)
-        self.display_catch_text = False
-        self.hot_spots = {str(i) : {"name":f"mgm_hotspot_{i}", "found":False, 'have_item':True if i in self.items_hotspots else False} for i in range (1,11)}
+        self.hot_spots = {str(i) : {"name":f"mgm_hotspot_{i}", "found":False, 'item':None, 'surface':None }for i in range(1,11)}
         self.hot_spots["0"] = {"name":"spawn"}
+        for i in range (1,11):
+            if i in self.items_hotspots:
+                self.hot_spots[str(i)]["item"] = ""
+        
+        self.display_catch_text = False
         self.press_a = True
         self.on_object = [False]
         self.obtained_objects = 0
