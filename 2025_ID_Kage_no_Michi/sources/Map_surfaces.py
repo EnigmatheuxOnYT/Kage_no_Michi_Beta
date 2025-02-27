@@ -11,7 +11,7 @@ Created on Thu Feb 27 23:18:15 2025
 
 import pygame
 
-surfaces_32x32 = {"none":pyagme.surface.Surface((32,32)),
+surfaces_32x32 = {"none":pygame.surface.Surface((32,32)),
                   "placeholder":pygame.image.load("../data/assets/map/32x32_placehlder.png"),
                   "money_bag":pygame.image.load("../data/assets/map/32x32_placehlder.png"),
                   "heal_potion":pygame.image.load("../data/assets/map/32x32_placehlder.png"),
