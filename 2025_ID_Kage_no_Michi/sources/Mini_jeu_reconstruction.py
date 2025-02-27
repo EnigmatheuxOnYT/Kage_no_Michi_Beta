@@ -112,6 +112,15 @@ class minigm_mastermind:
         except Exception as e:
             print(f"Erreur de chargement du sprite du panneau info: {e}. Utilisation d'un fond uni.")
             self.info_panel_sprite = None
+        
+        # Chargement du fond pour le mini-jeu
+        try:
+            self.background_sprite = pygame.image.load("../data/assets/bgs/Fond_Aizuwakamatsu_Détruit_3.png").convert_alpha()
+            self.background_sprite = pygame.transform.scale(self.background_sprite, (self.width, self.height))
+        except Exception as e:
+            print("Erreur de chargement du sprite de fond :", e)
+            self.background_sprite = None
+
 
         # Chargement des sprites pour le feedback
         try:
@@ -404,7 +413,11 @@ class minigm_mastermind:
     ########## Partie 3 : Affichage ##########
     def minigm_draw(self, screen):
         canvas = pygame.Surface((self.width, self.height))
-        canvas.fill(self.theme['background'])
+        if self.background_sprite:
+            canvas.blit(self.background_sprite, (0, 0))
+        else:
+            canvas.fill(self.theme['background'])
+
         self.draw_grid(canvas)
         self.draw_info_panel(canvas)
         self.draw_color_picker(canvas)
@@ -438,7 +451,6 @@ class minigm_mastermind:
         else:
             shake_offset = (0, 0)
 
-        screen.fill(self.theme['background'])
         screen.blit(canvas, shake_offset)
         pygame.display.flip()
 
