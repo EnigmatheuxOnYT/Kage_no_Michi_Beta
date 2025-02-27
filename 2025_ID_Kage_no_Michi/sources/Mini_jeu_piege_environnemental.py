@@ -211,7 +211,7 @@ class minigm_minesweeper:
                     self.cin.cinematic_frame(screen, 'forest1', 2, "Génial, je les ai tous mis à terre. Ils ne se relèveront pas de sitôt.", kind_info=[["SM","no_weapon"],["KT","no_weapon"], 1], running=self.running)
                     self.cin.cinematic_frame(screen, 'forest1', 2, "Bien vu Musashi. On n'a même pas besoin d'utiliser nos armes.", kind_info=[["SM","no_weapon"],["KT","no_weapon"], 2], running=self.running)
                     self.cin.cinematic_frame(screen, 'forest1', 2, "Merci Takeshi. Désormais, allons à la ville d'Aizuwakamatsu.", kind_info=[["SM","no_weapon"],["KT","no_weapon"], 1], running=self.running)
-            else: # Dans le cas contraire (le minigm est finit avec moins de 3 vies ou bien a été raté)
+        else: # Dans le cas contraire (le minigm est finit avec moins de 3 vies ou bien a été raté)
                 if saved=='none':
                     self.cin.cinematic_frame(screen, 'forest1', 2, "Maraud... Tu vas le payer...", kind_info=[["SM","no_weapon"],["TW_H","no_weapon"], 2], running=self.running)
                     self.cin.cinematic_frame(screen, 'forest1', 2, "(Bon, j'ai réussi à en faire tomber un des deux.)", kind_info=[["SM","no_weapon"],["TW_H","no_weapon"], 1], running=self.running)
