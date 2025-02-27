@@ -3,6 +3,8 @@
 
 
 from dataclasses import dataclass
+
+import pytmx.util_pygame
 import Loading
 import pygame
 import pytmx
@@ -39,6 +41,36 @@ class Event_zone :
     entities : List[str]
     events : List[Event]
 
+class BuffedObject :
+    def __init__(self,object):
+        self.raw_object=object
+        self.on_screen_width = object.width*2
+        self.on_screen_height = object.height*2
+    
+    def get_screen(self):return MapManager().get_map().group.view()
+
+    def use_for_blit (self,screen:pygame.surface.Surface,surf:pygame.surface.Surface):
+        screen.blit(surf,self.get_on_screen_rect())
+    
+    def blit(self,surf:pygame.surface.Surface,rect:pygame.Rect):
+        self.get_on_screen_rect().blit(surf,rect)
+
+    def is_on_screen (self): self.get_screen.colliderect(object)
+    def is_fully_on_screen (self): self.get_screen().top<self.raw_object.top and self.get_screen().bottom>self.raw_object.bottom and self.get_screen().left<self.raw_object.left and self.get_screen().right>self.raw_object.right
+    def get_on_screen_x (self):return self.raw_object.x-self.get_screen().x
+    def get_on_screen_y (self):return self.raw_object.y-self.get_screen().y
+    def get_on_screen_width (self):return self.on_screen_width
+    def get_on_screen_height (self):return self.on_screen_height
+    def get_on_screen_rect (self):return pygame.Rect(self.get_on_screen_x(),self.get_on_screen_y(),self.on_screen_width,self.on_screen_height)
+
+
+
+#class Polygon :
+#    def __init__(self,obj):
+#        self.points=[(point.x,point.y) for point in obj.as_points]
+#        self.rects=pytmx.util_pygame.simplify(self.points,1,1)
+#
+#    def get_rects(self):return self.rects
 
 @dataclass
 class Map:
@@ -242,6 +274,11 @@ class MapManager :
         for obj in tmx_data.objects:
             if obj.type == "collisions":
                 walls.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
+            #if obj.type == "collision_polygons":
+                #self.polygon =  Polygon(obj)
+                #new_rects = polygon.get_rects()
+                #for rect in new_rects:
+                #    walls.append(rect)
         
                 
         #Le point de spawn
