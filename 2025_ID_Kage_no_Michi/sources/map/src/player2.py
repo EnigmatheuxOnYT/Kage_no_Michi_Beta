@@ -20,6 +20,7 @@ class Entity(AnimateSprite):
         self.old_position = self.position.copy()
         self.direction = ""
         self.allow_sprint=True
+        self.is_moving_object=True
 
     def get(self):
         self.image = self.images["down"]

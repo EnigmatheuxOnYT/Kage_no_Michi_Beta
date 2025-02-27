@@ -29,14 +29,16 @@ class Object:
         self.rect=pygame.Rect(x,y,w,h)
 
 class CompatibleObject:
-    def __init__(self,object:pytmx.TiledObject):
-        self.rect=object
-        self.map_object=object
+    def __init__(self,object:pygame.Rect,group_object:pytmx.TiledObject,map_manager):
+        self.map_manager=map_manager
+        self.group_object=group_object
+        self.map_rect=object
+        self.rect=self.map_rect
         self.screen_width = object.width*2
         self.screen_height = object.height*2
         self.assigned_surface = pygame.surface.Surface((object.width,object.height)).convert_alpha()
         self.hidden=False
-    
+
     @property
     def image(self):return self.current_image
     @property
@@ -47,21 +49,15 @@ class CompatibleObject:
     @property
     def is_on_screen (self):return self.get_screen().colliderect(object)
     @property
-    def is_fully_on_screen (self):return self.get_screen().top<self.map_object.top and self.get_screen().bottom>self.map_object.bottom and self.get_screen().left<self.map_object.left and self.get_screen().right>self.map_object.right
+    def is_fully_on_screen (self):return self.get_screen().top<self.map_rect.top and self.get_screen().bottom>self.map_rect.bottom and self.get_screen().left<self.map_rect.left and self.get_screen().right>self.map_rect.right
     @property
-    def screen_x (self):return self.map_object.x-self.get_screen().x
+    def screen_x (self):return self.map_rect.x-self.get_screen().x
     @property
-    def screen_y (self):return self.map_object.y-self.get_screen().y
+    def screen_y (self):return self.map_rect.y-self.get_screen().y
     @property
     def screen_rect (self):return pygame.Rect(self.screen_x,self.screen_y,self.screen_width,self.screen_height)
 
-    def get_screen(self):return MapManager().get_map().group.view()
-
-    def use_for_blit (self,screen:pygame.surface.Surface,surf:pygame.surface.Surface):
-        screen.blit(surf,self.screen_rect)
-    
-    def blit(self,surf:pygame.surface.Surface,rect:pygame.Rect):
-        self.screen_rect.blit(surf,rect)
+    def get_screen(self):return self.map_manager.get_map().group.view()
 
     def set_assigned_surface (self,surf:pygame.surface.Surface):
         self.assigned_surface=surf
@@ -70,11 +66,10 @@ class CompatibleObject:
         self.hidden=value
 
     def draw (self,screen):
-        if self.assigned_surface!=None:
-            if not self.hidden:
-                screen.blit(self.assigned_surface,self.screen_rect)
-        else:
-            raise AttributeError("No surface assigned !") 
+        screen.blit(self.image,self.screen_rect)
+        
+    def change_layer(self,layer):
+        self.map_manager.get_map().group.change_layer(self.group_object,layer)
 
 
 
@@ -99,11 +94,15 @@ class Event_zone :
     events : List[Event]
 
 class DisplayZone(CompatibleObject,pygame.sprite.Sprite):
-    def __init__ (self,object_class:str,name:str,object:pytmx.TiledObject):
-        CompatibleObject().__init__(self,object)
-        pygame.sprite.Sprite().__init__(self)
+    def __init__ (self,object_class:str,name:str,object:pygame.Rect,group_object:pytmx.TiledObject,map_manager):
+        CompatibleObject.__init__(self,object,group_object,map_manager)
+        pygame.sprite.Sprite.__init__(self)
         self.name=name
         self.object_class=object_class
+        self.is_moving_object=False
+        self.map_manager=map_manager
+    
+        
 
 
 
@@ -266,8 +265,9 @@ class MapManager :
                 
             #collisions
             for sprite in self.get_group().sprites():
-                if sprite.feet.collidelist(self.get_walls()) > -1 :
-                    sprite.move_back()
+                if sprite.is_moving_object:
+                    if sprite.feet.collidelist(self.get_walls()) > -1 :
+                        sprite.move_back()
         
 
     def teleport_player(self,name):
@@ -315,7 +315,8 @@ class MapManager :
         for layer_name,layer_objects in tmx_data.layernames.items():
             if layer_name== "DisplayZones":
                 for object in layer_objects:
-                    display_zone = DisplayZone(object.type,object.name,object.rect)
+                    object_rect = pygame.Rect(object.x,object.y,object.width,object.height)
+                    display_zone = DisplayZone(object.type,object.name,object_rect,object,self)
                     display_zones.append(display_zone)
 
                 
@@ -332,6 +333,9 @@ class MapManager :
         for npc in npcs:
             group.add(npc)
             group.change_layer(npc, layer)
+        
+        for displayzone in display_zones:
+            group.add(displayzone)
 
         #Enregistrement de la nouvelle map chargée
         self.maps[name] = Map(name,walls,group,tmx_data,spawn,portals,event_zones,display_zones,npcs)

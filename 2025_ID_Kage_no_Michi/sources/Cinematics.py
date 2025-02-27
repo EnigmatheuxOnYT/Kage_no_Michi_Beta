@@ -75,7 +75,8 @@ class Cinematics:
                                'doj2' : self.load("bgs","Fond_Ine_Dojo_Arene_Nuit_1").convert(),
                                'tkh1' : self.load("bgs","Fond_Planque_Takahiro_1").convert(),
                                'azw1' : self.load("bgs","Fond_Aizuwakamatsu_2").convert(),
-                               'azw2' : self.load("bgs","Fond_Aizuwakamatsu_Détruit_1").convert()
+                               'azw2' : self.load("bgs","Fond_Aizuwakamatsu_Détruit_1").convert(),
+                               'azw3' : self.load("bgs","Fond_Aizuwakamatsu_Détruit_2").convert()
                                }
         
         ########## Rects pour les sprites ##########
