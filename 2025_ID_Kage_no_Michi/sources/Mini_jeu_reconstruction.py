@@ -112,6 +112,15 @@ class minigm_mastermind:
         except Exception as e:
             print(f"Erreur de chargement du sprite du panneau info: {e}. Utilisation d'un fond uni.")
             self.info_panel_sprite = None
+        
+        # Chargement du fond pour le mini-jeu
+        try:
+            self.background_sprite = pygame.image.load("../data/assets/bgs/Fond_Aizuwakamatsu_Détruit_3.png").convert_alpha()
+            self.background_sprite = pygame.transform.scale(self.background_sprite, (self.width, self.height))
+        except Exception as e:
+            print("Erreur de chargement du sprite de fond :", e)
+            self.background_sprite = None
+
 
         # Chargement des sprites pour le feedback
         try:
@@ -201,17 +210,17 @@ class minigm_mastermind:
         
         # Appel de la cinématique d'intro (finir toujours par running=self.running)
         if saved=='none':
-            self.cin.cinematic_frame(screen, 'mgm1', 2, "Pourquoi pas. C'est le mieux que je puisse faire pour pouvoir aider", "Aizuwakamatsu.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'mgm1', 2, "Merci de vos efforts, monsieur le samouraï.", "Ce que vous devez faire, c'est suivre le plan de ce parchemin.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
-            self.cin.cinematic_frame(screen, 'mgm1', 2, "Elle contient toutes les étapes nécessaires à la reconstruction de ce mur.", "Trouvez la bonne combinaison de briques pour le reconstruire !", "A vous de jouer !", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 2, "Pourquoi pas. C'est le mieux que je puisse faire pour pouvoir aider", "Aizuwakamatsu.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 2, "Merci de vos efforts, monsieur le samouraï.", "Ce que vous devez faire, c'est suivre le plan de ce parchemin.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 2, "Elle contient toutes les étapes nécessaires à la reconstruction de ce mur.", "Trouvez la bonne combinaison de briques pour le reconstruire !", "A vous de jouer !", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
         elif saved=='KM':
-            self.cin.cinematic_frame(screen, 'mgm1', 3, "Pourquoi pas. C'est le mieux que je puisse faire pour pouvoir aider", "Aizuwakamatsu.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'mgm1', 3, "Merci de vos efforts, monsieur le samouraï.", "Ce que vous devez faire, c'est suivre le plan de ce parchemin.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
-            self.cin.cinematic_frame(screen, 'mgm1', 3, "Elle contient toutes les étapes nécessaires à la reconstruction de ce mur.", "Trouvez la bonne combinaison de briques pour le reconstruire !", "A vous de jouer !", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 3, "Pourquoi pas. C'est le mieux que je puisse faire pour pouvoir aider", "Aizuwakamatsu.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 3, "Merci de vos efforts, monsieur le samouraï.", "Ce que vous devez faire, c'est suivre le plan de ce parchemin.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 3, "Elle contient toutes les étapes nécessaires à la reconstruction de ce mur.", "Trouvez la bonne combinaison de briques pour le reconstruire !", "A vous de jouer !", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
         elif saved=='KT':
-            self.cin.cinematic_frame(screen, 'mgm1', 3, "Pourquoi pas. C'est le mieux que je puisse faire pour pouvoir aider", "Aizuwakamatsu.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'mgm1', 3, "Merci de vos efforts, monsieur le samouraï.", "Ce que vous devez faire, c'est suivre le plan de ce parchemin.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
-            self.cin.cinematic_frame(screen, 'mgm1', 3, "Elle contient toutes les étapes nécessaires à la reconstruction de ce mur.", "Trouvez la bonne combinaison de briques pour le reconstruire !", "A vous de jouer !", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 3, "Pourquoi pas. C'est le mieux que je puisse faire pour pouvoir aider", "Aizuwakamatsu.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 3, "Merci de vos efforts, monsieur le samouraï.", "Ce que vous devez faire, c'est suivre le plan de ce parchemin.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 3, "Elle contient toutes les étapes nécessaires à la reconstruction de ce mur.", "Trouvez la bonne combinaison de briques pour le reconstruire !", "A vous de jouer !", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
         
         self.in_minigm = True
 
@@ -219,30 +228,30 @@ class minigm_mastermind:
         
         if self.win:
             if saved=='none':
-                self.cin.cinematic_frame(screen, 'mgm1', 2, "Splendide ! Vous avez un très bon travail. Je vous félicite.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 2, "L'honneur est pour moi madame.", "Je me suis contenté du nécessaire, c'est tout simplement du bon sens.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 2, "C'est formidable !", "N'hésitez-pas à aller voir les autres habitants dans le coin qui auront", "peut-être besoin de votre aide.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "Splendide ! Vous avez un très bon travail. Je vous félicite.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "L'honneur est pour moi madame.", "Je me suis contenté du nécessaire, c'est tout simplement du bon sens.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "C'est formidable !", "N'hésitez-pas à aller voir les autres habitants dans le coin qui auront", "peut-être besoin de votre aide.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
             elif saved=='KM':
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "Splendide ! Vous avez un très bon travail. Je vous félicite.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "L'honneur est pour moi madame.", "Je me suis contenté du nécessaire, c'est tout simplement du bon sens.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "C'est formidable !", "N'hésitez-pas à aller voir les autres habitants dans le coin qui auront", "peut-être besoin de votre aide.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Splendide ! Vous avez un très bon travail. Je vous félicite.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "L'honneur est pour moi madame.", "Je me suis contenté du nécessaire, c'est tout simplement du bon sens.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "C'est formidable !", "N'hésitez-pas à aller voir les autres habitants dans le coin qui auront", "peut-être besoin de votre aide.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
             elif saved=='KT':
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "Splendide ! Vous avez un très bon travail. Je vous félicite.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "L'honneur est pour moi madame.", "Je me suis contenté du nécessaire, c'est tout simplement du bon sens.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "Elle contient toutes les étapes nécessaires à la reconstruction de ce mur", "N'hésitez-pas à aller voir les autres habitants dans le coin qui auront", "peut-être besoin de votre aide.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Splendide ! Vous avez un très bon travail. Je vous félicite.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "L'honneur est pour moi madame.", "Je me suis contenté du nécessaire, c'est tout simplement du bon sens.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Elle contient toutes les étapes nécessaires à la reconstruction de ce mur", "N'hésitez-pas à aller voir les autres habitants dans le coin qui auront", "peut-être besoin de votre aide.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
         else :
             if saved=='none':
-                self.cin.cinematic_frame(screen, 'mgm1', 2, "Dommage... Ce n'est pas ce que j'attendais de vous.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 2, "Je suis désolé, madame.", "J'ai fait de mon mieux, mais cela n'a pas suffi.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 2, "Ce n'est pas très brillant.", "D'autres auraient sûrement fait mieux à votre place.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "Dommage... Ce n'est pas ce que j'attendais de vous.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "Je suis désolé, madame.", "J'ai fait de mon mieux, mais cela n'a pas suffi.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "Ce n'est pas très brillant.", "D'autres auraient sûrement fait mieux à votre place.", kind_info=[["SM","no_weapon"],["VL3", "no_weapon"], 2], running=self.running)
             elif saved=='KM':
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "Dommage... Ce n'est pas ce que j'attendais de vous.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "Je suis désolé, madame.", "J'ai fait de mon mieux, mais cela n'a pas suffi.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "Ce n'est pas très brillant.", "D'autres auraient sûrement fait mieux à votre place.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Dommage... Ce n'est pas ce que j'attendais de vous.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Je suis désolé, madame.", "J'ai fait de mon mieux, mais cela n'a pas suffi.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Ce n'est pas très brillant.", "D'autres auraient sûrement fait mieux à votre place.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
             elif saved=='KT':
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "Dommage... Ce n'est pas ce que j'attendais de vous.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "Je suis désolé, madame.", "J'ai fait de mon mieux, mais cela n'a pas suffi.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'mgm1', 3, "Ce n'est pas très brillant.", "D'autres auraient sûrement fait mieux à votre place.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Dommage... Ce n'est pas ce que j'attendais de vous.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Je suis désolé, madame.", "J'ai fait de mon mieux, mais cela n'a pas suffi.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Ce n'est pas très brillant.", "D'autres auraient sûrement fait mieux à votre place.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL3", "no_weapon"], 3], running=self.running)
                 
         self.playing = False
 
@@ -404,7 +413,11 @@ class minigm_mastermind:
     ########## Partie 3 : Affichage ##########
     def minigm_draw(self, screen):
         canvas = pygame.Surface((self.width, self.height))
-        canvas.fill(self.theme['background'])
+        if self.background_sprite:
+            canvas.blit(self.background_sprite, (0, 0))
+        else:
+            canvas.fill(self.theme['background'])
+
         self.draw_grid(canvas)
         self.draw_info_panel(canvas)
         self.draw_color_picker(canvas)
@@ -438,7 +451,6 @@ class minigm_mastermind:
         else:
             shake_offset = (0, 0)
 
-        screen.fill(self.theme['background'])
         screen.blit(canvas, shake_offset)
         pygame.display.flip()
 
