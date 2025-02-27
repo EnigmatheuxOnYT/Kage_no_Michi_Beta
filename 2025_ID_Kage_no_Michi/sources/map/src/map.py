@@ -30,24 +30,30 @@ class Object:
 
 class CompatibleObject:
     def __init__(self,object:pytmx.TiledObject):
-        self.map_object=Object(object.x,object.y,object.width,object.height)
+        self.rect=object
+        self.map_object=object
         self.screen_width = object.width*2
         self.screen_height = object.height*2
-        self.assigned_surface = None
+        self.assigned_surface = pygame.surface.Surface((object.width,object.height)).convert_alpha()
         self.hidden=False
     
     @property
+    def image(self):return self.current_image
+    @property
+    def current_image(self):
+        if self.hidden:
+            self.assigned_surface.set_alpha(0)
+        return self.assigned_surface
+    @property
     def is_on_screen (self):return self.get_screen().colliderect(object)
     @property
-    def is_fully_on_screen (self):return self.get_screen().top<self.map_object.rect.top and self.get_screen().bottom>self.map_object.rect.bottom and self.get_screen().left<self.map_object.rect.left and self.get_screen().right>self.map_object.rect.right
+    def is_fully_on_screen (self):return self.get_screen().top<self.map_object.top and self.get_screen().bottom>self.map_object.bottom and self.get_screen().left<self.map_object.left and self.get_screen().right>self.map_object.right
     @property
     def screen_x (self):return self.map_object.x-self.get_screen().x
     @property
     def screen_y (self):return self.map_object.y-self.get_screen().y
     @property
     def screen_rect (self):return pygame.Rect(self.screen_x,self.screen_y,self.screen_width,self.screen_height)
-    @property
-    def screen_object (self):return Object(self.screen_x,self.screen_y,self.screen_width,self.screen_height)
 
     def get_screen(self):return MapManager().get_map().group.view()
 
@@ -92,9 +98,10 @@ class Event_zone :
     entities : List[str]
     events : List[Event]
 
-class DisplayZone(CompatibleObject):
+class DisplayZone(CompatibleObject,pygame.sprite.Sprite):
     def __init__ (self,object_class:str,name:str,object:pytmx.TiledObject):
-        super().__init__(object)
+        CompatibleObject().__init__(self,object)
+        pygame.sprite.Sprite().__init__(self)
         self.name=name
         self.object_class=object_class
 
@@ -305,10 +312,10 @@ class MapManager :
         
         display_zones=[]
 
-        for layer_name,layer in tmx_data.layernames.items():
+        for layer_name,layer_objects in tmx_data.layernames.items():
             if layer_name== "DisplayZones":
-                for object in layer:
-                    display_zone = DisplayZone(object.type,object.name,object)
+                for object in layer_objects:
+                    display_zone = DisplayZone(object.type,object.name,object.rect)
                     display_zones.append(display_zone)
 
                 
