@@ -20,6 +20,57 @@ from typing import List
 #                             Portal(from_world="Magome cinemaitc", origin_point="Takeshi", target_world="MAP PROJET NSI 2025 500x500", teleport_point="spawn_Magome")]
 #         ]
 
+class Object:
+    def __init__ (self,x:float,y:float,w:float,h:float):
+        self.x=x
+        self.y=y
+        self.width=w
+        self.height=h
+        self.rect=pygame.Rect(x,y,w,h)
+
+class CompatibleObject:
+    def __init__(self,object:pytmx.TiledObject):
+        self.map_object=Object(object.x,object.y,object.width,object.height)
+        self.screen_width = object.width*2
+        self.screen_height = object.height*2
+        self.assigned_surface = None
+        self.hidden=False
+    
+    @property
+    def is_on_screen (self):return self.get_screen().colliderect(object)
+    @property
+    def is_fully_on_screen (self):return self.get_screen().top<self.map_object.rect.top and self.get_screen().bottom>self.map_object.rect.bottom and self.get_screen().left<self.map_object.rect.left and self.get_screen().right>self.map_object.rect.right
+    @property
+    def screen_x (self):return self.map_object.x-self.get_screen().x
+    @property
+    def screen_y (self):return self.map_object.y-self.get_screen().y
+    @property
+    def screen_rect (self):return pygame.Rect(self.screen_x,self.screen_y,self.screen_width,self.screen_height)
+    @property
+    def screen_object (self):return Object(self.screen_x,self.screen_y,self.screen_width,self.screen_height)
+
+    def get_screen(self):return MapManager().get_map().group.view()
+
+    def use_for_blit (self,screen:pygame.surface.Surface,surf:pygame.surface.Surface):
+        screen.blit(surf,self.screen_rect)
+    
+    def blit(self,surf:pygame.surface.Surface,rect:pygame.Rect):
+        self.screen_rect.blit(surf,rect)
+
+    def set_assigned_surface (self,surf:pygame.surface.Surface):
+        self.assigned_surface=surf
+    
+    def set_hidden (self,value:bool):
+        self.hidden=value
+
+    def draw (self,screen):
+        if self.assigned_surface!=None:
+            if not self.hidden:
+                screen.blit(self.assigned_surface,self.screen_rect)
+        else:
+            raise AttributeError("No surface assigned !") 
+
+
 
 
 @dataclass
@@ -41,36 +92,13 @@ class Event_zone :
     entities : List[str]
     events : List[Event]
 
-class BuffedObject :
-    def __init__(self,object):
-        self.raw_object=object
-        self.on_screen_width = object.width*2
-        self.on_screen_height = object.height*2
-    
-    def get_screen(self):return MapManager().get_map().group.view()
-
-    def use_for_blit (self,screen:pygame.surface.Surface,surf:pygame.surface.Surface):
-        screen.blit(surf,self.get_on_screen_rect())
-    
-    def blit(self,surf:pygame.surface.Surface,rect:pygame.Rect):
-        self.get_on_screen_rect().blit(surf,rect)
-
-    def is_on_screen (self): self.get_screen.colliderect(object)
-    def is_fully_on_screen (self): self.get_screen().top<self.raw_object.top and self.get_screen().bottom>self.raw_object.bottom and self.get_screen().left<self.raw_object.left and self.get_screen().right>self.raw_object.right
-    def get_on_screen_x (self):return self.raw_object.x-self.get_screen().x
-    def get_on_screen_y (self):return self.raw_object.y-self.get_screen().y
-    def get_on_screen_width (self):return self.on_screen_width
-    def get_on_screen_height (self):return self.on_screen_height
-    def get_on_screen_rect (self):return pygame.Rect(self.get_on_screen_x(),self.get_on_screen_y(),self.on_screen_width,self.on_screen_height)
+class DisplayZone(CompatibleObject):
+    def __init__ (self,object_class:str,name:str,object:pytmx.TiledObject):
+        super().__init__(object)
+        self.name=name
+        self.object_class=object_class
 
 
-
-#class Polygon :
-#    def __init__(self,obj):
-#        self.points=[(point.x,point.y) for point in obj.as_points]
-#        self.rects=pytmx.util_pygame.simplify(self.points,1,1)
-#
-#    def get_rects(self):return self.rects
 
 @dataclass
 class Map:
@@ -81,6 +109,7 @@ class Map:
     spawn : List[int]
     portals : List[Portal]
     event_zones : List[Event_zone]
+    display_zones : List[DisplayZone]
     npcs : List[NPC]
 
 class MapManager :
@@ -202,7 +231,6 @@ class MapManager :
                               layer=1,
                               placed_correctly=True
                               )
-
         self.teleport_player_spawn()
         self.teleport_npcs()
 
@@ -274,12 +302,15 @@ class MapManager :
         for obj in tmx_data.objects:
             if obj.type == "collisions":
                 walls.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
-            #if obj.type == "collision_polygons":
-                #self.polygon =  Polygon(obj)
-                #new_rects = polygon.get_rects()
-                #for rect in new_rects:
-                #    walls.append(rect)
         
+        display_zones=[]
+
+        for layer_name,layer in tmx_data.layernames.items():
+            if layer_name== "DisplayZones":
+                for object in layer:
+                    display_zone = DisplayZone(object.type,object.name,object)
+                    display_zones.append(display_zone)
+
                 
         #Le point de spawn
         spawn_point = tmx_data.get_object_by_name(spawn_name)
@@ -296,7 +327,7 @@ class MapManager :
             group.change_layer(npc, layer)
 
         #Enregistrement de la nouvelle map chargée
-        self.maps[name] = Map(name,walls,group,tmx_data,spawn,portals,event_zones,npcs)
+        self.maps[name] = Map(name,walls,group,tmx_data,spawn,portals,event_zones,display_zones,npcs)
 
     def get_current_map (self): return self.current_map
     
