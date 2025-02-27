@@ -141,7 +141,8 @@ class minigm_mastermind:
 
     def reset_game(self):
         self.solution = [random.choice(list(self.brick_images.keys())) for _ in range(4)]
-        print("Sequence à trouver :", self.solution)
+        if self.devmode:
+            print("Sequence à trouver :", self.solution)
         
         self.max_tries = 6  # Nombre d'essais autorisés
         self.current_try = 0
@@ -581,7 +582,8 @@ class minigm_mastermind:
             print("Sound effect not found:", sound_type)
 
     ########## Boucle mini-jeu ##########
-    def run(self, screen, saved):
+    def run(self, screen, saved,devmode=False):
+        self.devmode=devmode
         self.load()
         self.intro(screen, saved)
         while self.playing and self.running and self.in_minigm:

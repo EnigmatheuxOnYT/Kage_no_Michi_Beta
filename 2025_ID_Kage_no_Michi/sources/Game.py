@@ -22,6 +22,8 @@ from Mini_jeu_marchandage import minigm_trade
 from Mini_jeu_piege_environnemental import minigm_minesweeper
 from Mini_jeu_persuasion import minigm_persuade
 from Mini_jeu_filature import minigm_follow
+from Mini_jeu_reconstruction import minigm_mastermind
+from Mini_jeu_collecte import minigm_collect
 from Audio import Music,Sound
 from map.src.game import Game_map
 
@@ -38,19 +40,23 @@ class Game:
         Loading.display_loading(screen, 46,"Lancement des modules mini-jeux")
         self.minigm_04 = minigm_trial1()
         Loading.display_loading(screen, 49,"Lancement des modules mini-jeux")
-        self.minigm_06 = minigm_trade()
-        Loading.display_loading(screen, 52,"Lancement des modules mini-jeux")
         self.minigm_05 = minigm_follow(screen)
+        Loading.display_loading(screen, 52,"Lancement des modules mini-jeux")
+        self.minigm_06 = minigm_trade()
         Loading.display_loading(screen, 55,"Lancement des modules mini-jeux")
         self.minigm_07 = minigm_minesweeper()
-        Loading.display_loading(screen, 58,"Lancement des modules secondaires")
+        Loading.display_loading(screen, 58,"Lancement des modules mini-jeux")
+        self.minigm_08 = minigm_mastermind()
+        Loading.display_loading(screen, 61,"Lancement des modules mini-jeux")
+        self.minigm_09 = minigm_collect(screen)
+        Loading.display_loading(screen, 64,"Lancement des modules secondaires")
         self.music = Music()
         self.loaded_save = -1
-        Loading.display_loading(screen, 60,"Lancement du module de sauvegarde")
+        Loading.display_loading(screen, 65,"Lancement du module de sauvegarde")
         self.savemgr = Savemgr()
-        Loading.display_loading(screen, 61,"Lancement du module de cinématiques")
+        Loading.display_loading(screen, 66,"Lancement du module de cinématiques")
         self.cinematics = Cinematics()
-        Loading.display_loading(screen, 65,"Lancement du module de la carte")
+        Loading.display_loading(screen, 67,"Lancement du module de la carte")
         self.map = Game_map(screen)
         Loading.display_loading(screen, 80,"Finalisation")
         self.fps_showed = False
@@ -267,9 +273,9 @@ class Game:
         self.music.play(fade=500)
         
         if minigame == 1:
-            self.minigm_01.run(self.screen_for_game,choices[0])
+            self.running = self.minigm_01.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 2:
-            self.running = self.minigm_02.run(self.screen_for_game,choices[0])
+            self.running = self.minigm_02.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 3:
             print("Mini-jeu de tuto combat tour par tour non implémenté")
         elif minigame == 4:
@@ -280,6 +286,10 @@ class Game:
             self.running = self.minigm_06.run(self.screen_for_game,choices[0])
         elif minigame == 7:
             self.running = self.minigm_07.run(self.screen_for_game,choices[0])
+        elif minigame ==8:
+            self.running = self.minigm_08.run(self.screen_for_game,choices[0],devmode)
+        elif minigame ==9:
+            self.running = self.minigm_09.run(self.screen_for_game,choices[0],devmode)
         
         pygame.mouse.set_visible(False)
         

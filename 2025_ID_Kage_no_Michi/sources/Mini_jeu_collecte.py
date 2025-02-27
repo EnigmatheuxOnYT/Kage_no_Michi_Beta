@@ -61,7 +61,8 @@ class minigm_collect :
         self.press_a = True
         self.on_object = [False]
         self.obtained_objects = 0
-        print(self.items_hotspots)
+        if self.devmode:
+            print(self.items_hotspots)
         self.got_timer = 0
         self.task_timer = pygame.time.get_ticks()
      
@@ -281,9 +282,9 @@ class minigm_collect :
     
    
     ########## Boucle mini-jeu ##########
-    def run (self,screen,saved):
+    def run (self,screen,saved,devmode=False):
         #L'argument saved permet de savoir quelle version de l'intro et de la fin afficher en fonction de qui a été sauvé. Il permet aussi d'afficher le bon sprite dans le mini-jeu le cas échéant 
-        
+        self.devmode=devmode
         self.load()
         self.intro(screen,saved)
         

@@ -14,20 +14,20 @@ import sys
 import random
 from enum import Enum
 from Cinematics import Cinematics
+from Audio import Music
 
 class minigm_trial1:
     def __init__(self):
         # On définit ici les différents états que peut prendre notre mini-jeu.
         # On a ajouté l'état INSTRUCTIONS pour présenter les règles au joueur.
         self.GameState = Enum('GameState', 'INSTRUCTIONS INTRO DEMONSTRATION INPUT VICTORY DEFEAT')
-        self.state = self.GameState.INSTRUCTIONS  # On commence par afficher les instructions du jeu.
 
-        self.running = True      # Le jeu continue de tourner tant que cette variable est vraie.
         self.playing = False     # Indique si le mini-jeu est lancé.
         self.in_minigm = False   # On est en plein déroulement de la partie.
 
         # On crée une instance de Cinematics pour gérer l'intro et la fin du jeu.
         self.cin = Cinematics()
+        self.music = Music()
 
         # On charge une police pour afficher certains textes à l'écran.
         self.font_MFMG30 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 30)
@@ -35,18 +35,7 @@ class minigm_trial1:
         # Quelques paramètres généraux pour le jeu
         self.WIDTH, self.HEIGHT = 1280, 720
 
-        self.lives = 3
-        self.current_step = 0  # Indice actuel dans la séquence à mémoriser
 
-        # On génère une séquence aléatoire de 10 touches parmi les flèches directionnelles.
-        self.sequence = [random.choice([pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT])
-                         for _ in range(10)]
-        self.player_input = []
-
-        # Variables pour la phase de démonstration où le joueur doit mémoriser la séquence.
-        self.demo_index = 0         # Indice de la touche à montrer
-        self.demo_phase = "idle"      # Peut être "idle" ou "arrow" selon ce qu'on affiche
-        self.demo_timer = pygame.time.get_ticks()
         self.demo_interval_idle = 500   # Durée en ms pour l'état "idle"
         self.demo_interval_arrow = 500  # Durée en ms pour l'affichage de la flèche
 
@@ -76,13 +65,7 @@ class minigm_trial1:
             "Faîtes attention! Vous avez 3 tentatives pour réussir ce mini jeu.",
             "Mémorisez les touches suivantes:"
         ]
-        self.instruction_index = 0
-        # On définit la vitesse d'animation pour l'affichage des instructions (ms par lettre)
-        self.instruction_anim_speed = 50  
-        self.instruction_char_index = 0
-        self.current_instruction = self.instruction_texts[self.instruction_index]
-        self.instruction_last_update = pygame.time.get_ticks()
-        self.instruction_complete = False
+
 
         # On utilise une police plus petite pour les instructions et les retours au joueur.
         self.instruction_font = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 20)
@@ -92,10 +75,35 @@ class minigm_trial1:
         self.feedback_timer = 0
         self.feedback_duration = 1500  # Durée d'affichage du feedback en ms
 
+        self.load_assets()
+
     ########## Lancement du mini‑jeu ##########
     def load(self):
+        self.running = True      # Le jeu continue de tourner tant que cette variable est vraie.
         self.playing = True
-        self.load_assets()
+        self.state = self.GameState.INSTRUCTIONS  # On commence par afficher les instructions du jeu.
+        self.player_input = []
+
+        # Variables pour la phase de démonstration où le joueur doit mémoriser la séquence.
+        self.demo_phase = "idle"      # Peut être "idle" ou "arrow" selon ce qu'on affiche
+        self.demo_timer = pygame.time.get_ticks()
+        self.instruction_index = 0
+        # On définit la vitesse d'animation pour l'affichage des instructions (ms par lettre)
+        self.instruction_anim_speed = 50  
+        self.instruction_char_index = 0
+        self.current_instruction = self.instruction_texts[self.instruction_index]
+        self.instruction_last_update = pygame.time.get_ticks()
+        self.instruction_complete = False
+        self.demo_index = 0         # Indice de la touche à montrer
+        self.flash_alpha = 0
+        # On génère une séquence aléatoire de 10 touches parmi les flèches directionnelles.
+        self.sequence = [random.choice([pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT])
+                         for _ in range(10)]
+        
+        self.lives = 3
+        self.current_step = 0  # Indice actuel dans la séquence à mémoriser
+        self.music.play(self.music.menu3)
+
 
     def load_assets(self):
         try:
@@ -125,9 +133,6 @@ class minigm_trial1:
             self.font = pygame.font.Font('../data/assets/fonts/MadouFutoMaruGothic.ttf', 32)
             self.title_font = pygame.font.Font('../data/assets/fonts/MadouFutoMaruGothic.ttf', 64)
 
-            # Chargement et démarrage de la musique de fond en boucle
-            pygame.mixer.music.load("../data/assets/musics/Music_Menu_3.mp3")
-            pygame.mixer.music.play(-100)
 
             # Chargement du son qui se joue en cas d'erreur (click_sound_1)
             self.key_sound = pygame.mixer.Sound("../data/assets/sounds/SFX_ClickSound_1.mp3")
@@ -456,11 +461,12 @@ class minigm_trial1:
             y += line_surface.get_height() + line_spacing
 
     ########## Boucle principale du mini‑jeu ##########
-    def run(self, screen, saved):
-        # On commence par afficher la cinématique d'intro
-        self.intro(screen, saved)
+    def run(self, screen, saved,devmode=False):
         # Une fois l'intro terminée, on charge toutes les ressources nécessaires
         self.load()
+        # On commence par afficher la cinématique d'intro
+        self.intro(screen, saved)
+        
 
         while self.playing and self.running and self.in_minigm:
             self.minigm_events()

@@ -22,6 +22,7 @@ class Music:
         self.intro = "Music_Game_1.mp3"
         self.jeu1 = "Music_Game_1.mp3"
         self.mg7 = "Music_BMG_4.mp3"
+        self.menu3 = "Music_Menu_3.mp3"
     
     def play (self,file="Musique_Placeholder.mp3",fade=500,offset=0):
         if file == "Musique_Placeholder.mp3":

@@ -447,7 +447,9 @@ class minigm_persuade:
         pygame.display.flip()
         
     ########## Boucle mini-jeu ##########
-    def run(self, screen, saved):
+    def run(self, screen, saved,devmode=False):
+        if devmode:
+            print(self.reponses_admises)
         self.load()
         self.intro(screen, saved)
         

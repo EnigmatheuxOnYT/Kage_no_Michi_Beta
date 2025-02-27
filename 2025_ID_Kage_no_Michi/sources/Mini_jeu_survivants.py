@@ -155,7 +155,8 @@ class minigm_survivors :
             self.correct_choices += 1
         if self.current_villager < 8:
             self.current_villager += 1
-            print("Bonne réponse :", self.villagers[self.villager_list_output[self.current_villager]]['correct'])
+            if self.devmode:
+                print("Bonne réponse :", self.villagers[self.villager_list_output[self.current_villager]]['correct'])
         else:
             self.go_end = True
     
@@ -491,7 +492,8 @@ class minigm_survivors :
         self.line3 = "et chaque décision peut faire la différence entre la vie et la mort."
         
     ########## Boucle mini-jeu ##########
-    def run (self, screen, choice):
+    def run (self, screen, choice,devmode=False):
+        self.devmode = devmode
         self.load()
         while self.playing and self.running:
             self.events()

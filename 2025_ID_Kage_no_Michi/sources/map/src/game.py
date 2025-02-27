@@ -19,10 +19,10 @@ class Game_map:
         
         # Générer le joeur
         if not load_only[0]:
-            Loading.display_loading(screen, 66,"Chargement du joueur")
+            Loading.display_loading(screen, 68,"Chargement du joueur")
         self.player = Player()
         if not load_only[0]:
-            Loading.display_loading(screen, 67,"Chargement des cartes")
+            Loading.display_loading(screen, 69,"Chargement des cartes")
         self.map_manager = MapManager(self.screen, self.player,load_only=load_only)
         if not load_only[0]:
             Loading.display_loading(screen, 79,"Finalisation")
