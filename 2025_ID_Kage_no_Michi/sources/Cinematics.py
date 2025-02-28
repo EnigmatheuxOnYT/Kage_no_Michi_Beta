@@ -922,7 +922,7 @@ class Cinematics:
             self.cinematic_frame(screen, 'ine1', 3, "Devenus samouraïs, Musashi et Takeshi décident de partir à la recherche", "d'un village pour s'équiper afin de se préparer au long combat qui les attend", "contre le clan Takahiro, celui qui a détruit leur village natal.", kind_info=[["KT","no_weapon"],["SM","no_weapon"],["SH","no_weapon"],0])
         self.ecran_noir(screen)
     
-def cinematic_10(self, screen, saved="none"):
+    def cinematic_10(self, screen, saved="none"):
         if saved == 'none':
             self.cinematic_frame(screen,'azw1', 1, "Un nouveau départ. Je suis enfin devenu un samouraï. Je vais enfin pouvoir", "venger Magome. Allons à la ville d'Aizuwakamatsu,on n'a plus de temps à ", "perdre. Hm? (Un ennemi ?)",  kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen,'azw1', 1, "Montrez vous ! Je sais que vous vous trouvez à l'intérieur de cette caravane.",  kind_info=["SM","SM", "no_weapon","right"])
@@ -994,7 +994,7 @@ def cinematic_10(self, screen, saved="none"):
             self.cinematic_frame(screen, "azw1", 3, "La légende raconte que cette lame incarnerait le châtiment de Dieu. On la", "classe comme l'une des 7 épées légendaires. Tous ceux qui sont touchés", "par cette arme périssent en voyant leurs âmes séparées de leurs corps.  ", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
             self.cinematic_frame(screen, "azw1", 3, "C'est pour cela que je la vends pour 100 pièces d'or. Elle est très rare, et", "possède beaucoup de valeur. Alors ? Êtes-vous prêt à l'acheter ?", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
 
-    def cinematic_10(self, screen, saved="none"):
+    def cinematic_10_2(self, screen, saved="none"):
         if saved == 'none':
             self.cinematic_frame(screen,'azw1', 1, "Un nouveau départ. Je suis enfin devenu un samouraï. Je vais enfin pouvoir", "venger Magome. Allons à la ville d'Aizuwakamatsu,on n'a plus de temps à ", "perdre. Hm? (Un ennemi ?)",  kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen,'azw1', 1, "Montrez vous ! Je sais que vous vous trouvez à l'intérieur de cette caravane.",  kind_info=["SM","SM", "no_weapon","right"])
