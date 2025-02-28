@@ -53,7 +53,7 @@ class Characters_sprites:
                                       },
                                #Takahiro Korijo
                                'TK': {'right': {'no_weapon': {'main': self.ldc("Takahiro_16bit_Droite_SansArme_V1.png"),
-                                                              'secondary': self.ldc("Takahiro_16bit_Droite_Ombre_SansArme_V1.png")
+                                                              'secondary': self.ldc("Takahiro_16bit_Droite_SansArme_Ombre_V1.png")
                                                               }
                                                 },
                                       'left': {'no_weapon': {'main': self.ldc(),
