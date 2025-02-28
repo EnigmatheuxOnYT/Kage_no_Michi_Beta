@@ -60,9 +60,9 @@ class minigm_collect :
                               "food3":"vivres",
                               "food4":"vivres",
                               "food5":"vivres",
-                              "money_bag":"10 money",
+                              "money10":"10 yens",
                               "heal_potion":"potion de soin"}
-        self.possible_alternate_objects = ["money_bag", "heal_potion"]
+        self.possible_alternate_objects = ["money10", "heal_potion"]
         self.items_hotspots = random.sample([i for i in range(1,11)],5)
         self.hot_spots = {str(i) : {"name":f"mgm_hotspot_{i}", "found":False, 'item':None }for i in range(1,11)}
         self.hot_spots["0"] = {"name":"spawn"}
