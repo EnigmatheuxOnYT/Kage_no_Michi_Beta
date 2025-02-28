@@ -57,11 +57,20 @@ class minigm_collect :
         self.map.map_manager.change_map("mg8")
         self.possible_alternate_objects = ["money_bag", "heal_potion"]
         self.items_hotspots = random.sample([i for i in range(1,11)],5)
-        self.hot_spots = {str(i) : {"name":f"mgm_hotspot_{i}", "found":False, 'item':None, 'surface':None }for i in range(1,11)}
+        self.hot_spots = {str(i) : {"name":f"mgm_hotspot_{i}", "found":False, 'item':None }for i in range(1,11)}
         self.hot_spots["0"] = {"name":"spawn"}
+        j=1
         for i in range (1,11):
             if i in self.items_hotspots:
-                self.hot_spots[str(i)]["item"] = ""
+                self.hot_spots[str(i)]["item"] = f"food{j}"
+                j+=1
+            else:
+                self.hot_spots[str(i)]["item"] = random.choice(self.possible_alternate_objects)
+            
+            # Définition de la surface à afficher sur les zones d'affichage de la map
+            for display_zone in self.map.map_manager.get_map().display_zones:
+                if display_zone.name=="collect_spot_"+str(i):
+                    display_zone.set_assigned_surface(surfaces_32x32[self.hot_spots[str(i)]["item"]])
         
         self.display_catch_text = False
         self.press_a = True
@@ -186,6 +195,9 @@ class minigm_collect :
     def catch (self):
         obj_num = self.on_object[1]
         self.hot_spots[str(obj_num)]['found'] = True
+        for display_zone in self.map.map_manager.get_map().display_zones:
+            if display_zone.name=="collect_spot_"+str(obj_num):
+                display_zone.set_hidden(True)
         self.got_timer = pygame.time.get_ticks()
         self.display_object_obtained_text = True
         if obj_num in self.items_hotspots :
