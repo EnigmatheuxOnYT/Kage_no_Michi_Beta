@@ -55,13 +55,7 @@ class minigm_collect :
         self.arrow_initiated = False
 
         self.map.map_manager.change_map("mg8")
-        self.objects_names = {"food1":"vivres",
-                              "food2":"vivres",
-                              "food3":"vivres",
-                              "food4":"vivres",
-                              "food5":"vivres",
-                              "money10":"10 yens",
-                              "heal_potion":"potion de soin"}
+        self.objects_names = {"money10":"Pièce de 10 yens","heal_potion":"Potion de soin"}
         self.possible_alternate_objects = ["money10", "heal_potion"]
         self.items_hotspots = random.sample([i for i in range(1,11)],5)
         self.hot_spots = {str(i) : {"name":f"mgm_hotspot_{i}", "found":False, 'item':None }for i in range(1,11)}
@@ -98,17 +92,16 @@ class minigm_collect :
         ### Importation de la police d'écriture (taille des textes des dialogues)
         self.font_MFMG30 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",30)
 
-        object_counter_text = self.font_MFMG30.render(f"Objets Trouvés : {self.obtained_objects}/5",False,"black")
-        self.object_counter_text_rect = self.set_rect(object_counter_text,"tr")
+        self.object_counter_text_rect = self.set_rect(self.object_counter_text,"tr")
 
         self.catch_text = self.font_MFMG30.render("Appuyez sur A pour ramasser", False, "red")
         self.catch_text_rect = self.set_rect(self.catch_text,"mb")
         
-        object_obtained_text_placeholder = self.get_object_obtained_text()
-        self.object_obtained_text_rect = self.set_rect(object_obtained_text_placeholder,"mb")
+        self.object_obtained_text = self.font_MFMG30.render("", False, "red")
         self.display_object_obtained_text = False
-
-    def get_object_obtained_text (self): return self.font_MFMG30.render(f"Objet obtenu ! ({self.obtained_objects}/5)", False, "black")
+    
+    @property
+    def  object_counter_text (self):return self.font_MFMG30.render(f"Objets Trouvés : {self.obtained_objects}/5",False,"black")
 
     def set_rect (self,text_surface:pygame.surface.Surface,pos):
         rect = text_surface.get_rect()
@@ -220,6 +213,20 @@ class minigm_collect :
                     self.arrow_queue.append(i)
                     self.arrow_initiated = True
                     loop=False
+        
+        self.change_object_obtained_text(self.hot_spots[str(obj_num)]['item'])
+        
+    def change_object_obtained_text (self,item_name):
+        if "food" in item_name:
+            text=f"Vivres trouvées ! ({self.obtained_objects}/5)"
+        else:
+            text= self.objects_names[item_name]+" trouvée !"
+        self.object_obtained_text = self.font_MFMG30.render(text,False,"black")
+
+    def get_object_obtained_text_rect (self):
+        rect  = self.object_obtained_text.get_rect()
+        rect.midbottom = ((640,720))
+        return rect
             
     
     ########## Partie 2 : Mise à jour ##########
@@ -285,16 +292,15 @@ class minigm_collect :
             #Remplissage avec du noir (fond)
             screen.fill((0,0,0))
             self.map.map_manager.draw()
-            obtained_objects_couter = self.font_MFMG30.render(f"Objets Trouvés : {self.obtained_objects}/5",False,"black")
-            screen.blit(obtained_objects_couter,self.object_counter_text_rect)
+            screen.blit(self.object_counter_text,self.object_counter_text_rect)
             if self.on_object[0]:
                 screen.blit(self.catch_text,self.catch_text_rect)
             elif self.display_object_obtained_text:
                 if pygame.time.get_ticks()-self.got_timer <1000:
-                    alpha_value = ((500-pygame.time.get_ticks()+self.got_timer)*255/100)
-                    object_obtained_text = self.get_object_obtained_text()
+                    alpha_value = ((1000-pygame.time.get_ticks()+self.got_timer)*255/1000)
+                    object_obtained_text = self.object_obtained_text
                     object_obtained_text.set_alpha(alpha_value)
-                    screen.blit(object_obtained_text,self.object_obtained_text_rect)
+                    screen.blit(object_obtained_text,self.get_object_obtained_text_rect())
                 else:
                     self.display_object_obtained_text = False
             if self.display_arrow and self.arrow_initiated:
