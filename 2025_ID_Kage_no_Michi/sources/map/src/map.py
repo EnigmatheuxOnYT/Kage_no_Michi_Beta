@@ -75,19 +75,21 @@ class SubPath:
     def __init__(self,name:str,objects:List[pytmx.TiledObject]):
         self.name=name
         self.objects=objects
-        self.points=[]
+        self.raw_points= list()
+        self.points_dict = dict()
         self.order_points()
 
     def order_points(self):
-        points=[]
+        points=dict()
         for i in range(1,len(self.objects)+1):
             for object in self.objects:
                 if str(i) in object.name:
-                    points.append((object.x,object.y))
-        self.points=points
+                    points[object.name]=(object.x,object.y)
+        self.points_dict = points
+        self.raw_points = list(points.values())
     
-    def get_points(self,reversed:bool=False):
-        points=self.points
+    def get_raw_points(self,reversed:bool=False):
+        points=self.raw_points
         if reversed:
             reversed_points=[]
             for i in range(1,len(points)):
@@ -140,6 +142,7 @@ class Map:
     portals : List[Portal]
     event_zones : List[Event_zone]
     display_zones : List[DisplayZone]
+    sub_paths : List[SubPath]
     npcs : List[NPC]
 
 class MapManager :
