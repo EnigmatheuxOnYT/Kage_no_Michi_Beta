@@ -319,7 +319,7 @@ class MapManager :
         self.teleport_player_pos(pos[0],pos[1])
          
 
-    def register_map(self,name,spawn_name,portals=[],npcs=[],event_zones=[],layer="",placed_correctly=False):
+    def register_map(self,name,spawn_name,portals=[],npcs=[],event_zones=[],sub_paths_names=[],layer="",placed_correctly=False):
 
         # Charger la map tmx
         if placed_correctly:
@@ -336,6 +336,7 @@ class MapManager :
         for obj in tmx_data.objects:
             if obj.type == "collisions":
                 walls.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
+
         
         display_zones=[]
 
@@ -345,6 +346,15 @@ class MapManager :
                     object_rect = pygame.Rect(object.x,object.y,object.width,object.height)
                     display_zone = DisplayZone(object.type,object.name,object_rect,object,self)
                     display_zones.append(display_zone)
+        
+        sub_paths=[]
+        for sbp_name in sub_paths_names:
+            objects=[]
+            for object in tmx_data.objects:
+                if "subpath_"+sbp_name in object.name:
+                    objects.append(object)
+            sub_path = SubPath(sbp_name,objects)
+            sub_paths.append(sub_path)
 
                 
         #Le point de spawn
