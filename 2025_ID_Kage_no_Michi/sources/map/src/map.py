@@ -375,7 +375,7 @@ class MapManager :
             group.add(displayzone)
 
         #Enregistrement de la nouvelle map chargée
-        self.maps[name] = Map(name,walls,group,tmx_data,spawn,portals,event_zones,display_zones,npcs)
+        self.maps[name] = Map(name,walls,group,tmx_data,spawn,portals,event_zones,display_zones,sub_paths,npcs)
 
     def get_current_map (self): return self.current_map
     
