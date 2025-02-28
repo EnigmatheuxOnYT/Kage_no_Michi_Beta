@@ -81,7 +81,9 @@ class minigm_collect :
         self.obtained_objects = 0
         self.found_all_objects=False
         if self.devmode:
-            print(self.items_hotspots)
+            self.arrow_queue = self.items_hotspots
+            self.arrow_initiated = True
+            self.display_arrow=True
         self.got_timer = 0
         self.task_timer = pygame.time.get_ticks()
      
