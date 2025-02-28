@@ -79,6 +79,7 @@ class minigm_collect :
         self.press_a = True
         self.on_object = [False]
         self.obtained_objects = 0
+        self.found_all_objects=False
         if self.devmode:
             print(self.items_hotspots)
         self.got_timer = 0
@@ -235,6 +236,10 @@ class minigm_collect :
     def minigm_update (self):
         
         if self.current_gp_phase == self.gp_phases.SEARCH:
+            if not self.found_all_objects and self.obtained_objects == 5:
+                self.arrow_queue=[0]
+                self.display_arrow=True
+                self.found_all_objects=True
             self.on_object = [False]
             self.map.update()
             events=self.map.map_manager.get_current_active_events()
@@ -298,8 +303,8 @@ class minigm_collect :
             if self.on_object[0]:
                 screen.blit(self.catch_text,self.catch_text_rect)
             elif self.display_object_obtained_text:
-                if pygame.time.get_ticks()-self.got_timer <1000:
-                    alpha_value = ((1000-pygame.time.get_ticks()+self.got_timer)*255/1000)
+                if pygame.time.get_ticks()-self.got_timer <3000:
+                    alpha_value = ((3000-pygame.time.get_ticks()+self.got_timer)*255/3000)
                     object_obtained_text = self.object_obtained_text
                     object_obtained_text.set_alpha(alpha_value)
                     screen.blit(object_obtained_text,self.get_object_obtained_text_rect())
