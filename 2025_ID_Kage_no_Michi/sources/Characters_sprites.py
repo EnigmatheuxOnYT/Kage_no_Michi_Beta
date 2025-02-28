@@ -135,10 +135,11 @@ class Characters_sprites:
                                          },
 
                                 'P' : {'left': {'no_weapon': {'main': self.ldc('Pancarte_Dialogues_V4.png')}}},
+                                'VL1': self.load_villager(1),
+                                'VL2': self.load_villager(2),
+                                'VL3': self.load_villager(3)
                                }
         
-        for i in range(1,4):
-            self.for_cinematics[f"VL{i}"] = self.load_villager(i)
         
         self.for_mgm = {"villager1": self.ldm("Femme_1.png"),
                         "villager2": self.ldm("Femme_1.png"),
