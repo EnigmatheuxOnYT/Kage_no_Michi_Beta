@@ -55,6 +55,13 @@ class minigm_collect :
         self.arrow_initiated = False
 
         self.map.map_manager.change_map("mg8")
+        self.objects_names = {"food1":"vivres",
+                              "food2":"vivres",
+                              "food3":"vivres",
+                              "food4":"vivres",
+                              "food5":"vivres",
+                              "money_bag":"10 money",
+                              "heal_potion":"potion de soin"}
         self.possible_alternate_objects = ["money_bag", "heal_potion"]
         self.items_hotspots = random.sample([i for i in range(1,11)],5)
         self.hot_spots = {str(i) : {"name":f"mgm_hotspot_{i}", "found":False, 'item':None }for i in range(1,11)}
