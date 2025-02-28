@@ -52,8 +52,8 @@ class Characters_sprites:
                                                }
                                       },
                                #Takahiro Korijo
-                               'TK': {'right': {'no_weapon': {'main': self.ldc("Takahiro_16bit_Droite_V1.png"),
-                                                              'secondary': self.ldc("Takahiro_16bit_Droite_Ombre_V1.png")
+                               'TK': {'right': {'no_weapon': {'main': self.ldc("Takahiro_16bit_Droite_SansArme_V1.png"),
+                                                              'secondary': self.ldc("Takahiro_16bit_Droite_Ombre_SansArme_V1.png")
                                                               }
                                                 },
                                       'left': {'no_weapon': {'main': self.ldc(),
@@ -86,12 +86,12 @@ class Characters_sprites:
                                               }
                                       },
                                #Juzo Ma
-                               'JM': {'right': {'no_weapon': {'main': self.ldc("Juzo_16bit_Droite_V1.png"),
-                                                              'secondary': self.ldc("Juzo_16bit_Droite_Ombre_V1.png")
+                               'JM': {'right': {'no_weapon': {'main': self.ldc("Juzo_16bit_Droite_SansArme_V1.png"),
+                                                              'secondary': self.ldc("Juzo_16bit_Droite_SansArme_Ombre_V1.png")
                                                                },
                                                 },
-                                      'left':{'no_weapon': {'main': self.ldc("Juzo_16bit_Gauche_V1.png"),
-                                                            'secondary': self.ldc("Juzo_16bit_Gauche_Ombre_V1.png")
+                                      'left':{'no_weapon': {'main': self.ldc("Juzo_16bit_Gauche_SansArme_V1.png"),
+                                                            'secondary': self.ldc("Juzo_16bit_Gauche_SansArme_Ombre_V1.png")
                                                             }
                                               }
                                       },
@@ -177,12 +177,12 @@ class Characters_sprites:
 
     def load_villager (self,no):
         name=str(no)
-        char = {'right': {'no_weapon': {'main': self.ldc(f"Villager{name}_Droite_V1.png"),
-                                        'secondary': self.ldc(f"Villager{name}_Droite_Ombre_V1.png")
+        char = {'right': {'no_weapon': {'main': self.ldc(f"Villager{name}_16bit_Droite_SansArme_V1.png"),
+                                        'secondary': self.ldc(f"Villager{name}_16bit_Droite_SansArme_Ombre_V1.png")
                                          },
                         },
-                'left':{'no_weapon': {'main': self.ldc(f"Villager{name}_Gauche_V1.png"),
-                                      'secondary': self.ldc(f"Villager{name}_Gauche_Ombre_V1.png")
+                'left':{'no_weapon': {'main': self.ldc(f"Villager{name}_16bit_Gauche_SansArme_V1.png"),
+                                      'secondary': self.ldc(f"Villager{name}_16bit_Gauche_SansArme_Ombre_V1.png")
                                       }
                         }
                 }
