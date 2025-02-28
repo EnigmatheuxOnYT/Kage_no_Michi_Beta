@@ -71,6 +71,30 @@ class CompatibleObject:
     def change_layer(self,layer):
         self.map_manager.get_map().group.change_layer(self.group_object,layer)
 
+class SubPath:
+    def __init__(self,name:str,objects:List[pytmx.TiledObject]):
+        self.name=name
+        self.objects=objects
+        self.points=[]
+        self.order_points()
+
+    def order_points(self):
+        points=[]
+        for i in range(1,len(self.objects)+1):
+            for object in self.objects:
+                if str(i) in object.name:
+                    points.append((object.x,object.y))
+        self.points=points
+    
+    def get_points(self,reversed:bool=False):
+        points=self.points
+        if reversed:
+            reversed_points=[]
+            for i in range(1,len(points)):
+                reversed_points=points[-i]
+            points=reversed_points
+        return points
+
 
 
 
