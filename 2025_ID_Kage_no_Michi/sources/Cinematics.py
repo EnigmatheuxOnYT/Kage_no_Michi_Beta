@@ -923,7 +923,7 @@ class Cinematics:
         self.ecran_noir(screen)
     
 
-    def cinematic_10_2(self, screen, saved="none"):
+    def cinematic_10(self, screen, saved="none"):
         if saved == 'none':
             self.cinematic_frame(screen,'azw1', 1, "Un nouveau départ. Je suis enfin devenu un samouraï. Je vais enfin pouvoir", "venger Magome. Allons à la ville d'Aizuwakamatsu,on n'a plus de temps à ", "perdre. Hm? (Un ennemi ?)",  kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen,'azw1', 1, "Montrez vous ! Je sais que vous vous trouvez à l'intérieur de cette caravane.",  kind_info=["SM","SM", "no_weapon","right"])
