@@ -72,21 +72,42 @@ class CompatibleObject:
         self.map_manager.get_map().group.change_layer(self.group_object,layer)
 
 class SubPath:
-    def __init__(self,name:str,objects:List[pytmx.TiledObject]):
+    def __init__(self,name:str,point_objects:List[pytmx.TiledObject],rect_objects:pytmx.TiledObject):
         self.name=name
-        self.objects=objects
+        self.point_objects=point_objects
+        self.rect_objects=rect_objects
         self.raw_points= list()
-        self.points_dict = dict()
+        self.raw_rects = list()
+        self.points_rects_dict = dict()
+        self.order()
+
+    def order(self):
         self.order_points()
+        self.order_rects()
 
     def order_points(self):
         points=dict()
-        for i in range(1,len(self.objects)+1):
-            for object in self.objects:
+        for i in range(1,len(self.point_objects)+1):
+            for object in self.point_objects:
                 if str(i) in object.name:
-                    points[object.name]=(object.x,object.y)
-        self.points_dict = points
-        self.raw_points = list(points.values())
+                    points[object.name]={'point':(object.x,object.y)}
+        self.points_rects_dict = points
+        raw_points = list()
+        for i in list(points.values()):
+            raw_points.append(i['point'])
+        self.raw_points = raw_points
+    
+    def order_rects(self):
+        for i in range(1,len(self.rect_objects)+1):
+            for object in self.rect_objects:
+                if str(i) in object.name:
+                    self.points_rects_dict[object.name]['rect']=pygame.Rect(object.x,object.y,object.width,object.height)
+        raw_rects = list()
+        for i in list(self.points_rects_dict.values()):
+            raw_rects.append(i['rect'])
+        self.raw_rects=raw_rects
+
+
     
     def get_raw_points(self,reversed:bool=False):
         points=self.raw_points
