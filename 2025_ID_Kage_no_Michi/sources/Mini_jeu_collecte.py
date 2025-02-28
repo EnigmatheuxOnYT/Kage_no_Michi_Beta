@@ -42,6 +42,7 @@ class minigm_collect :
         ### Variables ###
         self.gp_phases = Enum("Phase","BEGIN SEARCH LEAVING LOOSE WIN PERFECT_WIN")
          
+        self.perfect_win_time = 90000
         self.obtained_objects = 0
         self.load_assets()
         
@@ -71,7 +72,8 @@ class minigm_collect :
             # Définition de la surface à afficher sur les zones d'affichage de la map
             for display_zone in self.map.map_manager.get_map().display_zones:
                 if display_zone.name=="collect_spot_"+str(i):
-                    display_zone.set_assigned_surface(surfaces_32x32[self.hot_spots[str(i)]["item"]])
+                    surf = surfaces_32x32[self.hot_spots[str(i)]["item"]].copy()
+                    display_zone.set_assigned_surface(surf)
         
         self.display_catch_text = False
         self.press_a = True
@@ -143,7 +145,7 @@ class minigm_collect :
             self.current_gp_phase = self.gp_phases.LOOSE
         elif self.obtained_objects == 5:
             final_time = pygame.time.get_ticks()-self.task_timer
-            if final_time < 120000:
+            if final_time < self.perfect_win_time:
                 self.current_gp_phase = self.gp_phases.PERFECT_WIN
             else:
                 self.current_gp_phase = self.gp_phases.WIN
