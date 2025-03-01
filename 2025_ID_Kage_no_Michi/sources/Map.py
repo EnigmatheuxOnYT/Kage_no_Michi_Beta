@@ -1,7 +1,6 @@
 #Projet : Kage no Michi
 #Auteurs : Alptan Korkmaz, Clément Roux--Bénabou, Maxime Rousseaux, Ahmed-Adam Rezkallah, Cyril Zhao
 
-
 # -*- coding: utf-8 -*-
 """
 Created on Wed Feb  5 20:06:16 2025

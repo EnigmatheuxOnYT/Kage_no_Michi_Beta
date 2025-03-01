@@ -46,7 +46,6 @@ class Main:
     
     def handling_events(self):
         ########## Traitement des imputs du joueur (partie 1) ##########
-        
         # Non fonctionnel
         #self.displayed = pygame.display.get_active()
         
