@@ -197,6 +197,7 @@ class minigm_minesweeper:
         self.in_minigm = True
         
     def end(self, screen, saved):
+
         # Instructions conditionnelles selon le résultat du mini-jeu
         if self.victoire:
             if self.lives == 3: # Si le minigm est réussi parfaitement (avec les 3 vies restantes)
@@ -228,6 +229,13 @@ class minigm_minesweeper:
                     self.cin.cinematic_frame(screen, 'forest1', 3, "(Je vais avoir une meilleure chance de battre le deuxième.)", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["TW_H","no_weapon"], 1], running=self.running)
                     self.cin.cinematic_frame(screen, 'forest1', 3, "Bon Takeshi. Tu connais la chanson.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["TW_H","no_weapon"], 1], running=self.running)
                     self.cin.cinematic_frame(screen, 'forest1', 3, "Oui. C'est l'heure de gagner.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["TW_H","no_weapon"], 2], running=self.running)
+
+        while self.running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+            pygame.display.flip()
+            pygame.time.Clock().tick(60)
 
         self.playing= False
     ########## GESTION DES ÉVÈNEMENTS ##########
