@@ -39,10 +39,10 @@ class minigm_minesweeper:
         ##### Paramètres du jeu #####
         self.TAILLE = 15  # Nombre de cases par côté
         self.TAILLE_CASE = 30  # Taille de chaque case en pixels
-        self.FREQUENCE_PICS = 15 #Fréquence en % des pcis
+        self.FREQUENCE_PICS = 0.15 #Fréquence des pcis
         self.LARGEUR_ECRAN = 1280
         self.HAUTEUR_ECRAN = 720
-        self.NOMBRE_PICS = int(self.TAILLE * self.TAILLE * self.FREQUENCE_PICS/100)  # Calcule le nb de pics en fonction du nb de cases
+        self.NOMBRE_PICS = int(self.TAILLE * self.TAILLE * self.FREQUENCE_PICS)  # Calcule le nb de pics en fonction du nb de cases
         self.LIMITE_TIMER = int(self.TAILLE * 15)  # Temps à disposition en fonction du nb de cases
         
         # Effets spéciaux
