@@ -41,7 +41,7 @@ class minigm_minesweeper:
         self.TAILLE_CASE = 30  # Taille de chaque case en pixels
         self.LARGEUR_ECRAN = 1280
         self.HAUTEUR_ECRAN = 720
-        self.NOMBRE_PICS = int(self.TAILLE * self.TAILLE * 0.1)  # Calcule le nb de pics en fonction du nb de cases
+        self.NOMBRE_PICS = int(self.TAILLE * self.TAILLE * 0.15)  # Calcule le nb de pics en fonction du nb de cases
         self.LIMITE_TIMER = int(self.TAILLE * 15)  # Temps à disposition en fonction du nb de cases
         
         # Effets spéciaux
