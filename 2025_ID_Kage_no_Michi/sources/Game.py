@@ -279,11 +279,11 @@ class Game:
         elif minigame == 3:
             print("Mini-jeu de tuto combat tour par tour non implémenté")
         elif minigame == 4:
-            self.running = self.minigm_04.run(self.screen_for_game,choices[0])
+            self.running = self.minigm_04.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 5:
             self.running = self.minigm_05.run(self.screen_for_game,choices[0],self.current_passcode,devmode)
         elif minigame == 6:
-            self.running = self.minigm_06.run(self.screen_for_game,choices[0])
+            self.running = self.minigm_06.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 7:
             self.running = self.minigm_07.run(self.screen_for_game,choices[0])
         elif minigame ==8:

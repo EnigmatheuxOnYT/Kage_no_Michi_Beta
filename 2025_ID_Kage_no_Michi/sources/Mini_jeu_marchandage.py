@@ -200,7 +200,8 @@ class minigm_trade:
             ["gong ceremonial en bronze", self.gong_ceremonial_en_bronze, random.randint(1000, 2500)],
         ]
         
-        print("prix :",[self.liste_objet[i][2] for i in range(5)]) #Affichage des prix pour les développeurs, à supprimer
+        if self.devmode:
+            print("prix :",[self.liste_objet[i][2] for i in range(5)]) #Affichage des prix pour les développeurs, à supprimer
         
         # Descriptions des objets
         self.description_objet = [
@@ -523,7 +524,8 @@ class minigm_trade:
         pygame.display.flip()
     
     ########## Boucle mini-jeu ##########
-    def run(self, screen, saved):
+    def run(self, screen, saved,devmode=False):
+        self.devmode=devmode
         self.load()
         self.intro(screen, saved)
         clock = pygame.time.Clock()
