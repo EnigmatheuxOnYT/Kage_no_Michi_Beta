@@ -42,7 +42,7 @@ class minigm_collect :
         ### Variables ###
         self.gp_phases = Enum("Phase","BEGIN SEARCH LEAVING LOOSE WIN PERFECT_WIN")
          
-        self.perfect_win_time = 90000
+        self.perfect_win_time = 60000
         self.obtained_objects = 0
         self.load_assets()
         
@@ -164,8 +164,8 @@ class minigm_collect :
                 elif saved=="KT":
                     self.cin.cinematic_frame(screen,"forest2",3, "Bonne chance à vous, et au revoir.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1","no_weapon"],2])
             elif self.current_gp_phase == self.gp_phases.WIN:
-                self.cin.cinematic_frame(screen,"forest2",3, "Bien joué, vous avez ramassé assez de vivres.","Merci pour votre aide", "N'hésitez pas à revenir !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
-                self.cin.cinematic_frame(screen,"forest2",3, "Merci monsieur, et bonne chanec à vous", "", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],2])
+                self.cin.cinematic_frame(screen,"forest2",3, "Bien joué, vous avez ramassé assez de vivres !","Merci pour votre aide !", "N'hésitez pas à revenir !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
+                self.cin.cinematic_frame(screen,"forest2",3, "Merci monsieur, et bonne chance à vous !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],2])
                 self.cin.cinematic_frame(screen,"forest2",3, "Bonne chance !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],1])
         
         #À la toute fin de la fonction
