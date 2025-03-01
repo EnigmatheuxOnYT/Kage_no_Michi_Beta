@@ -99,7 +99,8 @@ class minigm_trial1:
         # On génère une séquence aléatoire de 10 touches parmi les flèches directionnelles.
         self.sequence = [random.choice([pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT])
                          for _ in range(10)]
-        
+        if self.devmode:
+            print(self.sequence)
         self.lives = 3
         self.current_step = 0  # Indice actuel dans la séquence à mémoriser
         self.music.play(self.music.menu3)
@@ -462,6 +463,7 @@ class minigm_trial1:
 
     ########## Boucle principale du mini‑jeu ##########
     def run(self, screen, saved,devmode=False):
+        self.devmode=devmode
         # Une fois l'intro terminée, on charge toutes les ressources nécessaires
         self.load()
         # On commence par afficher la cinématique d'intro
