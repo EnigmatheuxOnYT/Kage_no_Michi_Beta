@@ -123,7 +123,6 @@ class minigm_minesweeper:
             images["pic"]         = pygame.image.load("../data/assets/minigm/pic.png").convert_alpha()
             images["drapeau"]     = pygame.image.load("../data/assets/minigm/drapeau.png").convert_alpha()
             images["fond"]        = pygame.image.load("../data/assets/minigm/fond3.png").convert()
-            images["gameover_bg"] = pygame.image.load("../data/assets/minigm/gameover_bg.jpg").convert()
             images["menu_ingm"]   = pygame.image.load("../data/assets/minigm/Fond_Menu_In-game.png").convert()
             
             taille_case = (self.TAILLE_CASE, self.TAILLE_CASE)
@@ -136,7 +135,7 @@ class minigm_minesweeper:
                 images[key] = pygame.transform.scale(images[key], taille_case)
             
             taille_ecran = (self.LARGEUR_ECRAN, self.HAUTEUR_ECRAN)
-            for key in ["fond", "gameover_bg"]:
+            for key in ["fond"]:
                 images[key] = pygame.transform.scale(images[key], taille_ecran)
         
         except pygame.error as e:
@@ -469,29 +468,6 @@ class minigm_minesweeper:
             vies_pos_x = self.LARGEUR_ECRAN - 180 - vies_text.get_width() // 2
             vies_pos_y = pics_pos_y + pics_text.get_height() + 5
             render_surface.blit(vies_text, (vies_pos_x, vies_pos_y))
-    
-            """if self.victoire:
-                self._draw_victory_effect(render_surface)
-                victory_text = self.font_MFMG30.render("TU AS GAGNÉ", True, (0, 255, 0))
-                render_surface.blit(victory_text, (self.LARGEUR_ECRAN // 2 - victory_text.get_width() // 2, self.HAUTEUR_ECRAN // 2 - 100))
-            elif self.game_over and not self.afficher_pics:
-                render_surface.blit(self.images["gameover_bg"], (0, 0))
-                go_text = self.font_MFMG30.render("GAME OVER", True, (255, 50, 50))
-                render_surface.blit(go_text, (self.LARGEUR_ECRAN // 2 - go_text.get_width() // 2, self.HAUTEUR_ECRAN // 2 - 100))
-                self._draw_menu_buttons(render_surface, game_over=True)
-            
-            if self.flash_effect is not None:
-                if pygame.time.get_ticks() - self.flash_effect["time"] < self.flash_duration:
-                    bx, by = self.flash_effect["cell"]
-                    rect = pygame.Rect(self.offset_x + by * self.TAILLE_CASE,
-                                       self.offset_y + bx * self.TAILLE_CASE,
-                                       self.TAILLE_CASE, self.TAILLE_CASE)
-                    flash_overlay = pygame.Surface((self.TAILLE_CASE, self.TAILLE_CASE))
-                    flash_overlay.set_alpha(180)
-                    flash_overlay.fill(self.flash_effect["color"])
-                    render_surface.blit(flash_overlay, rect.topleft)
-                else:
-                    self.flash_effect = None"""
 
             if self.afficher_pics:
                 if pygame.time.get_ticks() - self.temps_clic_pic < 1500:
