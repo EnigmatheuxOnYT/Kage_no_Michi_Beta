@@ -676,5 +676,5 @@ if __name__ == '__main__':
     pygame.display.set_caption("Kage no Michi")
     
     mini_game = minigm_minesweeper()
-    mini_game.run(screen, 'KT',devmode=False)
+    mini_game.run(screen, 'KT',devmode=True)
     pygame.quit()
