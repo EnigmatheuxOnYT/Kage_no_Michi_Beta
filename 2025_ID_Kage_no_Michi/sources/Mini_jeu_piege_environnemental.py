@@ -37,7 +37,7 @@ class minigm_minesweeper:
         self.font_MFMG25 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 25)
         
         ##### Paramètres du jeu #####
-        self.TAILLE = 8  # Nombre de cases par côté
+        self.TAILLE = 15  # Nombre de cases par côté
         self.TAILLE_CASE = 30  # Taille de chaque case en pixels
         self.LARGEUR_ECRAN = 1280
         self.HAUTEUR_ECRAN = 720
@@ -482,6 +482,15 @@ class minigm_minesweeper:
                     self.afficher_pics = False
                     self.game_over = True
             
+            if self.devmode:
+                for x in range(self.TAILLE):
+                        for y in range(self.TAILLE):
+                            if self.plateau[x][y] == -1:
+                                rect = pygame.Rect(self.offset_x + y * self.TAILLE_CASE,
+                                                   self.offset_y + x * self.TAILLE_CASE,
+                                                   self.TAILLE_CASE, self.TAILLE_CASE)
+                                render_surface.blit(self.images["pic"], rect.topleft)
+
             if not self.afficher_menu_flag and not self.victoire and not self.game_over:
                 if self.hover_cell is not None:
                     hx, hy = self.hover_cell
@@ -637,7 +646,8 @@ class minigm_minesweeper:
                 conf["x"] = random.randint(0, self.LARGEUR_ECRAN)
     
     ########## BOUCLE DU MINI-JEU ##########
-    def run(self, screen, saved):
+    def run(self, screen, saved,devmode=False):
+        self.devmode=devmode
         self.load()
         self.intro(screen, saved)
         
@@ -665,5 +675,5 @@ if __name__ == '__main__':
     pygame.display.set_caption("Kage no Michi")
     
     mini_game = minigm_minesweeper()
-    mini_game.run(screen, 'KT')
+    mini_game.run(screen, 'KT',devmode=True)
     pygame.quit()

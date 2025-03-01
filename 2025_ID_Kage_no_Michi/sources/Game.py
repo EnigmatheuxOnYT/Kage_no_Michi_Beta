@@ -285,7 +285,7 @@ class Game:
         elif minigame == 6:
             self.running = self.minigm_06.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 7:
-            self.running = self.minigm_07.run(self.screen_for_game,choices[0])
+            self.running = self.minigm_07.run(self.screen_for_game,choices[0],devmode)
         elif minigame ==8:
             self.running = self.minigm_08.run(self.screen_for_game,choices[0],devmode)
         elif minigame ==9:
