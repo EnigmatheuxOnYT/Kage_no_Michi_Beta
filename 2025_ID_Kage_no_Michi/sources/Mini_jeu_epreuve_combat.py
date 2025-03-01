@@ -14,7 +14,7 @@ import sys
 import random
 from enum import Enum
 from Cinematics import Cinematics
-from Audio import Music
+from Audio import Sound,Music
 
 class minigm_trial1:
     def __init__(self):
@@ -27,7 +27,7 @@ class minigm_trial1:
 
         # On crée une instance de Cinematics pour gérer l'intro et la fin du jeu.
         self.cin = Cinematics()
-        self.music = Music()
+        self.sound,self.music = Sound(),Music()
 
         # On charge une police pour afficher certains textes à l'écran.
         self.font_MFMG30 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 30)
@@ -99,7 +99,8 @@ class minigm_trial1:
         # On génère une séquence aléatoire de 10 touches parmi les flèches directionnelles.
         self.sequence = [random.choice([pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT])
                          for _ in range(10)]
-        
+        if self.devmode:
+            print(self.sequence)
         self.lives = 3
         self.current_step = 0  # Indice actuel dans la séquence à mémoriser
         self.music.play(self.music.menu3)
@@ -135,14 +136,14 @@ class minigm_trial1:
 
 
             # Chargement du son qui se joue en cas d'erreur (click_sound_1)
-            self.key_sound = pygame.mixer.Sound("../data/assets/sounds/SFX_ClickSound_1.mp3")
+            self.key_sound = self.sound.click1
 
             # Chargement des 4 fichiers audio pour l'effet "swoosh" de la lame de bambou
             self.swoosh_sfx = [
-                pygame.mixer.Sound("../data/assets/sounds/SFX_Swoosh_Bamboo_Katana_1.mp3"),
-                pygame.mixer.Sound("../data/assets/sounds/SFX_Swoosh_Bamboo_Katana_2.mp3"),
-                pygame.mixer.Sound("../data/assets/sounds/SFX_Swoosh_Bamboo_Katana_3.mp3"),
-                pygame.mixer.Sound("../data/assets/sounds/SFX_Swoosh_Bamboo_Katana_4.mp3")
+                self.sound.swoosh1,
+                self.sound.swoosh2,
+                self.sound.swoosh3,
+                self.sound.swoosh4,
             ]
 
         except Exception as e:
@@ -462,6 +463,7 @@ class minigm_trial1:
 
     ########## Boucle principale du mini‑jeu ##########
     def run(self, screen, saved,devmode=False):
+        self.devmode=devmode
         # Une fois l'intro terminée, on charge toutes les ressources nécessaires
         self.load()
         # On commence par afficher la cinématique d'intro

@@ -42,7 +42,7 @@ class minigm_collect :
         ### Variables ###
         self.gp_phases = Enum("Phase","BEGIN SEARCH LEAVING LOOSE WIN PERFECT_WIN")
          
-        self.perfect_win_time = 90000
+        self.perfect_win_time = 60000
         self.obtained_objects = 0
         self.load_assets()
         
@@ -104,6 +104,17 @@ class minigm_collect :
         
         self.object_obtained_text = self.font_MFMG30.render("", False, "red")
         self.display_object_obtained_text = False
+
+
+        self.mgm_music=self.music.mg9
+
+        self.sfx_volume= 0.5
+        self.pickup_sounds = {'food':self.sound.win,
+                              'money10':self.sound.correct1,
+                              'heal_potion':self.sound.win
+                              }
+        for i in list(self.pickup_sounds.keys()):
+            self.pickup_sounds[i].set_volume(self.sfx_volume)
     
     @property
     def  object_counter_text (self):return self.font_MFMG30.render(f"Objets Trouvés : {self.obtained_objects}/5",False,"black")
@@ -164,8 +175,8 @@ class minigm_collect :
                 elif saved=="KT":
                     self.cin.cinematic_frame(screen,"forest2",3, "Bonne chance à vous, et au revoir.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1","no_weapon"],2])
             elif self.current_gp_phase == self.gp_phases.WIN:
-                self.cin.cinematic_frame(screen,"forest2",3, "Bien joué, vous avez ramassé assez de vivres.","Merci pour votre aide", "N'hésitez pas à revenir !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
-                self.cin.cinematic_frame(screen,"forest2",3, "Merci monsieur, et bonne chanec à vous", "", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],2])
+                self.cin.cinematic_frame(screen,"forest2",3, "Bien joué, vous avez ramassé assez de vivres !","Merci pour votre aide !", "N'hésitez pas à revenir !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
+                self.cin.cinematic_frame(screen,"forest2",3, "Merci monsieur, et bonne chance à vous !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],2])
                 self.cin.cinematic_frame(screen,"forest2",3, "Bonne chance !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],1])
         
         #À la toute fin de la fonction
@@ -211,6 +222,7 @@ class minigm_collect :
                 for i in self.arrow_queue:
                         if i == obj_num:
                             self.arrow_queue.remove(i)
+            self.pickup_sounds['food'].play()
         else:
             loop=True
             for i in self.items_hotspots:
@@ -218,6 +230,7 @@ class minigm_collect :
                     self.arrow_queue.append(i)
                     self.arrow_initiated = True
                     loop=False
+            self.pickup_sounds[self.hot_spots[str(obj_num)]['item']].play()
         
         self.change_object_obtained_text(self.hot_spots[str(obj_num)]['item'])
         
@@ -327,6 +340,8 @@ class minigm_collect :
         self.devmode=devmode
         self.load()
         self.intro(screen,saved)
+
+        self.music.play(self.mgm_music)
         
         while self.playing and self.running and self.in_minigm:
             self.minigm_events()

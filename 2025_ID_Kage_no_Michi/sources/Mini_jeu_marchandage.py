@@ -200,7 +200,8 @@ class minigm_trade:
             ["gong ceremonial en bronze", self.gong_ceremonial_en_bronze, random.randint(1000, 2500)],
         ]
         
-        print("prix :",[self.liste_objet[i][2] for i in range(5)]) #Affichage des prix pour les développeurs, à supprimer
+        if self.devmode:
+            print("prix :",[self.liste_objet[i][2] for i in range(5)]) #Affichage des prix pour les développeurs, à supprimer
         
         # Descriptions des objets
         self.description_objet = [
@@ -223,7 +224,7 @@ class minigm_trade:
         # Chargement des personnages
         self.shikisha = pygame.image.load("../data/assets/cinematics/characters/Shikisha_16bit_Gauche_SansArme_V1.png")
         self.shikisha = pygame.transform.scale(self.shikisha, (238, 591))
-        self.juzo = pygame.image.load("../data/assets/cinematics/characters/Juzo_16bit_Droite_V1.png")
+        self.juzo = pygame.image.load("../data/assets/cinematics/characters/Juzo_16bit_Droite_SansArme_V1.png")
         self.juzo = pygame.transform.scale(self.juzo, (238, 591))
         self.shikisha_pos = (20, 250)
         self.juzo_pos = (1040, 250)
@@ -232,10 +233,6 @@ class minigm_trade:
     def intro(self, screen, saved):
         # Affichage de l'intro via la cinématique (attention à bien finir l'appel par running=self.running)
         if saved=='none':
-            self.cin.switch_lowercase(True)
-            self.cin.cinematic_frame(screen, 'bamboo1', 2, "100 pièces d'or ? C'est très cher !", "C'est l'argent que Sensei Hoshida m'a offert !", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 2, "Est-ce que je pourrai négocier avec son offre ? Ou existe-il une", "autre méthode ?", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
-            self.cin.switch_lowercase(False)
             self.cin.cinematic_frame(screen, 'bamboo1', 2, "Votre arme m'a l'air fascinante. Avant cela, j'aimerai qu'on procède à", "des négociations.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
             self.cin.cinematic_frame(screen, 'bamboo1', 2, "Des négociations ? Très bien. On les fera de ma manière.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
             self.cin.cinematic_frame(screen, 'bamboo1', 2, "Tout d'abord, je vais prendre un total de 5 marchandises. Le but étant", "de deviner les prix de chacun.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
@@ -243,10 +240,6 @@ class minigm_trade:
             self.cin.cinematic_frame(screen, 'bamboo1', 2, "Aucune objection ?", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
             self.cin.cinematic_frame(screen, 'bamboo1', 2, "Totalement ! Allons-y Marchand Juzo ! Débutons ces négociations.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
         elif saved=='KM':
-            self.cin.switch_lowercase(True)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "100 pièces d'or ? C'est très cher !", "C'est l'argent que Sensei Hoshida nous a offert !", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Est-ce que je pourrai négocier avec son offre ?", "Ou existe-il une autre méthode ?", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
-            self.cin.switch_lowercase(False)
             self.cin.cinematic_frame(screen, 'bamboo1', 3, "Votre arme m'a l'air fascinante. Avant cela, j'aimerai qu'on procède à", "des négociations.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
             self.cin.cinematic_frame(screen, 'bamboo1', 3, "Des négociations ? Très bien. On les fera de ma manière.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
             self.cin.cinematic_frame(screen, 'bamboo1', 3, "Tout d'abord, je vais prendre un total de 5 marchandises. Le but étant", "de deviner les prix de chacun.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
@@ -255,10 +248,6 @@ class minigm_trade:
             self.cin.cinematic_frame(screen, 'bamboo1', 3, "C'est une très belle occasion grand frère. On pourra payer moins", "cher pour une arme aussi puissante !", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
             self.cin.cinematic_frame(screen, 'bamboo1', 3, "Totalement ! Allons-y Marchand Juzo ! Débutons ces négociations.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
         elif saved=='KT':
-            self.cin.switch_lowercase(True)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "100 pièces d'or ? C'est très cher !", "C'est l'argent que Sensei Hoshida nous a offert !", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Est-ce que je pourrai négocier avec son offre ?", "Ou existe-il une autre méthode ?", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 1], running=self.running)
-            self.cin.switch_lowercase(False)
             self.cin.cinematic_frame(screen, 'bamboo1', 3, "Ce “Tengoku no Ikari”... Je pense que tu devrais la prendre.", "Elle pourra nous être très utile dans le futur.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 2], running=self.running)
             self.cin.cinematic_frame(screen, 'bamboo1', 3, "Votre arme m'a l'air fascinante. Avant cela, j'aimerai qu'on procède à", "des négociations.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 1], running=self.running)
             self.cin.cinematic_frame(screen, 'bamboo1', 3, "Des négociations ? Très bien. On les fera de ma manière.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
@@ -523,7 +512,8 @@ class minigm_trade:
         pygame.display.flip()
     
     ########## Boucle mini-jeu ##########
-    def run(self, screen, saved):
+    def run(self, screen, saved,devmode=False):
+        self.devmode=devmode
         self.load()
         self.intro(screen, saved)
         clock = pygame.time.Clock()

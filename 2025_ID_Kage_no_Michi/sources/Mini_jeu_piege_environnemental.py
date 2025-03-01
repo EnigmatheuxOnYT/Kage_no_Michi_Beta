@@ -37,11 +37,12 @@ class minigm_minesweeper:
         self.font_MFMG25 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 25)
         
         ##### Paramètres du jeu #####
-        self.TAILLE = 8  # Nombre de cases par côté
+        self.TAILLE = 15  # Nombre de cases par côté
         self.TAILLE_CASE = 30  # Taille de chaque case en pixels
+        self.FREQUENCE_PICS = 0.15 #Fréquence des pcis
         self.LARGEUR_ECRAN = 1280
         self.HAUTEUR_ECRAN = 720
-        self.NOMBRE_PICS = int(self.TAILLE * self.TAILLE * 0.1)  # Calcule le nb de pics en fonction du nb de cases
+        self.NOMBRE_PICS = int(self.TAILLE * self.TAILLE * self.FREQUENCE_PICS)  # Calcule le nb de pics en fonction du nb de cases
         self.LIMITE_TIMER = int(self.TAILLE * 15)  # Temps à disposition en fonction du nb de cases
         
         # Effets spéciaux
@@ -66,9 +67,9 @@ class minigm_minesweeper:
         self.victory_effect_start = None
         
         # SFX et musique
-        self.sfx_pic = pygame.mixer.Sound('../data/assets/sounds/SFX_ClickSound_1.mp3')
+        self.sfx_pic = self.sound.click1
         self.sfx_pic.set_volume(1)
-        self.sfx_reveal = pygame.mixer.Sound('../data/assets/sounds/SFX_Impact_1.mp3')
+        self.sfx_reveal = self.sound.impact1
         self.sfx_reveal.set_volume(1)
         
         
@@ -482,6 +483,15 @@ class minigm_minesweeper:
                     self.afficher_pics = False
                     self.game_over = True
             
+            if self.devmode:
+                for x in range(self.TAILLE):
+                        for y in range(self.TAILLE):
+                            if self.plateau[x][y] == -1:
+                                rect = pygame.Rect(self.offset_x + y * self.TAILLE_CASE,
+                                                   self.offset_y + x * self.TAILLE_CASE,
+                                                   self.TAILLE_CASE, self.TAILLE_CASE)
+                                render_surface.blit(self.images["pic"], rect.topleft)
+
             if not self.afficher_menu_flag and not self.victoire and not self.game_over:
                 if self.hover_cell is not None:
                     hx, hy = self.hover_cell
@@ -637,7 +647,8 @@ class minigm_minesweeper:
                 conf["x"] = random.randint(0, self.LARGEUR_ECRAN)
     
     ########## BOUCLE DU MINI-JEU ##########
-    def run(self, screen, saved):
+    def run(self, screen, saved,devmode=False):
+        self.devmode=devmode
         self.load()
         self.intro(screen, saved)
         
@@ -665,5 +676,5 @@ if __name__ == '__main__':
     pygame.display.set_caption("Kage no Michi")
     
     mini_game = minigm_minesweeper()
-    mini_game.run(screen, 'KT')
+    mini_game.run(screen, 'KT',devmode=False)
     pygame.quit()
