@@ -133,8 +133,11 @@ class Cinematics:
         #    else:
         #        self.switch_lowercase(False,True)
         output_line = ""
-        for char in line:
-            if char == "‘":
+        for i in range(len(line)):
+            char=line[i]
+            if i in [0,len(line)-1] and char==" ":
+                new_char=""
+            elif char == "‘" or char == "’":
                 new_char="'"
             elif char == "…":
                 new_char = "..."
