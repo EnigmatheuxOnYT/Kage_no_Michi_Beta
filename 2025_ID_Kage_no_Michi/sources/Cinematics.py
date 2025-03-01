@@ -115,6 +115,13 @@ class Cinematics:
             pass
         else:
             self.lowercase = state
+        
+        if self.lowercase:
+            self.current_font_color = (90,90,90)
+            self.font_MFMG30.set_italic(True)
+        else:
+            self.current_font_color = 'black'
+            self.font_MFMG30.set_italic(False)
             
     
     def fix_line(self,line):
@@ -248,12 +255,6 @@ class Cinematics:
             except:
                 pass
             
-            if self.lowercase:
-                self.current_font_color = (90,90,90)
-                self.font_MFMG30.set_italic(True)
-            else:
-                self.current_font_color = 'black'
-                self.font_MFMG30.set_italic(False)
             
             if kind == 0:
                 self.simple_cinematic_frame(screen,bg,line1,line2,line3)
@@ -583,7 +584,7 @@ class Cinematics:
                 remaining_time=max(pygame.time.get_ticks()-depart_timer-timer,0)
                 if remaining_time == 0:
                     timer_end = True
-                    return ['timer_end']
+                    return ['timer_end',0]
                 else:
                     timer_text = self.font_MFMG30.render(str(remaining_time/1000))
                     timer_rect = timer_text.get_rect()
@@ -592,7 +593,7 @@ class Cinematics:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.event.post(event)
-                    return ['QUIT']
+                    return ['QUIT',0]
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     self.sound.play(self.sound.click)
                     for i in range(kind[1]):
@@ -994,8 +995,18 @@ class Cinematics:
             self.cinematic_frame(screen,'bamboo1', 3, "“Tengoku no Ikari”? Je n'en ai jamais entendu parler. Pourquoi porte-"," elle ce nom ?",   kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 1])
             self.cinematic_frame(screen, "bamboo1", 3, "La légende raconte que cette lame incarnerait le châtiment de Dieu. On la", "classe comme l'une des 7 épées légendaires. Tous ceux qui sont touchés", "par cette arme périssent en voyant leurs âmes séparées de leurs corps.", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
             self.cinematic_frame(screen, "bamboo1", 3, "C'est pour cela que je la vends pour 100 pièces d'or. Elle est très rare, et", "possède beaucoup de valeur. Alors ? Êtes-vous prêt à l'acheter ?", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
+        self.cinematic_frame(screen, "bamboo1", 3, "Cependant votre cas m'intéresse, et je vous fait une offre :", "Je vous donne l'arme en échange d'un service futur que vous me devrez.", "Réflechissez-y bien...", kind_info=[['SM','no_weapon'], [saved,'no_weapon'],['JM','no_weapon'], 3])
+        self.switch_lowercase(True)
+        self.cinematic_frame(screen, 'bamboo1', 3, "100 pièces d'or ? C'est très cher !", "C'est l'argent que Sensei Hoshida nous a offert !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["JM","no_weapon"], 1])
+        self.cinematic_frame(screen, 'bamboo1', 3, "Est-ce que je pourrai négocier le prix ?", "Ou existe-il une autre méthode ?","Je pourrais essayer de le tuer pour lui voler...", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["JM","no_weapon"], 1])
+        self.switch_lowercase(False)
+        choice = self.choice_frame(screen,"bamboo1",[3,4],["Négocier le prix","Refuser","Accepter l'offre","Le tuer"],[["SM","no_weapon"],[saved,"no_weapon"],["JM","no_weapon"]])
+        return choice[1] if choice[0]=='choice' else 0
+
 
     def cinematic_11 (self, screen, saved="none", choose=1):
+        if choose==0:
+            print("Si vous êtes sur la sauvegarde développeur, merci de paramétrer un choix avec la commande /choice 3 [choix]. Sinon, votre sauvegarde est corrompue")
         if saved == 'none':
             if choose == 1:
                 self.cinematic_frame(screen, 'bamboo1', 2, "Marché conclu. J'achète votre arme.", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 1])
@@ -1039,7 +1050,7 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo1', 3, "Je vous en remercie ! Faîtes attention à vous !",kind_info=[['SM', 'no_weapon'],['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3, "En effet, merci à vous ! Faîtes attention à vous !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo1', 3,"Merci jeune homme et sa sœur ! N'hésitez pas à revenir me voir !",kind_info=[['SM', 'no_weapon'],['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
-                self.cinematic_frame(screen, "bamboo1", 0,"Musashi obtient l'une des 7 épées légendaires : Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
+                self.cinematic_frame(screen, "bamboo1", 0,"Musashi obtient l'une des 7 épées légendaires : Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï ?")
             elif choose == 2:
                 self.cinematic_frame(screen, 'bamboo1', 3, "Je vous remercie de votre offre, mais je vais devoir refuser.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3,"Tu ne comptes pas acheter cette arme ? Cela pourrait-être utile.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 2])
@@ -1050,7 +1061,6 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo1', 3, "Sur ce, à la prochaine jeune homme et jeune fille!",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo1', 3,"A la prochaine marchand Juzo! Faîtes très attention lors de votre voyage !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3, "A la prochaine !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 2])
-                self.cinematic_frame(screen, "bamboo1", 0, "Musashi poursuit son voyage pour venger son village natal. Arrivera-t-il à","atteindre sa destination ? A suivre dans le prochain épisode.")
             elif choose == 3:
                 self.cinematic_frame(screen, 'bamboo1', 3,"J'aimerais bien vous prendre cette arme, en échange d'un service que vous","pourriez me proposer.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3,"Un service tu dis ? Je vois, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
@@ -1063,7 +1073,7 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo1', 3,"Aucun problème, on peut dire que c'est un cadeau en premier lieu. N'oublie","pas ta promesse et on se reverra aussitôt !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo1', 3,"Bon courage pour ta quête Musashi ! Ainsi que toi Keiko !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo1', 3,"Entendu ! Bon courage à vous aussi marchand Juzo !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, "bamboo1", 0,"Musashi obtient l’une des 7 épées légendaires: Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
+                self.cinematic_frame(screen, "bamboo1", 0,"Musashi obtient l’une des 7 épées légendaires: Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï ?")
             elif choose == 4:
                 self.cinematic_frame(screen, 'bamboo1', 3,"Pardonnez moi, mais je n'ai pas le choix de vous le prendre de force.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3,"Eh ? ! Mais pourquoi ferais-tu cela grand frère ?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 2])
@@ -1083,7 +1093,7 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo1', 3, "Je vous en remercie ! Faîtes attention à vous !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3, "Merci de votre offre ! A la prochaine !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo1', 3, "Merci à vous ! N'hésite pas à revenir me voir !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
-                self.cinematic_frame(screen, 'bamboo1', 0,"Musashi obtient l’une des 7 épées légendaires: Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï? A suivre dans le prochain épisode.")
+                self.cinematic_frame(screen, 'bamboo1', 0,"Musashi obtient l’une des 7 épées légendaires: Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï ?")
             elif choose == 2:
                 self.cinematic_frame(screen, 'bamboo1', 3, "Je vous remercie de votre offre, mais je vais devoir refuser.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3,"C'était une occasion gâchée. Cela n'est pas grave, on pourra acheter d'autres","armes dans le village.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 2])
@@ -1093,7 +1103,6 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo1', 3, "Compris ! On se retrouvera lorsque le moment viendra.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3, "Sur ce, à la prochaine jeune homme !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo1', 3,"A la prochaine marchand Juzo! Faîtes très attention lors de votre voyage !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo1', 0,"Musashi poursuit son voyage pour venger son village natal. Arrivera-t-il à","atteindre sa destination? A suivre dans le prochain épisode.")
             elif choose == 3:
                 self.cinematic_frame(screen, 'bamboo1', 3,"J'aimerais bien vous prendre cette arme, en échange d'un service que vous","pourriez me proposer.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3,"Un service tu dis ? Je vois, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 2])
@@ -1106,7 +1115,6 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo1', 3,"Aucun problème, on peut dire que c’est un cadeau en premier lieu. N'oublie","pas ta promesse et on se reverra aussitôt !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3, "Bon courage pour ta quête Musashi !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo1', 3, "Entendu ! Bon courage à vous aussi marchand Juzo !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo1', 0,"Musashi poursuit son voyage pour venger son village natal. Arrivera-t-il","à atteindre sa destination? A suivre dans le prochain épisode.")
             elif choose ==4:
                 self.cinematic_frame(screen, 'bamboo1', 3,"Pardonnez moi, mais je n'ai pas le choix de vous le prendre de force.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3,"Que fais-tu Musashi !?",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 2])

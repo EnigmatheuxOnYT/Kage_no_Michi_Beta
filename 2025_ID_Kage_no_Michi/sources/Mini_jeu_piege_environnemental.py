@@ -67,9 +67,9 @@ class minigm_minesweeper:
         self.victory_effect_start = None
         
         # SFX et musique
-        self.sfx_pic = pygame.mixer.Sound('../data/assets/sounds/SFX_ClickSound_1.mp3')
+        self.sfx_pic = self.sound.click1
         self.sfx_pic.set_volume(1)
-        self.sfx_reveal = pygame.mixer.Sound('../data/assets/sounds/SFX_Impact_1.mp3')
+        self.sfx_reveal = self.sound.impact1
         self.sfx_reveal.set_volume(1)
         
         

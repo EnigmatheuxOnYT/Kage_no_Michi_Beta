@@ -306,21 +306,26 @@ class Game:
         if cinematic == 1:
             self.cinematics.cinematic_01(self.screen_for_game)
         elif cinematic == 2:
-            self.cinematics.cinematic_02(self.screen_for_game,self.choices[0])
+            self.cinematics.cinematic_02(self.screen_for_game,choices[0])
         elif cinematic == 3:
-            self.cinematics.cinematic_03(self.screen_for_game,self.choices[0])
+            self.cinematics.cinematic_03(self.screen_for_game,choices[0])
         elif cinematic == 4:
-            self.cinematics.cinematic_04(self.screen_for_game,self.choices[0])
+            self.cinematics.cinematic_04(self.screen_for_game,choices[0])
         elif cinematic == 5:
-            self.cinematics.cinematic_05(self.screen_for_game,self.choices[0])
+            self.cinematics.cinematic_05(self.screen_for_game,choices[0])
         elif cinematic == 6:
-            self.cinematics.cinematic_06(self.screen_for_game,self.choices[0])
+            self.cinematics.cinematic_06(self.screen_for_game,choices[0])
         elif cinematic == 7:
-            self.cinematics.cinematic_07(self.screen_for_game,self.choices[0])
+            self.cinematics.cinematic_07(self.screen_for_game,choices[0])
         elif cinematic == 8:
-            self.cinematics.cinematic_08(self.screen_for_game,self.choices[1])
+            self.cinematics.cinematic_08(self.screen_for_game,choices[1])
         elif cinematic == 9:
-            self.cinematics.cinematic_09(self.screen_for_game,self.choices[0],self.choices[1])
+            self.cinematics.cinematic_09(self.screen_for_game,choices[0],choices[1])
+        elif cinematic == 10:
+            self.choices[2] = self.cinematics.cinematic_10(self.screen_for_game,choices[0])
+        elif cinematic == 11:
+            self.cinematics.cinematic_11(self.screen_for_game,choices[0],choices[2])
+        
         
         pygame.mouse.set_visible(False)
         
