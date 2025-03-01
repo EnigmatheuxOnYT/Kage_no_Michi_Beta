@@ -235,7 +235,7 @@ class MapManager :
                 self.current_map = self.maps_names["mg8"]
         else:
             Loading.display_loading(screen, 68,"Chargement de la carte principale")
-            self.register_map("MAP PROJET NSI 2025 500x500",spawn_name="spawn_Magome",layer=10)
+            self.register_map("MAP PROJET NSI 2025 500x500",spawn_name="spawn_Magome",layer=6)
             Loading.display_loading(screen, 77,"Chargement des cartes secondaires")
             self.register_map("Magome cinematic",
                               spawn_name="Spawn_Magome_cinematic",
