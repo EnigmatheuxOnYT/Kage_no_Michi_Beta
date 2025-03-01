@@ -1,0 +1,210 @@
+{
+    "activeFile": "MAP PROJET NSI 2025 500x500(1).tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        ":/automap-tiles.tsx": {
+            "scaleInDock": 1
+        },
+        "Arbre 1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Bambou 1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/cyrilzhao/Documents/lpc-terrains/terrain-v7.tsx": {
+            "scaleInDock": 1
+        },
+        "FEU 1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Feu 2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "MAP PROJET NSI 2025 500x500(1).tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 14951.515151515152,
+                "y": 9480.30303030303
+            }
+        },
+        "OMBRE 1.tsx": {
+            "scaleInDock": 1
+        },
+        "OMBRE 2.tsx": {
+            "scaleInDock": 1
+        },
+        "Tente.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "aiwa 3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "aiwa 4.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "aiwa 5.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "aiwa restau 2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "aiwa restau.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "aiwa.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "aiza 2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "arbre mort.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "arbre vert.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "bambou 3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "bambou2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "boss 1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "dojo 1 vILLAGE D'INE.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.5
+        },
+        "dojo 1 vILLAGE D_INE.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.25,
+            "scaleInEditor": 1
+        },
+        "feu de camp.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "foret bas.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "foret centre.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "foret droit.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "foret gauche.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "foret haut.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "magome 1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "magome 2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "magome 3.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "maison 1 village d'INE.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "maison 1 village d_INE.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "maison 2 village d'INE.tsx": {
+            "scaleInDock": 1
+        },
+        "maison 2 village d_INE.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "maison_2_village_d_INE_toit_noir_plus_prononce.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "ombre 3.tsx": {
+            "scaleInDock": 1
+        },
+        "petit temple forêt.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "rocher.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "terrain-v7.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "élément de la map NSI 2025/aiwa 3.tsx": {
+            "scaleInDock": 1
+        },
+        "élément de la map NSI 2025/aiwa 4.tsx": {
+            "scaleInDock": 1
+        },
+        "élément de la map NSI 2025/aiwa 5.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "C:/Users/cyrilzhao/Documents/Projet NSI 2025/objet",
+    "openFiles": [
+        "MAP PROJET NSI 2025 500x500(1).tmx"
+    ],
+    "project": "MAP PROJET NSI 2025.tiled-project",
+    "recentFiles": [
+        "MAP PROJET NSI 2025 500x500(1).tmx",
+        "dojo 1 vILLAGE D_INE.tsx",
+        "aiwa 3.tsx",
+        "aiwa 4.tsx",
+        "aiwa 5.tsx",
+        "aiwa restau 2.tsx",
+        "aiwa restau.tsx",
+        "aiwa.tsx",
+        "aiza 2.tsx",
+        "Arbre 1.tsx",
+        "arbre mort.tsx",
+        "arbre vert.tsx"
+    ],
+    "resizeMap.removeObjects": false,
+    "tileset.lastUsedFormat": "tsx"
+}
