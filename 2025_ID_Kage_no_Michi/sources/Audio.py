@@ -20,11 +20,17 @@ class Music:
     
         self.placeholder = "Musique_Placeholder.mp3"
         self.menu = "japanese-traditional-festival-164421.mp3"
-        self.intro = "Music_Game_1.mp3"
+        self.intro = "Prologue_Theme_V1.mp3"
         self.jeu1 = "Music_Game_1.mp3"
+        self.jeu2 = "Music_Game_2.mp3"
         self.mg7 = "Music_BMG_4.mp3"
         self.mg9 = "Musique_Placeholder.mp3"
         self.menu3 = "Music_Menu_3.mp3"
+        self.dialog1 = "Music_Dialogue_1.mp3"
+        self.exploration = "Music_Exploration_1.mp3"
+
+        #Thèmes :
+        self.theme_tkh1 = "Takahiro_Theme_V1.mp3"
     
     def play (self,file="Musique_Placeholder.mp3",fade=500,offset=0):
         if file == "Musique_Placeholder.mp3":
@@ -47,10 +53,9 @@ class Music:
 class Sound:
     
     def __init__(self):
-        self.click = self.sound("SFX_ClickSound_2")
-        self.click.set_volume(0.35)
-        
+        self.volume=0.35
 
+        self.click = self.sound("SFX_ClickSound_2")
         self.win = self.sound("SFX_Achievement_1")
         self.lose = self.sound("SFX_ClickSound_1")
         self.click1 = self.sound("SFX_ClickSound_1")
@@ -66,7 +71,9 @@ class Sound:
     
     
     def sound (self,file):
-        return pygame.mixer.Sound(f"../data/assets/sounds/{file}.mp3")
+        sound = pygame.mixer.Sound(f"../data/assets/sounds/{file}.mp3")
+        sound.set_volume(self.volume)
+        return sound
     
     def play (self,sound):
         sound.play()

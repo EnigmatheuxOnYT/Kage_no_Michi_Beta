@@ -133,14 +133,37 @@ class Cinematics:
         #    else:
         #        self.switch_lowercase(False,True)
         output_line = ""
-        for char in line:
-            if char == "‘":
+        point_note=0
+        for i in range(len(line)):
+            added_char=""
+            char=line[i]
+            
+            if char ==".":
+                point_note+=1
+            else:
+                if point_note==1:
+                    if char not in [" ","."]:
+                        added_char = " "
+                elif point_note==2:
+                    if char==" ":
+                        added_char="."
+                    else:
+                        added_char = ". "
+                point_note=0
+            if char in ["?","!"] and not espace:
+                added_char=" "
+            if i in [0,len(line)-1] and char==" ":
+                new_char=""
+            elif char == "‘" or char == "’":
                 new_char="'"
             elif char == "…":
                 new_char = "..."
             else:
                 new_char = char
+            
+            new_char=added_char+new_char
             output_line+=new_char
+            espace = char==" "
         return output_line
     
     ########## Fonctions pratiques pour créer les cinématiques ##########

@@ -30,7 +30,7 @@ class Dialogs(Cinematics):
             self.cinematic_frame(screen, "azw1", 2, "Monsieur ! Monsieur ! Oui, vous, celui qui porte l’apparence d’un", "samouraï, venez m’aider ! ", kind_info=[['VL1','no_weapon'],['SM','no_weapon'],1])
             self.cinematic_frame(screen, "azw1", 2, "(Est-ce que j’accepte de l’aider..?) ", kind_info=[['VL1','no_weapon'],['SM','no_weapon'],2])
             output1, output2 = self.choice_frame(screen, "azw1", [0, 2], ["OUI", "NON"])
-            if output1 == "OUI":
+            if output2 == 1:
                 self.cinematic_frame(screen, "azw1", 2, "Très bien monsieur, je vais vous sortir de ces débris. Je m’en occupe !",kind_info=[['VL1', 'no_weapon'], ['SM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, "azw1", 2, "Je vous remercie fortement. ", kind_info=[['VL1','no_weapon'],['SM','no_weapon'],1])
                 self.ecran_noir(screen)
@@ -38,7 +38,7 @@ class Dialogs(Cinematics):
                 self.cinematic_frame(screen, "azw1", 0, "(Le joueur obtient 15 pièces argent)")
                 self.cinematic_frame(screen, "azw1", 2, " L’argent n’était pas nécessaire mais je vous remercie de votre générosité.", "Faîtes très attention lors de votre retour !",kind_info=[['VL1', 'no_weapon'], ['SM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, "azw1", 2, "A vous aussi monsieur ! Bonne chance à vous !", kind_info=[['VL1','no_weapon'],['SM','no_weapon'],1])
-            elif output1 =="NON":
+            elif output2==2:
                 self.cinematic_frame(screen, "azw1", 2, "Je suis navré monsieur, mais j’ai actuellement, des tâches de la plus", "haute importance, je reviendrai vers vous dans quelques instants.", kind_info=[['VL1','no_weapon'],['SM','no_weapon'],2])
                 self.cinematic_frame(screen, "azw1", 2, " Pas de problème monsieur, mais essayez de vous dépêcher ! Je n’ai pas", "envie de rester coincé dans ces débris..",kind_info=[['VL1', 'no_weapon'], ['SM', 'no_weapon'], 1])
         elif saved =='KM':
@@ -131,5 +131,5 @@ if __name__ =="__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Dialogues")
-    Dialogs().dialog_example (screen,"KM")
+    Dialogs().dialog_minigm1(screen,"none")
     pygame.quit()
