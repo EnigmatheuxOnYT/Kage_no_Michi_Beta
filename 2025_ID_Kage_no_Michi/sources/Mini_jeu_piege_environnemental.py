@@ -230,13 +230,6 @@ class minigm_minesweeper:
                     self.cin.cinematic_frame(screen, 'forest1', 3, "Bon Takeshi. Tu connais la chanson.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["TW_H","no_weapon"], 1], running=self.running)
                     self.cin.cinematic_frame(screen, 'forest1', 3, "Oui. C'est l'heure de gagner.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["TW_H","no_weapon"], 2], running=self.running)
 
-        while self.running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-            pygame.display.flip()
-            pygame.time.Clock().tick(60)
-
         self.playing= False
     ########## GESTION DES ÉVÈNEMENTS ##########
     def minigm_events(self):
@@ -664,7 +657,10 @@ class minigm_minesweeper:
             self.minigm_events()
             self.minigm_update()
             self.minigm_draw(screen, saved)
-            
+            if self.victoire:
+                pygame.time.delay(1000)  # J'avais juste à rajouter ce délai lors de la victoire, du coup plus besoin de la boucle while self.running
+                break
+
         if self.running:
             self.end(screen, saved)
         
