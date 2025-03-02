@@ -201,29 +201,29 @@ class Game:
             elif event.type == "interraction":
                 self.current_interraction = {"is":True,"interraction":event.data[0]}
     
-    def __interraction_npc (self,interraction):
-        for npc in self.map.map_manager.get_map().npcs:
-            if npc.name==interraction.npc_name:
-                return npc
+
 
     def handle_interraction (self,interraction):
-
+        for npc in self.map.map_manager.get_map().npcs:
+            if npc.instance_name==interraction.npc_name:
+                __npc = npc
         for _ in range(len(interraction.actions)):
-            self.handle_action(interraction.current_action,self.__interraction_npc(interraction))
+            self.handle_action(interraction.current_action,__npc)
             interraction.next_action()
-        if interraction.end() and self.__interraction_npc(interraction) is not None:
-            self.__interraction_npc(interraction).next_interraction()
+        if interraction.end():
+            __npc.next_interraction()
+        self.temporary_storage=None
     
-    def handle_action(self,action,interraction_npc):
+    def handle_action(self,action,__npc):
         if action.type=="NPCDialog":
             if action.is_cinematic:
                 self.lauch_cinematic(action.no)
             else :
                 self.launch_dialog(action.no)
         elif action.type=='NPCTeleport':
-            interraction_npc.teleport_coords(action.position)
+            __npc.teleport_coords(action.position)
         elif action.type=='NPCRemove':
-            self.map.map_manager.get_group().remove(interraction_npc)
+            self.map.map_manager.get_group().remove(__npc)
         elif action.type =='NPCRepeatInterraction':
             pass
 
@@ -409,6 +409,7 @@ class Game:
         elif self.current_interraction['is'] and self.pressed_keys[pygame.K_a]:
             interraction=self.current_interraction["interraction"]
             self.handle_interraction(interraction)
+            self.current_interraction = {"is":False,"interraction":None}
         
         elif self.loaded_save == 0:
             if self.pressed_keys[pygame.K_c]:
