@@ -22,7 +22,7 @@ class Event_zone :
 
 class Action:
     def __init__(self,type:str='none'):
-        self.action_name=action_name
+        self.action_name=type
         if type=='none':
             self.type='none'
             self.in_empty=True
