@@ -202,7 +202,32 @@ class Game:
                 self.current_interraction = {"is":True,"interraction":event.data[0]}
         
     def handle_interraction (self,interraction):
-        pass
+        for npc in self.map.map_manager.get_map().npcs:
+            if npc.name==interraction.npc_name:
+                interraction_npc=npc
+
+        for _ in range(len(interraction.actions)):
+            self.handle_action(interraction.current_action,interraction_npc)
+            interraction.next_action()
+        if interraction.end():
+            interraction_npc.next_interraction()
+    
+    def handle_action(self,action,interraction_npc):
+        if action.type=="NPCDialog":
+            if action.is_cinematic:
+                self.lauch_cinematic(action.no)
+            else :
+                self.launch_dialog(action.no)
+        elif action.type=='NPCTeleport':
+            interraction_npc.teleport_coords(action.position)
+        elif action.type=='NPCRemove':
+            self.map.map_manager.get_group().remove(interraction_npc)
+        elif action.type =='NPCRepeatInterraction':
+            pass
+
+            
+
+
             
     def arrow_update (self,point=None,coordinates=None):
         screen_rect = self.map.map_manager.get_map().group._map_layer.view_rect

@@ -14,7 +14,7 @@ import copy
 
 from map.src.Map_objects import *
 from map.src.player2 import *
-from Interractions import *
+from map.src.Interractions import *
 from typing import List,overload
 
 

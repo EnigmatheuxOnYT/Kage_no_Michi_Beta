@@ -24,7 +24,7 @@ class Action:
 
 class NPCDialog(Action):
     def __init__(self,no:int=0,name:str='none',is_cinematic:bool=False):
-        Action.__init__("NPCDialog")
+        Action.__init__(self,"NPCDialog")
         if no==0:
             self=name = 'none'
             self.in_empty=True
@@ -36,18 +36,17 @@ class NPCDialog(Action):
         self.event=Event(type="dialog",data=[self.no])
 
 class NPCTeleport(Action):
-    def __init__(self,new_map:str="main",new_position:str=(0,0)):
-        Action.__init__("NPCTeleport")
-        self.map=new_map
+    def __init__(self,new_position:str=(0,0)):
+        Action.__init__(self,"NPCTeleport")
         self.position=new_position
 
 class NPCRemove(Action):
     def __init__(self):
-        Action.__init__("NPCRemove")
+        Action.__init__(self,"NPCRemove")
 
 class NPCRepeatInterraction(Action):
     def __init__(self,repetitions:int=-1):
-        Action.__init__("NPCRepeatInterraction")
+        Action.__init__(self,"NPCRepeatInterraction")
         self.name="NPCRepeatInterraction"
         self.repetitions=repetitions
         self.repetitions_left=repetitions
@@ -63,7 +62,8 @@ class NPCRepeatInterraction(Action):
                 return True
 
 class Interraction:
-    def __init__(self,actions:List[Action]=[]):
+    def __init__(self,npc_name:str,actions:List[Action]=[]):
+        self.npc_name=npc_name
         self.types=[]
         for action in actions:
             self.types.append(action.type)
@@ -108,11 +108,11 @@ class Interractible:
     def next_interraction(self):
         interraction = self.current_interraction
         if interraction is not None:
-            if self.current_interraction.end():
-                self.current_interraction_index+=1
+            self.current_interraction_index+=1
 
 
-CharactersInterractions = {"Hoshida1":[Interraction(actions=[NPCDialog(no=5,
+CharactersInterractions = {"Hoshida1":[Interraction(npc_name="Hoshida1",
+                                                    actions=[NPCDialog(no=5,
                                                                        name="Hoshida1",
                                                                        is_cinematic=True
                                                                        ),

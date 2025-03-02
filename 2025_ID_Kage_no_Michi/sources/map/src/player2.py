@@ -72,6 +72,11 @@ class Entity(AnimateSprite):
                 self.speed *= 2
             else:
                 self.speed /= 2
+        
+    def __teleport (self,coords):
+        self.position=coords
+        self.update()
+        self.save_location()
 
 
 
@@ -84,7 +89,7 @@ class Player(Entity):
 class NPC(Entity,Interractible):
     
     def __init__(self, name,start_pos=[0,0], nb_points=0,speed=1,instance:int=0):
-        Entity.__init__(name,start_pos[0],start_pos[1])
+        Entity.__init__(self,name,start_pos[0],start_pos[1])
         self.instance=instance
         interractions=self._get_interractions()
         is_interractible=len(interractions)!=0
@@ -146,6 +151,9 @@ class NPC(Entity,Interractible):
         self.position[0] = self.start_pos[0]
         self.position[1] = self.start_pos[1]
         self.save_location()
+    
+    def teleport_coords(self,coords):
+        self.__teleport(coords)
 
     def load_points(self,tmx_data):
         for num in range(1,self.nb_points+1):
@@ -153,7 +161,7 @@ class NPC(Entity,Interractible):
             rect=pygame.Rect(point.x, point.y, point.width, point.height)
             self.points.append(rect)
     
-    def change_dialog(self,new_dialog:NPCDialog=NPCDialog()):
+    def change_dialog(self,new_dialog:NPCDialog):
         self.dialog=new_dialog
 
     def interract(self):pass
@@ -179,7 +187,7 @@ class StaticEntity(pygame.sprite.Sprite):
     
 class StaticNPC(StaticEntity,Interractible):
     def __init__(self, name,pos=[0,0],direction="down",instance:int=0):
-        StaticEntity.__init__(name,pos[0],pos[1],direction)
+        StaticEntity.__init__(self,name,pos[0],pos[1],direction)
         self.instance=instance
         interractions = self._get_interractions()
         is_interractible=len(interractions)!=0
@@ -210,7 +218,7 @@ class StaticNPC(StaticEntity,Interractible):
         self.rect.center=self.position
         self.collision_rect.bottomright = self.rect.bottomright
     
-    def change_dialog(self,new_dialog:NPCDialog=NPCDialog()):
+    def change_dialog(self,new_dialog:NPCDialog):
         self.dialog=new_dialog
     
     def interract(self):pass
