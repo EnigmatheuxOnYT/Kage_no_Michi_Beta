@@ -127,16 +127,18 @@ class NPC(Entity):
             rect=pygame.Rect(point.x, point.y, point.width, point.height)
             self.points.append(rect)
 
-class StaticEntity:
+class StaticEntity(pygame.sprite.Sprite):
     def __init__(self, name, x, y,direction):
+        super().__init__()
         self.name = name
+        self.position = (x, y)
         self.sprite_sheet = pygame.image.load(f"../data/assets/sprites/{name}.png")
         sprite_height = self.get_sprite_height(direction)
         self.image = pygame.Surface([34, 44])
         self.image.blit(self.sprite_sheet, (0, 0), (34, sprite_height, 34, 44))
         self.image.set_colorkey([0, 0, 0])
         self.rect = self.image.get_rect()
-        self.position = [x, y]
+        self.rect.center=self.position
         self.direction = direction
         self.is_moving_object=False
     
@@ -148,5 +150,13 @@ class StaticNPC(StaticEntity):
     def __init__(self, name,pos=[0,0], dialog_no=0,direction="down"):
         super().__init__(name,pos[0],pos[1],direction)
         self.dialog_no = dialog_no
+        self.collision_rect = pygame.Rect(0,0,34,10)
+        self.collision_rect.bottomright=self.rect.bottomright
+    
+    def teleport_coords(self,coords):
+        self.position=coords
+        self.rect.center=self.position
+        self.collision_rect.bottomright = self.rect.bottomright
+        
     
 

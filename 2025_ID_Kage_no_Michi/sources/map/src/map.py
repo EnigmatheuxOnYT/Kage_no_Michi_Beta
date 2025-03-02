@@ -13,22 +13,37 @@ import random
 import copy
 
 from map.src.player2 import NPC,StaticNPC
-from typing import List
+from typing import List,overload
 
 
 #,[Portal(from_world="Magome cinemaitc", origin_point="Keiko", target_world="MAP PROJET NSI 2025 500x500", teleport_point="spawn_Magome"),
 #                             Portal(from_world="Magome cinemaitc", origin_point="Takeshi", target_world="MAP PROJET NSI 2025 500x500", teleport_point="spawn_Magome")]
 #         ]
 
-class Object:
-    def __init__ (self,x:float,y:float,w:float,h:float):
-        self.x=x
-        self.y=y
-        self.width=w
-        self.height=h
-        self.rect=pygame.Rect(x,y,w,h)
 
 class CompatibleObject:
+    """ 
+    Classe pour les objets gérés par le jeu hors map mais qui sont affichés par la carte.
+    Pour le moment, cet objet est générable à l'enregistrement de la carte.
+    En test,aussi implémentable depuis n'importe où d'autre, mais ça peut ne pas marher
+    """
+    @overload
+    def __init__(self,object:pygame.Rect,group_object:pytmx.TiledObject,map_manager)->None:...
+    @overload
+    def __init__(self,object:pygame.Rect,map_manager)->None:...
+
+    def __init__ (self,rect:pygame.Rect,map_manager):
+        self.map_manager=map_manager
+        self.map_rect=rect
+        self.rect=rect
+        self.screen_width = rect.width*2
+        self.screen_height = rect.height*2
+        self.assigned_surface = pygame.surface.Surface((rect.width,rect.height)).convert_alpha()
+        self.hidden=False
+        self.map_manager.get_map().group.add(self)
+        self.group_object=self
+
+
     def __init__(self,object:pygame.Rect,group_object:pytmx.TiledObject,map_manager):
         self.map_manager=map_manager
         self.group_object=group_object
@@ -47,17 +62,17 @@ class CompatibleObject:
             self.assigned_surface.set_alpha(0)
         return self.assigned_surface
     @property
-    def is_on_screen (self):return self.get_screen().colliderect(object)
+    def is_on_screen (self):return self._get_screen().colliderect(object)
     @property
-    def is_fully_on_screen (self):return self.get_screen().top<self.map_rect.top and self.get_screen().bottom>self.map_rect.bottom and self.get_screen().left<self.map_rect.left and self.get_screen().right>self.map_rect.right
+    def is_fully_on_screen (self):return self._get_screen().top<self.map_rect.top and self._get_screen().bottom>self.map_rect.bottom and self.get_screen().left<self.map_rect.left and self.get_screen().right>self.map_rect.right
     @property
-    def screen_x (self):return self.map_rect.x-self.get_screen().x
+    def screen_x (self):return self.map_rect.x-self._get_screen().x
     @property
-    def screen_y (self):return self.map_rect.y-self.get_screen().y
+    def screen_y (self):return self.map_rect.y-self._get_screen().y
     @property
     def screen_rect (self):return pygame.Rect(self.screen_x,self.screen_y,self.screen_width,self.screen_height)
 
-    def get_screen(self):return self.map_manager.get_map().group.view()
+    def _get_screen(self):return self.map_manager.get_map().group.view()
 
     def set_assigned_surface (self,surf:pygame.surface.Surface):
         self.assigned_surface=surf
@@ -314,6 +329,10 @@ class MapManager :
                 for npc in self.get_map().npcs:
                     if npc.feet.colliderect(rect) and npc.name in event_zone.entities:
                         self.current_active_events+=event_zone.events
+            
+            for npc in self.get_map().npcs:
+                if not npc.is_moving_object and self.player.feet.colliderect(npc.collision_rect):
+                    self.player.move_back()
                 
             #collisions
             for sprite in self.get_group().sprites():
@@ -436,8 +455,9 @@ class MapManager :
             npcs = map_data.npcs
 
             for npc in npcs:
-                npc.load_points(map_data.tmx_data)
-                npc.teleport_spawn()
+                if npc.is_moving_object:
+                    npc.load_points(map_data.tmx_data)
+                    npc.teleport_spawn()
 
 
 
@@ -451,4 +471,5 @@ class MapManager :
         self.check_collisions()
 
         for npc in self.get_map().npcs:
-            npc.move_points()
+            if npc.is_moving_object:
+                npc.move_points()
