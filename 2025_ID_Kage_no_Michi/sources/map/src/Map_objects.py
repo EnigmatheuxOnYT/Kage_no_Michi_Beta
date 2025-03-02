@@ -32,7 +32,7 @@ class CompatibleObject:
     """ 
     Classe pour les objets gérés par le jeu hors map mais qui sont affichés par la carte.
     Pour le moment, cet objet est générable à l'enregistrement de la carte.
-    En test,aussi implémentable depuis n'importe où d'autre, mais ça peut ne pas marher
+    En test,aussi implémentable depuis n'importe où d'autre, mais ça peut ne pas marher.
     """
     @overload
     def __init__(self,object:pygame.Rect,group_object:pytmx.TiledObject,map_manager)->None:...
