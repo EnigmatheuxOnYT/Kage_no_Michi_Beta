@@ -66,7 +66,7 @@ class Interraction:
     def __init__(self,actions:List[Action]=[]):
         self.types=[]
         for action in actions:
-            self.types.append(action.action_name)
+            self.types.append(action.type)
         self.is_empty=len(self.types)!=0
         self.actions=actions
         self.current_action_index=0

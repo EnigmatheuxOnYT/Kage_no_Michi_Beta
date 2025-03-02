@@ -70,7 +70,7 @@ class Game:
         self.current_arrow_point_coordinates = self.get_spawn()
         self.devmode=False
 
-        self.current_dialog = {"is":False,"dialog":None}
+        self.current_interraction = {"is":False,"interraction":None}
 
     def get_pos(self): return self.map.player.position
     
@@ -182,7 +182,7 @@ class Game:
         self.map.map_manager.change_map(self.current_map,self.player_pos)
 
     def handle_zone_events(self,events):
-        self.current_dialog = {"is":False,"dialog":None}
+        self.current_interraction = {"is":False,"interraction":None}
         for i in range(len(events)):
             event = events[i]
             
@@ -198,9 +198,11 @@ class Game:
             elif event.type == "map":
                 self.change_map_for_game(event.data[0],event.data[1])
             
-            elif event.type == "dialog":
-                self.current_dialog = {"is":True,"dialog":event.data[0]}
-            
+            elif event.type == "interraction":
+                self.current_interraction = {"is":True,"interraction":event.data[0]}
+        
+    def handle_interraction (self,interraction):
+        pass
             
     def arrow_update (self,point=None,coordinates=None):
         screen_rect = self.map.map_manager.get_map().group._map_layer.view_rect
@@ -377,12 +379,9 @@ class Game:
             loading_menu = True
             pygame.mouse.set_visible(True)
         
-        elif self.current_dialog['is'] and self.pressed_keys[pygame.K_a]:
-            dialog=self.current_dialog["dialog"]
-            if dialog.is_cinematic:
-                self.launch_cinematic(dialog.no)
-            else:
-                self.launch_dialog(dialog.no)
+        elif self.current_interraction['is'] and self.pressed_keys[pygame.K_a]:
+            interraction=self.current_interraction["interraction"]
+            self.handle_interraction(interraction)
         
         elif self.loaded_save == 0:
             if self.pressed_keys[pygame.K_c]:
