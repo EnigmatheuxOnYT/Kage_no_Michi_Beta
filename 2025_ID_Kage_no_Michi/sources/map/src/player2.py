@@ -94,6 +94,7 @@ class NPC(Entity,Interractible):
         interractions=self._get_interractions()
         is_interractible=len(interractions)!=0
         Interractible.__init__(self,is_interractible,interractions)
+        self.instance_name=self.name+str(self.instance)
         self.start_pos=start_pos
         self.nb_points = nb_points
         self.points= []
@@ -192,6 +193,7 @@ class StaticNPC(StaticEntity,Interractible):
         interractions = self._get_interractions()
         is_interractible=len(interractions)!=0
         Interractible.__init__(self,is_interractible,interractions)
+        self.instance_name=self.name+str(self.instance)
         self.collision_rect = pygame.Rect(0,0,34,10)
         self.collision_rect.bottomright=self.rect.bottomright
     
