@@ -217,7 +217,7 @@ class Game:
     def handle_action(self,action,__npc):
         if action.type=="NPCDialog":
             if action.is_cinematic:
-                self.lauch_cinematic(action.no)
+                self.launch_cinematic(action.no)
             else :
                 self.launch_dialog(action.no)
         elif action.type=='NPCTeleport':
@@ -329,7 +329,7 @@ class Game:
         pygame.mouse.set_visible(False)
         
     
-    def lauch_cinematic (self,cinematic,choices=None):
+    def launch_cinematic (self,cinematic,choices=None):
         
         pygame.mouse.set_visible(True)
         
