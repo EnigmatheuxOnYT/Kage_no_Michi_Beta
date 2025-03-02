@@ -102,7 +102,7 @@ class NPC(Entity,Interractible):
         self.current_point=0
     
     @property
-    def dialog_rect(self):
+    def interraction_rect(self):
         if self.is_interractible:
             rect=pygame.Rect(0,0,50,50)
         else:

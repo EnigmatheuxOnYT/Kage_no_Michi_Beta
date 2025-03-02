@@ -8,6 +8,7 @@ class AnimateSprite(pygame.sprite.Sprite):
 
     def __init__(self,name):
         super().__init__()
+        self.is_moving_sprite=True
         self.sprite_sheet = pygame.image.load(f"../data/assets/sprites/{name}.png")
         self.animation_index = 0
         self.clock = 0
