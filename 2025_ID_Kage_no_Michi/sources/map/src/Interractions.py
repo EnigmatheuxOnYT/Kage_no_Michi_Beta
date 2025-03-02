@@ -15,7 +15,7 @@ from map.src.Map_objects import Event_zone,Event
 
 class Action:
     def __init__(self,type:str='none'):
-        self.action_name=type
+        self.type=type
         if type=='none':
             self.type='none'
             self.in_empty=True
@@ -23,7 +23,7 @@ class Action:
             self.is_empty=False
 
 class NPCDialog(Action):
-    def __init__(self,no:int=0,name:str='none',is_cinematic:bool=False,is_reapeating=False):
+    def __init__(self,no:int=0,name:str='none',is_cinematic:bool=False):
         Action.__init__("NPCDialog")
         if no==0:
             self=name = 'none'
@@ -35,10 +35,20 @@ class NPCDialog(Action):
         self.no=no
         self.event=Event(type="dialog",data=[self.no])
 
-class RepeatInterraction(Action):
+class NPCTeleport(Action):
+    def __init__(self,new_map:str="main",new_position:str=(0,0)):
+        Action.__init__("NPCTeleport")
+        self.map=new_map
+        self.position=new_position
+
+class NPCRemove(Action):
+    def __init__(self):
+        Action.__init__("NPCRemove")
+
+class NPCRepeatInterraction(Action):
     def __init__(self,repetitions:int=-1):
-        Action.__init__("RepeatInterraction")
-        self.name="RepeatInterraction"
+        Action.__init__("NPCRepeatInterraction")
+        self.name="NPCRepeatInterraction"
         self.repetitions=repetitions
         self.repetitions_left=repetitions
     
@@ -53,16 +63,20 @@ class RepeatInterraction(Action):
                 return True
 
 class Interraction:
-    def __init__(self,actions:List[Action]):
+    def __init__(self,actions:List[Action]=[]):
         self.types=[]
         for action in actions:
             self.types.append(action.action_name)
+        self.is_empty=len(self.types)!=0
         self.actions=actions
         self.current_action_index=0
         self.over=False
     
     @property
-    def current_action (self):return self.actions[self.current_action_index-1] if self.current_action_index>=1 else None
+    def current_action (self):return self.actions[self.current_action_index] if self.current_action_index>=1 else None
+
+    @property
+    def event(self):return Event(type='interraction',data=[self])
 
     def next_action(self):
         action = self.current_action
@@ -73,7 +87,7 @@ class Interraction:
     
     def end(self):
         action = self.current_action
-        if action.type=="RepeatInterracttion":
+        if action.type=="NPCRepeatInterraction":
             self.current_action_index=0
             self.over=False
             return action.read()
@@ -88,10 +102,22 @@ class Interractible:
         self.current_interraction_index=0
     
     @property
-    def current_interraction (self):return self.interractions[self.current_interraction_index-1] if 1<=self.current_interraction_index<=len(self.interractions) else None
+    def current_interraction(self):return self.interractions[self.current_interraction_index] if 1<=self.current_interraction_index<=len(self.interractions) else None
+
 
     def next_interraction(self):
         interraction = self.current_interraction
         if interraction is not None:
             if self.current_interraction.end():
                 self.current_interraction_index+=1
+
+
+CharactersInterractions = {"Hoshida1":[Interraction(actions=[NPCDialog(no=5,
+                                                                       name="Hoshida1",
+                                                                       is_cinematic=True
+                                                                       ),
+                                                             NPCRemove()
+                                                             ]
+                                                    ),
+                                       ]
+                           }

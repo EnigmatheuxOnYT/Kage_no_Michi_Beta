@@ -83,13 +83,14 @@ class Player(Entity):
         
 class NPC(Entity,Interractible):
     
-    def __init__(self, name,start_pos=[0,0], nb_points=0, interractions:List[Action]=[],speed=1):
+    def __init__(self, name,start_pos=[0,0], nb_points=0,speed=1,instance:int=0):
         Entity.__init__(name,start_pos[0],start_pos[1])
+        self.instance=instance
+        interractions=self._get_interractions()
         is_interractible=len(interractions)!=0
         Interractible.__init__(self,is_interractible,interractions)
         self.start_pos=start_pos
         self.nb_points = nb_points
-        self.interractions=interractions
         self.points= []
         self.speed=speed
         self.current_point=0
@@ -130,6 +131,16 @@ class NPC(Entity,Interractible):
 
             if self.rect.colliderect(target_rect):
                 self.current_point = target_point
+        
+    def _get_interractions(self):
+        try:
+            if self.instance==0:
+                return CharactersInterractions[self.name]
+            else:
+                return CharactersInterractions[self.name+str(self.instance)]
+        except:
+            return []
+
 
     def teleport_spawn(self):
         self.position[0] = self.start_pos[0]
@@ -167,22 +178,32 @@ class StaticEntity(pygame.sprite.Sprite):
             return 44
     
 class StaticNPC(StaticEntity,Interractible):
-    def __init__(self, name,pos=[0,0], interractions:List[Interraction]=[],direction="down"):
+    def __init__(self, name,pos=[0,0],direction="down",instance:int=0):
         StaticEntity.__init__(name,pos[0],pos[1],direction)
+        self.instance=instance
+        interractions = self._get_interractions()
         is_interractible=len(interractions)!=0
-        Interractible.__init__(self,is_interractible)
-        self.interractions=interractions
+        Interractible.__init__(self,is_interractible,interractions)
         self.collision_rect = pygame.Rect(0,0,34,10)
         self.collision_rect.bottomright=self.rect.bottomright
     
     @property
-    def dialog_rect(self):
+    def interraction_rect(self):
         if self.is_interractible:
             rect=pygame.Rect(0,0,50,50)
         else:
             rect=pygame.Rect(0,0,0,0)
         rect.center=self.rect.midbottom
         return rect
+
+    def _get_interractions(self):
+        try:
+            if self.instance==0:
+                return CharactersInterractions[self.name]
+            else:
+                return CharactersInterractions[self.name+str(self.instance)]
+        except:
+            return []
     
     def teleport_coords(self,coords):
         self.position=coords

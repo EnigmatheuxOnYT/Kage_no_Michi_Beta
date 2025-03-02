@@ -111,7 +111,7 @@ class MapManager :
             Loading.display_loading(screen, 68,"Chargement de la carte principale")
             self.register_map("MAP PROJET NSI 2025 500x500",
                               spawn_name="spawn_Magome",
-                              npcs=[StaticNPC("Hoshida",[96,576],NPCDialog(no=5,name='Hoshida1',is_cinematic=True))],
+                              npcs=[StaticNPC("Hoshida",[96,576],instance=1)],
                               layer=6
                               )
             Loading.display_loading(screen, 77,"Chargement des cartes secondaires")
@@ -190,8 +190,8 @@ class MapManager :
                         self.current_active_events+=event_zone.events
             
             for npc in self.get_map().npcs:
-                if npc.is_interractible and self.player.feet.colliderect(npc.dialog_rect):
-                    self.current_active_events.append(npc.dialog.event)
+                if npc.is_interractible and self.player.feet.colliderect(npc.interrction_rect):
+                    self.current_active_events.append(npc.current_interraction.event)
                 if self.player.feet.colliderect(npc.collision_rect):
                     if not npc.is_moving_object:
                         self.player.move_back()
