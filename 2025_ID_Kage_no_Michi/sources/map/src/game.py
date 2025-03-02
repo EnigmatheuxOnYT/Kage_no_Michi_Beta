@@ -90,7 +90,7 @@ class Game_map:
             running = self.handle_input(running)
             self.update()
             self.map_manager.draw()
-            pygame.display.flip()
+            #pygame.display.flip()
 
             self.clock.tick(60)
 
