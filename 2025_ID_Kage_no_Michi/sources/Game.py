@@ -69,7 +69,9 @@ class Game:
         self.current_arrow_surface = self.arrow
         self.current_arrow_point_coordinates = self.get_spawn()
         self.devmode=False
-    
+
+        self.current_dialog = {"is":False,"dialog":None}
+
     def get_pos(self): return self.map.player.position
     
     ############### Chargement ###############
@@ -180,6 +182,7 @@ class Game:
         self.map.map_manager.change_map(self.current_map,self.player_pos)
 
     def handle_zone_events(self,events):
+        self.current_dialog = {"is":False,"dialog":None}
         for i in range(len(events)):
             event = events[i]
             
@@ -187,13 +190,16 @@ class Game:
                 self.choices[event.data[0]]=event.data[1]
             
             elif event.type == 'cinematic':
-                self.lauch_cinematic(cinematic=event.data[0])
+                self.launch_cinematic(cinematic=event.data[0])
             
             elif event.type == "minigm":
                 self.launch_minigame(minigame=event.data[0])
             
             elif event.type == "map":
                 self.change_map_for_game(event.data[0],event.data[1])
+            
+            elif event.type == "dialog":
+                self.current_dialog = {"is":True,"dialog":event.data[0]}
             
             
     def arrow_update (self,point=None,coordinates=None):
@@ -226,7 +232,7 @@ class Game:
     
     def execute (self,command,args):
         if command == 'cinematic':
-            self.lauch_cinematic(cinematic=args[0])
+            self.launch_cinematic(cinematic=args[0])
         elif command == 'tppos':
             self.map.map_manager.teleport_player_pos(args[0],args[1])
         elif command == 'tploc':
@@ -328,7 +334,13 @@ class Game:
         
         
         pygame.mouse.set_visible(False)
+    
+    def launch_dialog(self,dialog,choices=None):
+        if choices==None:
+            choices = self.choices
         
+        self.music.play(fade=500)
+
     def change_map_for_game(self,by_name,map_info):
         
         
@@ -364,6 +376,13 @@ class Game:
             in_gameplay = False
             loading_menu = True
             pygame.mouse.set_visible(True)
+        
+        elif self.current_dialog['is'] and self.pressed_keys[pygame.K_a]:
+            dialog=self.current_dialog["dialog"]
+            if dialog.is_cinematic:
+                self.launch_cinematic(dialog.no)
+            else:
+                self.launch_dialog(dialog.no)
         
         elif self.loaded_save == 0:
             if self.pressed_keys[pygame.K_c]:

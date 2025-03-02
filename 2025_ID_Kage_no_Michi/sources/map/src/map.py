@@ -12,7 +12,7 @@ import pyscroll
 import random
 import copy
 
-from map.src.player2 import NPC,StaticNPC
+from map.src.player2 import NPC,StaticNPC,NPCDialog,Event,Event_zone
 from typing import List,overload
 
 
@@ -143,17 +143,6 @@ class Portal :
     target_world : str
     teleport_point : str
 
-@dataclass
-class Event :
-    type : str
-    data : list
-
-@dataclass
-class Event_zone :
-    from_world : str
-    origin_point : str
-    entities : List[str]
-    events : List[Event]
 
 class DisplayZone(CompatibleObject,pygame.sprite.Sprite):
     def __init__ (self,object_class:str,name:str,object:pygame.Rect,group_object:pytmx.TiledObject,map_manager):
@@ -252,7 +241,7 @@ class MapManager :
             Loading.display_loading(screen, 68,"Chargement de la carte principale")
             self.register_map("MAP PROJET NSI 2025 500x500",
                               spawn_name="spawn_Magome",
-                              npcs=[StaticNPC("Hoshida",[96,576])],
+                              npcs=[StaticNPC("Hoshida",[96,576],NPCDialog(no=5,name='Hoshida1',is_cinematic=True))],
                               layer=6
                               )
             Loading.display_loading(screen, 77,"Chargement des cartes secondaires")
@@ -331,8 +320,11 @@ class MapManager :
                         self.current_active_events+=event_zone.events
             
             for npc in self.get_map().npcs:
-                if not npc.is_moving_object and self.player.feet.colliderect(npc.collision_rect):
-                    self.player.move_back()
+                if npc.is_interractible and self.player.feet.colliderect(npc.dialog_rect):
+                    self.current_active_events.append(npc.dialog.event)
+                if self.player.feet.colliderect(npc.collision_rect):
+                    if not npc.is_moving_object:
+                        self.player.move_back()
                 
             #collisions
             for sprite in self.get_group().sprites():

@@ -61,10 +61,11 @@ class minigm_collect :
         self.items_hotspots = random.sample([i for i in range(1,11)],5)
         self.hot_spots = {str(i) : {"name":f"mgm_hotspot_{i}", "found":False, 'item':None }for i in range(1,11)}
         self.hot_spots["0"] = {"name":"spawn"}
-        j=1
+        j=0
+        order_randomizer=random.shuffle([1,2,3,4,5])
         for i in range (1,11):
             if i in self.items_hotspots:
-                self.hot_spots[str(i)]["item"] = f"food{j}"
+                self.hot_spots[str(i)]["item"] = f"food{order_randomizer[j]}"
                 j+=1
             else:
                 self.hot_spots[str(i)]["item"] = random.choice(self.possible_alternate_objects)

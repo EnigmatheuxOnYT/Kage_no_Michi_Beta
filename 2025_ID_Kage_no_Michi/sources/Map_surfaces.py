@@ -23,4 +23,5 @@ surfaces_32x32 = {"none":pygame.surface.Surface((32,32)),
                   "food3":pygame.image.load("../data/assets/map/Champignon_1.png"),
                   "food4":pygame.image.load("../data/assets/map/Patate_1.png"),
                   "food5":pygame.image.load("../data/assets/map/Sushi_1.png"),
+                  "fragment":pygame.image.load("../data/assets/map/32x32_placeholder.png")
                   }
