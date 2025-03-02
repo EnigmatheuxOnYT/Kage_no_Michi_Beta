@@ -73,7 +73,7 @@ class Interraction:
         self.over=False
     
     @property
-    def current_action (self):return self.actions[self.current_action_index] if self.current_action_index>=1 else None
+    def current_action (self):return self.actions[self.current_action_index] if 0<=self.current_action_index<=len(self.actions)-1 else None
 
     @property
     def event(self):return Event(type='interraction',data=[self])
@@ -87,7 +87,7 @@ class Interraction:
     
     def end(self):
         action = self.current_action
-        if action.type=="NPCRepeatInterraction":
+        if action is not None and action.type=="NPCRepeatInterraction":
             self.current_action_index=0
             self.over=False
             return action.read()
@@ -102,7 +102,7 @@ class Interractible:
         self.current_interraction_index=0
     
     @property
-    def current_interraction(self):return self.interractions[self.current_interraction_index] if 1<=self.current_interraction_index<=len(self.interractions) else None
+    def current_interraction(self):return self.interractions[self.current_interraction_index] if 0<=self.current_interraction_index<=len(self.interractions)-1 else None
 
 
     def next_interraction(self):

@@ -200,17 +200,19 @@ class Game:
             
             elif event.type == "interraction":
                 self.current_interraction = {"is":True,"interraction":event.data[0]}
-        
-    def handle_interraction (self,interraction):
+    
+    def __interraction_npc (self,interraction):
         for npc in self.map.map_manager.get_map().npcs:
             if npc.name==interraction.npc_name:
-                interraction_npc=npc
+                return npc
+
+    def handle_interraction (self,interraction):
 
         for _ in range(len(interraction.actions)):
-            self.handle_action(interraction.current_action,interraction_npc)
+            self.handle_action(interraction.current_action,self.__interraction_npc(interraction))
             interraction.next_action()
-        if interraction.end():
-            interraction_npc.next_interraction()
+        if interraction.end() and self.__interraction_npc(interraction) is not None:
+            self.__interraction_npc(interraction).next_interraction()
     
     def handle_action(self,action,interraction_npc):
         if action.type=="NPCDialog":
@@ -266,7 +268,7 @@ class Game:
             try:
                 self.map.map_manager.teleport_player(args[0])
             except:
-                print("Le point {args[0]} n'existe pas.")
+                print(f"Le point {args[0]} n'existe pas.")
         elif command == 'spawn':
             self.teleport_spawn()
         elif command == 'minigm':
