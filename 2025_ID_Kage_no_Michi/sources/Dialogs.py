@@ -256,86 +256,36 @@ class Dialogs(Cinematics):
                 self.cinematic_frame(screen, "tkh1", 1, "Préparez-vous à rencontrer votre fin.",kind_info=["SM", "SM", "no_weapon", "right"])
         
         elif saved=='KT':
-            self.cinematic_frame(screen, "tkh1", 2, "Bon, que faire maintenant ?",
-                                 kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
-            self.cinematic_frame(screen, "tkh1", 2,
-                                 "On pourrait cacher leurs armes ça les rendrait inoffensifs.",
-                                 kind_info=[["SM",'no_weapon'],['KT','no_weapon'],2])
-            self.cinematic_frame(screen, "tkh1", 2, "Mais on pourrait aussi directement venger notre village en les tuant dans", "leur sommeil…",
-                                 kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
-            self.cinematic_frame(screen, "tkh1", 2,
-                                 "Quoi ? Tu veux vraiment faire ça ?",
-                                 kind_info=[["SM",'no_weapon'],['KT','no_weapon'],2])
-
+            self.cinematic_frame(screen, "tkh1", 2, "Bon, que faire maintenant ?",kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
+            self.cinematic_frame(screen, "tkh1", 2,"On pourrait cacher leurs armes ça les rendrait inoffensifs.",kind_info=[["SM",'no_weapon'],['KT','no_weapon'],2])
+            self.cinematic_frame(screen, "tkh1", 2, "Mais on pourrait aussi directement venger notre village en les tuant dans", "leur sommeil…",kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
+            self.cinematic_frame(screen, "tkh1", 2,"Quoi ? Tu veux vraiment faire ça ?",kind_info=[["SM",'no_weapon'],['KT','no_weapon'],2])
             output1, output2 = self.choice_frame(screen, "tkh1", [0, 2], ["PRENDRE LES ARMES", "TOUS LES TUER"])
             if output1 == "choice":
-                self.cinematic_frame(screen, "tkh1", 2, "Alors Musashi. Que feras-tu?",
-                                     kind_info=[["SM",'no_weapon'],['KT','no_weapon'],2])
-                self.cinematic_frame(screen, "tkh1", 2,
-                                     "J'ai enfin pris ma décision.",
-                                     kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
-                self.cinematic_frame(screen, "tkh1", 2,
-                                     "Si je décide de tous les massacrer, je deviendrai celui que je déteste le",
-                                     "plus. Un tueur à gages, qui ne fait que détruire tout devant son chemin.",
-                                     kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
-                self.cinematic_frame(screen, "tkh1", 2,
-                                     "Au lieu d'essayer de les exécuter, je pense que je vais confisquer leurs",
-                                     "armes.", kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
-                self.cinematic_frame(screen, "tkh1", 2,
-                                     "Que feront-ils s'ils n'ont aucun moyen pour se défendre..voire pour",
-                                     "attaquer ?", kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
-                self.cinematic_frame(screen, "tkh1", 2,
-                                     "Mon choix est fait. Prenons toutes les armes et les équipements qui sont",
-                                     "dans cette planque avec discrétion. ",
-                                     kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
+                self.cinematic_frame(screen, "tkh1", 2, "Alors Musashi. Que feras-tu?",kind_info=[["SM",'no_weapon'],['KT','no_weapon'],2])
+                self.cinematic_frame(screen, "tkh1", 2,"J'ai enfin pris ma décision.",kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
+                self.cinematic_frame(screen, "tkh1", 2,"Si je décide de tous les massacrer, je deviendrai celui que je déteste le","plus. Un tueur à gages, qui ne fait que détruire tout devant son chemin.", kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
+                self.cinematic_frame(screen, "tkh1", 2,"Au lieu d'essayer de les exécuter, je pense que je vais confisquer leurs","armes.", kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
+                self.cinematic_frame(screen, "tkh1", 2,"Que feront-ils s'ils n'ont aucun moyen pour se défendre..voire pour", "attaquer ?", kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
+                self.cinematic_frame(screen, "tkh1", 2,"Mon choix est fait. Prenons toutes les armes et les équipements qui sont","dans cette planque avec discrétion. ",kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
             elif output2 == "choice":
-                self.cinematic_frame(screen, "tkh1", 2,
-                                     "Alors Musashi. Que feras-tu?",
-                                     kind_info=[["SM",'no_weapon'],['KT','no_weapon'],2])
-                self.cinematic_frame(screen, "tkh1", 2,
-                                     "Takeshi, retrouve-moi dehors.",
-                                     kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
-                self.cinematic_frame(screen, "tkh1", 2,
-                                     "T'es sûr..Je doute de ce que tu comptes faire.",
-                                     kind_info=[["SM",'no_weapon'],['KT','no_weapon'],2])
-                self.cinematic_frame(screen, "tkh1", 2,
-                                     "Fais ce que je dis. Fais moi confiance.",
-                                     kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
+                self.cinematic_frame(screen, "tkh1", 2,"Alors Musashi. Que feras-tu?",kind_info=[["SM",'no_weapon'],['KT','no_weapon'],2])
+                self.cinematic_frame(screen, "tkh1", 2,"Takeshi, retrouve-moi dehors.",kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
+                self.cinematic_frame(screen, "tkh1", 2,"T'es sûr..Je doute de ce que tu comptes faire.",kind_info=[["SM",'no_weapon'],['KT','no_weapon'],2])
+                self.cinematic_frame(screen, "tkh1", 2,"Fais ce que je dis. Fais moi confiance.",kind_info=[["SM",'no_weapon'],['KT','no_weapon'],1])
                 self.cinematic_frame(screen,'tkh1',0,"(Takeshi part de la planque)")
-                self.cinematic_frame(screen, "tkh1", 1,
-                                     "...Bon, je les laisse en vie ? ",
-                                     kind_info=["SM", "SM", "no_weapon", "right"])
-                self.cinematic_frame(screen, "tkh1", 1,
-                                     "Mouais c'est pour le bien de tous.",
-                                     kind_info=["SM", "SM", "no_weapon", "right"])
-                self.cinematic_frame(screen, "tkh1", 1,
-                                     "Attends une minute..Ai-je vraiment l'audace de penser à les laisser en vie..",
-                                     kind_info=["SM", "SM", "no_weapon", "right"])
-                self.cinematic_frame(screen, "tkh1", 1,
-                                     "Après tout ce qu'ils ont fait ? J'ose les pardonner avec toutes les horreurs",
-                                     "qu'ils ont commises ? ", kind_info=["SM", "SM", "no_weapon", "right"])
-                self.cinematic_frame(screen, "tkh1", 1,
-                                     "Franchement je suis un peu trop gentil. Non, j'en ai tout simplement marre.",
-                                     kind_info=["SM", "SM", "no_weapon", "right"])
-                self.cinematic_frame(screen, "tkh1", 1,
-                                     "J'ai envie de tous les détruire, tous les massacrer, tous les exécuter, tous",
-                                     "les trucider, tous les couper.", kind_info=["SM", "SM", "no_weapon", "right"])
-                self.cinematic_frame(screen, "tkh1", 1,
-                                     "Mon choix est fait. Ils vont subir un châtiment très désagréable. Leur sang..",
-                                     "Leurs tortures.. Leurs cris constitueront ma joie..",
-                                     kind_info=["SM", "SM", "no_weapon", "right"])
-                self.cinematic_frame(screen, "tkh1", 1,
-                                     "Oui.. ça y est.. Enfin…le moment pour tous les tuer.. Ha.. Ha HA..",
-                                     kind_info=["SM", "SM", "no_weapon", "right"])
-                self.cinematic_frame(screen, "tkh1", 1,
-                                     "HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA !",
-                                     "HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! ",
-                                     kind_info=["SM", "SM", "no_weapon", "right"])
-                self.cinematic_frame(screen, "tkh1", 1, "...J'ai hâte de vous égorger..bande de minables ! ! ",
-                                     kind_info=["SM", "SM", "no_weapon", "right"])
+                self.cinematic_frame(screen, "tkh1", 1,"...Bon, je les laisse en vie ? ",kind_info=["SM", "SM", "no_weapon", "right"])
+                self.cinematic_frame(screen, "tkh1", 1,"Mouais c'est pour le bien de tous.",kind_info=["SM", "SM", "no_weapon", "right"])
+                self.cinematic_frame(screen, "tkh1", 1,"Attends une minute..Ai-je vraiment l'audace de penser à les laisser en vie..",kind_info=["SM", "SM", "no_weapon", "right"])
+                self.cinematic_frame(screen, "tkh1", 1,"Après tout ce qu'ils ont fait ? J'ose les pardonner avec toutes les horreurs","qu'ils ont commises ? ", kind_info=["SM", "SM", "no_weapon", "right"])
+                self.cinematic_frame(screen, "tkh1", 1,"Franchement je suis un peu trop gentil. Non, j'en ai tout simplement marre.",kind_info=["SM", "SM", "no_weapon", "right"])
+                self.cinematic_frame(screen, "tkh1", 1,"J'ai envie de tous les détruire, tous les massacrer, tous les exécuter, tous","les trucider, tous les couper.", kind_info=["SM", "SM", "no_weapon", "right"])
+                self.cinematic_frame(screen, "tkh1", 1,"Mon choix est fait. Ils vont subir un châtiment très désagréable. Leur sang..","Leurs tortures.. Leurs cris constitueront ma joie..",kind_info=["SM", "SM", "no_weapon", "right"])
+                self.cinematic_frame(screen, "tkh1", 1,"Oui.. ça y est.. Enfin…le moment pour tous les tuer.. Ha.. Ha HA..",kind_info=["SM", "SM", "no_weapon", "right"])
+                self.cinematic_frame(screen, "tkh1", 1,"HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA !","HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! HA ! ",kind_info=["SM", "SM", "no_weapon", "right"])
+                self.cinematic_frame(screen, "tkh1", 1, "...J'ai hâte de vous égorger..bande de minables ! ! ", kind_info=["SM", "SM", "no_weapon", "right"])
                 self.cinematic_frame(screen, "tkh1", 1, "...", kind_info=["SM", "SM", "no_weapon", "right"])
-                self.cinematic_frame(screen, "tkh1", 1, "Préparez-vous à rencontrer votre fin.",
-                                     kind_info=["SM", "SM", "no_weapon", "right"])
+                self.cinematic_frame(screen, "tkh1", 1, "Préparez-vous à rencontrer votre fin.",kind_info=["SM", "SM", "no_weapon", "right"])
 
 
 if __name__ =="__main__":
