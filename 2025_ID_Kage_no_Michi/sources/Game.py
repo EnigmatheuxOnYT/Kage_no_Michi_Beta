@@ -355,7 +355,7 @@ class Game:
         elif cinematic == 8:
             self.cinematics.cinematic_08(self.screen_for_game,choices[1])
         elif cinematic == 9:
-            self.cinematics.cinematic_09(self.screen_for_game,choices[0],choices[1])
+            self.cinematics.cinematic_09(self.screen_for_game,choices[0])
         elif cinematic == 10:
             self.choices[2] = self.cinematics.cinematic_10(self.screen_for_game,choices[0])
         elif cinematic == 11:
