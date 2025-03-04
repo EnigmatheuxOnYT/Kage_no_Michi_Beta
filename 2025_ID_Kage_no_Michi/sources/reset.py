@@ -24,7 +24,7 @@ def save ( data, savefile):
     file = open(os.path.join(savefile),"w")
     json.dump(data,file)
 
-def set_save (savefile,dead=False, blank=True, scene=[0,0], level=0, player_pos=[0,0],map="main", choices=[0,0,0,0], genocide_ending_events=0, pacifist_ending_events=0, inventory={},hideout_passcode="jaimelecouscoustajine"):
+def set_save (savefile,dead=False, blank=True, scene=[0,0], level=0, player_pos=[0,0],map="main", choices=[0,0,0,0], genocide_ending_events=0, pacifist_ending_events=0, inventory={'money':0,'weapon':'no_weapon','heal_potions':0},hideout_passcode="jaimelecouscoustajine"):
     ########## Pour modifier une sauvegarde : précisez les infos à mettre à jour en arguments, le reste sera identique à une sauvegarde vide ##########
     data = {"blank" : blank,
             "dead" : dead,
@@ -55,11 +55,10 @@ generic_blank_file ={"blank" : True,
                      "level" : 0,
                      "player_pos" : [0,0],
                      "map" : "main",
-#                     "money" : 0,
                      "choices" : ['none',0,0,0],
                      "genocide_ending_events" : 0,
                      "pacifist_ending_events" : 0,
-                     "inventory" : {},
+                     "inventory" : {'money':0,'weapon':'no_weapon','heal_potions':0},
                      "hideout_passcode" : "jaimelecouscoustajine"
                      }
     
@@ -72,7 +71,7 @@ save0 ={"blank" : False,
        "choices" : ['none',0,0,0],
        "genocide_ending_events" : 0,
        "pacifist_ending_events" : 0,
-       "inventory" : {},
+       "inventory" : {'money':0,'weapon':'no_weapon','heal_potions':0},
        "hideout_passcode" : "jaimelecouscoustajine"
        }
 
@@ -85,7 +84,7 @@ save1 ={"blank" : True,
        "choices" : ['none',0,0,0],
        "genocide_ending_events" : 0,
        "pacifist_ending_events" : 0,
-       "inventory" : {},
+       "inventory" : {'money':0,'weapon':'no_weapon','heal_potions':0},
        "hideout_passcode" : "jaimelecouscoustajine"
        }
 
@@ -98,7 +97,7 @@ save2 ={"blank" : True,
        "choices" : ['KM',0,0,0],
        "genocide_ending_events" : 0,
        "pacifist_ending_events" : 0,
-       "inventory" : {},
+       "inventory" : {'money':0,'weapon':'no_weapon','heal_potions':0},
        "hideout_passcode" : "jaimelecouscoustajine"
        }
 
@@ -111,7 +110,7 @@ save3 ={"blank" : True,
        "choices" : ['KT',0,0,0],
        "genocide_ending_events" : 0,
        "pacifist_ending_events" : 0,
-       "inventory" : {},
+       "inventory" : {'money':0,'weapon':'no_weapon','heal_potions':0},
        "hideout_passcode" : "jaimelecouscoustajine"
        }
 

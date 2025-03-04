@@ -73,6 +73,9 @@ class Commands:
         elif self.is_devmode():
             state=self.devmode()
             return 'devmode', [state]
+        elif self.is_money():
+            no=self.money()
+            return "money",[no]
         else:
             print("commande inconnue ou sans argument")
             return "unknown",[]
@@ -314,7 +317,23 @@ class Commands:
         else:
             print("argument incorrect, désactivation")
         return False
+    
+    def is_money (self):
+        command_should = "money "
+        command_is = self.cmd[:len(command_should)]
+        return command_should == command_is
+    
+    def money (self):
+        for i in self.cmd[6:]:
+            if i  not in self.numbers:
+                print(self.cmd[6:],"n'est pas un nombre")
+                return -0.1
+        print(f"argent mit à {self.cmd[6:]}")
+        return int(self.cmd[6:])
             
+
+
+
 if __name__ == '__main__':
     pygame.init()
     cmd = Commands()

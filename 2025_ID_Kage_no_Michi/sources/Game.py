@@ -68,6 +68,12 @@ class Game:
         self.draw_arrow=False
         self.current_arrow_surface = self.arrow
         self.current_arrow_point_coordinates = self.get_spawn()
+
+        self.money_counter_surface=pygame.image.load("../data/assets/minigm/Barre_Reponse.png").convert_alpha()
+        self.money_counter_rect=pygame.Rect(1000,0,280,60)
+        self.money_rect=pygame.Rect(1020,20,240,20)
+        self.fontMFMG20=pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",20)
+
         self.devmode=False
 
         self.current_interraction = {"is":False,"interraction":None}
@@ -173,12 +179,14 @@ class Game:
     def save_savefile(self):
         ########## Sauvegarde ##########
         self.player_pos = self.get_pos()
+        self.inventory={'money':self.money,'weapon':self.current_weapon,'heal_potions':self.heal_potions_count}
         save_data = self.savemgr.variable_compiler(self.blank,self.dead,self.scene,self.level,self.player_pos,self.current_map,self.choices,self.genocide_ending_events,self.pacifist_ending_events,self.inventory,self.current_passcode)
         self.savemgr.save(save_data,f"../data/saves/save{self.loaded_save}.json")
         print("Sauvegarde effectuée")
     
     def load_player_data(self,save_data):
         self.blank,self.dead,self.scene,self.level,self.player_pos,self.current_map,self.choices,self.genocide_ending_events,self.pacifist_ending_events,self.inventory,self.current_passcode = self.savemgr.variable_extractor(save_data)
+        self.money,self.current_weapon,self.heal_potions_count=self.inventory['money'],self.inventory['weapon'],self.inventory['heal_potions']
         self.map.map_manager.change_map(self.current_map,self.player_pos)
 
     def handle_zone_events(self,events):
@@ -295,6 +303,9 @@ class Game:
                     print("Le point {args[0]} n'existe pas.")
         elif command == "devmode":
             self.devmode=args[0]
+        elif command=='money':
+            if args[0]!=-0.1:
+                self.money=args[0]
         
         self.music.play(fade=500)
     
@@ -450,9 +461,19 @@ class Game:
         ########## Dessin du jeu (partie 3) ##########
         if in_gameplay:
             self.map.map_manager.draw()
+            self.draw_overlap(screen)
             if self.draw_arrow:
                 self.screen_for_game.blit(self.current_arrow_surface,self.current_arrow_rect)
                 pygame.display.flip()
             return True
         return False
+    
+    def draw_overlap (self,screen):
+        money_surface=self.fontMFMG20.render(str(self.money),False,"black")
+
+        screen.blit(self.money_counter_surface,self.money_counter_rect)
+        screen.blit(money_surface,self.money_rect)
+        pygame.display.flip()
+
+
             

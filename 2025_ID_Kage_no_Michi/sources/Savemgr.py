@@ -23,7 +23,7 @@ class Savemgr :
                                   "choices" : ['none',0,0,0],
                                   "genocide_ending_events" : 0,
                                   "pacifist_ending_events" : 0,
-                                  "inventory" : {},
+                                  "inventory" : {'money':0,'weapon':'no_weapon','heal_potions':0},
                                   "hideout_passcode" : "jaimelecoucoustajine"
                                   }
     
