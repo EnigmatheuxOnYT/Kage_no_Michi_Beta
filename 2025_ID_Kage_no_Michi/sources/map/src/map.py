@@ -117,8 +117,8 @@ class MapManager :
             Loading.display_loading(screen, 77,"Chargement des cartes secondaires")
             self.register_map("Magome cinematic",
                               spawn_name="Spawn_Magome_cinematic",
-                              event_zones=[Event_zone(from_world="Magome cinematic", origin_point="Keiko", entities=["Player"], events=[Event(type='choice',data=[0,"KM"]),Event(type='cinematic',data=[2]),Event(type='map',data=[False,0])]),
-                                           Event_zone(from_world="Magome cinematic", origin_point="Takeshi", entities=["Player"], events=[Event(type='choice',data=[0,"KT"]),Event(type='cinematic',data=[2]),Event(type='map',data=[False,0])])
+                              event_zones=[Event_zone(from_world="Magome cinematic", origin_point="Keiko", entities=["Player"], events=[Event(type='choice',data=[0,"KM"]),Event(type='gpp_next',data=[-1])]),
+                                           Event_zone(from_world="Magome cinematic", origin_point="Takeshi", entities=["Player"], events=[Event(type='choice',data=[0,"KT"]),Event(type='gpp_next',data=[-1])])
                                            ],
                               layer=6
                               )

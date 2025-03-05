@@ -583,21 +583,34 @@ class Cinematics:
             choices_objects[str(i)]["surface"] = self.font_MFMG30.render(choices[i],False,'black')
             choices_objects[str(i)]["rect"] = choices_objects[str(i)]["surface"].get_rect()
 
+
+        
+        if kind[1] in [2,3,4]:
+            left_var={}
+            if kind[1]==4:
+                a=2
+            else:
+                a=kind[1]
+            d=(1280-a*buttons_rects["0"].width)/(a+1)
+            for i in range(a):
+                r=buttons_rects["0"].width*i + d*i
+                left_var[str(i)]=r+d
+                if kind[1] in [2,3]:
+                    buttons_rects[str(i)].midleft=(left_var[str(i)],555)
+
+
         if kind[1] == 2:
             for i in range(2):
-                buttons_rects[str(i)].center = (1280*(i+1)/3,555)
-                choices_objects[str(i)]["rect"].center = (1280*(i+1)/3,555)
+                choices_objects[str(i)]["rect"].center = buttons_rects[str(i)].center
         elif kind[1] == 3:
             #buttons_rects["0"].center = (640,500)
             #choices_objects["0"]["rect"].center = (640,500)
             for i in range(3):
-                buttons_rects[str(i)].center = (1280*(i+1)/4,555)
-                choices_objects[str(i)]["rect"].center = (1280*(i+1)/4,555)
+                choices_objects[str(i)]["rect"].center = buttons_rects[str(i)].center
         elif kind[1] == 4:
-            for i in range (0,3,2):
-                for j in range(2):
-                    buttons_rects[str(i+j)].center = (1280*(j+1)/3,500+55*i)
-                    choices_objects[str(i+j)]["rect"].center = (1280*(j+1)/3,500+55*i)
+            for i in range (4):
+                buttons_rects[str(i)].midleft = (left_var[str(i%2)],500+110*(i//2))
+                choices_objects[str(i)]["rect"].center = buttons_rects[str(i)].center
 
         depart_timer = pygame.time.get_ticks()
         cooldown = True
@@ -1025,7 +1038,7 @@ class Cinematics:
         self.cinematic_frame(screen, 'bamboo1', 3, "Est-ce que je pourrai négocier le prix ?", "Ou existe-il une autre méthode ?","Je pourrais essayer de le tuer pour lui voler...", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["JM","no_weapon"], 1])
         self.switch_lowercase(False)
         choice = self.choice_frame(screen,"bamboo1",[3,4],["Négocier le prix","Refuser","Accepter l'offre","Le tuer"],[["SM","no_weapon"],[saved,"no_weapon"],["JM","no_weapon"]])
-        return choice[1] if choice[0]=='choice' else 0
+        return choice[1]
 
 
     def cinematic_11 (self, screen, saved="none", choose=1):
@@ -1154,6 +1167,6 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    output = c.cinematic_10(screen,"KM")
+    output = c.choice_frame(screen,'ine1',[0,4],["A","B","C","D"],[])
     print(output)
     pygame.quit()

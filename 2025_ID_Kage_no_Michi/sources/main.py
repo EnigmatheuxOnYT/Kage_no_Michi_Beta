@@ -79,7 +79,7 @@ class Main:
                 elif self.in_credits:
                     self.in_main_menu,self.in_credits = self.menu.credits()
             elif self.in_game:
-                self.in_game, self.in_gameplay, self.loading_menu = self.game.game_events(self.in_game, self.in_gameplay, self.loading_menu)
+                self.in_game, self.loading_menu = self.game.game_events(self.in_game, self.loading_menu)
         
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -110,10 +110,8 @@ class Main:
                             self.menu.credits_update()
             elif self.loading_save:
                 self.loading_save,self.in_game = self.game.load_save(self.screen,self.loading_save)
-                if self.game.loaded_save == 0:
-                    self.in_gameplay = True
             elif self.in_game:
-                self.in_gameplay = self.game.game_update(self.in_gameplay)
+                self.game.game_update()
             else:
                 #En cas d'état inattendu :
                 print("Redémarrage du menu")
@@ -145,7 +143,7 @@ class Main:
             if self.in_menu :
                 self.menu.draw_menu(self.screen,self.in_main_menu,self.in_save_choice,self.in_delete_file,self.in_settings,self.in_credits)
             elif self.in_game :
-                do_draw = self.game.game_draw(self.screen,self.in_gameplay)
+                do_draw = self.game.game_draw(self.screen)
 
             if self.fps_showed:
                 self.screen.blit(self.menu.font_MFMG15.render(str(self.IRT_fps),False,self.fps_color), pygame.Rect(0,0,50,20))
