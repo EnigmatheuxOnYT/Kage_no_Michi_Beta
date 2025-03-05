@@ -20,6 +20,7 @@ class Cinematics:
         self.sprites = Characters_sprites().for_cinematics
         self.music = Music()
         self.sound = Sound()
+        self.font_MFMG60 = self.load(60,'MadouFutoMaruGothic','ttf')
         self.font_MFMG30 = self.load(30,'MadouFutoMaruGothic','ttf')
         self.font_MFMG25 = self.load(25,'MadouFutoMaruGothic','ttf')
         self.text_bg = self.load('cinematics','Parchemin_Dialogues_V3')
@@ -618,12 +619,12 @@ class Cinematics:
 
         while not chosen and not timer_end:
             if timer != 0:
-                remaining_time=max(pygame.time.get_ticks()-depart_timer-timer,0)
+                remaining_time=max(timer-pygame.time.get_ticks()+depart_timer,0)
                 if remaining_time == 0:
                     timer_end = True
                     return ['timer_end',0]
                 else:
-                    timer_text = self.font_MFMG30.render(str(remaining_time/1000))
+                    timer_text = self.font_MFMG60.render(str(round(remaining_time/1000,1)),False,'red')
                     timer_rect = timer_text.get_rect()
                     timer_rect.topleft = (0,0)
             
@@ -668,6 +669,9 @@ class Cinematics:
             for i in range(kind[1]):
                 screen.blit(current_buttons_surfaces[str(i)],buttons_rects[str(i)])
                 screen.blit(choices_objects[str(i)]["surface"],choices_objects[str(i)]["rect"])
+            
+            if timer!=0:
+                screen.blit(timer_text,timer_rect)
             
             pygame.display.flip()
     

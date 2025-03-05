@@ -147,7 +147,7 @@ class GamePlayPhase:
         self.type = type
 
 class GPPMap(GamePlayPhase):
-    def __init__(self,name:str,map:Map,spawn:str,event_zones:List[DisplayZone],npcs:List[Interractible],display_zones:List[DisplayZone],path:SubPath,dirs_data:list):
+    def __init__(self,name:str,map:Map,spawn:str,event_zones:List[DisplayZone]=[],npcs:List[Interractible]=[],display_zones:List[DisplayZone]=[],path:SubPath=None,dirs_data:list=[1,[-1],['next']]):
         GamePlayPhase.__init__(self,name,"GPFMap",dirs_data)
         self.map = map
         self.spawn=spawn
@@ -245,7 +245,16 @@ class Story:
                                                                         ),
                                                             GPPCinematic(name='Intro3',
                                                                          cinematic_no=3,
-                                                                         dirs_data=[])
+                                                                         dirs_data=[1,[-1],['next']])
+                                                            ]
+                                                      )
+                                      },
+                       'Chapitre 1': {'Scene 1':Scene(id=[1,1],
+                                                      next_id=[1,2],
+                                                      gpps=[GPPMap(name='Chap1_e1_map',
+                                                                   map="main",
+                                                                   spawn='spawn_Magome',
+                                                                   )
                                                             ]
                                                       )
                                       }

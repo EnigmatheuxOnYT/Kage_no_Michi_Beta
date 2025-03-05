@@ -107,6 +107,7 @@ class Game:
         
         if self.loaded_save == 0:
             self.blank = False
+            self.in_gameplay=True
         
         
         pygame.mouse.set_visible(False)
@@ -394,16 +395,19 @@ class Game:
         scene=self.current_playing_scene
         gpp=scene.current_gpp
         output=-1
-        if gpp.type=="GPPCinematic":
-            output = self.launch_cinematic(gpp.cinematic_no)
-            scene.next_gpp(output)
-        elif gpp.type=='GPPMinigame':
-            self.launch_minigame(gpp.minigame_no)
-            scene.next_gpp(output)
-        elif gpp.type=='GPFMap':
-            self.change_map_for_game(True,gpp.map)
-            self.map.map_manager.teleport_player(gpp.spawn)
+        if gpp==None:
             self.in_gameplay=True
+        else:
+            if gpp.type=="GPPCinematic":
+                output = self.launch_cinematic(gpp.cinematic_no)
+                scene.next_gpp(output)
+            elif gpp.type=='GPPMinigame':
+                self.launch_minigame(gpp.minigame_no)
+                scene.next_gpp(output)
+            elif gpp.type=='GPFMap':
+                self.change_map_for_game(True,gpp.map)
+                self.map.map_manager.teleport_player(gpp.spawn)
+                self.in_gameplay=True
         
 
 
