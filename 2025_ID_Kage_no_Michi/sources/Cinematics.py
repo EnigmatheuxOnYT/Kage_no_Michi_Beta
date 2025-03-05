@@ -10,7 +10,7 @@ Created on Mon Jan 13 15:47:37 2025
 """
 
 import pygame
-from typing import List
+from typing import List,Union
 from Characters_sprites import Characters_sprites
 from Audio import Music,Sound
 
@@ -514,7 +514,7 @@ class Cinematics:
             screen.blit(self.text_bg,pygame.Rect(0,390,1280,330))
             pygame.display.flip()
         
-    def choice_frame (self,screen:pygame.surface.Surface,bg:str,kind:list=[0,4],choices:List[str]=["","","",""],chars:List[List[str]]=[],timer:int=0):
+    def choice_frame (self,screen:pygame.surface.Surface,bg:str,kind:list=[0,4],choices:List[str]=["","","",""],chars:List[List[str]]=[],timer:int=0)-> List[Union[str,int]] :
         """
         Parameters
         ----------
@@ -542,9 +542,9 @@ class Cinematics:
         
         Retourne une liste contenant en premier élément la raison pour laquelle la fonction s'est terminée :
             - 'QUIT' pour la fermeture du jeu.
-                - Pas de second élément.
+                - Second élément : 0.
             - 'timer_end' pour la fin du temps.
-                - Pas de second élément.
+                - Second élément : 0.
             - 'choice' pour un choix :
                 - Le second élément est l'entier (de 1 à 4) correspondant au choix fait (dans l'ordre des choix entrés dans choices)
         """
