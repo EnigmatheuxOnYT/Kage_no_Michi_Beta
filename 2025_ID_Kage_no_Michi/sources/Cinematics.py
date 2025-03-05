@@ -572,8 +572,9 @@ class Cinematics:
         chosen = False
         timer_end = False
         
-        button_light_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERT_300p.png")
-        button_dark_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERTF_300p.png")
+        button_light_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERT_400p.png")
+        button_dark_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERTF_400p.png")
+
         current_buttons_surfaces = {str(i):button_light_surface for i in range(kind[1])}
         buttons_rects = {str(i):button_light_surface.get_rect() for i in range (kind[1])}
         
