@@ -25,6 +25,7 @@ from Mini_jeu_filature import minigm_follow
 from Mini_jeu_reconstruction import minigm_mastermind
 from Mini_jeu_collecte import minigm_collect
 from Audio import Music,Sound
+from Gameplay import Story
 from map.src.game import Game_map
 
 class Game:
@@ -54,6 +55,7 @@ class Game:
         self.loaded_save = -1
         Loading.display_loading(screen, 65,"Lancement du module de sauvegarde")
         self.savemgr = Savemgr()
+        self.story=Story()
         Loading.display_loading(screen, 66,"Lancement du module de cinématiques")
         self.cinematics = Cinematics()
         Loading.display_loading(screen, 67,"Lancement du module de la carte")
@@ -77,6 +79,10 @@ class Game:
         self.devmode=False
 
         self.current_interraction = {"is":False,"interraction":None}
+
+        self.scene=[0,0]
+    @property
+    def current_playing_scene(self):return self.story.scenes[f'Chapitre {self.scene[0]}'][f'Scene {self.scene[1]}']
 
     def get_pos(self): return self.map.player.position
     
@@ -129,37 +135,6 @@ class Game:
                 in_game = False
                 self.save_savefile()
         
-            elif self.scene == [0,0]:
-                self.cinematics.cinematic_01(screen)
-                self.scene = [0,1]
-                in_gameplay = False
-            elif self.scene == [0,1]:
-                #Mettre ici le choix du personnage sauvé
-                self.scene = [0,2]
-                in_gameplay = False
-            elif self.scene == [0,2]:
-                self.cinematics.cinematic_02(screen,self.choices[0])
-                self.scene = [0,3]
-                in_gameplay = False
-            elif self.scene == [0,3]:
-                self.minigm_01.run(screen,self.choices[0])
-                self.scene = [0,4]
-                in_gameplay = False
-            elif self.scene == [0,4]:
-                self.cinematics.cinematic_03(screen,self.choices[0])
-                self.scene = [1,0]
-                in_gameplay = False
-            elif self.scene == [1,0]:
-                self.cinematics.cinematic_04(screen,self.choices[0])
-                self.scene = [1,1]
-                in_gameplay = False
-            elif self.scene == [1,1]:
-                self.cinematics.cinematic_05(screen,self.choices[0])
-                self.scene = [1,2]
-                in_gameplay = True
-            else:
-                pass
-                #print("Erreur : Sauvegarde corompue")
         else:
             print("Erreur d'appel de fontion")
             in_gameplay = False
@@ -173,6 +148,7 @@ class Game:
     def begin (self):
         self.current_passcode = random.choice(self.passcodes)
         self.blank = False
+        self.scene=[0,1]
     
     def get_fps_showed(self): return self.fps_showed
     
@@ -380,6 +356,38 @@ class Game:
             choices = self.choices
         
         self.music.play(fade=500)
+    
+    def launch_scene(self):
+        if self.blank:
+            self.begin()
+        
+            
+        self.music.play(fade=500)
+            
+        if self.dead:
+            self.death()
+            self.save_savefile()
+
+
+
+        in_gameplay=False
+        scene=self.current_playing_scene
+        gpp=scene.current_gpp
+        output=-1
+        if gpp.type=="GPPCinematic":
+            self.launch_cinematic(gpp.cinematic_no)
+        elif gpp.type=='GPPMinigame':
+            self.launch_minigame(gpp.minigame_no)
+        elif gpp.type=='GPFMap':
+            self.change_map_for_game(True,gpp.map)
+            self.map.map_manager.teleport_player(gpp.spawn)
+            in_gameplay=True
+        
+        scene.next_gpp(output)
+        return in_gameplay
+
+
+        
 
     def change_map_for_game(self,by_name,map_info):
         
@@ -452,7 +460,7 @@ class Game:
                 self.handle_zone_events(current_active_events)
             self.arrow_update(coordinates=self.current_arrow_point_coordinates)
         elif self.loaded_save !=0:
-            in_gameplay = self.load_scene(self.screen_for_game, self.scene)
+            in_gameplay= self.launch_scene()
         return in_gameplay
     
     ############### Partie 3 ###############

@@ -126,8 +126,8 @@ class Launcher:
 class Direction:
     def __init__(self,no,reasons,dirs):
         self.no = no
-        self.reasons = reasons
-        self.dirs = dirs
+        self.reasons = reasons #-1 pour tout
+        self.dirs = dirs #next pour la prochaine scène
 
     @property
     def sender(self):
@@ -147,9 +147,10 @@ class GamePlayPhase:
         self.type = type
 
 class GPPMap(GamePlayPhase):
-    def __init__(self,name:str,map:Map,event_zones:List[DisplayZone],npcs:List[NPC|StaticNPC],display_zones:List[DisplayZone],path:SubPath,dirs_data:List[List[str|int]|int]):
+    def __init__(self,name:str,map:Map,spawn:str,event_zones:List[DisplayZone],npcs:List[Interractible],display_zones:List[DisplayZone],path:SubPath,dirs_data:list):
         GamePlayPhase.__init__(self,name,"GPFMap",dirs_data)
         self.map = map
+        self.spawn=spawn
         self.event_zones=event_zones
         self.npcs=npcs
         self.display_zones = display_zones
@@ -157,22 +158,22 @@ class GPPMap(GamePlayPhase):
 
 
 class GPPCinematic(GamePlayPhase):
-    def __init__(self,name:str,cinematic_no:int,dirs_data:List[List[str|int]|int]):
+    def __init__(self,name:str,cinematic_no:int,dirs_data:list):
         GamePlayPhase.__init__(self,name,"GPPCinematic",dirs_data)
         self.cinematic_no = cinematic_no
 
 class GPPDialog(GamePlayPhase):
-    def __init__(self,name:str,dialog_no:int,dirs_data:List[List[str|int]|int]):
+    def __init__(self,name:str,dialog_no:int,dirs_data:list):
         GamePlayPhase.__init__(self,name,"GPPDialog",dirs_data)
         self.dialog_no = dialog_no
 
 class GPPMinigame(GamePlayPhase):
-    def __init__(self,name:str,minigame_no:int,dirs_data:List[List[str|int]|int]):
+    def __init__(self,name:str,minigame_no:int,dirs_data:list):
         GamePlayPhase.__init__(self,name,"GPPMinigame",dirs_data)
         self.minigame_no = minigame_no
 
 class GPPFight(GamePlayPhase):
-    def __init__(self,name,ennemies:List[Any],dirs_data:List[List[str|int]|int]):
+    def __init__(self,name,ennemies:List[Any],dirs_data:list):
         GamePlayPhase.__init__(self,name,"GPPFight",dirs_data)
         self.ennemies=ennemies
 
@@ -183,4 +184,56 @@ class Scene:
         self.episode=id[1]
         self.name=f"Chapitre {id[0]}, épisode {id[1]}"
         self.gpps=gpps
+        self.gppindex=0
+    @property
+    def over (self):return self.gppindex >= len(self.gpps)
+    @property
+    def current_gpp(self):return self.gpps[self.gppindex] if not self.over else None
+    
+    def next_gpp(self,output):
+        ressearch=False
+        dirs=self.gpps[self.gppindex].dirs
+        for i in range(dirs.no):
+            if dirs.reasons[i] in [output,-1]:
+                ressearch=dirs.dirs[i]
+        if not ressearch:
+            raise IndexError
+        else:
+            if ressearch=='next':
+                self.gppindex+=1
+            else:
+                for i in range(len(self.gpps)):
+                    gpp=self.gpps[i]
+                    if gpp.name==ressearch:
+                        self.gppindex=i
+                        return
+                raise IndexError
+
+
+
+class Story:
+    def __init__ (self):
+        self.scenes = {'Chapitre 0': {"Scene 0":None,
+                                      'Scene 1':Scene([0,1],
+                                                      gpps=[GPPCinematic(name='Intro',
+                                                                         cinematic_no=1,
+                                                                         dirs_data=[1,[-1],['next']]
+                                                                         ),
+                                                            GPPMap(name='IntroChoice',
+                                                                   map='intro',
+                                                                   spawn='Spawn_Magome_cinematic',
+                                                                   event_zones="all",
+                                                                   npcs=[],
+                                                                   display_zones=[],
+                                                                   path=None,
+                                                                   dirs_data=[1,[-1],['next']]
+                                                                   ),
+                                                            GPPCinematic(name='Intro2',
+                                                                         cinematic_no=2,
+                                                                         dirs_data=[1,[-1],['next']]
+                                                                         )
+                                                            ]
+                                                      )
+                                      }
+                       }
 

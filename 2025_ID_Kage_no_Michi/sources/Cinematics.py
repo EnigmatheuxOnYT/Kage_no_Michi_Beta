@@ -692,6 +692,7 @@ class Cinematics:
         self.cinematic_frame(screen, 'mgm5', 2, 'Le cœur de Musashi se serre.','Le temps presse, et il sait qu\'il devra faire un choix','qui changera à jamais son existence et celle des siens.', kind_info=[['KT','no_weapon'],['KM','no_weapon'],0])
     
     def cinematic_02 (self, screen, saved='none'):
+        self.ecran_noir(screen)
         self.cinematic_frame(screen, 'mgm6', 0, "Les premières lueurs de l\'aube peinent à percer l\'épaisse fumée", "qui enveloppe Magome.", "Les cris de la nuit se sont tus, remplacés par un silence pesant.")
         self.cinematic_frame(screen, 'mgm6', 0, "Quelques survivants errent parmi les débris, le regard vide.","D'autres s'affairent à éteindre les derniers foyers.")
         self.cinematic_frame(screen, 'mgm6', 2, "Shikisha Musashi reste immobile, les mains tremblantes,", "son esprit hanté par les derniers évènements.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],0])
