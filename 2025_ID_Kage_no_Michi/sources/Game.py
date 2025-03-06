@@ -27,6 +27,7 @@ from Mini_jeu_collecte import minigm_collect
 from Audio import Music,Sound
 from Gameplay import Story
 from map.src.game import Game_map
+from map.src.Map_objects import Path,paths_list
 
 class Game:
     
@@ -60,6 +61,8 @@ class Game:
         self.cinematics = Cinematics()
         Loading.display_loading(screen, 67,"Lancement du module de la carte")
         self.map = Game_map(screen)
+        self.paths = self._get_paths(paths_list)
+        self.current_path=self.paths[0]
         Loading.display_loading(screen, 80,"Finalisation")
         self.fps_showed = False
         self.passcodes = ["jaimelecoucoustajine"]
@@ -69,7 +72,7 @@ class Game:
         self.current_arrow_rect= pygame.Rect(541,380,99,99)
         self.draw_arrow=False
         self.current_arrow_surface = self.arrow
-        self.current_arrow_point_coordinates = self.get_spawn()
+        self.arrow_mode='spawn'
 
         self.money_counter_surface=pygame.image.load("../data/assets/minigm/Barre_Reponse.png").convert_alpha()
         self.money_counter_rect=pygame.Rect(1000,0,280,60)
@@ -84,6 +87,21 @@ class Game:
         self.scene=[0,0]
     @property
     def current_playing_scene(self):return self.story.scenes[f'Chapitre {self.scene[0]}'][f'Scene {self.scene[1]}']
+    @property
+    def current_arrow_point_coordinates(self):
+        if self.arrow_mode == 'spawn':
+            return self.get_spawn()
+        elif self.arrow_mode=='path':
+            if self.current_path.over:
+                self.draw_arrow=False
+            point = self.current_path.get_current_point(self.get_pos())
+            return [point.x,point.y]
+        elif self.arrow_mode=='target':
+            return self.current_arrow_target
+    
+            
+
+
 
     def get_pos(self): return self.map.player.position
     
@@ -282,7 +300,8 @@ class Game:
                 self.draw_arrow = args[1]
             elif subtype == "point":
                 try:
-                    self.current_arrow_point_coordinates=self.map.map_manager.get_point_pos(args[1])
+                    self.arrow_mode='target'
+                    self.current_arrow_target=self.map.map_manager.get_point_pos(args[1])
                 except:
                     print("Le point {args[0]} n'existe pas.")
         elif command == "devmode":
@@ -409,6 +428,8 @@ class Game:
             elif gpp.type=='GPFMap':
                 self.change_map_for_game(True,gpp.map)
                 self.map.map_manager.teleport_player(gpp.spawn)
+                if gpp.path!=None:
+                    self.start_path(gpp.path)
                 self.in_gameplay=True
         
 
@@ -426,7 +447,7 @@ class Game:
         self.current_map = name
         self.map.map_manager.change_map(name)
         self.player_pos = self.get_pos()
-        self.current_arrow_point_coordinates=self.get_spawn()
+        self.arrow_mode='spawn'
     
     def teleport_spawn (self):
         self.map.map_manager.teleport_player_spawn()
@@ -438,6 +459,34 @@ class Game:
         self.cinematics.final_death(self.screen_for_game,self.choices[0])
         self.dead = True
     
+    def _get_paths(self,paths_list):
+        paths=[]
+        for i in paths_list:
+            sub_paths = []
+            for sub_path_name in i['sub_paths_names']:
+               for sub_path in self.map.map_manager.get_map().sub_paths:
+                   if sub_path.name==sub_path_name:
+                       sub_paths.append(sub_path)
+            points=[]
+            for point_name in i['points_names']:
+                if point_name in [str(k) for k in range(1,6)]:
+                    points.append(self.map.map_manager.get_object(f'path_cross{point_name}'))
+                else:
+                    points.append(self.map.map_manager.get_object(point_name))
+            
+                 
+            path=Path(i['name'],sub_paths,points,i['order'])
+            paths.append(path)
+        return paths
+    
+    def start_path(self,path_name):
+        self.arrow_mode='path'
+        for path in self.paths:
+            if path.name==path_name:
+                self.current_path=path
+        self.draw_arrow=True
+
+
     ############### Partie 1 ###############
     
     def game_events (self,in_game, loading_menu):
