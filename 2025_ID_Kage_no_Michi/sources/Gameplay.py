@@ -254,6 +254,7 @@ class Story:
                                                       gpps=[GPPMap(name='Chap1_e1_map',
                                                                    map="main",
                                                                    spawn='spawn_Magome',
+                                                                   path="mgm_ine",
                                                                    dirs_data=[1,[-1],['next']]
                                                                    ),
                                                             GPPCinematic(name="Cinématique 4",
@@ -267,4 +268,3 @@ class Story:
                                                       gpps=[])
                                       }
                        }
-

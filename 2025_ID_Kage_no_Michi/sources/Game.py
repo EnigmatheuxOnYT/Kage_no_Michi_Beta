@@ -547,6 +547,9 @@ class Game:
             if self.draw_arrow:
                 self.screen_for_game.blit(self.current_arrow_surface,self.current_arrow_rect)
                 pygame.display.flip()
+            else:
+                pass
+                #print("a")
             return True
         return False
     

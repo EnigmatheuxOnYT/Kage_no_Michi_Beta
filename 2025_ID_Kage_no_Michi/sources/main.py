@@ -154,6 +154,7 @@ class Main:
     def run(self):
         ########## Boucle de jeu principale ##########
         while self.running :
+            
             ##### partie 1 #####
             self.handling_events()
             ##### partie 2 #####

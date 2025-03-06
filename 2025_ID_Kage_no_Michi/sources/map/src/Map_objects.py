@@ -104,11 +104,14 @@ class SubPath:
     
     def _set_points(self,objects:List[pytmx.TiledObject],length):
         points=[]
-        for i in range(length):
-            for object in objects:
-                if object.name==f"path_{self.name}{str(i+1)}":
+        objects_list = list(objects)
+        for i in range(3):
+            for object in objects_list:
+                if object.name=="path_"+self.name+str(i+1):
                     points.append(object)
         self.point_objects=points
+        self.raw_points=points
+        #print(points)
 
     def order(self):
         self.order_points()
@@ -154,6 +157,7 @@ class Path:
             else:
                 objects.append(crosss[crosss_index])
                 crosss_index+=1
+        #print(objects)
         return objects
     
     def get_current_point(self,player_pos):
