@@ -44,6 +44,11 @@ class NPCRemove(Action):
     def __init__(self):
         Action.__init__(self,"NPCRemove")
 
+class NPCEndGPP(Action):
+    def __init__(self,output):
+        Action.__init__(self,"NPCEndGPP")
+        self.output=output
+
 class NPCRepeatInterraction(Action):
     def __init__(self,repetitions:int=-1):
         Action.__init__(self,"NPCRepeatInterraction")
@@ -112,10 +117,7 @@ class Interractible:
 
 
 CharactersInterractions = {"Hoshida1":[Interraction(npc_name="Hoshida1",
-                                                    actions=[NPCDialog(no=5,
-                                                                       name="Hoshida1",
-                                                                       is_cinematic=True
-                                                                       ),
+                                                    actions=[NPCEndGPP(output=-1),
                                                              NPCRemove()
                                                              ]
                                                     ),

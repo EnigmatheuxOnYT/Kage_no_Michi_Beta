@@ -214,6 +214,8 @@ class Game:
             __npc.teleport_coords(action.position)
         elif action.type=='NPCRemove':
             self.map.map_manager.get_group().remove(__npc)
+        elif action.type=="NPCEndGPP":
+            self.next_gpp(action.output)
         elif action.type =='NPCRepeatInterraction':
             pass
 
