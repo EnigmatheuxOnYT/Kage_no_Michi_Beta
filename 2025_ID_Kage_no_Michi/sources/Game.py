@@ -501,7 +501,7 @@ class Game:
             loading_menu = True
             pygame.mouse.set_visible(True)
         
-        elif self.current_interraction['is'] and self.pressed_keys[pygame.K_a]:
+        elif self.current_interraction['is'] and self.pressed_keys[pygame.K_e]:
             interraction=self.current_interraction["interraction"]
             self.handle_interraction(interraction)
             self.current_interraction = {"is":False,"interraction":None}
