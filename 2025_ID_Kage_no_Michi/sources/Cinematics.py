@@ -740,7 +740,12 @@ class Cinematics:
         self.cinematic_frame(screen, 'mgm6', 2, "Mais Musashi sait que cela ne suffit pas.", "Alors que le soleil se couche, il se tient devant ce qui reste de sa maison.", "Une décision mûrit en lui.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],0])
         self.cinematic_frame(screen, 'mgm6', 2, "Je dois partir... trouver des alliés, des armes.", "Si je reste ici, je ne pourrai pas aller de l'avant.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],1])
         self.cinematic_frame(screen, 'mgm6', 2, "Musashi, le cœur encore lourd mais l\'esprit décidé, prépare ses affaires.", "Il est prêt à quitter Magome pour chercher de l\'aide et des alliés,", "guidé par l\'espoir de sauver ce qui reste de son village.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],0])
-        
+        if saved == "KT":
+            self.cinematic_frame(screen, 'mgm6', 2, "Musashi, mettons nous en route pour le village d'Ine.", "Ce n'est pas loin d'ici, on y trouvera peut-être quelque chose.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],2])
+        elif saved=="KM":
+            self.cinematic_frame(screen, 'mgm6', 2, "Shikisha, mettons nous en route pour le village d'Ine.", "Ce n'est pas loin d'ici, on y trouvera peut-être quelque chose.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],2])
+        else:
+            self.cinematic_frame(screen, 'mgm6', 2, "Je devrais me mettre en route pour le village d'Ine.", "Ce n'est pas loin d'ici, j'y trouverai peut-être quelque chose.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],2])
         self.ecran_noir(screen)
     
     def cinematic_04 (self, screen, saved='none'):
