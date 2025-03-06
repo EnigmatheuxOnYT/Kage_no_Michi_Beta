@@ -124,7 +124,6 @@ class Cinematics:
             self.current_font_color = 'black'
             self.font_MFMG30.set_italic(False)
             
-    
     def fix_line(self,line):
         ### Suppression des parenthèses (non fonctionnel)
         #if len(line) > 1:
@@ -302,7 +301,6 @@ class Cinematics:
         screen.blit(self.cinematics_bgs[bg], pygame.Rect(0,0,1280,720))
         self.display_text_and_wait(screen,line1,line2,line3,'N')
 
-    
     def dialog1_frame (self, screen, bg, char, talking, wpn,side, unknown, line1="", line2="", line3=""):
         ########## Image dialogue avec 1 personnage ##########
         side2 = side
@@ -677,11 +675,6 @@ class Cinematics:
     
     def refresh_fullscreen(self):
         pass
-    
-    
-    
-    
-    
     
     ########## Cinématiques ##########
     
