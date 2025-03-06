@@ -31,6 +31,9 @@ class Entity(AnimateSprite):
         self.image.set_colorkey([0, 0, 0])
         return self.image
 
+    def give_layer(self,layer):
+        self.base_layer=layer
+
     def save_location(self): self.old_position = self.position.copy()
     
     def move_dir (self,direction,step=0):
@@ -185,6 +188,10 @@ class StaticEntity(pygame.sprite.Sprite):
     def get_sprite_height(self,direction):
         if direction=='down':
             return 44
+    
+    def give_layer(self,layer):
+        self.base_layer=layer
+
     
 class StaticNPC(StaticEntity,Interractible):
     def __init__(self, name,pos=[0,0],direction="down",instance:int=0):
