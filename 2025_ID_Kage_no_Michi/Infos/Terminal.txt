@@ -25,6 +25,8 @@ V0.3.2.0 :
 		- /arrow point [nom du point] avec n’importe quel point de la carte fera indiquer à la flèche ce point. Par défaut indique le spawn.
 	- La commande /devmode [on/off] :
 		- Active ou désactive le mode développeur (seulement implémenté pour le mini-jeu 5 pour le moment).
+	- /money [quantité]:
+		- Change l'argent du joueur à la quantité donnée.
 
 
 

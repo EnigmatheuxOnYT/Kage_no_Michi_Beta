@@ -147,7 +147,7 @@ class GamePlayPhase:
         self.type = type
 
 class GPPMap(GamePlayPhase):
-    def __init__(self,name:str,map:Map,spawn:str,event_zones:List[DisplayZone],npcs:List[Interractible],display_zones:List[DisplayZone],path:SubPath,dirs_data:list):
+    def __init__(self,name:str,map:Map,spawn:str,event_zones:List[DisplayZone]=[],npcs:List[Interractible]=[],display_zones:List[DisplayZone]=[],path:SubPath=None,dirs_data:list=[1,[-1],['next']]):
         GamePlayPhase.__init__(self,name,"GPFMap",dirs_data)
         self.map = map
         self.spawn=spawn
@@ -178,10 +178,11 @@ class GPPFight(GamePlayPhase):
         self.ennemies=ennemies
 
 class Scene:
-    def __init__(self,id:List[int],gpps:List[GamePlayPhase]):
+    def __init__(self,id:List[int],next_id:List[int],gpps:List[GamePlayPhase]):
         self.id=id
         self.chapter=id[0]
         self.episode=id[1]
+        self.next_id=next_id
         self.name=f"Chapitre {id[0]}, épisode {id[1]}"
         self.gpps=gpps
         self.gppindex=0
@@ -191,30 +192,32 @@ class Scene:
     def current_gpp(self):return self.gpps[self.gppindex] if not self.over else None
     
     def next_gpp(self,output):
-        ressearch=False
-        dirs=self.gpps[self.gppindex].dirs
-        for i in range(dirs.no):
-            if dirs.reasons[i] in [output,-1]:
-                ressearch=dirs.dirs[i]
-        if not ressearch:
-            raise IndexError
-        else:
-            if ressearch=='next':
-                self.gppindex+=1
-            else:
-                for i in range(len(self.gpps)):
-                    gpp=self.gpps[i]
-                    if gpp.name==ressearch:
-                        self.gppindex=i
-                        return
+        if not self.over:
+            ressearch=False
+            dirs=self.gpps[self.gppindex].dirs
+            for i in range(dirs.no):
+                if dirs.reasons[i] in [output,-1]:
+                    ressearch=dirs.dirs[i]
+            if not ressearch:
                 raise IndexError
+            else:
+                if ressearch=='next':
+                    self.gppindex+=1
+                else:
+                    for i in range(len(self.gpps)):
+                        gpp=self.gpps[i]
+                        if gpp.name==ressearch:
+                            self.gppindex=i
+                            return
+                    raise IndexError
 
 
 
 class Story:
     def __init__ (self):
         self.scenes = {'Chapitre 0': {"Scene 0":None,
-                                      'Scene 1':Scene([0,1],
+                                      'Scene 1':Scene(id=[0,1],
+                                                      next_id=[0,2],
                                                       gpps=[GPPCinematic(name='Intro',
                                                                          cinematic_no=1,
                                                                          dirs_data=[1,[-1],['next']]
@@ -232,6 +235,26 @@ class Story:
                                                                          cinematic_no=2,
                                                                          dirs_data=[1,[-1],['next']]
                                                                          )
+                                                            ]
+                                                      ),
+                                      'Scene 2':Scene(id=[0,2],
+                                                      next_id=[1,1],
+                                                      gpps=[GPPMinigame(name='mimigm_01',
+                                                                        minigame_no=1,
+                                                                        dirs_data=[1,[-1],['next']]
+                                                                        ),
+                                                            GPPCinematic(name='Intro3',
+                                                                         cinematic_no=3,
+                                                                         dirs_data=[1,[-1],['next']])
+                                                            ]
+                                                      )
+                                      },
+                       'Chapitre 1': {'Scene 1':Scene(id=[1,1],
+                                                      next_id=[1,2],
+                                                      gpps=[GPPMap(name='Chap1_e1_map',
+                                                                   map="main",
+                                                                   spawn='spawn_Magome',
+                                                                   )
                                                             ]
                                                       )
                                       }

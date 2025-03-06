@@ -20,9 +20,13 @@ class Dialogs(Cinematics):
     def dialog_example (self,screen,saved):
         # Tu peux utiliser les foncions de la même façon que dans cinematics (exemple :)
         self.cinematic_frame(screen,"azw2",0,"Exemple")
-        output1,output2 = self.choice_frame(screen,"azw2",[0,2],["choix 1","choix 2"])
+        output1,output2 = self.choice_frame(screen,"azw2",[0,2],["choix 1","choix 2"],timer=5000)
         if output1=="choice":
             print("Tu as choisi le choix", output2)
+        elif output1=="timer_end":
+            print("tu n'as plus de temps")
+        elif output1=='QUIT':
+            print("Tu as fermé la fenètre")
 
 
     def dialog_minigm1(self, screen, saved):
@@ -292,5 +296,5 @@ if __name__ =="__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Dialogues")
-    Dialogs().dialog_infiltration_base(screen,'KM')
+    Dialogs().dialog_example(screen,'KM')
     pygame.quit()

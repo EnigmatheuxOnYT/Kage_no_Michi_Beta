@@ -103,7 +103,7 @@ class MapManager :
                                                Event_zone(from_world="Aizu_collecte", origin_point="mgm_collect_10", entities=["Player"], events=[Event(type="mgm_hotspot",data=[10])])
                                                ],
                                   npcs=[],
-                                  layer=1,
+                                  layer=2,
                                   placed_correctly=True
                                   )
                 self.current_map = self.maps_names["mg8"]
@@ -112,15 +112,15 @@ class MapManager :
             self.register_map("MAP PROJET NSI 2025 500x500",
                               spawn_name="spawn_Magome",
                               npcs=[StaticNPC("Hoshida",[96,576],instance=1)],
-                              layer=6
+                              layer=8
                               )
             Loading.display_loading(screen, 77,"Chargement des cartes secondaires")
             self.register_map("Magome cinematic",
                               spawn_name="Spawn_Magome_cinematic",
-                              event_zones=[Event_zone(from_world="Magome cinematic", origin_point="Keiko", entities=["Player"], events=[Event(type='choice',data=[0,"KM"]),Event(type='cinematic',data=[2]),Event(type='map',data=[False,0])]),
-                                           Event_zone(from_world="Magome cinematic", origin_point="Takeshi", entities=["Player"], events=[Event(type='choice',data=[0,"KT"]),Event(type='cinematic',data=[2]),Event(type='map',data=[False,0])])
+                              event_zones=[Event_zone(from_world="Magome cinematic", origin_point="Keiko", entities=["Player"], events=[Event(type='choice',data=[0,"KM"]),Event(type='gpp_next',data=[-1])]),
+                                           Event_zone(from_world="Magome cinematic", origin_point="Takeshi", entities=["Player"], events=[Event(type='choice',data=[0,"KT"]),Event(type='gpp_next',data=[-1])])
                                            ],
-                              layer=6
+                              layer=7
                               )
             self.register_map("Ine_filature",
                               spawn_name="spawn",
@@ -160,7 +160,7 @@ class MapManager :
                                            Event_zone(from_world="Aizu_collecte", origin_point="mgm_collect_10", entities=["Player"], events=[Event(type="mgm_hotspot",data=[10])])
                                            ],
                               npcs=[],
-                              layer=1,
+                              layer=2,
                               placed_correctly=True
                               )
         self.teleport_player_spawn()
@@ -275,7 +275,8 @@ class MapManager :
         #recuperer tous les npcs pour les ajouter au groupe
         for npc in npcs:
             group.add(npc)
-            group.change_layer(npc, layer)
+            group.change_layer(npc, layer-1)
+            npc.give_layer(layer-1)
         
         for displayzone in display_zones:
             group.add(displayzone)
@@ -335,3 +336,13 @@ class MapManager :
         for npc in self.get_map().npcs:
             if npc.is_moving_object:
                 npc.move_points()
+        self.update_npcs()
+    
+    def update_npcs(self):
+        player_rect = self.player.rect
+        for npc in self.get_map().npcs:
+            if player_rect.colliderect(npc.rect):
+                if npc.rect.centery>=player_rect.centery:
+                    self.get_group().change_layer(npc,npc.base_layer+2)
+                else:
+                    self.get_group().change_layer(npc,npc.base_layer)

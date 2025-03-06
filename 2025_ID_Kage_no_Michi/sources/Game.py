@@ -77,6 +77,7 @@ class Game:
         self.fontMFMG20=pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",20)
 
         self.devmode=False
+        self.in_gameplay=False
 
         self.current_interraction = {"is":False,"interraction":None}
 
@@ -106,6 +107,7 @@ class Game:
         
         if self.loaded_save == 0:
             self.blank = False
+            self.in_gameplay=True
         
         
         pygame.mouse.set_visible(False)
@@ -184,6 +186,10 @@ class Game:
             
             elif event.type == "interraction":
                 self.current_interraction = {"is":True,"interraction":event.data[0]}
+            
+            elif event.type == "gpp_next":
+                self.next_gpp(event.data[0])
+
     
 
 
@@ -325,6 +331,7 @@ class Game:
         
         self.music.play(fade=500)
         
+        choice=0
         if cinematic == 1:
             self.cinematics.cinematic_01(self.screen_for_game)
         elif cinematic == 2:
@@ -344,12 +351,15 @@ class Game:
         elif cinematic == 9:
             self.cinematics.cinematic_09(self.screen_for_game,choices[0])
         elif cinematic == 10:
-            self.choices[2] = self.cinematics.cinematic_10(self.screen_for_game,choices[0])
+            choice = self.cinematics.cinematic_10(self.screen_for_game,choices[0])
+            self.choices[2] = choice
         elif cinematic == 11:
             self.cinematics.cinematic_11(self.screen_for_game,choices[0],choices[2])
         
-        
         pygame.mouse.set_visible(False)
+        return choice
+        
+        
     
     def launch_dialog(self,dialog,choices=None):
         if choices==None:
@@ -357,6 +367,17 @@ class Game:
         
         self.music.play(fade=500)
     
+    def next_gpp(self,output):
+        scene = self.current_playing_scene
+        scene.next_gpp(output)
+        if scene.over:
+            self.scene=scene.next_id
+        
+        if self.loaded_save!=0:
+            self.launch_scene()
+
+
+
     def launch_scene(self):
         if self.blank:
             self.begin()
@@ -370,21 +391,24 @@ class Game:
 
 
 
-        in_gameplay=False
+        self.in_gameplay=False
         scene=self.current_playing_scene
         gpp=scene.current_gpp
         output=-1
-        if gpp.type=="GPPCinematic":
-            self.launch_cinematic(gpp.cinematic_no)
-        elif gpp.type=='GPPMinigame':
-            self.launch_minigame(gpp.minigame_no)
-        elif gpp.type=='GPFMap':
-            self.change_map_for_game(True,gpp.map)
-            self.map.map_manager.teleport_player(gpp.spawn)
-            in_gameplay=True
+        if gpp==None:
+            self.in_gameplay=True
+        else:
+            if gpp.type=="GPPCinematic":
+                output = self.launch_cinematic(gpp.cinematic_no)
+                scene.next_gpp(output)
+            elif gpp.type=='GPPMinigame':
+                self.launch_minigame(gpp.minigame_no)
+                scene.next_gpp(output)
+            elif gpp.type=='GPFMap':
+                self.change_map_for_game(True,gpp.map)
+                self.map.map_manager.teleport_player(gpp.spawn)
+                self.in_gameplay=True
         
-        scene.next_gpp(output)
-        return in_gameplay
 
 
         
@@ -414,14 +438,14 @@ class Game:
     
     ############### Partie 1 ###############
     
-    def game_events (self,in_game, in_gameplay, loading_menu):
+    def game_events (self,in_game, loading_menu):
         ########## Traitement des imputs du joueur en jeu (partie 1) ##########
         self.pressed_keys = pygame.key.get_pressed()
         
         if self.pressed_keys[pygame.K_ESCAPE]:
             self.save_savefile()
             in_game = False
-            in_gameplay = False
+            self.in_gameplay = False
             loading_menu = True
             pygame.mouse.set_visible(True)
         
@@ -443,31 +467,30 @@ class Game:
                 pygame.quit()
                 sys.exit()
         
-        if in_gameplay:
+        if self.in_gameplay:
             self.map.player.save_location()
             self.map.handle_input(from_game=True)
 
-        return in_game, in_gameplay, loading_menu
+        return in_game, loading_menu
     
     ############### Partie 2 ###############
     
-    def game_update (self,in_gameplay):
+    def game_update (self):
         ########## Mise à jour des éléments du jeu à afficher (partie 2) ##########
-        if in_gameplay:
+        if self.in_gameplay:
             self.map.update()
             current_active_events = self.map.map_manager.get_current_active_events()
             if current_active_events != None:
                 self.handle_zone_events(current_active_events)
             self.arrow_update(coordinates=self.current_arrow_point_coordinates)
         elif self.loaded_save !=0:
-            in_gameplay= self.launch_scene()
-        return in_gameplay
+            self.launch_scene()
     
     ############### Partie 3 ###############
     
-    def game_draw (self,screen,in_gameplay):
+    def game_draw (self,screen):
         ########## Dessin du jeu (partie 3) ##########
-        if in_gameplay:
+        if self.in_gameplay:
             self.map.map_manager.draw()
             self.draw_overlap(screen)
             if self.draw_arrow:

@@ -10,7 +10,7 @@ Created on Mon Jan 13 15:47:37 2025
 """
 
 import pygame
-from typing import List
+from typing import List,Union
 from Characters_sprites import Characters_sprites
 from Audio import Music,Sound
 
@@ -20,6 +20,7 @@ class Cinematics:
         self.sprites = Characters_sprites().for_cinematics
         self.music = Music()
         self.sound = Sound()
+        self.font_MFMG60 = self.load(60,'MadouFutoMaruGothic','ttf')
         self.font_MFMG30 = self.load(30,'MadouFutoMaruGothic','ttf')
         self.font_MFMG25 = self.load(25,'MadouFutoMaruGothic','ttf')
         self.text_bg = self.load('cinematics','Parchemin_Dialogues_V3')
@@ -514,7 +515,7 @@ class Cinematics:
             screen.blit(self.text_bg,pygame.Rect(0,390,1280,330))
             pygame.display.flip()
         
-    def choice_frame (self,screen:pygame.surface.Surface,bg:str,kind:list=[0,4],choices:List[str]=["","","",""],chars:List[List[str]]=[],timer:int=0):
+    def choice_frame (self,screen:pygame.surface.Surface,bg:str,kind:list=[0,4],choices:List[str]=["","","",""],chars:List[List[str]]=[],timer:int=0)-> List[Union[str,int]] :
         """
         Parameters
         ----------
@@ -542,9 +543,9 @@ class Cinematics:
         
         Retourne une liste contenant en premier élément la raison pour laquelle la fonction s'est terminée :
             - 'QUIT' pour la fermeture du jeu.
-                - Pas de second élément.
+                - Second élément : 0.
             - 'timer_end' pour la fin du temps.
-                - Pas de second élément.
+                - Second élément : 0.
             - 'choice' pour un choix :
                 - Le second élément est l'entier (de 1 à 4) correspondant au choix fait (dans l'ordre des choix entrés dans choices)
         """
@@ -572,8 +573,9 @@ class Cinematics:
         chosen = False
         timer_end = False
         
-        button_light_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERT_300p.png")
-        button_dark_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERTF_300p.png")
+        button_light_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERT_400p.png")
+        button_dark_surface = pygame.image.load("../data/assets/buttons/Fond_Bouton_VERTF_400p.png")
+
         current_buttons_surfaces = {str(i):button_light_surface for i in range(kind[1])}
         buttons_rects = {str(i):button_light_surface.get_rect() for i in range (kind[1])}
         
@@ -583,33 +585,46 @@ class Cinematics:
             choices_objects[str(i)]["surface"] = self.font_MFMG30.render(choices[i],False,'black')
             choices_objects[str(i)]["rect"] = choices_objects[str(i)]["surface"].get_rect()
 
+
+        
+        if kind[1] in [2,3,4]:
+            left_var={}
+            if kind[1]==4:
+                a=2
+            else:
+                a=kind[1]
+            d=(1280-a*buttons_rects["0"].width)/(a+1)
+            for i in range(a):
+                r=buttons_rects["0"].width*i + d*i
+                left_var[str(i)]=r+d
+                if kind[1] in [2,3]:
+                    buttons_rects[str(i)].midleft=(left_var[str(i)],555)
+
+
         if kind[1] == 2:
             for i in range(2):
-                buttons_rects[str(i)].center = (1280*(i+1)/3,555)
-                choices_objects[str(i)]["rect"].center = (1280*(i+1)/3,555)
+                choices_objects[str(i)]["rect"].center = buttons_rects[str(i)].center
         elif kind[1] == 3:
             #buttons_rects["0"].center = (640,500)
             #choices_objects["0"]["rect"].center = (640,500)
             for i in range(3):
-                buttons_rects[str(i)].center = (1280*(i+1)/4,555)
-                choices_objects[str(i)]["rect"].center = (1280*(i+1)/4,555)
+                choices_objects[str(i)]["rect"].center = buttons_rects[str(i)].center
         elif kind[1] == 4:
-            for i in range (0,3,2):
-                for j in range(2):
-                    buttons_rects[str(i+j)].center = (1280*(j+1)/3,500+55*i)
-                    choices_objects[str(i+j)]["rect"].center = (1280*(j+1)/3,500+55*i)
+            for i in range (4):
+                buttons_rects[str(i)].midleft = (left_var[str(i%2)],500+110*(i//2))
+                choices_objects[str(i)]["rect"].center = buttons_rects[str(i)].center
 
         depart_timer = pygame.time.get_ticks()
         cooldown = True
 
         while not chosen and not timer_end:
             if timer != 0:
-                remaining_time=max(pygame.time.get_ticks()-depart_timer-timer,0)
+                remaining_time=max(timer-pygame.time.get_ticks()+depart_timer,0)
                 if remaining_time == 0:
                     timer_end = True
                     return ['timer_end',0]
                 else:
-                    timer_text = self.font_MFMG30.render(str(remaining_time/1000))
+                    timer_text = self.font_MFMG60.render(str(round(remaining_time/1000,1)),False,'red')
                     timer_rect = timer_text.get_rect()
                     timer_rect.topleft = (0,0)
             
@@ -654,6 +669,9 @@ class Cinematics:
             for i in range(kind[1]):
                 screen.blit(current_buttons_surfaces[str(i)],buttons_rects[str(i)])
                 screen.blit(choices_objects[str(i)]["surface"],choices_objects[str(i)]["rect"])
+            
+            if timer!=0:
+                screen.blit(timer_text,timer_rect)
             
             pygame.display.flip()
     
@@ -1025,7 +1043,7 @@ class Cinematics:
         self.cinematic_frame(screen, 'bamboo1', 3, "Est-ce que je pourrai négocier le prix ?", "Ou existe-il une autre méthode ?","Je pourrais essayer de le tuer pour lui voler...", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["JM","no_weapon"], 1])
         self.switch_lowercase(False)
         choice = self.choice_frame(screen,"bamboo1",[3,4],["Négocier le prix","Refuser","Accepter l'offre","Le tuer"],[["SM","no_weapon"],[saved,"no_weapon"],["JM","no_weapon"]])
-        return choice[1] if choice[0]=='choice' else 0
+        return choice[1]
 
 
     def cinematic_11 (self, screen, saved="none", choose=1):
