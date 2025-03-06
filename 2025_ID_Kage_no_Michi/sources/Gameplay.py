@@ -147,7 +147,7 @@ class GamePlayPhase:
         self.type = type
 
 class GPPMap(GamePlayPhase):
-    def __init__(self,name:str,map:Map,spawn:str,event_zones:List[DisplayZone]=[],npcs:List[Interractible]=[],display_zones:List[DisplayZone]=[],path:str=None,dirs_data:list=[1,[-1],['next']]):
+    def __init__(self,name:str,map:Map,spawn:str,event_zones:List[DisplayZone]=[],npcs:List[Interactible]=[],display_zones:List[DisplayZone]=[],path:str=None,dirs_data:list=[1,[-1],['next']]):
         GamePlayPhase.__init__(self,name,"GPFMap",dirs_data)
         self.map = map
         self.spawn=spawn

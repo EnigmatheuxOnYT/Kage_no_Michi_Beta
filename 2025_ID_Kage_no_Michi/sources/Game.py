@@ -1,7 +1,7 @@
 #Projet : Kage no Michi
 #Auteurs : Alptan Korkmaz, Clément Roux--Bénabou, Maxime Rousseaux, Ahmed-Adam Rezkallah, Cyril Zhao
 
-
+#interr
 # -*- coding: utf-8 -*-
 """
 Created on Fri Jan 10 00:01:49 2025
@@ -82,7 +82,8 @@ class Game:
         self.devmode=False
         self.in_gameplay=False
 
-        self.current_interraction = {"is":False,"interraction":None}
+        self.current_interaction = {"is":False,"interaction":None}
+        self.current_interration = 0
 
         self.scene=[0,0]
     @property
@@ -186,7 +187,7 @@ class Game:
         self.map.map_manager.change_map(self.current_map,self.player_pos)
 
     def handle_zone_events(self,events):
-        self.current_interraction = {"is":False,"interraction":None}
+        self.current_interaction = {"is":False,"interaction":None}
         for i in range(len(events)):
             event = events[i]
             
@@ -202,8 +203,8 @@ class Game:
             elif event.type == "map":
                 self.change_map_for_game(event.data[0],event.data[1])
             
-            elif event.type == "interraction":
-                self.current_interraction = {"is":True,"interraction":event.data[0]}
+            elif event.type == "interaction":
+                self.current_interaction = {"is":True,"interaction":event.data[0]}
             
             elif event.type == "gpp_next":
                 self.next_gpp(event.data[0])
@@ -211,15 +212,15 @@ class Game:
     
 
 
-    def handle_interraction (self,interraction):
+    def handle_interaction (self,interaction):
         for npc in self.map.map_manager.get_map().npcs:
-            if npc.instance_name==interraction.npc_name:
+            if npc.instance_name==interaction.npc_name:
                 __npc = npc
-        for _ in range(len(interraction.actions)):
-            self.handle_action(interraction.current_action,__npc)
-            interraction.next_action()
-        if interraction.end():
-            __npc.next_interraction()
+        for _ in range(len(interaction.actions)):
+            self.handle_action(interaction.current_action,__npc)
+            interaction.next_action()
+        if interaction.end():
+            __npc.next_interaction()
         self.temporary_storage=None
     
     def handle_action(self,action,__npc):
@@ -235,7 +236,7 @@ class Game:
             self.map.map_manager.get_map().npcs.remove(__npc)
         elif action.type=="NPCEndGPP":
             self.next_gpp(action.output)
-        elif action.type =='NPCRepeatInterraction':
+        elif action.type =='NPCRepeatInteraction':
             pass
 
             
@@ -501,10 +502,10 @@ class Game:
             loading_menu = True
             pygame.mouse.set_visible(True)
         
-        elif self.current_interraction['is'] and self.pressed_keys[pygame.K_e]:
-            interraction=self.current_interraction["interraction"]
-            self.handle_interraction(interraction)
-            self.current_interraction = {"is":False,"interraction":None}
+        elif self.current_interaction['is'] and self.pressed_keys[pygame.K_e]:
+            interaction=self.current_interaction["interaction"]
+            self.handle_interaction(interaction)
+            self.current_interaction = {"is":False,"interaction":None}
         
         elif self.loaded_save == 0:
             if self.pressed_keys[pygame.K_c]:

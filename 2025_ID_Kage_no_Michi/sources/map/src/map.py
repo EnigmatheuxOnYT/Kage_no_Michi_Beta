@@ -14,7 +14,7 @@ import copy
 
 from map.src.Map_objects import *
 from map.src.player2 import *
-from map.src.Interractions import *
+from map.src.Interactions import *
 from typing import List,overload
 
 
@@ -195,8 +195,8 @@ class MapManager :
                         self.current_active_events+=event_zone.events
             
             for npc in self.get_map().npcs:
-                if npc.is_interractible and self.player.feet.colliderect(npc.interraction_rect) and npc.current_interraction is not None:
-                    self.current_active_events.append(npc.current_interraction.event)
+                if npc.is_interactible and self.player.feet.colliderect(npc.interaction_rect) and npc.current_interaction is not None:
+                    self.current_active_events.append(npc.current_interaction.event)
                 if self.player.feet.colliderect(npc.collision_rect):
                     if not npc.is_moving_object:
                         self.player.move_back()
