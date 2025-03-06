@@ -124,7 +124,6 @@ class Cinematics:
             self.current_font_color = 'black'
             self.font_MFMG30.set_italic(False)
             
-    
     def fix_line(self,line):
         ### Suppression des parenthèses (non fonctionnel)
         #if len(line) > 1:
@@ -302,7 +301,6 @@ class Cinematics:
         screen.blit(self.cinematics_bgs[bg], pygame.Rect(0,0,1280,720))
         self.display_text_and_wait(screen,line1,line2,line3,'N')
 
-    
     def dialog1_frame (self, screen, bg, char, talking, wpn,side, unknown, line1="", line2="", line3=""):
         ########## Image dialogue avec 1 personnage ##########
         side2 = side
@@ -678,11 +676,6 @@ class Cinematics:
     def refresh_fullscreen(self):
         pass
     
-    
-    
-    
-    
-    
     ########## Cinématiques ##########
     
     def final_death (self,screen,saved="none"):
@@ -747,7 +740,12 @@ class Cinematics:
         self.cinematic_frame(screen, 'mgm6', 2, "Mais Musashi sait que cela ne suffit pas.", "Alors que le soleil se couche, il se tient devant ce qui reste de sa maison.", "Une décision mûrit en lui.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],0])
         self.cinematic_frame(screen, 'mgm6', 2, "Je dois partir... trouver des alliés, des armes.", "Si je reste ici, je ne pourrai pas aller de l'avant.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],1])
         self.cinematic_frame(screen, 'mgm6', 2, "Musashi, le cœur encore lourd mais l\'esprit décidé, prépare ses affaires.", "Il est prêt à quitter Magome pour chercher de l\'aide et des alliés,", "guidé par l\'espoir de sauver ce qui reste de son village.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],0])
-        
+        if saved == "KT":
+            self.cinematic_frame(screen, 'mgm6', 2, "Musashi, mettons nous en route pour le village d'Ine.", "Ce n'est pas loin d'ici, on y trouvera peut-être quelque chose.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],2])
+        elif saved=="KM":
+            self.cinematic_frame(screen, 'mgm6', 2, "Shikisha, mettons nous en route pour le village d'Ine.", "Ce n'est pas loin d'ici, on y trouvera peut-être quelque chose.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],2])
+        else:
+            self.cinematic_frame(screen, 'mgm6', 2, "Je devrais me mettre en route pour le village d'Ine.", "Ce n'est pas loin d'ici, j'y trouverai peut-être quelque chose.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],2])
         self.ecran_noir(screen)
     
     def cinematic_04 (self, screen, saved='none'):
@@ -782,7 +780,6 @@ class Cinematics:
             self.cinematic_frame(screen, "bamboo2", 2, "Essayons de rassembler les vivres nécessaires pour notre voyage,", "et de chercher un maître pour nous apprendre l'art du Samuraï", "Allons-y mon cher camarade.", kind_info=[['SM','no_weapon'],['KT','no_weapon'],2])
             self.cinematic_frame(screen, "bamboo2", 2, "Je n\'aurais pas mieux dit. Allons voir ce village d\'Ine." , kind_info=[['SM','no_weapon'],['KT','no_weapon'],1])
             
-    
     def cinematic_05 (self, screen, saved='none'):
         if saved == 'none':
             self.cinematic_frame(screen, 'mgm1', 2, "Excusez-moi monsieur. Y aurait-il un maître samouraï dans les parages ?", "Je suis à la recherche d'un maître Samouraï pour m'entraîner.", kind_info=[['SM','no_weapon'],['SH','no_weapon'],1])
@@ -965,7 +962,6 @@ class Cinematics:
             self.cinematic_frame(screen, 'ine1', 3, "Devenus samouraïs, Musashi et Takeshi décident de partir à la recherche", "d'un village pour s'équiper afin de se préparer au long combat qui les attend", "contre le clan Takahiro, celui qui a détruit leur village natal.", kind_info=[["KT","no_weapon"],["SM","no_weapon"],["SH","no_weapon"],0])
         self.ecran_noir(screen)
     
-
     def cinematic_10(self, screen, saved="none"):
         if saved == 'none':
             self.cinematic_frame(screen,'bamboo1', 1, "Un nouveau départ. Je suis enfin devenu un samouraï. Je vais enfin pouvoir", "venger Magome. Allons à la ville d'Aizuwakamatsu,on n'a plus de temps à ", "perdre. Hm? (Un ennemi ?)",  kind_info=["SM", "SM", "no_weapon", "right"])
@@ -1044,7 +1040,6 @@ class Cinematics:
         self.switch_lowercase(False)
         choice = self.choice_frame(screen,"bamboo1",[3,4],["Négocier le prix","Refuser","Accepter l'offre","Le tuer"],[["SM","no_weapon"],[saved,"no_weapon"],["JM","no_weapon"]])
         return choice[1]
-
 
     def cinematic_11 (self, screen, saved="none", choose=1):
         if choose==0:
