@@ -232,6 +232,7 @@ class Game:
             __npc.teleport_coords(action.position)
         elif action.type=='NPCRemove':
             self.map.map_manager.get_group().remove(__npc)
+            self.map.map_manager.get_map().npcs.remove(__npc)
         elif action.type=="NPCEndGPP":
             self.next_gpp(action.output)
         elif action.type =='NPCRepeatInterraction':
@@ -500,7 +501,7 @@ class Game:
             loading_menu = True
             pygame.mouse.set_visible(True)
         
-        elif self.current_interraction['is'] and self.pressed_keys[pygame.K_a]:
+        elif self.current_interraction['is'] and self.pressed_keys[pygame.K_e]:
             interraction=self.current_interraction["interraction"]
             self.handle_interraction(interraction)
             self.current_interraction = {"is":False,"interraction":None}
@@ -547,9 +548,6 @@ class Game:
             if self.draw_arrow:
                 self.screen_for_game.blit(self.current_arrow_surface,self.current_arrow_rect)
                 pygame.display.flip()
-            else:
-                pass
-                #print("a")
             return True
         return False
     

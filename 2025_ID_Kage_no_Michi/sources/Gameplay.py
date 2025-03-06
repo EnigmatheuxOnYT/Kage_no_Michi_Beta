@@ -215,7 +215,9 @@ class Scene:
 
 class Story:
     def __init__ (self):
-        self.scenes = {'Chapitre 0': {"Scene 0":None,
+        self.scenes = {'Chapitre 0': {"Scene 0":Scene(id=[0,0],
+                                                      next_id=[0,1],
+                                                      gpps=[]),
                                       'Scene 1':Scene(id=[0,1],
                                                       next_id=[0,2],
                                                       gpps=[GPPCinematic(name='Intro',
