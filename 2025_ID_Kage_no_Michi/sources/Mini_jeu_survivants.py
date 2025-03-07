@@ -249,7 +249,8 @@ class minigm_survivors :
             self.frame = 1
             self.in_intro = False
             self.in_minigm = True
-            print("Bonne réponse :", self.villagers[self.villager_list_output[self.current_villager]]['correct'])
+            if self.devmode:
+                print("Bonne réponse :", self.villagers[self.villager_list_output[self.current_villager]]['correct'])
             return None
         
         
@@ -337,7 +338,8 @@ class minigm_survivors :
                 self.in_minigm = True
                 self.playing = True
                 print("Mini-jeu relancé")
-                print("Bonne réponse :", self.villagers[self.villager_list_output[self.current_villager]]['correct'])
+                if self.devmode:
+                    print("Bonne réponse :", self.villagers[self.villager_list_output[self.current_villager]]['correct'])
                 return None
             
             

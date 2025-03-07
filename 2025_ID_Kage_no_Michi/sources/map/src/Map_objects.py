@@ -13,6 +13,7 @@ import pytmx.util_pygame
 import pyscroll
 import random
 import copy
+import math
 from dataclasses import dataclass
 from typing import List,overload
 
@@ -94,18 +95,26 @@ class CompatibleObject:
         self.map_manager.get_map().group.change_layer(self.group_object,layer)
 
 class SubPath:
-    def __init__(self,name:str,point_objects:List[pytmx.TiledObject],rect_objects:pytmx.TiledObject):
+    def __init__(self,name:str,point_objects:List[pytmx.TiledObject]=[]):
         self.name=name
         self.point_objects=point_objects
-        self.rect_objects=rect_objects
         self.raw_points= list()
-        self.raw_rects = list()
         self.points_rects_dict = dict()
         self.order()
+    
+    def _set_points(self,objects:List[pytmx.TiledObject],length):
+        points=[]
+        objects_list = list(objects)
+        for i in range(3):
+            for object in objects_list:
+                if object.name=="path_"+self.name+str(i+1):
+                    points.append(object)
+        self.point_objects=points
+        self.raw_points=points
+        #print(points)
 
     def order(self):
         self.order_points()
-        self.order_rects()
 
     def order_points(self):
         points=dict()
@@ -118,19 +127,7 @@ class SubPath:
         for i in list(points.values()):
             raw_points.append(i['point'])
         self.raw_points = raw_points
-    
-    def order_rects(self):
-        for i in range(1,len(self.rect_objects)+1):
-            for object in self.rect_objects:
-                if str(i) in object.name:
-                    self.points_rects_dict[object.name]['rect']=pygame.Rect(object.x,object.y,object.width,object.height)
-        raw_rects = list()
-        for i in list(self.points_rects_dict.values()):
-            raw_rects.append(i['rect'])
-        self.raw_rects=raw_rects
 
-
-    
     def get_raw_points(self,reversed:bool=False):
         points=self.raw_points
         if reversed:
@@ -139,8 +136,58 @@ class SubPath:
                 reversed_points=points[-i]
             points=reversed_points
         return points
+    
 
+class Path:
+    def __init__(self,name,subpaths:List[SubPath],crosss:List[pytmx.TiledObject],order:List[List[int]]):
+        self.name=name
+        self.points = self.__get_path_points(subpaths,crosss,order)
+        self._current_index = 0
+        self.lengh=len(self.points)
+        self.over=False
+    
+    def __get_path_points(self,subpaths,crosss,order):
+        objects=[]
+        subpaths_index=0
+        crosss_index=0
+        for i in order:
+            if i[0] == 1:
+                objects+=subpaths[subpaths_index].get_raw_points(reversed=i[1])
+                subpaths_index+=1
+            else:
+                objects.append(crosss[crosss_index])
+                crosss_index+=1
+        #print(objects)
+        return objects
+    
+    def get_current_point(self,player_pos):
+        if self.over:
+            return self.points[-1]
+        else:
+            self.update_point(player_pos)
+            current_point=self.points[self._current_index]
+            return current_point
 
+    
+    def update_point(self,player_pos):
+        point=self.points[self._current_index]
+        distance=math.sqrt((player_pos[0]-point.x)**2+(player_pos[1]-point.y)**2)
+        if distance <=50 and not self.over:
+            if self._current_index>=self.lengh-1:
+                self.over=True
+            else:
+                self._current_index+=1
+    
+    def flip (self):
+        new_points=[]
+        for i in range(len(self.points)):
+            new_points.append(self.points[-i])
+        self.points=new_points
+
+paths_list = [{'name':'mgm_ine',
+               'sub_paths_names':['mgm','river','ine'],
+               'points_names':['1','2','3','spawn_Ine'],
+               'order':[[1,False],[0],[1,False],[0],[0],[1,False],[0]]}]
 
 
 @dataclass

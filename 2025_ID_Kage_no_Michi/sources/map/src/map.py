@@ -14,7 +14,7 @@ import copy
 
 from map.src.Map_objects import *
 from map.src.player2 import *
-from map.src.Interractions import *
+from map.src.Interactions import *
 from typing import List,overload
 
 
@@ -112,6 +112,11 @@ class MapManager :
             self.register_map("MAP PROJET NSI 2025 500x500",
                               spawn_name="spawn_Magome",
                               npcs=[StaticNPC("Hoshida",[96,576],instance=1)],
+                              sub_paths=[{'name':'mgm','lengh':3},
+                                         {'name':"ine",'lengh':3},
+                                         {'name':'river','lengh':2},
+                                         {"name":"forest_ine","lengh":3},
+                                         {'name':"forest_azw","lengh":3}],
                               layer=8
                               )
             Loading.display_loading(screen, 77,"Chargement des cartes secondaires")
@@ -190,8 +195,8 @@ class MapManager :
                         self.current_active_events+=event_zone.events
             
             for npc in self.get_map().npcs:
-                if npc.is_interractible and self.player.feet.colliderect(npc.interraction_rect) and npc.current_interraction is not None:
-                    self.current_active_events.append(npc.current_interraction.event)
+                if npc.is_interactible and self.player.feet.colliderect(npc.interaction_rect) and npc.current_interaction is not None:
+                    self.current_active_events.append(npc.current_interaction.event)
                 if self.player.feet.colliderect(npc.collision_rect):
                     if not npc.is_moving_object:
                         self.player.move_back()
@@ -201,6 +206,12 @@ class MapManager :
                 if sprite.is_moving_object:
                     if sprite.feet.collidelist(self.get_walls()) > -1 :
                         sprite.move_back()
+            
+            for object in self.get_map().tmx_data.objects:
+                if object.type=="fire":
+                    rect=pygame.Rect(object.x,object.y,object.width,object.height)
+                    if self.player.feet.colliderect(rect):
+                        self.current_active_events.append(Event(type='on_fire',data=[]))
         
 
     def teleport_player(self,name):
@@ -225,7 +236,7 @@ class MapManager :
         self.teleport_player_pos(pos[0],pos[1])
          
 
-    def register_map(self,name,spawn_name,portals=[],npcs=[],event_zones=[],sub_paths_names=[],layer="",placed_correctly=False):
+    def register_map(self,name,spawn_name,portals=[],npcs=[],event_zones=[],sub_paths=[],layer="",placed_correctly=False):
 
         # Charger la map tmx
         if placed_correctly:
@@ -253,15 +264,7 @@ class MapManager :
                     display_zone = DisplayZone(object.type,object.name,object_rect,object,self)
                     display_zones.append(display_zone)
         
-        sub_paths=[]
-        for sbp_name in sub_paths_names:
-            objects=[]
-            for object in tmx_data.objects:
-                if "subpath_"+sbp_name in object.name:
-                    objects.append(object)
-            sub_path = SubPath(sbp_name,objects)
-            sub_paths.append(sub_path)
-
+        sub_paths_list= self.get_map_subpaths(tmx_data,sub_paths)
                 
         #Le point de spawn
         spawn_point = tmx_data.get_object_by_name(spawn_name)
@@ -282,7 +285,16 @@ class MapManager :
             group.add(displayzone)
 
         #Enregistrement de la nouvelle map chargée
-        self.maps[name] = Map(name,walls,group,tmx_data,spawn,portals,event_zones,display_zones,sub_paths,npcs)
+        self.maps[name] = Map(name,walls,group,tmx_data,spawn,portals,event_zones,display_zones,sub_paths_list,npcs)
+    
+    def get_map_subpaths(self,tmx_data,sub_paths:list):
+        sub_paths_list=[]
+        for sub_path in sub_paths:
+            sub_path_object = SubPath(name=sub_path['name'])
+            sub_path_object._set_points(tmx_data.objects,sub_path['lengh'])
+            sub_paths_list.append(sub_path_object)
+        return sub_paths_list
+
 
     def get_current_map (self): return self.current_map
     

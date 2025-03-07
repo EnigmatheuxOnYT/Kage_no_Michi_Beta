@@ -1,7 +1,7 @@
 #Projet : Kage no Michi
 #Auteurs : Alptan Korkmaz, Clément Roux--Bénabou, Maxime Rousseaux, Ahmed-Adam Rezkallah, Cyril Zhao
 
-
+#interr
 # -*- coding: utf-8 -*-
 """
 Created on Fri Jan 10 00:01:49 2025
@@ -27,6 +27,7 @@ from Mini_jeu_collecte import minigm_collect
 from Audio import Music,Sound
 from Gameplay import Story
 from map.src.game import Game_map
+from map.src.Map_objects import Path,paths_list
 
 class Game:
     
@@ -60,6 +61,8 @@ class Game:
         self.cinematics = Cinematics()
         Loading.display_loading(screen, 67,"Lancement du module de la carte")
         self.map = Game_map(screen)
+        self.paths = self._get_paths(paths_list)
+        self.current_path=self.paths[0]
         Loading.display_loading(screen, 80,"Finalisation")
         self.fps_showed = False
         self.passcodes = ["jaimelecoucoustajine"]
@@ -69,7 +72,9 @@ class Game:
         self.current_arrow_rect= pygame.Rect(541,380,99,99)
         self.draw_arrow=False
         self.current_arrow_surface = self.arrow
-        self.current_arrow_point_coordinates = self.get_spawn()
+        self.arrow_mode='spawn'
+
+        self.display_fire=False
 
         self.money_counter_surface=pygame.image.load("../data/assets/minigm/Barre_Reponse.png").convert_alpha()
         self.money_counter_rect=pygame.Rect(1000,0,280,60)
@@ -79,11 +84,27 @@ class Game:
         self.devmode=False
         self.in_gameplay=False
 
-        self.current_interraction = {"is":False,"interraction":None}
+        self.current_interaction = {"is":False,"interaction":None}
+        self.current_interration = 0
 
         self.scene=[0,0]
     @property
     def current_playing_scene(self):return self.story.scenes[f'Chapitre {self.scene[0]}'][f'Scene {self.scene[1]}']
+    @property
+    def current_arrow_point_coordinates(self):
+        if self.arrow_mode == 'spawn':
+            return self.get_spawn()
+        elif self.arrow_mode=='path':
+            if self.current_path.over:
+                self.draw_arrow=False
+            point = self.current_path.get_current_point(self.get_pos())
+            return [point.x,point.y]
+        elif self.arrow_mode=='target':
+            return self.current_arrow_target
+    
+            
+
+
 
     def get_pos(self): return self.map.player.position
     
@@ -168,7 +189,8 @@ class Game:
         self.map.map_manager.change_map(self.current_map,self.player_pos)
 
     def handle_zone_events(self,events):
-        self.current_interraction = {"is":False,"interraction":None}
+        self.display_fire=False
+        self.current_interaction = {"is":False,"interaction":None}
         for i in range(len(events)):
             event = events[i]
             
@@ -184,24 +206,27 @@ class Game:
             elif event.type == "map":
                 self.change_map_for_game(event.data[0],event.data[1])
             
-            elif event.type == "interraction":
-                self.current_interraction = {"is":True,"interraction":event.data[0]}
+            elif event.type == "interaction":
+                self.current_interaction = {"is":True,"interaction":event.data[0]}
             
             elif event.type == "gpp_next":
                 self.next_gpp(event.data[0])
+            
+            elif event.type=='on_fire':
+                self.display_fire = True
 
     
 
 
-    def handle_interraction (self,interraction):
+    def handle_interaction (self,interaction):
         for npc in self.map.map_manager.get_map().npcs:
-            if npc.instance_name==interraction.npc_name:
+            if npc.instance_name==interaction.npc_name:
                 __npc = npc
-        for _ in range(len(interraction.actions)):
-            self.handle_action(interraction.current_action,__npc)
-            interraction.next_action()
-        if interraction.end():
-            __npc.next_interraction()
+        for _ in range(len(interaction.actions)):
+            self.handle_action(interaction.current_action,__npc)
+            interaction.next_action()
+        if interaction.end():
+            __npc.next_interaction()
         self.temporary_storage=None
     
     def handle_action(self,action,__npc):
@@ -214,9 +239,10 @@ class Game:
             __npc.teleport_coords(action.position)
         elif action.type=='NPCRemove':
             self.map.map_manager.get_group().remove(__npc)
+            self.map.map_manager.get_map().npcs.remove(__npc)
         elif action.type=="NPCEndGPP":
             self.next_gpp(action.output)
-        elif action.type =='NPCRepeatInterraction':
+        elif action.type =='NPCRepeatInteraction':
             pass
 
             
@@ -282,7 +308,8 @@ class Game:
                 self.draw_arrow = args[1]
             elif subtype == "point":
                 try:
-                    self.current_arrow_point_coordinates=self.map.map_manager.get_point_pos(args[1])
+                    self.arrow_mode='target'
+                    self.current_arrow_target=self.map.map_manager.get_point_pos(args[1])
                 except:
                     print("Le point {args[0]} n'existe pas.")
         elif command == "devmode":
@@ -409,6 +436,8 @@ class Game:
             elif gpp.type=='GPFMap':
                 self.change_map_for_game(True,gpp.map)
                 self.map.map_manager.teleport_player(gpp.spawn)
+                if gpp.path!=None:
+                    self.start_path(gpp.path)
                 self.in_gameplay=True
         
 
@@ -426,7 +455,7 @@ class Game:
         self.current_map = name
         self.map.map_manager.change_map(name)
         self.player_pos = self.get_pos()
-        self.current_arrow_point_coordinates=self.get_spawn()
+        self.arrow_mode='spawn'
     
     def teleport_spawn (self):
         self.map.map_manager.teleport_player_spawn()
@@ -438,6 +467,34 @@ class Game:
         self.cinematics.final_death(self.screen_for_game,self.choices[0])
         self.dead = True
     
+    def _get_paths(self,paths_list):
+        paths=[]
+        for i in paths_list:
+            sub_paths = []
+            for sub_path_name in i['sub_paths_names']:
+               for sub_path in self.map.map_manager.get_map().sub_paths:
+                   if sub_path.name==sub_path_name:
+                       sub_paths.append(sub_path)
+            points=[]
+            for point_name in i['points_names']:
+                if point_name in [str(k) for k in range(1,6)]:
+                    points.append(self.map.map_manager.get_object(f'path_cross{point_name}'))
+                else:
+                    points.append(self.map.map_manager.get_object(point_name))
+            
+                 
+            path=Path(i['name'],sub_paths,points,i['order'])
+            paths.append(path)
+        return paths
+    
+    def start_path(self,path_name):
+        self.arrow_mode='path'
+        for path in self.paths:
+            if path.name==path_name:
+                self.current_path=path
+        self.draw_arrow=True
+
+
     ############### Partie 1 ###############
     
     def game_events (self,in_game, loading_menu):
@@ -451,10 +508,10 @@ class Game:
             loading_menu = True
             pygame.mouse.set_visible(True)
         
-        elif self.current_interraction['is'] and self.pressed_keys[pygame.K_a]:
-            interraction=self.current_interraction["interraction"]
-            self.handle_interraction(interraction)
-            self.current_interraction = {"is":False,"interraction":None}
+        elif self.current_interaction['is'] and self.pressed_keys[pygame.K_e]:
+            interaction=self.current_interaction["interaction"]
+            self.handle_interaction(interaction)
+            self.current_interaction = {"is":False,"interaction":None}
         
         elif self.loaded_save == 0:
             if self.pressed_keys[pygame.K_c]:
@@ -506,6 +563,11 @@ class Game:
 
         screen.blit(self.money_counter_surface,self.money_counter_rect)
         screen.blit(money_surface,self.money_rect)
+        if self.display_fire:
+            surf=pygame.surface.Surface((1280,720))
+            surf.fill("red")
+            surf.set_alpha(50)
+            screen.blit(surf,pygame.Rect(0,0,1280,720))
         pygame.display.flip()
 
 

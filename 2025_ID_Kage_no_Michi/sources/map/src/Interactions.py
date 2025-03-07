@@ -49,10 +49,10 @@ class NPCEndGPP(Action):
         Action.__init__(self,"NPCEndGPP")
         self.output=output
 
-class NPCRepeatInterraction(Action):
+class NPCRepeatInteraction(Action):
     def __init__(self,repetitions:int=-1):
-        Action.__init__(self,"NPCRepeatInterraction")
-        self.name="NPCRepeatInterraction"
+        Action.__init__(self,"NPCRepeatInteraction")
+        self.name="NPCRepeatInteraction"
         self.repetitions=repetitions
         self.repetitions_left=repetitions
     
@@ -66,7 +66,7 @@ class NPCRepeatInterraction(Action):
                 self.repetitions_left-=1
                 return True
 
-class Interraction:
+class Interaction:
     def __init__(self,npc_name:str,actions:List[Action]=[]):
         self.npc_name=npc_name
         self.types=[]
@@ -81,7 +81,7 @@ class Interraction:
     def current_action (self):return self.actions[self.current_action_index] if 0<=self.current_action_index<=len(self.actions)-1 else None
 
     @property
-    def event(self):return Event(type='interraction',data=[self])
+    def event(self):return Event(type='interaction',data=[self])
 
     def next_action(self):
         action = self.current_action
@@ -92,7 +92,7 @@ class Interraction:
     
     def end(self):
         action = self.current_action
-        if action is not None and action.type=="NPCRepeatInterraction":
+        if action is not None and action.type=="NPCRepeatInteraction":
             self.current_action_index=0
             self.over=False
             return action.read()
@@ -100,23 +100,23 @@ class Interraction:
             return True
 
 
-class Interractible:
-    def __init__(self,is_interractible:bool=False,interractions:List[Interraction]=[]):
-        self.is_interractible=is_interractible
-        self.interractions=interractions
-        self.current_interraction_index=0
+class Interactible:
+    def __init__(self,is_interactible:bool=False,interactions:List[Interaction]=[]):
+        self.is_interactible=is_interactible
+        self.interactions=interactions
+        self.current_interaction_index=0
     
     @property
-    def current_interraction(self):return self.interractions[self.current_interraction_index] if 0<=self.current_interraction_index<=len(self.interractions)-1 else None
+    def current_interaction(self):return self.interactions[self.current_interaction_index] if 0<=self.current_interaction_index<=len(self.interactions)-1 else None
 
 
-    def next_interraction(self):
-        interraction = self.current_interraction
-        if interraction is not None:
-            self.current_interraction_index+=1
+    def next_interaction(self):
+        interaction = self.current_interaction
+        if interaction is not None:
+            self.current_interaction_index+=1
 
 
-CharactersInterractions = {"Hoshida1":[Interraction(npc_name="Hoshida1",
+CharactersInteractions = {"Hoshida1":[Interaction(npc_name="Hoshida1",
                                                     actions=[NPCEndGPP(output=-1),
                                                              NPCRemove()
                                                              ]

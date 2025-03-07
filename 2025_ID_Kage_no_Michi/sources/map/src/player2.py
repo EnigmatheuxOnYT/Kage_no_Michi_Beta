@@ -6,7 +6,7 @@ import pygame
 
 from map.src.Map_objects import *
 from map.src.animation import AnimateSprite
-from map.src.Interractions import *
+from map.src.Interactions import *
 from typing import List
 from dataclasses import dataclass
 
@@ -89,14 +89,14 @@ class Player(Entity):
         super().__init__("Player",0,0)
         
         
-class NPC(Entity,Interractible):
+class NPC(Entity,Interactible):
     
     def __init__(self, name,start_pos=[0,0], nb_points=0,speed=1,instance:int=0):
         Entity.__init__(self,name,start_pos[0],start_pos[1])
         self.instance=instance
         interractions=self._get_interractions()
         is_interractible=len(interractions)!=0
-        Interractible.__init__(self,is_interractible,interractions)
+        Interactible.__init__(self,is_interractible,interractions)
         self.instance_name=self.name+str(self.instance)
         self.start_pos=start_pos
         self.nb_points = nb_points
@@ -144,9 +144,9 @@ class NPC(Entity,Interractible):
     def _get_interractions(self):
         try:
             if self.instance==0:
-                return CharactersInterractions[self.name]
+                return CharactersInteractions[self.name]
             else:
-                return CharactersInterractions[self.name+str(self.instance)]
+                return CharactersInteractions[self.name+str(self.instance)]
         except:
             return []
 
@@ -193,32 +193,32 @@ class StaticEntity(pygame.sprite.Sprite):
         self.base_layer=layer
 
     
-class StaticNPC(StaticEntity,Interractible):
+class StaticNPC(StaticEntity,Interactible):
     def __init__(self, name,pos=[0,0],direction="down",instance:int=0):
         StaticEntity.__init__(self,name,pos[0],pos[1],direction)
         self.instance=instance
-        interractions = self._get_interractions()
-        is_interractible=len(interractions)!=0
-        Interractible.__init__(self,is_interractible,interractions)
+        interactions = self._get_interactions()
+        is_interactible=len(interactions)!=0
+        Interactible.__init__(self,is_interactible,interactions)
         self.instance_name=self.name+str(self.instance)
         self.collision_rect = pygame.Rect(0,0,34,10)
         self.collision_rect.bottomright=self.rect.bottomright
     
     @property
-    def interraction_rect(self):
-        if self.is_interractible:
+    def interaction_rect(self):
+        if self.is_interactible:
             rect=pygame.Rect(0,0,50,50)
         else:
             rect=pygame.Rect(0,0,0,0)
         rect.center=self.rect.midbottom
         return rect
 
-    def _get_interractions(self):
+    def _get_interactions(self):
         try:
             if self.instance==0:
-                return CharactersInterractions[self.name]
+                return CharactersInteractions[self.name]
             else:
-                return CharactersInterractions[self.name+str(self.instance)]
+                return CharactersInteractions[self.name+str(self.instance)]
         except:
             return []
     
