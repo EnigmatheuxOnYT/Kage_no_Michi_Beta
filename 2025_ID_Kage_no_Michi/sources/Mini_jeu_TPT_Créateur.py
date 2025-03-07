@@ -18,8 +18,8 @@ pygame.init()
 # -----------------------------
 # Dimensions de la fenêtre
 LONGUEUR_ECRAN = 1280              # Largeur de la fenêtre
-PANEL_HEIGHT = 180                 # Hauteur du panneau (zone d'infos en bas)
-HAUTEUR_TOTALE = 540 + PANEL_HEIGHT  # Hauteur totale de la fenêtre
+PANEL_HEIGHT = 250                 # Hauteur du panneau (zone d'infos en bas)
+HAUTEUR_TOTALE = 720               # Hauteur totale de la fenêtre
 
 FPS = 60                           # Images par seconde
 
@@ -346,6 +346,109 @@ image_base = BaseGameDisplay(screen, fond, attaque_frontale_box, attaque_special
 # -----------------------------
 # 9. Boucle Principale du Jeu
 # -----------------------------
+class Fight:
+    def __init__(self):
+        #Couleurs
+        self.VERT = (0, 140, 70)
+        self.VERT_VIE = (90, 180, 130)
+        self.PINK = (240, 120, 174)
+        self.ROUGE = (255, 0, 0)
+        self.BLANC = (255, 255, 255)
+
+        #Utiles
+        self.clock=pygame.time.Clock()
+
+        #Chargement des Ressources Graphiques
+        # Fond d'écran et panneau de dialogue
+        self.fond = pygame.image.load("../data/assets/bgs/Fond_Ine_Dojo_Arene_1.png").convert_alpha()
+        self.panel_affichage = pygame.image.load("../data/assets/minigm/Parchemin_Question.png").convert_alpha()
+
+        # Polices d'écriture
+        self.police_base = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 30)
+        self.police_display = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 49)
+        self.police_degats = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 40)
+
+        # Images des objets (ex : potion de soin)
+        self.potion_image = pygame.image.load("../data/assets/minigm/potion_de_soin.png").convert_alpha()
+        self.potion_image = pygame.transform.scale(self.potion_image, (80, 80))
+
+        # Images des boutons d'attaque (interface utilisateur)
+        self.attaque_frontale_box = pygame.image.load("../data/assets/minigm/Attaque_Frontale_V1.png").convert_alpha()
+        self.attaque_special_box = pygame.image.load("../data/assets/minigm/Attaque_Speciale_V1.png").convert_alpha()
+
+        # Définition des zones cliquables (hitboxes)
+        self.attaque_frontale_hitbox = pygame.Rect(15, 350, 100, 100)
+        self.attaque_special_hitbox = pygame.Rect(15, 470, 100, 100)
+        self.potion_hitbox = pygame.Rect(500, 600, 80, 80)
+        self.affichage_display = pygame.Rect(0,0,1280,50)
+
+        self.continuer = True
+        self.click_cooldown = False
+
+    
+    def draw_text(text, font, text_color, x, y):
+        """
+        Affiche du texte sur l'écran.
+        """
+        img = font.render(text, True, text_color)
+        screen.blit(img, (x, y))
+
+    def affichage_panel():
+        """
+        Affiche le panneau de dialogue et les points de vie des personnages.
+        """
+        screen.blit(panel_affichage, (0, 540))
+        draw_text(f'Musashi PV: {Musashi.pv}', police_base, VERT, 100, 610)
+        draw_text(f'Guerrier Takahiro PV: {guerrier_takahiro.pv}', police_base, PINK, 700, 610)
+        draw_text(f'Guerrier Takahiro PV: {guerrier_takahiro2.pv}', police_base, PINK, 700, 660)
+
+    def debounce(cooldown: float):
+        """
+        Hyp: la fonction debounce met en pause pendant une durée (en secondes) afin de ralentir l'exécution pour mieux visualiser l'action.
+        """
+        start_time = time.time()
+        while time.time() - start_time < cooldown:
+            pass
+
+    def changer_orientation_sprite(sprite):return pygame.transform.flip(sprite,True,False)
+
+    def load (self,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):
+        # Variables de Jeu
+        self.perso_player=perso_player
+        self.allies=allies
+        self.persos_ennemy = persos_ennemy
+        self.nombre_ennemi = len(persos_ennemy)
+        self.attaque_frontale_compteur = 0
+        self.action = 1
+        self.potion = potions
+        self.modifieur_degats = 5
+        self.modifieur_degats_spe = 15
+
+        # Dégâts aléatoires pour les attaques
+        self.attaque_frontale = random.randint(perso_player.current_damage-self.modifieur_degats,perso_player.current_damage+self.modifieur_degats)
+        self.attaque_special = random.randint(perso_player.current_damage+self.modifieur_degats,perso_player.current_damage+self.modifieur_degats+self.modifieur_degats_spe)
+
+        # Variables pour gérer le temps (pour le cooldown des attaques ennemies)
+        self.cooldown_ennemi = 1000  # 1 seconde de cooldown
+        self.dernier_temps_attaque = 0
+        self.ennemi_peut_attaquer = False
+        self.tour = 1
+
+
+    def handle_imput (self):pass
+    def update (self):pass
+    def draw (self,screen):pass
+    
+    def run(self,screen,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):
+        self.load()
+
+        while self.continuer:
+            self.handle_imput()
+            self.update()
+            self.draw(screen)
+
+
+        
 def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
     nombre_ennemi=len(persos_ennemy)
     nombre_joueurs=len(allies)+1
@@ -471,11 +574,9 @@ def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
                     compteur_ennemi_mort+=1
             if compteur_ennemi_mort==nombre_ennemi:
                 print('WIN')
-                pygame.time.delay(4000)
                 continuer = False
-            elif perso_player.pv < 1:
+            elif perso_player.pv <= 0:
                 print('LOSE')
-                pygame.time.delay(4000)
                 continuer = False
 
         pygame.display.flip()
