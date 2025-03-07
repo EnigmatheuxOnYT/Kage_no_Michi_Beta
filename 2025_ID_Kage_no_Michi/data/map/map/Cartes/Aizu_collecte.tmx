@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="279">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="280">
  <tileset firstgid="1" source="../terrain-v7.tsx"/>
  <tileset firstgid="2049" source="../rocher.tsx"/>
  <tileset firstgid="2053" source="../Bambou 1.tsx"/>
@@ -982,5 +982,8 @@
   <object id="248" name="mgm_collect_9" x="1833.67" y="135.667" width="143.667" height="114"/>
   <object id="249" name="mgm_collect_10" x="2857" y="164.667" width="146" height="114.333"/>
   <object id="250" name="mgm_collect_8" x="257.75" y="166.5" width="122.75" height="116.75"/>
+  <object id="279" name="exit_point" x="1598.67" y="3197">
+   <point/>
+  </object>
  </objectgroup>
 </map>

@@ -226,6 +226,10 @@ class Game:
             
             elif event.type=='location':
                 self.location = event.data[0]
+            
+            elif event.type=='gpp':
+                print("alpha")
+                self.update_scene(event.data)
 
     
 
@@ -340,9 +344,10 @@ class Game:
             choices = self.choices
         
         self.music.play(fade=500)
+        reward = {'money':0,"heal_potion":0}
         
         if minigame == 1:
-            self.running = self.minigm_01.run(self.screen_for_game,choices[0],devmode)
+            self.running,reward = self.minigm_01.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 2:
             self.running = self.minigm_02.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 3:
@@ -358,8 +363,10 @@ class Game:
         elif minigame ==8:
             self.running = self.minigm_08.run(self.screen_for_game,choices[0],devmode)
         elif minigame ==9:
-            self.running = self.minigm_09.run(self.screen_for_game,choices[0],devmode)
+            self.running,reward = self.minigm_09.run(self.screen_for_game,choices[0],devmode)
         
+        self.money+=reward['money']
+        self.heal_potions_count+=reward['heal_potion']
         pygame.mouse.set_visible(False)
         
     
@@ -438,6 +445,7 @@ class Game:
         output=-1
         if gpp==None:
             self.in_gameplay=True
+            self.next_gpp(-1)
         else:
             if gpp.type=="GPPCinematic":
                 output = self.launch_cinematic(gpp.cinematic_no)
@@ -450,15 +458,22 @@ class Game:
                 self.map.map_manager.teleport_player(gpp.spawn)
                 if gpp.path!=None:
                     self.start_path(gpp.path)
+                else:
+                    self.arrow_mode='spawn'
+                    self.draw_arrow=False
                 self.in_gameplay=True
         
 
-    def update_scene (self):
+    def update_scene (self,data=[]):
         gpp=self.current_playing_scene.current_gpp
         if gpp!=None and gpp.type=='GPPMap':
             for update in gpp.updates:
                 if update.condition.type=='location':
                     if self.location==update.condition.data[0]:
+                        if update.effect=='next':
+                            self.next_gpp(-1)
+                elif update.condition.type=='event_zone' and data!=[]:
+                    if gpp.name==data[0] and update.condition.data[0]==data[1]:
                         if update.effect=='next':
                             self.next_gpp(-1)
         

@@ -420,6 +420,7 @@ class minigm_survivors :
             
             
         if self.correct_choices == 9:
+            self.reward['money']=20
             if self.frame == 4:
                 
                 self.line1 = "Yoshirō, le doyen du village, revient vers Shikisha."
@@ -488,6 +489,7 @@ class minigm_survivors :
         self.correct_choices = 0
         self.current_villager = 0
         self.current_last_letter = [0,0,0]
+        self.reward = {'money':0,"heal_potion":0}
         self.written = False
         self.line1 = "Yoshirō confie à Musashi la tâche de réorganiser les villageois."
         self.line2 = "Les ressources sont rares,"
@@ -503,7 +505,7 @@ class minigm_survivors :
             self.draw(screen, choice)
             pygame.time.Clock().tick(60)
         
-        return self.running
+        return self.running,self.reward
 
 
 if __name__ == '__main__':
