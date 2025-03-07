@@ -51,6 +51,10 @@ class Fight:
         self.continuer = True
         self.click_cooldown = False
 
+        sprites_coordinates = [(400,350),(700, 350),(850, 350)]
+
+
+
     
     def draw_text(text, font, text_color, x, y):
         """
@@ -108,6 +112,20 @@ class Fight:
 
         self.click_cooldown = False
 
+        barres_vie = {}
+        self.perso_player_barrevie = BarreVie(100,640, self.perso_player.pv, self.perso_player.pv_max)
+
+        y = 150
+        self.allies_barres_vie = {}
+        for ally in self.allies:
+            self.allies_barres_vie[ally.name] = BarreVie(100, 540+y, ally.pv, ally.pv_max)
+            y += 20
+
+        y = 100
+        self.ennemies_barres_vie = {}
+        for ennemy in self.persos_ennemy:
+            self.ennemies_barres_vie[ennemy.name] = BarreVie(700,540+y, ennemy.pv, ennemy.pv_max)
+            y+20
 
 
     def handle_imput (self):
@@ -128,11 +146,11 @@ class Fight:
                         if self.perso_player.pv < 80:
                             soins_necessaire = 30
                             Degats(self.perso_player.x + 30, self.perso_player.y+50, soins_necessaire, self.VERT_VIE) #Affichage des dégâts
-                            Musashi_barre_vie.draw(self.perso_player.pv)
+                            self.perso_player_barrevie.draw(self.perso_player.pv)
                         else: #Si le pv du joueur est au-dessus des pv données par la potion
                             soins_necessaire = 100 - self.perso_player.pv
                             Degats(self.perso_player.x+30, self.perso_player.y+50, soins_necessaire, self.VERT_VIE) #Affichage des dégâts
-                            Musashi_barre_vie.draw(self.perso_player.pv)
+                            self.perso_player_barrevie.draw(self.perso_player.pv)
                         self.perso_player.pv += soins_necessaire
                         self.ennemi_peut_attaquer = False
 
@@ -145,7 +163,7 @@ class Fight:
                                 attaque_frontale = random.randint(self.perso_player.current_damage-self.modifieur_dégats,self.perso_player.current_damage+self.modifieur_dégats)
                                 Degats(ennemy.x+30, ennemy.y+50, attaque_frontale, ROUGE) #Affichage des dégâts
                                 ennemy.pv -= attaque_frontale
-                                guerrier_takahiro_barre_vie.draw(ennemy.pv)
+                                self.ennemi_peut_attaquer[ennemy.name].draw(ennemy.pv)
                                 self.attaque_frontale_compteur += 1
                                 self.action = 0
                                 attaque_effectuee=True
@@ -160,7 +178,7 @@ class Fight:
                                 attaque_special = random.randint(10, 30)
                                 Degats(ennemy.x+30, ennemy.y+50, attaque_special, ROUGE)
                                 ennemy.pv -= attaque_special
-                                guerrier_takahiro_barre_vie.draw(ennemy.pv)
+                                self.ennemies_barres_vie[ennemy.name].draw(ennemy.pv)
                                 self.attaque_frontale_compteur = 0
                                 self.action = 0
                         self.ennemi_peut_attaquer = False
@@ -169,7 +187,7 @@ class Fight:
         # Fin du combat : victoire ou défaite
         compteur_ennemi_mort = 0
         for i in range(nombre_ennemi):
-            ennemy=persos_ennemy[i]
+            ennemy=self.persos_ennemy[i]
             if ennemy.pv <= 0 :
                 compteur_ennemi_mort+=1
         if compteur_ennemi_mort==nombre_ennemi:
