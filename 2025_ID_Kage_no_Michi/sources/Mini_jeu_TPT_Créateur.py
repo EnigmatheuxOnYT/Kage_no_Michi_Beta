@@ -41,21 +41,21 @@ clock = pygame.time.Clock()
 # 4. Chargement des Ressources Graphiques
 # -----------------------------
 # Fond d'écran et panneau de dialogue
-fond = pygame.image.load("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/UIS/Fond_Ine_Dojo_Arene_1.png").convert_alpha()
-panel_affichage = pygame.image.load("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/UIS/Parchemin_Dialogues_V3.png").convert_alpha()
+fond = pygame.image.load("../data/assets/bgs/Fond_Ine_Dojo_Arene_1.png").convert_alpha()
+panel_affichage = pygame.image.load("../data/assets/minigm/Parchemin_Question.png").convert_alpha()
 
 # Polices d'écriture
-police_base = pygame.font.Font("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/Font/MadouFutoMaruGothic.ttf", 30)
-police_display = pygame.font.Font("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/Font/MadouFutoMaruGothic.ttf", 49)
-police_degats = pygame.font.Font("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/Font/MadouFutoMaruGothic.ttf", 40)
+police_base = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 30)
+police_display = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 49)
+police_degats = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 40)
 
 # Images des objets (ex : potion de soin)
-potion_image = pygame.image.load("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/UIS/potion de soin.png").convert_alpha()
+potion_image = pygame.image.load("../data/assets/minigm/potion_de_soin.png").convert_alpha()
 potion_image = pygame.transform.scale(potion_image, (80, 80))
 
 # Images des boutons d'attaque (interface utilisateur)
-attaque_frontale_box = pygame.image.load("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/UIS/Attaque_Frontale_V1.png").convert_alpha()
-attaque_special_box = pygame.image.load("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/UIS/Attaque_Speciale_V1.png").convert_alpha()
+attaque_frontale_box = pygame.image.load("../data/assets/minigm/Attaque_Frontale_V1.png").convert_alpha()
+attaque_special_box = pygame.image.load("../data/assets/minigm/Attaque_Speciale_V1.png").convert_alpha()
 
 # Définition des zones cliquables (hitboxes)
 attaque_frontale_hitbox = pygame.Rect(15, 350, 100, 100)
@@ -206,19 +206,19 @@ class Perso:
         self._base_damage = 5
         self.weapon = weapon
         self.level = level #niveau du personnage
-        sprite = pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Idle.png") #Le spirte quand il reste immobile
+        sprite = pygame.image.load(f"../data/assets/sprites/{self.name}_Idle.png") #Le spirte quand il reste immobile
         self.image = pygame.transform.scale(sprite, nouvelle_taille) #On redimensionne le sprite de sorte à ce que ça soit cohérent avec le fond
         self.animations_combat = [
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_2.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_3.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_4.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_5.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_6.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_7.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_8.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_9.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_10.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_1.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_2.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_3.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_4.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_5.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_6.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_7.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_8.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_9.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_10.png"),
             sprite
         ] #Tous les sprites présents lors de l'animation d'attaque
 
@@ -243,15 +243,15 @@ class Perso:
 
         image_base = BaseGameDisplay(screen, fond, attaque_frontale_box, attaque_special_box,potion_image, HAUTEUR_TOTALE, PANEL_HEIGHT, barres_vie, persos_combat,affichage_display,action)
         self.animations_attaques = [
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_1_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_2_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_3_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_4_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_5_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_6_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_7_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_8_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_9_V1.png")
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_1_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_2_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_3_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_4_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_5_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_6_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_7_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_8_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_9_V1.png")
         ]
 
 
