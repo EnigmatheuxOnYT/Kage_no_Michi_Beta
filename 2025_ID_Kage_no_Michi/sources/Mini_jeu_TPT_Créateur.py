@@ -18,7 +18,7 @@ pygame.init()
 # -----------------------------
 # Dimensions de la fenêtre
 LONGUEUR_ECRAN = 1280              # Largeur de la fenêtre
-PANEL_HEIGHT = 180                 # Hauteur du panneau (zone d'infos en bas)
+PANEL_HEIGHT = 250                 # Hauteur du panneau (zone d'infos en bas)
 HAUTEUR_TOTALE = 720               # Hauteur totale de la fenêtre
 
 FPS = 60                           # Images par seconde
