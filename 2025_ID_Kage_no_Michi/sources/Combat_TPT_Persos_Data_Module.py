@@ -95,8 +95,9 @@ class Ennemy(Perso):
 
 #Armes à disposition
 no_weapon = Weapon(name = "weapon_modification", weapon_damage = 0)
-op_weapon = Weapon(name='op_weapon',weapon_damage=10)
+op_weapon = Weapon(name='op_weapon',weapon_damage=100)
 tengoku_no_ikari = Weapon(name = 'Tengoku No Ikari', weapon_damage = 20)
+wood_katana = Weapon(name="wood_katana",weapon_damage=5)
 
 #Personnages qui peuvent combattre
 Musashi = Perso(f"Musashi",100,op_weapon,(200,200)) #Coordonnées x et y de Musashi: 400,350
