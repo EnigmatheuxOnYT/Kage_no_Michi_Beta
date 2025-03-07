@@ -322,10 +322,13 @@ class Degats(pygame.sprite.Sprite):
 # 8. Création des Personnages et des Barres de Vie
 # -----------------------------
 
-Musashi = Perso("Musashi",400,350,100,"no_weapon",(200,200))
-guerrier_takahiro = Perso('Musashi', 700, 350, 70,"no_weapon",(200, 200))
+no_weapon = Weapon(name="no_weapon",weapon_damage=0)
+op_weapon = Weapon(name='op_weapon',weapon_damage=10)
+
+Musashi = Perso("Musashi",400,350,100,op_weapon,(200,200))
+guerrier_takahiro = Perso('Musashi', 700, 350, 70,no_weapon,(200, 200))
 guerrier_takahiro.image = changer_orientation_sprite(guerrier_takahiro.image)
-guerrier_takahiro2 = Perso('Musashi', 850, 350, 70,"no_weapon",(200, 200))
+guerrier_takahiro2 = Perso('Musashi', 850, 350, 70,no_weapon,(200, 200))
 guerrier_takahiro2.image = changer_orientation_sprite(guerrier_takahiro2.image)
 persos_player=[Musashi]
 persos_ennemy=[guerrier_takahiro,guerrier_takahiro2]
@@ -346,6 +349,7 @@ image_base = BaseGameDisplay(screen, fond, attaque_frontale_box, attaque_special
 def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
     nombre_ennemi=len(persos_ennemy)
     nombre_joueurs=len(allies)+1
+    modifieur_dégats = 5
 
 
     global action, potion, attaque_frontale_compteur, attaque_frontale, attaque_special,persos_combat
@@ -391,7 +395,7 @@ def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
                     if attaque_frontale_hitbox.collidepoint(event.pos) and ennemi_peut_attaquer:
                         if guerrier_takahiro.pv > 0:
                             perso_player.draw_animations("Attaque_Frontale",(guerrier_takahiro.x,guerrier_takahiro.y),"droite")
-                            attaque_frontale = random.randint(5, 100)
+                            attaque_frontale = random.randint(perso_player.current_damage-modifieur_dégats,perso_player.current_damage+modifieur_dégats)
                             Degats(guerrier_takahiro.x+30, guerrier_takahiro.y+50, attaque_frontale, ROUGE) #Affichage des dégâts
                             guerrier_takahiro.pv -= attaque_frontale
                             guerrier_takahiro_barre_vie.draw(guerrier_takahiro.pv)
@@ -399,7 +403,7 @@ def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
                             action = 0
                         else:
                             perso_player.draw_animations("Attaque_Frontale",(guerrier_takahiro2.x,guerrier_takahiro2.y),"droite")
-                            attaque_frontale = random.randint(5, 100)
+                            attaque_frontale = random.randint(perso_player.current_damage-modifieur_dégats,perso_player.current_damage+modifieur_dégats)
                             Degats(guerrier_takahiro2.x+30, guerrier_takahiro2.y+50, attaque_frontale, ROUGE)
                             guerrier_takahiro2.pv -= attaque_frontale
                             guerrier_takahiro2_barre_vie.draw(guerrier_takahiro2.pv)
@@ -446,7 +450,7 @@ def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
                 for ennemy in persos_ennemy:
 
                     if ennemy.pv > 0:
-                        ennemy.draw_animations("Attaque_Frontale", (ennemy.x,ennemy.y), "gauche")
+                        ennemy.draw_animations("Attaque_Frontale", (perso_player.x,perso_player.y), "gauche")
                         attaque_ennemis = random.randint(5,10)
                         degats_total += attaque_ennemis
                         perso_player.pv -= attaque_ennemis
@@ -463,7 +467,7 @@ def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
             compteur_ennemi_mort = 0
             for i in range(nombre_ennemi):
                 ennemy=persos_ennemy[i]
-                if ennemy.pv < 1 :
+                if ennemy.pv <= 0 :
                     compteur_ennemi_mort+=1
             if compteur_ennemi_mort==nombre_ennemi:
                 print('WIN')
