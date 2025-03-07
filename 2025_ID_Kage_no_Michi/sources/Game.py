@@ -65,7 +65,13 @@ class Game:
         self.current_path=self.paths[0]
         Loading.display_loading(screen, 80,"Finalisation")
         self.fps_showed = False
-        self.passcodes = ["jaimelecoucoustajine"]
+        self.passcodes = ["LuneNoire",
+                          "FeuDévorant",
+                          "Tonnerre",
+                          "OmbreProfonde",
+                          "Sabre de Minuit",
+                          "Aube Sanglante",
+                          "Silence de Fer"]
         
         
         self.arrow = pygame.image.load("../data/assets/minigm/Flèche_Directionnelle_Bas.png").convert_alpha()
@@ -88,6 +94,8 @@ class Game:
         self.current_interration = 0
 
         self.scene=[0,0]
+        self.location="wild"
+
     @property
     def current_playing_scene(self):return self.story.scenes[f'Chapitre {self.scene[0]}'][f'Scene {self.scene[1]}']
     @property
@@ -190,6 +198,7 @@ class Game:
 
     def handle_zone_events(self,events):
         self.display_fire=False
+        self.location='wild'
         self.current_interaction = {"is":False,"interaction":None}
         for i in range(len(events)):
             event = events[i]
@@ -214,6 +223,9 @@ class Game:
             
             elif event.type=='on_fire':
                 self.display_fire = True
+            
+            elif event.type=='location':
+                self.location = event.data[0]
 
     
 
@@ -440,6 +452,9 @@ class Game:
                     self.start_path(gpp.path)
                 self.in_gameplay=True
         
+
+    def update_scene (self):
+        pass
 
 
         

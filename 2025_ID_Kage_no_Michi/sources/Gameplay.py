@@ -123,6 +123,17 @@ class Launcher:
         
         self.music.play(fade=500)
 
+
+@dataclass
+class Condition:
+    type : str
+    data : list
+
+@dataclass
+class Update:
+    condition : Condition
+    effect : str
+
 class Direction:
     def __init__(self,no,reasons,dirs):
         self.no = no
@@ -147,7 +158,7 @@ class GamePlayPhase:
         self.type = type
 
 class GPPMap(GamePlayPhase):
-    def __init__(self,name:str,map:Map,spawn:str,event_zones:List[DisplayZone]=[],npcs:List[Interactible]=[],display_zones:List[DisplayZone]=[],path:str=None,dirs_data:list=[1,[-1],['next']]):
+    def __init__(self,name:str,map:Map,spawn:str,event_zones:List[DisplayZone]=[],npcs:List[Interactible]=[],display_zones:List[DisplayZone]=[],path:str=None,dirs_data:list=[1,[-1],['next']],updates:List[Update]=[]):
         GamePlayPhase.__init__(self,name,"GPFMap",dirs_data)
         self.map = map
         self.spawn=spawn
@@ -155,6 +166,7 @@ class GPPMap(GamePlayPhase):
         self.npcs=npcs
         self.display_zones = display_zones
         self.path=path
+        self.update = updates
 
 
 class GPPCinematic(GamePlayPhase):
@@ -176,6 +188,7 @@ class GPPFight(GamePlayPhase):
     def __init__(self,name,ennemies:List[Any],dirs_data:list):
         GamePlayPhase.__init__(self,name,"GPPFight",dirs_data)
         self.ennemies=ennemies
+
 
 class Scene:
     def __init__(self,id:List[int],next_id:List[int],gpps:List[GamePlayPhase]):
@@ -210,8 +223,6 @@ class Scene:
                             self.gppindex=i
                             return
                     raise IndexError
-
-
 
 class Story:
     def __init__ (self):
