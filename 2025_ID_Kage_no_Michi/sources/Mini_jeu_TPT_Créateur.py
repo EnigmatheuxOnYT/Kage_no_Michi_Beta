@@ -20,7 +20,7 @@ pygame.init()
 # Dimensions de la fenêtre
 LONGUEUR_ECRAN = 1280              # Largeur de la fenêtre
 PANEL_HEIGHT = 180                 # Hauteur du panneau (zone d'infos en bas)
-HAUTEUR_TOTALE = 540 + PANEL_HEIGHT  # Hauteur totale de la fenêtre
+HAUTEUR_TOTALE = 720               # Hauteur totale de la fenêtre
 
 FPS = 60                           # Images par seconde
 
@@ -335,6 +335,8 @@ guerrier_takahiro2.image = changer_orientation_sprite(guerrier_takahiro2.image)
 # -----------------------------
 # 9. Boucle Principale du Jeu
 # -----------------------------
+
+
 def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
     nombre_ennemi=len(persos_ennemy)
     nombre_joueurs=len(allies)+1
@@ -478,11 +480,9 @@ def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
                     compteur_ennemi_mort+=1
             if compteur_ennemi_mort==nombre_ennemi:
                 print('WIN')
-                pygame.time.delay(4000)
                 continuer = False
-            elif perso_player.pv < 1:
+            elif perso_player.pv <= 0:
                 print('LOSE')
-                pygame.time.delay(4000)
                 continuer = False
 
         pygame.display.flip()
