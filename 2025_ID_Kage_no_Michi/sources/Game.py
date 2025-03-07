@@ -74,6 +74,8 @@ class Game:
         self.current_arrow_surface = self.arrow
         self.arrow_mode='spawn'
 
+        self.display_fire=False
+
         self.money_counter_surface=pygame.image.load("../data/assets/minigm/Barre_Reponse.png").convert_alpha()
         self.money_counter_rect=pygame.Rect(1000,0,280,60)
         self.money_rect=pygame.Rect(1020,20,240,20)
@@ -187,6 +189,7 @@ class Game:
         self.map.map_manager.change_map(self.current_map,self.player_pos)
 
     def handle_zone_events(self,events):
+        self.display_fire=False
         self.current_interaction = {"is":False,"interaction":None}
         for i in range(len(events)):
             event = events[i]
@@ -208,6 +211,9 @@ class Game:
             
             elif event.type == "gpp_next":
                 self.next_gpp(event.data[0])
+            
+            elif event.type=='on_fire':
+                self.display_fire = True
 
     
 
@@ -557,6 +563,11 @@ class Game:
 
         screen.blit(self.money_counter_surface,self.money_counter_rect)
         screen.blit(money_surface,self.money_rect)
+        if self.display_fire:
+            surf=pygame.surface.Surface((1280,720))
+            surf.fill("red")
+            surf.set_alpha(50)
+            screen.blit(surf,pygame.Rect(0,0,1280,720))
         pygame.display.flip()
 
 

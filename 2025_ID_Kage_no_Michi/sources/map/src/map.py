@@ -206,6 +206,12 @@ class MapManager :
                 if sprite.is_moving_object:
                     if sprite.feet.collidelist(self.get_walls()) > -1 :
                         sprite.move_back()
+            
+            for object in self.get_map().tmx_data.objects:
+                if object.type=="fire":
+                    rect=pygame.Rect(object.x,object.y,object.width,object.height)
+                    if self.player.feet.colliderect(rect):
+                        self.current_active_events.append(Event(type='on_fire',data=[]))
         
 
     def teleport_player(self,name):
