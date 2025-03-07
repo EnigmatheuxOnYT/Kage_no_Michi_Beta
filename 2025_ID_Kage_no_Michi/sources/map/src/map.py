@@ -192,7 +192,7 @@ class MapManager :
                     self.current_active_events+=event_zone.events
                     
                 for npc in self.get_map().npcs:
-                    if npc.feet.colliderect(rect) and npc.name in event_zone.entities:
+                    if npc.name in event_zone.entities and npc.feet.colliderect(rect):
                         self.current_active_events+=event_zone.events
             
             for npc in self.get_map().npcs:

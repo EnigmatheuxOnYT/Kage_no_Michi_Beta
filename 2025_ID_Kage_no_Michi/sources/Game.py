@@ -445,7 +445,7 @@ class Game:
             elif gpp.type=='GPPMinigame':
                 self.launch_minigame(gpp.minigame_no)
                 scene.next_gpp(output)
-            elif gpp.type=='GPFMap':
+            elif gpp.type=='GPPMap':
                 self.change_map_for_game(True,gpp.map)
                 self.map.map_manager.teleport_player(gpp.spawn)
                 if gpp.path!=None:
@@ -454,14 +454,16 @@ class Game:
         
 
     def update_scene (self):
-        pass
-
-
+        gpp=self.current_playing_scene.current_gpp
+        if gpp!=None and gpp.type=='GPPMap':
+            for update in gpp.updates:
+                if update.condition.type=='location':
+                    if self.location==update.condition.data[0]:
+                        if update.effect=='next':
+                            self.next_gpp(-1)
         
 
     def change_map_for_game(self,by_name,map_info):
-        
-        
         if by_name:
             name=map_info
         else:
@@ -556,6 +558,7 @@ class Game:
             current_active_events = self.map.map_manager.get_current_active_events()
             if current_active_events != None:
                 self.handle_zone_events(current_active_events)
+            self.update_scene()
             self.arrow_update(coordinates=self.current_arrow_point_coordinates)
         elif self.loaded_save !=0:
             self.launch_scene()
