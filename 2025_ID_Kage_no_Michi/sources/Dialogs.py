@@ -187,15 +187,15 @@ class Dialogs(Cinematics):
                 self.cinematic_frame(screen, "azw2", 3, "Par ailleurs, si vous croisez d'autres habitants en détresse, essayez de les", "aider une fois que vous aurez du temps libre.",kind_info=[['SM', 'no_weapon'], ['KT','no_weapon'],['VL3', 'no_weapon'], 3])
 
 
-    def dialog_infiltration(self,screen,saved,filature_reussie=True):
+    def dialog_infiltration(self,screen,saved,filature_reussie,passcode):
         if saved=='none':
             self.cinematic_frame(screen, "tkh1", 1,"Toc Toc", kind_info=["SM","SM", "no_weapon","right"])
-            self.cinematic_frame(screen,"tkh1",2,"Vous faites partie du clan ? Quel est le code ?",kind_info=[['SM','no_weapon'],['?','no_weapon'],2])
-            self.cinematic_frame(screen,"tkh1",2,"(Un code ? Qu'est-ce que ça peut bien être ?)",kind_info=[['SM','no_weapon'],['?','no_weapon'],1])
+            self.cinematic_frame(screen,"tkh1",2,"Vous faites partie du clan ? Quel est le code ?",kind_info=[['SM','no_weapon'],['TW','no_weapon'],2])
+            self.cinematic_frame(screen,"tkh1",2,"(Un code ? Qu'est-ce que ça peut bien être ?)",kind_info=[['SM','no_weapon'],['TW','no_weapon'],1])
             if filature_reussie==True:
-                self.cinematic_frame(screen, "tkh1", 2, " (Mais oui !)",kind_info=[['SM', 'no_weapon'], ['?', 'no_weapon'], 1])
-                self.cinematic_frame(screen,"tkh1",2,"*dit le code* ",kind_info=[['SM','no_weapon'],['?','no_weapon'],1])
-                self.cinematic_frame(screen,"tkh1",2,"Ok, entrez discrètement",kind_info=[['SM','no_weapon'],['?','no_weapon'],2])
+                self.cinematic_frame(screen, "tkh1", 2, "(Mais oui !)",kind_info=[['SM', 'no_weapon'], ['TW', 'no_weapon'], 1])
+                self.cinematic_frame(screen, "tkh1", 2, passcode,kind_info=[['SM','no_weapon'],['TW','no_weapon'],1])
+                self.cinematic_frame(screen, "tkh1", 2, "Ok, entrez discrètement",kind_info=[['SM','no_weapon'],['TW','no_weapon'],2])
                 self.cinematic_frame(screen, "tkh1", 2, "Je le savais ! C'est bien le code que j'ai entendu !", kind_info=["SM","SM", "no_weapon","right"])
                 self.cinematic_frame(screen, "tkh1", 2, "Cela signifie que cela doit être la sous-planque secrète du clan Takahiro !", kind_info=["SM","SM", "no_weapon","right"])
                 self.cinematic_frame(screen, "tkh1", 2, "Bon, que faire ? Est-ce que j'inflitre la base ou j'effectue des préparations ?", kind_info=["SM","SM", "no_weapon","right"])
@@ -296,5 +296,5 @@ if __name__ =="__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Dialogues")
-    Dialogs().dialog_example(screen,'KM')
+    Dialogs().dialog_infiltration(screen,'none',True,"AAAAAAAA")
     pygame.quit()
