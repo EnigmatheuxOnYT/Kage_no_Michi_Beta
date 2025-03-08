@@ -48,7 +48,7 @@ class Perso:
     def change_weapon (self,weapon):
         self.weapon=weapon
 
-    from Mini_jeu_TPT_Créateur import BaseGameDisplay, image_base,screen
+    #from Mini_jeu_TPT_Créateur import BaseGameDisplay, image_base,screen
 
     def draw(self, destination: tuple):
         """
