@@ -208,7 +208,7 @@ class Fight:
 
         self.display_number=False
         self.is_number_damage = None
-        self.number_duration = 800
+        self.number_duration = 1000
         self.start_drawing_number_timer = 0
 
         # Variables pour gérer le temps (pour le cooldown des attaques ennemies)
@@ -217,6 +217,7 @@ class Fight:
         self.current_ally_attacking_index = 0
 
         self.click_cooldown = False
+        self.in_end_cooldown=False
 
         self.perso_player.set_pos(self.characters_positions["main"])
         self.perso_player.set_orientation("droite")
