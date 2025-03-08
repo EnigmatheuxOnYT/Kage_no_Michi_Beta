@@ -73,7 +73,11 @@ class Perso:
         """
         Affiche le personnage à une position donnée.
         """
-        screen.blit(self.image, self.pos) #Affichage du personnage choisi
+        if self.orientation == 'gauche':
+            image = pygame.transform.flip(self.image,True,False)
+        else:
+            image=self.image
+        screen.blit(image, self.pos) #Affichage du personnage choisi
     
     def draw_atk(self,attaque_choisie:str,ennemi_position:tuple):
         index = 0
