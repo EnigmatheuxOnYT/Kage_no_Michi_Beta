@@ -155,9 +155,10 @@ class Fight:
         self.affichage_display = pygame.Rect(0,0,1280,50)
 
         #Zones des textes
-        self.ennemy_turn_text = self.police_display.render("Au tour de l'ennemi!",False,self.BLANC)
+        self.ennemy_turn_text = self.police_display.render("Au tour de l'ennemi !",False,self.BLANC)
+        self.player_turn_text = self.police_display.render("Au tour du joueur !",False,self.BLANC)
+        self.victory_text = self.police_display.render("Victoire !",False,self.BLANC)
         self.any_turn_text_pos = (190,0)
-        self.player_turn_text = self.police_display.render("Au tour du joueur!",False,self.BLANC)
 
         self.characters_positions = {'main':(400,250),
                                      'ally1':(350,250),
@@ -443,7 +444,9 @@ class Fight:
         screen.blit(self.bg,(0,0))
         text_tour = self.police_display.render(f'Tour {self.tour}',False,self.BLANC)
         screen.blit(text_tour,(790,0))
-        if self.action == "ennemies":
+        if self.in_end_cooldown:
+            screen.blit(self.victory_text,self.any_turn_text_pos)
+        elif self.action == "ennemies":
             screen.blit(self.ennemy_turn_text,self.any_turn_text_pos)
         else:
             screen.blit(self.player_turn_text,self.any_turn_text_pos)
