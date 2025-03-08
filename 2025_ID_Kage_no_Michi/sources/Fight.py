@@ -106,10 +106,12 @@ class Perso:
         if self.index!=0:
             image = pygame.transform.scale(self.animations_combat[self.index], (200,200))
             if self.orientation == "gauche":
-                self.image = pygame.transform.flip(image, True, False)
+                image = pygame.transform.flip(image, True, False)
             screen.blit(image,(self.pos))
             if self.index >= 2:
                 image_attaque = pygame.transform.scale(self.animations_attaque[self.index-2],(200,200))
+                if self.orientation == "gauche":
+                    image_attaque = pygame.transform.flip(image_attaque, True, False)
                 screen.blit(image_attaque, ennemi_position)
         else:
             self.draw_static()
@@ -167,6 +169,9 @@ class Fight:
         
         self.continuer = True
         self.click_cooldown = False
+        self.attack_cooldown = False
+        self.attack_cooldown_stating_timer = 0
+        self.attack_cooldown_timer = 1000
 
 
     def changer_orientation_sprite(sprite):return pygame.transform.flip(sprite,True,False)
@@ -187,7 +192,7 @@ class Fight:
         self.queuing_phase = None
         self.end_phase = False
         self.end_phase_timer = 0
-        self.phase_cooldown = 3000
+        self.phase_cooldown = 1500
         self.potion = potions
         self.modifieur_degats = 5
         self.modifieur_degats_spe = 15
@@ -203,7 +208,6 @@ class Fight:
         self.start_drawing_number_timer = 0
 
         # Variables pour gérer le temps (pour le cooldown des attaques ennemies)
-        self.cooldown_ennemi = 1000  # 1 seconde de cooldown
         self.tour = 1
         self.current_ennemy_attacking_index = 0
         self.current_ally_attacking_index = 0
@@ -220,22 +224,12 @@ class Fight:
             ennemy = self.persos_ennemy[i]
             ennemy.set_pos(self.characters_positions[f'ennemy{i+1}'])
             ennemy.set_orientation('gauche')
+    
+    @property
+    def nombre_alive_allies(self):return len(self.not_ko_allies)
+    @property
+    def nombre_alive_ennemies (self):return len(self.alive_ennemies)
 
-        #barres_vie = {}
-        #self.perso_player_barrevie = BarreVie(100,640, self.perso_player.pv, self.perso_player.pv_max)
-        """
-        y = 150
-        self.allies_barres_vie = {}
-        for ally in self.allies:
-            self.allies_barres_vie[ally.name] = BarreVie(100, 540+y, ally.pv, ally.pv_max)
-            y += 20
-
-        y = 100
-        self.ennemies_barres_vie = {}
-        for ennemy in self.persos_ennemy:
-            self.ennemies_barres_vie[ennemy.name] = BarreVie(700,540+y, ennemy.pv, ennemy.pv_max)
-            y+20
-        """
     
     def change_phase(self,new_phase):
         self.queuing_phase=new_phase
@@ -289,33 +283,63 @@ class Fight:
                     self.click_cooldown=False
 
     def allies_attack(self):
-        if self.nombre_allies!=0:
-            ally = self.allies[self.current_ally_attacking_index]
+        if self.nombre_alive_allies == 0:
+            self.action='ennemies'
+        elif not self.attack_cooldown:
+            ally = self.not_ko_allies[self.current_ally_attacking_index]
             attacked_ennemy = random.choice(self.alive_ennemies)
             self.number = random.randint(ally.current_damage-self.modifieur_degats,ally.current_damage+self.modifieur_degats)
             attacked_ennemy.pv-=self.number
-            self.attaque_frontale_compteur += 1
-            self.perso_player.attacking=True
+            ally.attacking=True
             self.start_to_draw_number(True,attacked_ennemy)
             self.next_ally()
+        elif self.attack_cooldown_timer-pygame.time.get_ticks()+self.attack_cooldown_stating_timer<=0:
+            self.attack_cooldown = False
     
-    def next_ally (self):pass
+    def next_ally (self):
+        if self.current_ally_attacking_index >= self.nombre_alive_allies-1:
+            self.current_ally_attacking_index = 0
+            self.change_phase("ennemies")
+        else:
+            self.attack_cooldown = True
+            self.attack_cooldown_stating_timer = pygame.time.get_ticks()
+            self.current_ally_attacking_index+=1
 
     def ennemies_attack(self):
-        pass
+        if self.nombre_alive_ennemies != 0 and not self.attack_cooldown:
+            ennemy = self.alive_ennemies[self.current_ennemy_attacking_index]
+            attacked_ally = random.choice(self.not_ko_allies+[self.perso_player])
+            self.number = random.randint(ennemy.current_damage-self.modifieur_degats,ennemy.current_damage+self.modifieur_degats)
+            attacked_ally.pv-=self.number
+            ennemy.attacking=True
+            self.start_to_draw_number(True,attacked_ally)
+            self.next_ennemy()
+        elif self.attack_cooldown_timer-pygame.time.get_ticks()+self.attack_cooldown_stating_timer<=0:
+            self.attack_cooldown = False
+    
+    def next_ennemy (self):
+        if self.current_ennemy_attacking_index >= self.nombre_alive_ennemies-1:
+            self.current_ennemy_attacking_index = 0
+            self.change_phase("player")
+        else:
+            self.attack_cooldown = True
+            self.attack_cooldown_stating_timer = pygame.time.get_ticks()
+            self.current_ennemy_attacking_index +=1
     
     def update (self):
 
         if self.end_phase and self.phase_cooldown-pygame.time.get_ticks()+self.end_phase_timer<=0:
             self.end_phase = False
             self.action = self.queuing_phase
+            if self.action == 'player':
+                self.tour+=1
         
         if self.display_number and self.number_duration-pygame.time.get_ticks()+self.start_drawing_number_timer<=0:
             self.display_number = False
         
-        if self.action == 'allies':
+        if self.action == 'allies' and not self.end_phase:
             self.allies_attack()
-        elif self.action == 'ennemies':
+        elif self.action == 'ennemies' and not self.end_phase:
             self.ennemies_attack()
 
         for ennemy in self.alive_ennemies:
@@ -327,10 +351,10 @@ class Fight:
 
 
         # Fin du combat : victoire ou défaite
-        if len(self.alive_ennemies)==0:
+        if self.nombre_alive_ennemies==0:
             print('WIN')
             self.continuer = False
-        elif self.perso_player.is_ko and len(self.not_ko_allies)==0:
+        elif self.perso_player.is_ko and self.nombre_alive_allies==0:
             print('LOSE')
             self.continuer = False
 
