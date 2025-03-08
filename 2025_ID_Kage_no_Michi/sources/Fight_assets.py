@@ -22,7 +22,7 @@ class Perso:
         self.sprite_name = name
         self.pv_max = pv_max #Ses hp max
         self.pv = pv_max #Ses pv, qui vont prendre tout simplement la valeur de ses pvs
-        self._base_damage = 5
+        self._base_damage = 2
         self.weapon = weapon
         self.level = 1 #niveau du personnage
         self.set_level(level)
@@ -51,7 +51,7 @@ class Perso:
         self.max_index = 10
 
     @property
-    def current_damage(self):return self._base_damage+self.weapon.weapon_damage
+    def current_damage(self):return max(self._base_damage+self.weapon.weapon_damage,0)
     @property
     def is_ko (self):return False if self.pv>0 else True
     
@@ -65,6 +65,9 @@ class Perso:
         diff = max(level-self.level,0)
         for i in range(diff):
             self.level_up()
+    
+    def hit (self,damage):
+        self.pv = max(self.pv-damage,0)
     
     def change_weapon (self,weapon):self.weapon=weapon
     
@@ -127,7 +130,7 @@ class Fight_assets:
         self.wood_katana = Weapon(name="wood_katana",weapon_damage=5,special_damage=5,crit_chance=0.05)
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
-        self.Musashi = Perso("Musashi",100,self.op_weapon,level=50)
+        self.Musashi = Perso("Musashi",10,self.op_weapon)
         self.guerrier_takahiro = Perso('Musashi',70,self.no_weapon,)
         self.guerrier_takahiro2 = Perso('Musashi', 70,self.no_weapon,)
         #self.ma_Juzo = Perso('Ma_Juzo',200, self.tengoku_no_ikari,level=10)

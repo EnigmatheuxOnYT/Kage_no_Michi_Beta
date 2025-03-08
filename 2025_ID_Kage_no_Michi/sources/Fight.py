@@ -57,6 +57,7 @@ class Fight:
         self.ennemy_turn_text = self.police_display.render("Au tour de l'ennemi !",False,self.BLANC)
         self.player_turn_text = self.police_display.render("Au tour du joueur !",False,self.BLANC)
         self.victory_text = self.police_display.render("Victoire !",False,self.BLANC)
+        self.defeat_text = self.police_display.render("Défaite...",False,self.BLANC)
         self.any_turn_text_pos = (190,0)
 
         self.characters_positions = {'main':(400,250),
@@ -90,7 +91,7 @@ class Fight:
         self.nombre_ennemi = len(persos_ennemy)
         self.nombre_allies = len(allies)
         self.attaque_frontale_compteur = 0
-        self.actions = ["player","allies","ennemies"]
+        self.actions = ["player","allies","ennemies","victory","defeat"]
         self.action = "player"
         self.queuing_phase = None
         self.end_phase = False
@@ -152,7 +153,7 @@ class Fight:
             mult = random.random()+1.5
             base_damage=int(base_damage*mult)
         damage = random.randint(base_damage-self.modifieur_degats,base_damage+self.modifieur_degats)
-        return damage
+        return max(damage,1)
 
     def handle_imput (self):
         for event in pygame.event.get():
@@ -176,7 +177,7 @@ class Fight:
                     # Attaque frontale
                     if self.attaque_frontale_hitbox.collidepoint(event.pos):
                         self.number = self.get_damage(self.perso_player)
-                        self.current_ennemy.pv-=self.number
+                        self.current_ennemy.hit(self.number)
                         self.attaque_frontale_compteur += 1
                         self.perso_player.attacking=True
                         self.start_to_draw_number(True,self.current_ennemy)
@@ -185,7 +186,7 @@ class Fight:
                     # Attaque spéciale (se déclenche après 4 attaques de base)
                     if self.attaque_special_hitbox.collidepoint(event.pos) and self.attaque_frontale_compteur >= 4:
                         self.number = self.get_damage(self.perso_player,is_spe=True)
-                        self.current_ennemy.pv -= self.number
+                        self.current_ennemy.hit(self.number)
                         self.attaque_frontale_compteur = 0
                         self.perso_player.attacking=True
                         self.start_to_draw_number(True,self.current_ennemy)
@@ -200,7 +201,7 @@ class Fight:
             ally = self.not_ko_allies[self.current_ally_attacking_index]
             attacked_ennemy = random.choice(self.alive_ennemies)
             self.number = self.get_damage(ally)
-            attacked_ennemy.pv-=self.number
+            attacked_ennemy.hit(self.number)
             ally.attacking=True
             self.start_to_draw_number(True,attacked_ennemy)
             self.next_ally()
@@ -221,7 +222,7 @@ class Fight:
             ennemy = self.alive_ennemies[self.current_ennemy_attacking_index]
             attacked_ally = random.choice(self.not_ko_allies+[self.perso_player])
             self.number = self.get_damage(ennemy)
-            attacked_ally.pv-=self.number
+            attacked_ally.hit(self.number)
             ennemy.attacking=True
             self.start_to_draw_number(True,attacked_ally)
             self.next_ennemy()
@@ -239,7 +240,7 @@ class Fight:
     
     def update (self):
 
-        if self.end_phase and self.phase_cooldown-pygame.time.get_ticks()+self.end_phase_timer<=0:
+        if self.end_phase and not self.in_end_cooldown and self.phase_cooldown-pygame.time.get_ticks()+self.end_phase_timer<=0:
             self.end_phase = False
             self.action = self.queuing_phase
             if self.action == 'player':
@@ -264,11 +265,11 @@ class Fight:
 
         # Fin du combat : victoire ou défaite
         if self.nombre_alive_ennemies==0 and not self.in_end_cooldown:
-            print('WIN')
+            self.action='victory'
             self.end_timer = pygame.time.get_ticks()
             self.in_end_cooldown = True
         elif self.perso_player.is_ko and self.nombre_alive_allies==0 and not self.in_end_cooldown:
-            print('LOSE')
+            self.action='defeat'
             self.end_timer = pygame.time.get_ticks()
             self.in_end_cooldown = True
         
@@ -351,8 +352,10 @@ class Fight:
         screen.blit(self.bg,(0,0))
         text_tour = self.police_display.render(f'Tour {self.tour}',False,self.BLANC)
         screen.blit(text_tour,(790,0))
-        if self.in_end_cooldown:
+        if self.action == "victory":
             screen.blit(self.victory_text,self.any_turn_text_pos)
+        elif self.action == 'defeat':
+            screen.blit(self.defeat_text,self.any_turn_text_pos)
         elif self.action == "ennemies":
             screen.blit(self.ennemy_turn_text,self.any_turn_text_pos)
         else:
