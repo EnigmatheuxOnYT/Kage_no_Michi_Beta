@@ -318,6 +318,8 @@ class Fight:
                         self.current_ennemy.pv -= attaque_special
                         self.attaque_frontale_compteur = 0
                         self.action = "allies"
+                else:
+                    self.click_cooldown=False
     
     def update (self):
         # Fin du combat : victoire ou défaite
