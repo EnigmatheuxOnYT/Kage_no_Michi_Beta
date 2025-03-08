@@ -19,12 +19,14 @@ from dataclasses import dataclass
 class Weapon:
     name : str
     weapon_damage : int
+    special_damage : int
+    crit_chance : float
 
 class Perso:
     """
     Classe représentant un personnage du jeu.
     """
-    def __init__(self, name, pv_max, weapon, nouvelle_taille: tuple,level=1,instance=0): #Toutes les variables nécessaires pour la création d'un personnage
+    def __init__(self, name, pv_max, weapon:Weapon, nouvelle_taille: tuple,level=1,instance=0): #Toutes les variables nécessaires pour la création d'un personnage
         self.name = name+str(instance) #Son nom, ATTENTION LE NOM DEFINIT LE SPRITE CHOISI !!
         self.sprite_name = name
         self.pv_max = pv_max #Ses hp max
@@ -173,7 +175,7 @@ class Fight:
         self.attack_cooldown = False
         self.attack_cooldown_stating_timer = 0
         self.attack_cooldown_timer = 1000
-        self.end_cooldown_timer_lengh = 3000
+        self.end_cooldown_timer_lengh = 5000
         self.in_end_cooldown=False
         self.end_timer = 0
 
@@ -201,10 +203,6 @@ class Fight:
         self.modifieur_degats = 5
         self.modifieur_degats_spe = 15
         self.bg=self.bgs[bg_name]
-
-        # Dégâts aléatoires pour les attaques
-        self.attaque_frontale = random.randint(perso_player.current_damage-self.modifieur_degats,perso_player.current_damage+self.modifieur_degats)
-        self.attaque_special = random.randint(perso_player.current_damage+self.modifieur_degats,perso_player.current_damage+self.modifieur_degats+self.modifieur_degats_spe)
 
         self.display_number=False
         self.is_number_damage = None
@@ -248,6 +246,17 @@ class Fight:
         pos = char.pos
         self.number_pos = (pos[0]-20,pos[1]-30)
 
+    def get_damage (self,char:Perso,is_spe:bool=False):
+        base_damage = char.current_damage
+        if is_spe :
+            base_damage+=char.weapon.special_damage
+        is_crit = random.random()<=char.weapon.crit_chance
+        if is_crit:
+            mult = random.random()+1
+            base_damage=int(base_damage*mult)
+        damage = random.randint(base_damage-self.modifieur_degats,base_damage+self.modifieur_degats)
+        return damage
+
     def handle_imput (self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -269,7 +278,7 @@ class Fight:
 
                     # Attaque frontale
                     if self.attaque_frontale_hitbox.collidepoint(event.pos):
-                        self.number = random.randint(self.perso_player.current_damage-self.modifieur_degats,self.perso_player.current_damage+self.modifieur_degats)
+                        self.number = self.get_damage(self.perso_player)
                         self.current_ennemy.pv-=self.number
                         self.attaque_frontale_compteur += 1
                         self.perso_player.attacking=True
@@ -278,7 +287,7 @@ class Fight:
 
                     # Attaque spéciale (se déclenche après 4 attaques de base)
                     if self.attaque_special_hitbox.collidepoint(event.pos) and self.attaque_frontale_compteur >= 4:
-                        self.number = random.randint(self.perso_player.current_damage+self.modifieur_degats,self.perso_player.current_damage+self.modifieur_degats+self.modifieur_degats_spe)
+                        self.number = self.get_damage(self.perso_player,is_spe=True)
                         self.current_ennemy.pv -= self.number
                         self.attaque_frontale_compteur = 0
                         self.perso_player.attacking=True
@@ -293,7 +302,7 @@ class Fight:
         elif not self.attack_cooldown:
             ally = self.not_ko_allies[self.current_ally_attacking_index]
             attacked_ennemy = random.choice(self.alive_ennemies)
-            self.number = random.randint(ally.current_damage-self.modifieur_degats,ally.current_damage+self.modifieur_degats)
+            self.number = self.get_damage(ally)
             attacked_ennemy.pv-=self.number
             ally.attacking=True
             self.start_to_draw_number(True,attacked_ennemy)
@@ -314,7 +323,7 @@ class Fight:
         if self.nombre_alive_ennemies != 0 and not self.attack_cooldown:
             ennemy = self.alive_ennemies[self.current_ennemy_attacking_index]
             attacked_ally = random.choice(self.not_ko_allies+[self.perso_player])
-            self.number = random.randint(ennemy.current_damage-self.modifieur_degats,ennemy.current_damage+self.modifieur_degats)
+            self.number = self.get_damage(ennemy)
             attacked_ally.pv-=self.number
             ennemy.attacking=True
             self.start_to_draw_number(True,attacked_ally)
@@ -461,7 +470,7 @@ class Fight:
         
         pygame.display.flip()
     
-    def run(self,screen,bg_name,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):
+    def run(self,screen:pygame.surface.Surface,bg_name:str,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):
         self.load(bg_name,perso_player,allies,persos_ennemy,potions)
 
         while self.continuer:
@@ -471,8 +480,8 @@ class Fight:
             self.clock.tick(60)
 
 if __name__ == "__main__":
-    no_weapon = Weapon(name="no_weapon",weapon_damage=0)
-    op_weapon = Weapon(name='op_weapon',weapon_damage=10)
+    no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
+    op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
     Musashi = Perso("Musashi",100,op_weapon,(200,200))
     guerrier_takahiro = Perso('Musashi',70,no_weapon,(200, 200))
     guerrier_takahiro2 = Perso('Musashi', 70,no_weapon,(200, 200))
