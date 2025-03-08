@@ -224,6 +224,10 @@ class Fight:
                             self.start_draw_hint("spe")
                     elif not self.is_target_choosen and (self.attaque_frontale_hitbox.collidepoint(event.pos) or self.attaque_special_hitbox.collidepoint(event.pos)):
                         self.start_draw_hint("choose")
+        
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_F11:
+                    pygame.display.toggle_fullscreen()
 
 
 
