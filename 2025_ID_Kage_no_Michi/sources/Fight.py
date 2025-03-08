@@ -106,6 +106,7 @@ class Fight:
         self.is_number_damage = None
         self.number_duration = 1000
         self.start_drawing_number_timer = 0
+        self.draw_spe = False
 
         # Variables pour gérer le temps (pour le cooldown des attaques ennemies)
         self.tour = 1
@@ -182,6 +183,7 @@ class Fight:
                         self.perso_player.attacking=True
                         self.start_to_draw_number(True,self.current_ennemy)
                         self.change_phase("allies")
+                        self.draw_spe = False
 
                     # Attaque spéciale (se déclenche après 4 attaques de base)
                     if self.attaque_special_hitbox.collidepoint(event.pos) and self.attaque_frontale_compteur >= 4:
@@ -191,6 +193,7 @@ class Fight:
                         self.perso_player.attacking=True
                         self.start_to_draw_number(True,self.current_ennemy)
                         self.change_phase("allies")
+                        self.draw_spe = True
                 else:
                     self.click_cooldown=False
 
@@ -326,7 +329,7 @@ class Fight:
                     ennemy.draw_static(screen)
         if self.perso_player.pv > 0:
             if self.perso_player.attacking:
-                self.perso_player.draw_atk(screen,"Attaque_Frontale",self.current_ennemy.pos)
+                self.perso_player.draw_atk(screen,"Attaque_Speciale" if self.draw_spe else "Attaque_Frontale",self.current_ennemy.pos)
         for i in range(len(self.allies)):
             ally=self.allies[i]
             if ally.pv > 0:
