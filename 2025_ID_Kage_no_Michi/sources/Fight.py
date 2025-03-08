@@ -34,6 +34,9 @@ class Fight:
         self.panel_affichage = pygame.image.load("../data/assets/minigm/Parchemin_Question.png").convert_alpha()
         self.HAUTEUR_PANEL = self.panel_affichage.get_height()
 
+        self.red_arrow = pygame.image.load("../data/assets/tpt/Flèche_Directionnelle_Bas_ROUGE.png").convert_alpha()
+        self.is_target_choosen = False
+
         # Polices d'écriture
         self.police_base = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 30)
         self.police_display = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 49)
@@ -69,7 +72,6 @@ class Fight:
                                      }
         
         self.continuer = True
-        self.click_cooldown = False
         self.attack_cooldown = False
         self.attack_cooldown_stating_timer = 0
         self.attack_cooldown_timer = 1000
@@ -113,7 +115,6 @@ class Fight:
         self.current_ennemy_attacking_index = 0
         self.current_ally_attacking_index = 0
 
-        self.click_cooldown = False
         self.in_end_cooldown=False
 
         self.perso_player.set_pos(self.characters_positions["main"])
@@ -137,6 +138,7 @@ class Fight:
         self.queuing_phase=new_phase
         self.end_phase = True
         self.end_phase_timer = pygame.time.get_ticks()
+        self.is_target_choosen = False
     
     def start_to_draw_number(self,damage:bool,char:Perso):
         self.display_number=True
@@ -164,8 +166,13 @@ class Fight:
             
             # Si le joueur peut agir
             if self.action == "player" and not self.end_phase:
-                if event.type == pygame.MOUSEBUTTONUP and self.click_cooldown == False:
-                    self.click_cooldown = True
+                if event.type == pygame.MOUSEBUTTONUP:
+                    
+                    for ennemy in self.alive_ennemies:
+                        if ennemy.rect.collidepoint(event.pos):
+                            self.is_target_choosen = True
+                            self.current_ennemy = ennemy
+
 
                     #Utilisation de la potion
                     if self.potion_hitbox.collidepoint(event.pos) and self.potion > 0:
@@ -175,27 +182,26 @@ class Fight:
                         self.start_to_draw_number(False,self.perso_player)
                         self.change_phase("allies")
 
-                    # Attaque frontale
-                    if self.attaque_frontale_hitbox.collidepoint(event.pos):
-                        self.number = self.get_damage(self.perso_player)
-                        self.current_ennemy.hit(self.number)
-                        self.attaque_frontale_compteur += 1
-                        self.perso_player.attacking=True
-                        self.start_to_draw_number(True,self.current_ennemy)
-                        self.change_phase("allies")
-                        self.draw_spe = False
+                    elif self.is_target_choosen:
+                        # Attaque frontale
+                        if self.attaque_frontale_hitbox.collidepoint(event.pos):
+                            self.number = self.get_damage(self.perso_player)
+                            self.current_ennemy.hit(self.number)
+                            self.attaque_frontale_compteur += 1
+                            self.perso_player.attacking=True
+                            self.start_to_draw_number(True,self.current_ennemy)
+                            self.change_phase("allies")
+                            self.draw_spe = False
 
-                    # Attaque spéciale (se déclenche après 4 attaques de base)
-                    if self.attaque_special_hitbox.collidepoint(event.pos) and self.attaque_frontale_compteur >= 4:
-                        self.number = self.get_damage(self.perso_player,is_spe=True)
-                        self.current_ennemy.hit(self.number)
-                        self.attaque_frontale_compteur = 0
-                        self.perso_player.attacking=True
-                        self.start_to_draw_number(True,self.current_ennemy)
-                        self.change_phase("allies")
-                        self.draw_spe = True
-                else:
-                    self.click_cooldown=False
+                        # Attaque spéciale (se déclenche après 4 attaques de base)
+                        if self.attaque_special_hitbox.collidepoint(event.pos) and self.attaque_frontale_compteur >= 4:
+                            self.number = self.get_damage(self.perso_player,is_spe=True)
+                            self.current_ennemy.hit(self.number)
+                            self.attaque_frontale_compteur = 0
+                            self.perso_player.attacking=True
+                            self.start_to_draw_number(True,self.current_ennemy)
+                            self.change_phase("allies")
+                            self.draw_spe = True
 
     def allies_attack(self):
         if self.nombre_alive_allies == 0:
@@ -349,6 +355,10 @@ class Fight:
         text = self.police_degats.render(str(self.number),False,col)
         screen.blit(text,self.number_pos)
 
+    def draw_arrow (self,screen):
+        pos = self.current_ennemy.pos
+        pos = pos[0]+73,pos[1]-70
+        screen.blit(self.red_arrow,pos)
 
 
     def draw (self,screen):
@@ -364,6 +374,8 @@ class Fight:
         else:
             screen.blit(self.player_turn_text,self.any_turn_text_pos)
         self.draw_persos(screen)
+        if self.is_target_choosen:
+            self.draw_arrow(screen)
         if self.display_number:
             self.draw_number(screen)
         self.draw_panel(screen)

@@ -28,6 +28,8 @@ class Perso:
         self.set_level(level)
         sprite = pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Idle.png") #Le spirte quand il reste immobile
         self.image = pygame.transform.scale(sprite, (200,200)) #On redimensionne le sprite de sorte à ce que ça soit cohérent avec le fond
+        self.rect = self.image.get_rect()
+        self.rect.width = 100
         self.atk_frame_lengh = 80
         self.debut_frame = 0
         self.orientation="gauche"
@@ -73,7 +75,9 @@ class Perso:
     
     def set_orientation(self,new_orientation):self.orientation=new_orientation
 
-    def set_pos(self,pos):self.pos=pos
+    def set_pos(self,pos):
+        self.pos=pos
+        self.rect.midtop = pos[0]+100,pos[1]
 
     def set_attacking(self,val):self.attacking=val
 
