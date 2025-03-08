@@ -141,18 +141,18 @@ class Characters_sprites:
                                }
         
         
-        self.for_mgm = {"villager1": self.ldm("Femme_1.png"),
-                        "villager2": self.ldm("Femme_1.png"),
-                        "villager3": self.ldm("Femme_1.png"),
-                        "villager4": self.ldm("Femme_1.png"),
-                        "villager5": self.ldm("Femme_1.png"),
-                        "villager6": self.ldm("Femme_1.png"),
-                        "villager7": self.ldm("Femme_2.png"),
-                        "villager8": self.ldm("Femme_2.png"),
-                        "villager9": self.ldm("Femme_2.png"),
-                        "villager10": self.ldm("Femme_2.png"),
-                        "villager11": self.ldm("Femme_2.png"),
-                        "villager12": self.ldm("Femme_2.png")
+        self.for_mgm = {"villager1": self.ldc("Villager12_Droite_SansArme_V1.png"), # Artisan, homme
+                        "villager2": self.ldc("Villager8_Droite_SansArme_V1.png"), # Experte des eaux, femme
+                        "villager3": self.ldc("Villager10_Droite_SansArme_V1.png"), # Combattante, femme
+                        "villager4": self.ldc("Villager14_Droite_SansArme_V1.png"), # Mushoku (sans profession), homme
+                        "villager5": self.ldc("Villager6_Droite_SansArme_V1.png"), # Boulangère, femme
+                        "villager6": self.ldc("Villager7_Droite_SansArme_V1.png"), # Etudiant, homme
+                        "villager7": self.ldc("Villager13_Droite_SansArme_V1.png"), # Potière, femme
+                        "villager8": self.ldc("Villager4_Droite_SansArme_V1.png"), # Pécheur, homme
+                        "villager9": self.ldc("Villager5_Droite_SansArme_V1.png"), # Charbonnier, homme
+                        "villager10": self.ldc("Villager9_Droite_SansArme_V1.png"),# Poète, homme
+                        "villager11": self.ldc("Villager11_Droite_SansArme_V1.png"),# Saltimbanque, homme
+                        "villager12": self.ldc("Villager15_Droite_SansArme_V1.png") # Mineur, homme
                         }
         
         

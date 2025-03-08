@@ -57,13 +57,13 @@ class minigm_survivors :
                           "villager3": {'correct':"Défense",'name':'Yuki','age':"19 ans","job":"Combattante","infos":["Fait du karaté depuis 8 ans.","Sait se servir d'armes","blanches."]},
                           "villager4": {'correct':"Ravitaillement",'name':"Daisuke",'age':"59 ans","job":"Mushoku (sans profession)","infos":["Aime bien se promener en forêt","pour ramasser des fruits.","Connaît les plantes comestibles."]},
                           "villager5": {'correct':"Reconstruction",'name':"Yukina",'age':"42 ans","job":"Boulangère","infos":["Aime la géométrie.","Expérimente avec des pâtisseries","en mosaïque."]},
-                          "villager6": {'correct':"Ravitaillement",'name':"Sora",'age':"14 ans","job":"Étudiante","infos":["Étudie dans un village voisin.","Fait la route quotidiennement.",""]},
-                          "villager7": {'correct':"Défense",'name':"Shizuka",'age':"23 ans","job":"Potier","infos":["Jette ses pots cassés","avec précision.",""]},
+                          "villager6": {'correct':"Ravitaillement",'name':"Shizuka",'age':"14 ans","job":"Étudiant","infos":["Étudie dans un village voisin.","Fait la route quotidiennement.",""]},
+                          "villager7": {'correct':"Défense",'name':"Sora",'age':"23 ans","job":"Potière","infos":["Jette ses pots cassés","avec précision.",""]},
                           "villager8": {'correct':"Défense",'name':"Kata",'age':"37 ans","job":"Pécheur","infos":["A survécu à nombre de tempêtes.","Manie les bouts parfaitement.","Remonte une ancre à main nues."]},
                           "villager9": {'correct':"Reconstruction",'name':"Haiko",'age':"28","job":"Charbonnier","infos":["Est le seul à comprendre","comment ses fours fonctionnent.","Est un peu renfermé."]},
-                          "villager10": {'correct':"Ravitaillement",'name':"Aki",'age':"34","job":"Poètesse","infos":["Aime écrire des haïkus","sur l'automne.","Dort beaucoup.","Ne gagne pas beaucoup."]},
+                          "villager10": {'correct':"Ravitaillement",'name':"Aki",'age':"34","job":"Poète","infos":["Aime écrire des haïkus","sur l'automne.","Dort beaucoup.","Ne gagne pas beaucoup."]},
                           "villager11": {'correct':"Défense",'name':"Shojiro",'age':"20","job":"Saltimbanque","infos":["Sait sauter très haut.","Sait jongler avec des torches.","Manie les rubans de gymnasique."]},
-                          "villager12": {'correct':"Reconstruction",'name':"Bomboclat",'age':"46","job":"Mineuse","infos":["Exploite sa propre mine.","",""]}
+                          "villager12": {'correct':"Reconstruction",'name':"Bomboclat",'age':"46","job":"Mineur","infos":["Exploite sa propre mine.","",""]}
                           }
         self.rect_villager = pygame.Rect(300,20,150,476)
     
