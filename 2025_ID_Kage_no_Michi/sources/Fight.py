@@ -256,7 +256,7 @@ class Fight:
                 pygame.event.post(event)
             
             # Si le joueur peut agir
-            if self.action == "player":
+            if self.action == "player" and not self.end_phase:
                 if event.type == pygame.MOUSEBUTTONUP and self.click_cooldown == False:
                     self.click_cooldown = True
 
