@@ -292,7 +292,9 @@ class Fight:
         screen.blit(self.panel_affichage, (0, 720 - self.HAUTEUR_PANEL))
         screen.blit(self.potion_image, (500,790-self.HAUTEUR_PANEL))
         text_potion = self.police_base.render(str(self.potion),False,"black")
-        screen.blit(text_potion,(535,580))
+        rect_potion = text_potion.get_rect()
+        rect_potion.midtop = (self.potion_image.get_width()/2+500,580)
+        screen.blit(text_potion,rect_potion)
 
         #Joueur
         text = self.police_base.render(self.perso_player.sprite_name+' PV : '+str(self.perso_player.pv),False,self.VERT)
@@ -399,5 +401,5 @@ if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
-    Fight().run(screen,'ine1',fight_assets.Musashi,[],[fight_assets.guerrier_takahiro,fight_assets.guerrier_takahiro2],3)
+    Fight().run(screen,'ine1',fight_assets.Musashi,[],[fight_assets.guerrier_takahiro,fight_assets.guerrier_takahiro2],100)
     pygame.quit()
