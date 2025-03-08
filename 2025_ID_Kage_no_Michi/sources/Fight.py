@@ -64,7 +64,7 @@ class Fight:
         self.defeat_text = self.police_display.render("Défaite...",False,self.BLANC)
         self.any_turn_text_pos = (190,0)
 
-        self.pop_text_timer_lengh = 2000
+        self.pop_text_timer_lengh = 5000
         self.hint_timer = 0
         self.pop_text_choose_ennemy = self.police_hint.render("Choisissez l'adversaire à attaquer !",False,"black")
         self.attaque_frontale_compteur = 0
