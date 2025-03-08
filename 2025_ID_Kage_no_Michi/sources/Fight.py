@@ -252,7 +252,7 @@ class Fight:
             base_damage+=char.weapon.special_damage
         is_crit = random.random()<=char.weapon.crit_chance
         if is_crit:
-            mult = random.random()+1
+            mult = random.random()+1.5
             base_damage=int(base_damage*mult)
         damage = random.randint(base_damage-self.modifieur_degats,base_damage+self.modifieur_degats)
         return damage
