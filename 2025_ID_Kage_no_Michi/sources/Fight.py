@@ -38,7 +38,7 @@ class Fight:
         self.is_target_choosen = False
 
         # Polices d'écriture
-        self.police_hint = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 15)
+        self.police_hint = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 20)
         self.police_base = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 30)
         self.police_display = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 49)
         self.police_degats = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 40)
