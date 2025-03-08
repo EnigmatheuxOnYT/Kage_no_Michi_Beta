@@ -209,9 +209,9 @@ class Fight:
         self.attaque_special_box = pygame.image.load("../data/assets/minigm/Attaque_Speciale_V1.png").convert_alpha()
 
         # Définition des zones cliquables (hitboxes)
-        self.attaque_frontale_hitbox = pygame.Rect(15, 350, 100, 100)
-        self.attaque_special_hitbox = pygame.Rect(15, 470, 100, 100)
-        self.potion_hitbox = pygame.Rect(500, 600, 80, 80)
+        self.attaque_frontale_hitbox = pygame.Rect(15, 200, 100, 100)
+        self.attaque_special_hitbox = pygame.Rect(15, 320, 100, 100)
+        self.potion_hitbox = pygame.Rect(500,790-self.HAUTEUR_PANEL, 80, 80)
         self.affichage_display = pygame.Rect(0,0,1280,50)
 
         #Zones des textes
