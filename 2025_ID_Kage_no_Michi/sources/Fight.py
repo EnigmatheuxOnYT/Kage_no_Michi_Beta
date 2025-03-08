@@ -38,6 +38,7 @@ class Fight:
         self.is_target_choosen = False
 
         # Polices d'écriture
+        self.police_hint = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 15)
         self.police_base = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 30)
         self.police_display = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 49)
         self.police_degats = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 40)
@@ -62,6 +63,16 @@ class Fight:
         self.victory_text = self.police_display.render("Victoire !",False,self.BLANC)
         self.defeat_text = self.police_display.render("Défaite...",False,self.BLANC)
         self.any_turn_text_pos = (190,0)
+
+        self.pop_text_timer_lengh = 2000
+        self.hint_timer = 0
+        self.pop_text_choose_ennemy = self.police_hint.render("Choisissez l'adversaire à attaquer !",False,"black")
+        self.attaque_frontale_compteur = 0
+        self.pop_text_choose_ennemy_rect = self.pop_text_choose_ennemy.get_rect()
+        self.pop_text_spe_not_ready_rect = self.pop_text_spe_not_ready.get_rect()
+        midtop = (640,100)
+        self.pop_text_spe_not_ready_rect.midtop = midtop
+        self.pop_text_choose_ennemy_rect.midtop = midtop
 
         self.characters_positions = {'main':(400,250),
                                      'ally1':(350,250),
@@ -114,6 +125,7 @@ class Fight:
         self.tour = 1
         self.current_ennemy_attacking_index = 0
         self.current_ally_attacking_index = 0
+        self.to_draw_hint = 'none'
 
         self.in_end_cooldown=False
 
@@ -132,6 +144,8 @@ class Fight:
     def nombre_alive_allies(self):return len(self.not_ko_allies)
     @property
     def nombre_alive_ennemies (self):return len(self.alive_ennemies)
+    @property
+    def pop_text_spe_not_ready (self):return self.police_hint.render(f"L'attaque spéciale n'est pas chargée ({4-self.attaque_frontale_compteur} attaques normales restantes) !",False,"black")
 
     
     def change_phase(self,new_phase):
@@ -146,6 +160,10 @@ class Fight:
         self.start_drawing_number_timer = pygame.time.get_ticks()
         pos = char.pos
         self.number_pos = (pos[0]-20,pos[1]-30)
+
+    def start_draw_hint(self,hint):
+        self.to_draw_hint = hint
+        self.hint_timer = pygame.time.get_ticks()
 
     def get_damage (self,char:Perso,is_spe:bool=False):
         base_damage = char.current_damage
@@ -202,6 +220,12 @@ class Fight:
                             self.start_to_draw_number(True,self.current_ennemy)
                             self.change_phase("allies")
                             self.draw_spe = True
+                        elif self.attaque_special_hitbox.collidepoint(event.pos):
+                            self.start_draw_hint("spe")
+                    elif not self.is_target_choosen and (self.attaque_frontale_hitbox.collidepoint(event.pos) or self.attaque_special_hitbox.collidepoint(event.pos)):
+                        self.start_draw_hint("choose")
+
+
 
     def allies_attack(self):
         if self.nombre_alive_allies == 0:
@@ -362,8 +386,7 @@ class Fight:
         pos = pos[0]+73,pos[1]-70
         screen.blit(self.red_arrow,pos)
 
-
-    def draw (self,screen):
+    def draw_overlay (self,screen):
         screen.blit(self.bg,(0,0))
         text_tour = self.police_display.render(f'Tour {self.tour}',False,self.BLANC)
         screen.blit(text_tour,(790,0))
@@ -375,6 +398,21 @@ class Fight:
             screen.blit(self.ennemy_turn_text,self.any_turn_text_pos)
         else:
             screen.blit(self.player_turn_text,self.any_turn_text_pos)
+
+        screen.blit(self.attaque_frontale_box, (15, 200))
+        screen.blit(self.attaque_special_box, (15, 320))
+    
+    def draw_hint(self,screen):
+        if self.pop_text_timer_lengh-pygame.time.get_ticks()+self.hint_timer<=0:
+            self.to_draw_hint='none'
+        if self.to_draw_hint == "spe":
+            screen.blit(self.pop_text_spe_not_ready,self.pop_text_spe_not_ready_rect)
+        elif self.to_draw_hint == "choose":
+            screen.blit(self.pop_text_choose_ennemy,self.pop_text_choose_ennemy_rect)
+
+    def draw (self,screen):
+        self.draw_overlay(screen)
+        self.draw_hint(screen)
         self.draw_persos(screen)
         if self.is_target_choosen:
             self.draw_arrow(screen)
@@ -382,9 +420,6 @@ class Fight:
             self.draw_number(screen)
         self.draw_panel(screen)
 
-        screen.blit(self.attaque_frontale_box, (15, 200))
-        screen.blit(self.attaque_special_box, (15, 320))
-        
         pygame.display.flip()
     
     def run(self,screen:pygame.surface.Surface,bg_name:str,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):

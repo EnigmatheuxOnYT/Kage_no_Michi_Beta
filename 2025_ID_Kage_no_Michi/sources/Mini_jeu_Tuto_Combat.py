@@ -14,6 +14,8 @@ Created on Mon Jan 20 17:38:15 2025
 import pygame
 from Cinematics import Cinematics
 from Audio import Music,Sound
+from Fight import Fight
+from Fight_assets import Fight_assets
 
 class minigm_tutofight :
     
