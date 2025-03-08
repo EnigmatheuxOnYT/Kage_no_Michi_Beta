@@ -67,13 +67,17 @@ class Perso:
 
     def set_pos(self,pos):self.pos=pos
 
-    def ste_attacking(self,val):self.attacking=val
+    def set_attacking(self,val):self.attacking=val
 
     def draw_static(self):
         """
         Affiche le personnage à une position donnée.
         """
-        screen.blit(self.image, self.pos) #Affichage du personnage choisi
+        if self.orientation == 'gauche':
+            image = pygame.transform.flip(self.image,True,False)
+        else:
+            image=self.image
+        screen.blit(image, self.pos) #Affichage du personnage choisi
     
     def draw_atk(self,attaque_choisie:str,ennemi_position:tuple):
         index = 0
@@ -210,10 +214,21 @@ class Fight:
         self.potion_hitbox = pygame.Rect(500, 600, 80, 80)
         self.affichage_display = pygame.Rect(0,0,1280,50)
 
+        #Zones des textes
+        self.ennemy_turn_text = self.police_display.render("Au tour de l'ennemi!",False,self.BLANC)
+        self.any_turn_text_pos = (190,0)
+        self.player_turn_text = self.police_display.render("Au tour du joueur!",False,self.BLANC)
+
+        self.characters_positions = {'main':(400,250),
+                                     'ally1':(350,250),
+                                     'ally2':(300,250),
+                                     'ennemy1':(700, 250),
+                                     'ennemy2':(850, 250),
+                                     'ennemy3':(900, 250)
+                                     }
+        
         self.continuer = True
         self.click_cooldown = False
-
-        sprites_coordinates = [(400,350),(700, 350),(850, 350)]
 
 
     def changer_orientation_sprite(sprite):return pygame.transform.flip(sprite,True,False)
@@ -223,9 +238,11 @@ class Fight:
         self.perso_player=perso_player
         self.allies=allies
         self.persos_ennemy = persos_ennemy
+        self.current_ennemy = persos_ennemy[0]
         self.nombre_ennemi = len(persos_ennemy)
         self.attaque_frontale_compteur = 0
-        self.action = 1
+        self.actions = ["player","allies","ennemies"]
+        self.action = "player"
         self.potion = potions
         self.modifieur_degats = 5
         self.modifieur_degats_spe = 15
@@ -237,16 +254,23 @@ class Fight:
 
         self.display_damage=False
         self.damage_duration=2000
-        self.in_atk=False
-        self.atk_info = {'attacker':None,'atk_type':None,'defender':None}
 
         # Variables pour gérer le temps (pour le cooldown des attaques ennemies)
         self.cooldown_ennemi = 1000  # 1 seconde de cooldown
-        self.dernier_temps_attaque = 0
-        self.ennemi_peut_attaquer = False
         self.tour = 1
 
         self.click_cooldown = False
+
+        self.perso_player.set_pos(self.characters_positions["main"])
+        self.perso_player.set_orientation("droite")
+        for i in range(len(self.allies)):
+            ally=self.allies[i]
+            ally.set_pos(self.characters_positions[f'ally{i+1}'])
+            ally.set_orientation("droite")
+        for i in range(len(self.persos_ennemy)):
+            ennemy = self.persos_ennemy[i]
+            ennemy.set_pos(self.characters_positions[f'ennemy{i+1}'])
+            ennemy.set_orientation('gauche')
 
         #barres_vie = {}
         #self.perso_player_barrevie = BarreVie(100,640, self.perso_player.pv, self.perso_player.pv_max)
@@ -271,51 +295,31 @@ class Fight:
                 pygame.event.post(event)
             
             # Si le joueur peut agir
-            if self.action == 1:
+            if self.action == "player":
                 if event.type == pygame.MOUSEBUTTONUP and self.click_cooldown == False:
                     self.click_cooldown = True
 
                     #Utilisation de la potion
                     if self.potion_hitbox.collidepoint(event.pos) and self.potion > 0:
                         self.potion -= 1
-                        self.action = 0
-                        if self.perso_player.pv < 80:
-                            soins_necessaire = 30
-                            #Degats(self.perso_player.x + 30, self.perso_player.y+50, soins_necessaire, self.VERT_VIE) #Affichage des dégâts
-                        else: #Si le pv du joueur est au-dessus des pv données par la potion
-                            soins_necessaire = 100 - self.perso_player.pv
-                            #Degats(self.perso_player.x+30, self.perso_player.y+50, soins_necessaire, self.VERT_VIE) #Affichage des dégâts
-                        self.perso_player.pv += soins_necessaire
-                        self.ennemi_peut_attaquer = False
+                        self.perso_player.pv = min(self.perso_player.pv_max,self.perso_player.pv+30)
+                        self.action = "allies"
 
                     # Attaque frontale
-                    if self.attaque_frontale_hitbox.collidepoint(event.pos) and self.ennemi_peut_attaquer:
-                        attaque_effectuee = False
-                        for ennemy in self.persos_ennemy:
-                            if ennemy.pv >0 and not attaque_effectuee:
-                                self.perso_player.draw_animations("Attaque_Frontale",(ennemy.x,ennemy.y),"droite")
-                                attaque_frontale = random.randint(self.perso_player.current_damage-self.modifieur_dégats,self.perso_player.current_damage+self.modifieur_dégats)
-                                #Degats(ennemy.x+30, ennemy.y+50, attaque_frontale, self.ROUGE) #Affichage des dégâts
-                                ennemy.pv -= attaque_frontale
-                                self.ennemi_peut_attaquer[ennemy.name].draw(ennemy.pv)
-                                self.attaque_frontale_compteur += 1
-                                self.action = 0
-                                attaque_effectuee=True
-                        self.dernier_temps_attaque = pygame.time.get_ticks()
-                        self.ennemi_peut_attaquer = False
+                    if self.attaque_frontale_hitbox.collidepoint(event.pos):
+                        attaque_frontale = random.randint(self.perso_player.current_damage-self.modifieur_degats,self.perso_player.current_damage+self.modifieur_degats)
+                        self.current_ennemy.pv-=attaque_frontale
+                        self.attaque_frontale_compteur += 1
+                        self.action = "allies"
 
                     # Attaque spéciale (se déclenche après 4 attaques de base)
-                    if self.attaque_special_hitbox.collidepoint(event.pos) and self.attaque_frontale_compteur >= 4 and self.ennemi_peut_attaquer:
-                        for ennemy in self.persos_ennemy:
-                            if ennemy.pv >0 and not attaque_effectuee:
-                                self.perso_player.draw_animations("Attaque_Speciale", (ennemy.x,ennemy.y),"droite")
-                                attaque_special = random.randint(10, 30)
-                                #Degats(ennemy.x+30, ennemy.y+50, attaque_special, self.ROUGE)
-                                ennemy.pv -= attaque_special
-                                self.ennemies_barres_vie[ennemy.name].draw(ennemy.pv)
-                                self.attaque_frontale_compteur = 0
-                                self.action = 0
-                        self.ennemi_peut_attaquer = False
+                    if self.attaque_special_hitbox.collidepoint(event.pos) and self.attaque_frontale_compteur >= 4:
+                        attaque_special = random.randint(self.perso_player.current_damage+self.modifieur_degats,self.perso_player.current_damage+self.modifieur_degats+self.modifieur_degats_spe)
+                        self.current_ennemy.pv -= attaque_special
+                        self.attaque_frontale_compteur = 0
+                        self.action = "allies"
+                else:
+                    self.click_cooldown=False
     
     def update (self):
         # Fin du combat : victoire ou défaite
@@ -336,27 +340,72 @@ class Fight:
         Affiche le panneau de dialogue et les points de vie des personnages.
         """
         screen.blit(self.panel_affichage, (0, 720 - self.HAUTEUR_PANEL))
+        screen.blit(self.potion_image, (500,790-self.HAUTEUR_PANEL))
+        text_potion = self.police_base.render(str(self.potion),False,"black")
+        screen.blit(text_potion,(535,580))
 
         #Joueur
-        text = self.police_base.render(self.perso_player.sprite_name+' PV : '+self.perso_player.pv,False,self.VERT)
+        text = self.police_base.render(self.perso_player.sprite_name+' PV : '+str(self.perso_player.pv),False,self.VERT)
         screen.blit(text,(100,790-self.HAUTEUR_PANEL))
+        ratio = self.perso_player.pv / self.perso_player.pv_max #Différence entre les pvs actuel et les pv maxs
+        pygame.draw.rect(screen, self.ROUGE, (100, 820-self.HAUTEUR_PANEL, 300, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
+        pygame.draw.rect(screen, self.VERT_VIE, (100, 820-self.HAUTEUR_PANEL, 300 * ratio, 30))
 
         #Alliés
         for i in range(len(self.allies)):
             ally = self.allies[i]
-            text = self.police_base.render(ally.sprite_name+' PV : '+ally.pv,False,self.VERT)
-            screen.blit(text,(100,790-self.HAUTEUR_PANEL+50*(i+1)))
+            text = self.police_base.render(ally.sprite_name+' PV : '+str(ally.pv),False,self.VERT)
+            screen.blit(text,(100,790-self.HAUTEUR_PANEL+60*(i+1)))
+            ratio = ally.pv / ally.pv_max #Différence entre les pvs actuel et les pv maxs
+            pygame.draw.rect(screen, self.ROUGE, (100, 820-self.HAUTEUR_PANEL+60*(i+1), 300, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
+            pygame.draw.rect(screen, self.VERT_VIE, (100, 820-self.HAUTEUR_PANEL+60*(i+1), 300 * ratio, 30))
         
         #Ennemis
         for i in range(len(self.persos_ennemy)):
             ennemy = self.persos_ennemy[i]
-            text = self.police_base.render(ennemy.sprite_name+' PV : '+ennemy.pv,False,self.PINK)
-            screen.blit(text,(700,790-self.HAUTEUR_PANEL+50*(i+1)))
+            text = self.police_base.render(ennemy.sprite_name+' PV : '+str(ennemy.pv),False,self.PINK)
+            screen.blit(text,(700,790-self.HAUTEUR_PANEL+60*(i)))
+            ratio = ennemy.pv / ennemy.pv_max #Différence entre les pvs actuel et les pv maxs
+            pygame.draw.rect(screen, self.ROUGE, (700, 820-self.HAUTEUR_PANEL+60*(i), 300, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
+            pygame.draw.rect(screen, self.VERT_VIE, (700, 820-self.HAUTEUR_PANEL+60*(i), 300 * ratio, 30))
+
+    def draw_persos (self,screen):
+        if self.perso_player.pv > 0:
+            if self.perso_player.attacking:
+                self.perso_player.draw_atk("Attaque_Frontale",self.current_ennemy.pos)
+            else:
+                self.perso_player.draw_static()
+        for i in range(len(self.allies)):
+            ally=self.allies[i]
+            if ally.pv > 0:
+                if ally.attacking:
+                    ally.draw_atk("Attaque_Frontale",self.current_ennemy.pos)
+                else:
+                    ally.draw_static()
+        for i in range(len(self.persos_ennemy)):
+            ennemy=self.persos_ennemy[i]
+            if ennemy.pv > 0:
+                if ennemy.attacking:
+                    ennemy.draw_atk("Attaque_Frontale",self.perso_player.pos)
+                else:
+                    ennemy.draw_static()
+
+
 
     def draw (self,screen):
-        screen.blit(self.bg,(1280,720))
+        screen.blit(self.bg,(0,0))
+        text_tour = self.police_display.render(f'Tour {self.tour}',False,self.BLANC) #(LONGUEUR_ECRAN/2+250,0)
+        screen.blit(text_tour,(790,0))
+        if self.action == "ennemies":
+            screen.blit(self.ennemy_turn_text,self.any_turn_text_pos)
+        else:
+            screen.blit(self.player_turn_text,self.any_turn_text_pos)
+        self.draw_persos(screen)
         self.draw_panel(screen)
 
+        screen.blit(self.attaque_frontale_box, (15, 200))
+        screen.blit(self.attaque_special_box, (15, 320))
+        
         pygame.display.flip()
     
     def run(self,screen,bg_name,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):
@@ -374,7 +423,6 @@ if __name__ == "__main__":
     Musashi = Perso("Musashi",100,op_weapon,(200,200))
     guerrier_takahiro = Perso('Musashi',70,no_weapon,(200, 200))
     guerrier_takahiro2 = Perso('Musashi', 70,no_weapon,(200, 200))
-    poss = [(400,350),(700, 350),(850, 350)]
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
