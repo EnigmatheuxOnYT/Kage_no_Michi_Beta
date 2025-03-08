@@ -67,7 +67,7 @@ class Perso:
 
     def set_pos(self,pos):self.pos=pos
 
-    def ste_attacking(self,val):self.attacking=val
+    def set_attacking(self,val):self.attacking=val
 
     def draw_static(self):
         """
@@ -230,8 +230,6 @@ class Fight:
         self.continuer = True
         self.click_cooldown = False
 
-        sprites_coordinates = [(400,350),(700, 350),(850, 350)]
-
 
     def changer_orientation_sprite(sprite):return pygame.transform.flip(sprite,True,False)
 
@@ -243,7 +241,8 @@ class Fight:
         self.current_ennemy = persos_ennemy[0]
         self.nombre_ennemi = len(persos_ennemy)
         self.attaque_frontale_compteur = 0
-        self.action = 1
+        self.actions = ["player","allies","ennemies"]
+        self.action = "player"
         self.potion = potions
         self.modifieur_degats = 5
         self.modifieur_degats_spe = 15
@@ -258,8 +257,6 @@ class Fight:
 
         # Variables pour gérer le temps (pour le cooldown des attaques ennemies)
         self.cooldown_ennemi = 1000  # 1 seconde de cooldown
-        self.dernier_temps_attaque = 0
-        self.ennemi_peut_attaquer = False
         self.tour = 1
 
         self.click_cooldown = False
@@ -298,51 +295,29 @@ class Fight:
                 pygame.event.post(event)
             
             # Si le joueur peut agir
-            if self.action == 1:
+            if self.action == "player":
                 if event.type == pygame.MOUSEBUTTONUP and self.click_cooldown == False:
                     self.click_cooldown = True
 
                     #Utilisation de la potion
                     if self.potion_hitbox.collidepoint(event.pos) and self.potion > 0:
                         self.potion -= 1
-                        self.action = 0
-                        if self.perso_player.pv < 80:
-                            soins_necessaire = 30
-                            #Degats(self.perso_player.x + 30, self.perso_player.y+50, soins_necessaire, self.VERT_VIE) #Affichage des dégâts
-                        else: #Si le pv du joueur est au-dessus des pv données par la potion
-                            soins_necessaire = 100 - self.perso_player.pv
-                            #Degats(self.perso_player.x+30, self.perso_player.y+50, soins_necessaire, self.VERT_VIE) #Affichage des dégâts
-                        self.perso_player.pv += soins_necessaire
-                        self.ennemi_peut_attaquer = False
+                        self.perso_player.pv = min(self.perso_player.pv_max,self.perso_player.pv+30)
+                        self.action = "allies"
 
                     # Attaque frontale
-                    if self.attaque_frontale_hitbox.collidepoint(event.pos) and self.ennemi_peut_attaquer:
-                        attaque_effectuee = False
-                        for ennemy in self.persos_ennemy:
-                            if ennemy.pv >0 and not attaque_effectuee:
-                                self.perso_player.draw_animations("Attaque_Frontale",(ennemy.x,ennemy.y),"droite")
-                                attaque_frontale = random.randint(self.perso_player.current_damage-self.modifieur_dégats,self.perso_player.current_damage+self.modifieur_dégats)
-                                #Degats(ennemy.x+30, ennemy.y+50, attaque_frontale, self.ROUGE) #Affichage des dégâts
-                                ennemy.pv -= attaque_frontale
-                                self.ennemi_peut_attaquer[ennemy.name].draw(ennemy.pv)
-                                self.attaque_frontale_compteur += 1
-                                self.action = 0
-                                attaque_effectuee=True
-                        self.dernier_temps_attaque = pygame.time.get_ticks()
-                        self.ennemi_peut_attaquer = False
+                    if self.attaque_frontale_hitbox.collidepoint(event.pos):
+                        attaque_frontale = random.randint(self.perso_player.current_damage-self.modifieur_degats,self.perso_player.current_damage+self.modifieur_degats)
+                        self.current_ennemy.pv-=attaque_frontale
+                        self.attaque_frontale_compteur += 1
+                        self.action = "allies"
 
                     # Attaque spéciale (se déclenche après 4 attaques de base)
-                    if self.attaque_special_hitbox.collidepoint(event.pos) and self.attaque_frontale_compteur >= 4 and self.ennemi_peut_attaquer:
-                        for ennemy in self.persos_ennemy:
-                            if ennemy.pv >0 and not attaque_effectuee:
-                                self.perso_player.draw_animations("Attaque_Speciale", (ennemy.x,ennemy.y),"droite")
-                                attaque_special = random.randint(10, 30)
-                                #Degats(ennemy.x+30, ennemy.y+50, attaque_special, self.ROUGE)
-                                ennemy.pv -= attaque_special
-                                self.ennemies_barres_vie[ennemy.name].draw(ennemy.pv)
-                                self.attaque_frontale_compteur = 0
-                                self.action = 0
-                        self.ennemi_peut_attaquer = False
+                    if self.attaque_special_hitbox.collidepoint(event.pos) and self.attaque_frontale_compteur >= 4:
+                        attaque_special = random.randint(self.perso_player.current_damage+self.modifieur_degats,self.perso_player.current_damage+self.modifieur_degats+self.modifieur_degats_spe)
+                        self.current_ennemy.pv -= attaque_special
+                        self.attaque_frontale_compteur = 0
+                        self.action = "allies"
     
     def update (self):
         # Fin du combat : victoire ou défaite
@@ -419,7 +394,7 @@ class Fight:
         screen.blit(self.bg,(0,0))
         text_tour = self.police_display.render(f'Tour {self.tour}',False,self.BLANC) #(LONGUEUR_ECRAN/2+250,0)
         screen.blit(text_tour,(790,0))
-        if self.action == 0:
+        if self.action == "ennemies":
             screen.blit(self.ennemy_turn_text,self.any_turn_text_pos)
         else:
             screen.blit(self.player_turn_text,self.any_turn_text_pos)
