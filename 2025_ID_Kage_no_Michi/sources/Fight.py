@@ -13,111 +13,8 @@ import pygame
 import random
 from typing import List
 from Cinematics import Cinematics
+from Fight_assets import Perso,Weapon,Fight_assets
 from dataclasses import dataclass
-
-@dataclass
-class Weapon:
-    name : str
-    weapon_damage : int
-    special_damage : int
-    crit_chance : float
-
-class Perso:
-    """
-    Classe représentant un personnage du jeu.
-    """
-    def __init__(self, name, pv_max, weapon:Weapon, nouvelle_taille: tuple,level=1,instance=0): #Toutes les variables nécessaires pour la création d'un personnage
-        self.name = name+str(instance) #Son nom, ATTENTION LE NOM DEFINIT LE SPRITE CHOISI !!
-        self.sprite_name = name
-        self.pv_max = pv_max #Ses hp max
-        self.pv = pv_max #Ses pv, qui vont prendre tout simplement la valeur de ses pvs
-        self._base_damage = 5
-        self.weapon = weapon
-        self.level = level #niveau du personnage
-        sprite = pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Idle.png") #Le spirte quand il reste immobile
-        self.image = pygame.transform.scale(sprite, nouvelle_taille) #On redimensionne le sprite de sorte à ce que ça soit cohérent avec le fond
-        self.atk_frame_lengh = 80
-        self.debut_frame = 0
-        self.orientation="gauche"
-        self.pos=(0,0)
-        self.attacking=False
-        self.animations_combat = [
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_1.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_2.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_3.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_4.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_5.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_6.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_7.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_8.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_9.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_10.png"),
-            sprite
-        ] #Tous les sprites présents lors de l'animation d'attaque
-
-        self.index = 0
-        self.max_index = 10
-
-    @property
-    def current_damage(self):return self._base_damage+self.weapon.weapon_damage
-    @property
-    def is_ko (self):return False if self.pv>0 else True
-    
-    def level_up (self):
-        self.level+=1
-        self.pv_max=round(self.pv_max*1.1,0)
-        self.base_damage=round(self._base_damage*1.1,0)
-    
-    def change_weapon (self,weapon):self.weapon=weapon
-    
-    def set_orientation(self,new_orientation):self.orientation=new_orientation
-
-    def set_pos(self,pos):self.pos=pos
-
-    def set_attacking(self,val):self.attacking=val
-
-    def draw_static(self):
-        """
-        Affiche le personnage à une position donnée.
-        """
-        if self.orientation == 'gauche':
-            image = pygame.transform.flip(self.image,True,False)
-        else:
-            image=self.image
-        screen.blit(image, self.pos) #Affichage du personnage choisi
-    
-    def draw_atk(self,attaque_choisie:str,ennemi_position:tuple):
-        self.animations_attaque = [
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_1_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_2_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_3_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_4_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_5_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_6_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_7_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_8_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_9_V1.png")
-        ]
-
-        if self.index == 0 or self.atk_frame_lengh-pygame.time.get_ticks()+self.debut_frame<=0:
-            self.index +=1
-            if self.index>self.max_index:
-                self.index=0
-                self.attacking=False
-            self.debut_frame = pygame.time.get_ticks()
-        if self.index!=0:
-            image = pygame.transform.scale(self.animations_combat[self.index], (200,200))
-            if self.orientation == "gauche":
-                image = pygame.transform.flip(image, True, False)
-            screen.blit(image,(self.pos))
-            if self.index >= 2:
-                image_attaque = pygame.transform.scale(self.animations_attaque[self.index-2],(200,200))
-                if self.orientation == "gauche":
-                    image_attaque = pygame.transform.flip(image_attaque, True, False)
-                screen.blit(image_attaque, ennemi_position)
-        else:
-            self.draw_static()
-
 
 class Fight:
     def __init__(self):
@@ -415,30 +312,30 @@ class Fight:
     def draw_persos (self,screen):
         if self.perso_player.pv > 0:
             if not self.perso_player.attacking:
-                self.perso_player.draw_static()
+                self.perso_player.draw_static(screen)
         for i in range(len(self.allies)):
             ally=self.allies[i]
             if ally.pv > 0:
                 if not ally.attacking:
-                    ally.draw_static()
+                    ally.draw_static(screen)
         for i in range(len(self.persos_ennemy)):
             ennemy=self.persos_ennemy[i]
             if ennemy.pv > 0:
                 if not ennemy.attacking:
-                    ennemy.draw_static()
+                    ennemy.draw_static(screen)
         if self.perso_player.pv > 0:
             if self.perso_player.attacking:
-                self.perso_player.draw_atk("Attaque_Frontale",self.current_ennemy.pos)
+                self.perso_player.draw_atk(screen,"Attaque_Frontale",self.current_ennemy.pos)
         for i in range(len(self.allies)):
             ally=self.allies[i]
             if ally.pv > 0:
                 if ally.attacking:
-                    ally.draw_atk("Attaque_Frontale",self.current_ennemy.pos)
+                    ally.draw_atk(screen,"Attaque_Frontale",self.current_ennemy.pos)
         for i in range(len(self.persos_ennemy)):
             ennemy=self.persos_ennemy[i]
             if ennemy.pv > 0:
                 if ennemy.attacking:
-                    ennemy.draw_atk("Attaque_Frontale",self.perso_player.pos)
+                    ennemy.draw_atk(screen,"Attaque_Frontale",self.perso_player.pos)
 
     def draw_number(self,screen):
         if self.is_number_damage:
@@ -480,13 +377,9 @@ class Fight:
             self.clock.tick(60)
 
 if __name__ == "__main__":
-    no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
-    op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
-    Musashi = Perso("Musashi",100,op_weapon,(200,200))
-    guerrier_takahiro = Perso('Musashi',70,no_weapon,(200, 200))
-    guerrier_takahiro2 = Perso('Musashi', 70,no_weapon,(200, 200))
+    fight_assets = Fight_assets()
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
-    Fight().run(screen,'ine1',Musashi,[],[guerrier_takahiro,guerrier_takahiro2],3)
+    Fight().run(screen,'ine1',fight_assets.Musashi,[],[fight_assets.guerrier_takahiro,fight_assets.guerrier_takahiro2],3)
     pygame.quit()

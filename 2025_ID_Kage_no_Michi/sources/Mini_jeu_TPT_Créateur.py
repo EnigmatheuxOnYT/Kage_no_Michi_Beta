@@ -10,7 +10,7 @@ import random
 import time
 from dataclasses import dataclass
 from typing import List
-from Combat_TPT_Persos_Data_Module import *
+from Fight_assets import *
 
 pygame.init()
 
