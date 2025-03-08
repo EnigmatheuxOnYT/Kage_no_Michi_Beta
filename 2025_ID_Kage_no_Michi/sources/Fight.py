@@ -172,6 +172,9 @@ class Fight:
         self.attack_cooldown = False
         self.attack_cooldown_stating_timer = 0
         self.attack_cooldown_timer = 1000
+        self.end_cooldown_timer_lengh = 3000
+        self.in_end_cooldown=False
+        self.end_timer = 0
 
 
     def changer_orientation_sprite(sprite):return pygame.transform.flip(sprite,True,False)
@@ -333,6 +336,7 @@ class Fight:
             self.action = self.queuing_phase
             if self.action == 'player':
                 self.tour+=1
+                self.current_ennemy = self.alive_ennemies[0]
         
         if self.display_number and self.number_duration-pygame.time.get_ticks()+self.start_drawing_number_timer<=0:
             self.display_number = False
@@ -351,11 +355,16 @@ class Fight:
 
 
         # Fin du combat : victoire ou défaite
-        if self.nombre_alive_ennemies==0:
+        if self.nombre_alive_ennemies==0 and not self.in_end_cooldown:
             print('WIN')
-            self.continuer = False
-        elif self.perso_player.is_ko and self.nombre_alive_allies==0:
+            self.end_timer = pygame.time.get_ticks()
+            self.in_end_cooldown = True
+        elif self.perso_player.is_ko and self.nombre_alive_allies==0 and not self.in_end_cooldown:
             print('LOSE')
+            self.end_timer = pygame.time.get_ticks()
+            self.in_end_cooldown = True
+        
+        if self.in_end_cooldown and self.end_cooldown_timer_lengh-pygame.time.get_ticks()+self.end_timer<=0:
             self.continuer = False
 
     def draw_panel(self,screen):
