@@ -68,6 +68,9 @@ class Sound:
         self.swoosh4 = self.sound("SFX_Swoosh_Bamboo_Katana_4")
         self.scary_effect = self.sound("SFX_ScarryEffect_1")
         self.impact1 = self.sound("SFX_Impact_1")
+        self.heartbeat = self.sound("SFX_Heartbeat_1")
+        self.struggle = self.sound("SFX_Struggle_1")
+        self.anxiety = self.sound("SFX_Anxiety_1")
     
     
     def sound (self,file):
