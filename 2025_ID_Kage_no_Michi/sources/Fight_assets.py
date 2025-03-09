@@ -26,7 +26,7 @@ class Perso:
         self.weapon = weapon
         self.level = 1 #niveau du personnage
         self.set_level(level)
-        sprite = pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Idle.png") #Le spirte quand il reste immobile
+        sprite = pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Idle.png") #Le spirte quand il reste immobile
         self.image = pygame.transform.scale(sprite, (200,200)) #On redimensionne le sprite de sorte à ce que ça soit cohérent avec le fond
         self.rect = self.image.get_rect()
         self.rect.width = 100
@@ -36,16 +36,16 @@ class Perso:
         self.pos=(0,0)
         self.attacking=False
         self.animations_combat = [
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_1.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_2.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_3.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_4.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_5.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_6.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_7.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_8.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_9.png"),
-            pygame.image.load(f"../data/assets/sprites/{self.sprite_name}_Combat_10.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_1.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_2.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_3.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_4.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_5.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_6.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_7.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_8.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_9.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_10.png"),
             sprite
         ] #Tous les sprites présents lors de l'animation d'attaque
 
@@ -93,15 +93,15 @@ class Perso:
     
     def draw_atk(self,screen,attaque_choisie:str,ennemi_position:tuple):
         self.animations_attaque = [
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_1_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_2_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_3_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_4_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_5_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_6_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_7_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_8_V1.png"),
-            pygame.image.load(f"../data/assets/sprites/{attaque_choisie}_9_V1.png")
+            pygame.image.load(f"../data/assets/tpt/sprites/{attaque_choisie}_1_V1.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{attaque_choisie}_2_V1.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{attaque_choisie}_3_V1.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{attaque_choisie}_4_V1.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{attaque_choisie}_5_V1.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{attaque_choisie}_6_V1.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{attaque_choisie}_7_V1.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{attaque_choisie}_8_V1.png"),
+            pygame.image.load(f"../data/assets/tpt/sprites/{attaque_choisie}_9_V1.png")
         ]
 
         if self.index == 0 or self.atk_frame_lengh-pygame.time.get_ticks()+self.debut_frame<=0:
@@ -135,8 +135,8 @@ class Fight_assets:
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
         self.Musashi = Perso("Musashi",10,self.op_weapon,level = 100)
-        self.guerrier_takahiro = Perso('Musashi',70,self.no_weapon,)
-        self.guerrier_takahiro2 = Perso('Musashi', 70,self.no_weapon,)
+        self.guerrier_takahiro = Perso('Soldat1',70,self.no_weapon,)
+        self.guerrier_takahiro2 = Perso('Soldat1', 70,self.no_weapon,)
         #self.ma_Juzo = Perso('Ma_Juzo',200, self.tengoku_no_ikari,level=10)
 
 if __name__ == "__main__":
