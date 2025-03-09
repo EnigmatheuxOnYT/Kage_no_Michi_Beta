@@ -124,6 +124,8 @@ class Fight:
         self.number_duration = 1000
         self.start_drawing_number_timer = 0
         self.draw_spe = False
+        self.is_crit = False
+        self.crit_text = self.police_hint.render("Coup critique !", False,"orange")
 
         self.allow_normal = True
         self.allow_spe = True
@@ -171,7 +173,7 @@ class Fight:
         self.is_number_damage = damage
         self.start_drawing_number_timer = pygame.time.get_ticks()
         pos = char.pos
-        self.number_pos = (pos[0]-20,pos[1]-30)
+        self.number_pos = (pos[0],pos[1]-30)
 
     def start_draw_hint(self,hint):
         self.to_draw_hint = hint
@@ -181,9 +183,9 @@ class Fight:
         base_damage = char.current_damage
         if is_spe :
             base_damage+=char.weapon.special_damage
-        is_crit = random.random()<=char.weapon.crit_chance
-        if is_crit:
-            mult = random.random()+1.5
+        self.is_crit = random.random()<=char.weapon.crit_chance
+        if self.is_crit:
+            mult = random.random()+1.25
             base_damage=int(base_damage*mult)
         damage = random.randint(base_damage-char.level,base_damage+char.level)
         return max(damage,0)
@@ -406,6 +408,9 @@ class Fight:
         else:
             text = self.police_degats.render(str(self.number),False,col)
         screen.blit(text,self.number_pos)
+        if self.is_crit:
+            crit_pos = (self.number_pos[0],self.number_pos[1]-25)
+            screen.blit(self.crit_text,crit_pos)
 
     def draw_arrow (self,screen):
         pos = self.current_ennemy.pos
