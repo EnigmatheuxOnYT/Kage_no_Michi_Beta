@@ -466,7 +466,7 @@ class Cinematics:
             pygame.display.flip()
             pygame.time.Clock().tick(60)
         
-    def ecran_noir (self, screen):
+    def ecran_noir (self, screen:pygame.surface.Surface):
         ########## Affiche un fondu au noir ##########
         
         noir = pygame.Surface((1280,720), pygame.SRCALPHA)

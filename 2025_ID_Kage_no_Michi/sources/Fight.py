@@ -54,7 +54,7 @@ class Fight:
         # Définition des zones cliquables (hitboxes)
         self.attaque_frontale_hitbox = pygame.Rect(15, 200, 100, 100)
         self.attaque_special_hitbox = pygame.Rect(15, 320, 100, 100)
-        self.potion_hitbox = pygame.Rect(500,790-self.HAUTEUR_PANEL, 80, 80)
+        self.potion_hitbox = pygame.Rect(550,790-self.HAUTEUR_PANEL, 80, 80)
         self.affichage_display = pygame.Rect(0,0,1280,50)
 
         #Zones des textes
@@ -318,36 +318,36 @@ class Fight:
         Affiche le panneau de dialogue et les points de vie des personnages.
         """
         screen.blit(self.panel_affichage, (0, 720 - self.HAUTEUR_PANEL))
-        screen.blit(self.potion_image, (500,790-self.HAUTEUR_PANEL))
+        screen.blit(self.potion_image, (550,790-self.HAUTEUR_PANEL))
         text_potion = self.police_base.render(str(self.potion),False,"black")
         rect_potion = text_potion.get_rect()
-        rect_potion.midtop = (self.potion_image.get_width()/2+500,580)
+        rect_potion.midtop = (self.potion_image.get_width()/2+550,580)
         screen.blit(text_potion,rect_potion)
 
         #Joueur
-        text = self.police_base.render(self.perso_player.sprite_name+' PV : '+str(self.perso_player.pv),False,self.VERT)
+        text = self.police_base.render(self.perso_player.sprite_name+' NIV : '+str(self.perso_player.level)+' PV : '+str(self.perso_player.pv),False,self.VERT)
         screen.blit(text,(100,790-self.HAUTEUR_PANEL))
         ratio = self.perso_player.pv / self.perso_player.pv_max #Différence entre les pvs actuel et les pv maxs
-        pygame.draw.rect(screen, self.ROUGE, (100, 820-self.HAUTEUR_PANEL, 300, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
-        pygame.draw.rect(screen, self.VERT_VIE, (100, 820-self.HAUTEUR_PANEL, 300 * ratio, 30))
+        pygame.draw.rect(screen, self.ROUGE, (100, 820-self.HAUTEUR_PANEL, 400, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
+        pygame.draw.rect(screen, self.VERT_VIE, (100, 820-self.HAUTEUR_PANEL, 400 * ratio, 30))
 
         #Alliés
         for i in range(len(self.allies)):
             ally = self.allies[i]
-            text = self.police_base.render(ally.sprite_name+' PV : '+str(ally.pv),False,self.VERT)
+            text = self.police_base.render(ally.sprite_name+' NIV : '+str(ally.level)+' PV : '+str(ally.pv),False,self.VERT)
             screen.blit(text,(100,790-self.HAUTEUR_PANEL+60*(i+1)))
             ratio = ally.pv / ally.pv_max #Différence entre les pvs actuel et les pv maxs
-            pygame.draw.rect(screen, self.ROUGE, (100, 820-self.HAUTEUR_PANEL+60*(i+1), 300, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
-            pygame.draw.rect(screen, self.VERT_VIE, (100, 820-self.HAUTEUR_PANEL+60*(i+1), 300 * ratio, 30))
+            pygame.draw.rect(screen, self.ROUGE, (100, 820-self.HAUTEUR_PANEL+60*(i+1), 400, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
+            pygame.draw.rect(screen, self.VERT_VIE, (100, 820-self.HAUTEUR_PANEL+60*(i+1), 400 * ratio, 30))
         
         #Ennemis
         for i in range(len(self.persos_ennemy)):
             ennemy = self.persos_ennemy[i]
-            text = self.police_base.render(ennemy.sprite_name+' PV : '+str(ennemy.pv),False,self.PINK)
+            text = self.police_base.render(ennemy.sprite_name+' NIV : '+str(ennemy.level)+' PV : '+str(ennemy.pv),False,self.PINK)
             screen.blit(text,(700,790-self.HAUTEUR_PANEL+60*(i)))
             ratio = ennemy.pv / ennemy.pv_max #Différence entre les pvs actuel et les pv maxs
-            pygame.draw.rect(screen, self.ROUGE, (700, 820-self.HAUTEUR_PANEL+60*(i), 300, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
-            pygame.draw.rect(screen, self.VERT_VIE, (700, 820-self.HAUTEUR_PANEL+60*(i), 300 * ratio, 30))
+            pygame.draw.rect(screen, self.ROUGE, (700, 820-self.HAUTEUR_PANEL+60*(i), 400, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
+            pygame.draw.rect(screen, self.VERT_VIE, (700, 820-self.HAUTEUR_PANEL+60*(i), 400 * ratio, 30))
 
     def draw_persos (self,screen):
         if self.perso_player.pv > 0:

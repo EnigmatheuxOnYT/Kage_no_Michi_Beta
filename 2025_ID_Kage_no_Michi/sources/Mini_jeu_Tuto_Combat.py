@@ -33,6 +33,8 @@ class minigm_tutofight :
         
         ### Appel de la classe cinématique, on utilisera principalement self.cin.cinematic_frame() et self.cin.cinematics_bgs
         self.cin = Cinematics()
+        self.fight = Fight()
+        self.fight_assets = Fight_assets()
         
         ### Appel des classes pour l'audio, on utilisera principalement la fonction play() et les variables (aller voir le fichier)
         self.music,self.sound = Music(),Sound()
@@ -42,6 +44,7 @@ class minigm_tutofight :
     def load (self):
         self.playing = True
         self.load_assets()
+        self.fight.load ('mgm1',self.fight_assets.Musashi,[],[self.fight_assets.guerrier_takahiro],1)
      
     def load_assets(self):
         # Importer les images, sons etc.. ici (depuis "../data/assets")
@@ -51,11 +54,29 @@ class minigm_tutofight :
         self.font_MFMG30 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",30)
      
     ########## Intro/Fin ##########
-    def intro(self,screen):
+    def intro(self,screen,saved):
         #Appeler ici la fonction self.cin.cinematic_frame()
         #Exemple d'utilisation que vous pouvez copier coller (attention, TOUJOURS finir l'appel par running=self.running):
         
-        self.cin.cinematic_frame(screen,'mgm1',running=self.running)
+        self.cin.ecran_noir(screen)
+        self.cin.cinematic_frame(screen,'ine1',3,"Bonjour Sensei Hoshida.", "Merci encore une fois de m'avoir accepté en tant que disciple.", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],1],running=self.running)
+        if saved == 'none':
+            self.cin.cinematic_frame(screen,'ine1',3,"Rien n'est encore gagné, l'entraînement ne fait que de commencer.", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],3],running=self.running)
+        if saved == 'KM':
+            self.cin.cinematic_frame(screen,'ine1',3,"Bonjour à vous Sensei Hoshida.", "Je suis très reconnaissant de l'entraînement que vous offrez à mon grand frère!", kind_info=[[saved,"no_weapon"],["SM","no_weapon"],["SH","no_weapon"],1,True],running=self.running)
+            self.cin.cinematic_frame(screen,'ine1',3,"Je vois que vous êtes tous les deux en bonne forme.","C'est un très bon signe. Musashi, il est l'heure de l'entraînement.", kind_info=[[saved,"no_weapon"],["SM","no_weapon"],["SH","no_weapon"],3],running=self.running)
+            self.cin.cinematic_frame(screen,'ine1',3,"Oui Maître !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],1,True],running=self.running)
+        elif saved == 'KT':
+            self.cin.cinematic_frame(screen,'ine1',3,"Salutations Maître.", "Moi et Musashi sommes prêts à endurer vos entraînements pour notre village.", kind_info=[[saved,"no_weapon"],["SM","no_weapon"],["SH","no_weapon"],1,True],running=self.running)
+            self.cin.cinematic_frame(screen,'ine1',3,"Voilà 2 élèves prometteurs qui sont dignes pour mes enseignements.", "Suivez-moi, on va commencer l'entraînement d'ici peu.", kind_info=[[saved,"no_weapon"],["SM","no_weapon"],["SH","no_weapon"],3],running=self.running)
+            self.cin.cinematic_frame(screen,'ine1',3,"Oui Maître !", kind_info=[[saved,"no_weapon"],["SM","no_weapon"],["SH","no_weapon"],1],running=self.running)
+            self.cin.cinematic_frame(screen,'ine1',3,"Oui Maître !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],1,True],running=self.running)
+        self.cin.cinematic_frame(screen,'ine1',3,"(Tout à coup, Musashi se remémore un souvenir de son enfance)", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],0],running=self.running)
+        self.cin.ecran_noir(screen)
+        self.cin.cinematic_frame(screen,'mgm1',2,"Souvenez-vous que le combat se fait non seulement pour vaincre son ennemi,","mais pour lui octroyer respect et reconnaissance.",kind_info=[["SM","no_weapon"],["Y?","no_weapon"],2])
+        self.cin.cinematic_frame(screen,'mgm1',2,"Vous allez affronter de nombreux obstacles lors de vos péripéties,", "et il est important que vous gardiez en tête mes enseignements", "pour que vous puissiez vous défendre.",kind_info=[["SM","no_weapon"],["Y?","no_weapon"],2])
+        self.cin.cinematic_frame(screen,'mgm1',2,"Très bien. Musashi, fait nous une démonstration de ce que tu as appris", "jusqu'ici.",kind_info=[["SM","no_weapon"],["Y?","no_weapon"],2])
+        self.cin.cinematic_frame(screen,'mgm1',2,"Éliminez vos adversaires en utilisant votre attaque frontale et spéciale !", "Régénérez-vous de 30 PV avec vos potions de soin à disposition !", kind_info=[["SM","no_weapon"],["Y?","no_weapon"],0])
         
         #À la toute fin de la fonction
         self.in_minigm = True
@@ -74,43 +95,32 @@ class minigm_tutofight :
             #Vérification de la fermeture du jeu
             if event.type == pygame.QUIT:
                 self.running = False
-                pygame.event.post(event)
+            pygame.event.post(event)
         
+        self.fight.handle_imput()
         
-        #Vérification des touches appuyées
-        pressed_keys = pygame.key.get_pressed()
-        
-        #Vérification de la muise en plein écran
-        if pressed_keys[pygame.K_F11]: 
-            pygame.display.toggle_fullscreen()
-            pygame.time.Clock().tick(5)
+
         
     
     
     ########## Partie 2 : Mise à jour ##########
     def minigm_update (self):
-        pass
+        self.fight.update()
     
     
     ########## Partie 3 : Affichage ##########
     def minigm_draw (self,screen):
         #Remplissage avec du noir (fond)
-        screen.fill((0,0,0))
-        
-        #Affichage, utiliser principalement la fonction screen.blit([surface à afficher],[ractangle dans lequel afficher la surface])
-        
-        #Mise à jour de l'écran
-        pygame.display.flip()
-    
+        self.fight.draw(screen)
    
     ########## Boucle mini-jeu ##########
     def run (self,screen,saved='none',devomde=False):
         #L'argument saved permet de savoir quelle version de l'intro et de la fin afficher en fonction de qui a été sauvé. Il permet aussi d'afficher le bon sprite dans le mini-jeu le cas échéant 
         
         self.load()
-        self.intro(screen)
+        self.intro(screen,saved)
         
-        while self.playing and self.running and self.in_minigm:
+        while self.playing and self.running and self.in_minigm and self.fight.continuer:
             self.minigm_events()
             self.minigm_update()
             self.minigm_draw(screen)

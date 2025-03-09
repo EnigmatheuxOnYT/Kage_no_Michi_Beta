@@ -134,9 +134,9 @@ class Fight_assets:
         self.wood_katana = Weapon(name="wood_katana",weapon_damage=5,special_damage=5,crit_chance=0.05)
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
-        self.Musashi = Perso("Musashi",10,self.op_weapon,level = 100)
-        self.guerrier_takahiro = Perso('Soldat1',70,self.no_weapon,)
-        self.guerrier_takahiro2 = Perso('Soldat1', 70,self.no_weapon,)
+        self.Musashi = Perso("Musashi",10,self.op_weapon,level = 10)
+        self.guerrier_takahiro = Perso('Soldat1',70,self.no_weapon)
+        self.guerrier_takahiro2 = Perso('Soldat1', 70,self.no_weapon)
         #self.ma_Juzo = Perso('Ma_Juzo',200, self.tengoku_no_ikari,level=10)
 
 if __name__ == "__main__":
