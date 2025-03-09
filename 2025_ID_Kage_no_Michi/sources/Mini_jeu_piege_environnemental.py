@@ -664,7 +664,7 @@ class minigm_minesweeper:
         if self.running:
             self.end(screen, saved)
         
-        return self.running
+        return self.running,self.victoire
 
 #########################################
 # Lancement du mini-jeu

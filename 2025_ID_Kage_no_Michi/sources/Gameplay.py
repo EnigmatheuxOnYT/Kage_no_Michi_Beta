@@ -159,14 +159,14 @@ class GamePlayPhase:
 
 class GPPMap(GamePlayPhase):
     def __init__(self,name:str,map:Map,spawn:str,event_zones:List[DisplayZone]=[],npcs:List[Interactible]=[],display_zones:List[DisplayZone]=[],path:str=None,dirs_data:list=[1,[-1],['next']],updates:List[Update]=[]):
-        GamePlayPhase.__init__(self,name,"GPFMap",dirs_data)
+        GamePlayPhase.__init__(self,name,"GPPMap",dirs_data)
         self.map = map
         self.spawn=spawn
         self.event_zones=event_zones
         self.npcs=npcs
         self.display_zones = display_zones
         self.path=path
-        self.update = updates
+        self.updates = updates
 
 
 class GPPCinematic(GamePlayPhase):
@@ -258,7 +258,8 @@ class Story:
                                                                         ),
                                                             GPPCinematic(name='Intro3',
                                                                          cinematic_no=3,
-                                                                         dirs_data=[1,[-1],['next']])
+                                                                         dirs_data=[1,[-1],['next']]
+                                                                         )
                                                             ]
                                                       )
                                       },
@@ -268,16 +269,41 @@ class Story:
                                                                    map="main",
                                                                    spawn='spawn_Magome',
                                                                    path="mgm_ine",
-                                                                   dirs_data=[1,[-1],['next']]
+                                                                   dirs_data=[1,[-1],['next']],
+                                                                   updates=[Update(condition=Condition(type="location",data=['ine']),effect='next')]
                                                                    ),
                                                             GPPCinematic(name="Cinématique 4",
                                                                          cinematic_no=4,
                                                                          dirs_data=[1,[-1],['next']]
-                                                                         )
+                                                                         ),
                                                             ]
                                                       ),
                                       'Scene 2':Scene(id=[1,2],
                                                       next_id=[1,3],
-                                                      gpps=[])
+                                                      gpps=[GPPMap(name='Chap1_e2_map',
+                                                                   map="main",
+                                                                   spawn='spawn_Ine',
+                                                                   dirs_data=[1,[-1],['next']]
+                                                                   ),
+                                                            GPPCinematic(name="Cinématique 5",
+                                                                         cinematic_no=5,
+                                                                         dirs_data=[1,[-1],['next']]
+                                                                         ),
+                                                            ]
+                                                      ),
+                                      'Scene 3':Scene(id=[1,3],
+                                                      next_id=[1,4],
+                                                      gpps=[GPPMap(name='Chap1_e3_map',
+                                                                   map="main",
+                                                                   spawn='spawn_ch1_e3_1',
+                                                                   dirs_data=[1,[-1],['next']],
+                                                                   updates=[Update(condition=Condition(type="event_zone",data=['dojo_ine']),effect='next')]
+                                                                   ),
+                                                            GPPMinigame(name="mimigm_02",
+                                                                        minigame_no=2,
+                                                                        dirs_data=[1,[-1],['next']]
+                                                                        )
+                                                            ]
+                                                      )
                                       }
                        }

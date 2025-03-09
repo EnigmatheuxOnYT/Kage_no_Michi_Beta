@@ -80,6 +80,7 @@ class minigm_persuade:
         # Variables pour stocker la réponse saisie lors d'un tour
         self.answer_chosen = None
         self.button_index = None
+        self.victory = None
         
         # Rectangle pour le bandeau d'explications
         self.explications_rect = pygame.Rect(0, 670, 1280, 50)
@@ -231,7 +232,7 @@ class minigm_persuade:
                 self.cin.cinematic_frame(screen, 'mgm1', 3, "Merci, Sensei !", "Vous ne pouvez pas imaginer combien ces mots me rendent heureux !", "Je ferai tout ce qu'il faut pour honorer cette chance.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'mgm1', 3, "Je savais que tu pouvais le faire, mon ami !", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH", "no_weapon"], 2], running=self.running)
                 self.cin.cinematic_frame(screen, 'mgm1', 3, "Tu as réussi cette première épreuve, Musashi.", "Mais souviens-toi : ce n'est que le début.  Reviens demain, prêt à débuter", "cet entraînement sans relâche.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH", "no_weapon"], 3], running=self.running)
-        
+            self.victory = True
         else :
             if saved=='none' :
                 self.cin.cinematic_frame(screen, 'mgm1', 2, "(Silence) Hmph. Ce n'est pas concluant. Tu n'es pas prêt pour cet", "entraînement. Rentre chez toi, je ne t'entraînerai pas si c'est ce que tu", "penses des samouraïs.", kind_info=[["SM","no_weapon"],["SH", "no_weapon"], 2], running=self.running)
@@ -248,7 +249,7 @@ class minigm_persuade:
                 self.cin.cinematic_frame(screen, 'mgm1', 3, "Je... Je ne pourrai pas venger mon village ?", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["SH", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'mgm1', 3, "Avoir des objectifs est une bonne chose, mais tu n'as pas compris comment", "s'y prendre. Retourne à ton village.", "Occupe-toi des habitants, ils ont besoin de toi.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["SH", "no_weapon"], 3], running=self.running)
                 self.cin.cinematic_frame(screen, 'mgm1', 3, "Shikisha Musashi quitte le dojo, l'esprit troublé.", "Il retourne au village, mais le souvenir de ses échecs le hantera", "pour le restant de ses jours.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["SH", "no_weapon"], 0], running=self.running)
-                
+            self.victory = False
         self.playing= False
     ########## Partie 1 : Évènements ##########
     def minigm_events(self):
@@ -404,16 +405,6 @@ class minigm_persuade:
             explications_text = self.font_explications.render(self.texte_explications, True, (255, 255, 255))
             self.game_surface.blit(explications_text, (10, 680))
         else:
-            '''# Écran de résultat                                                             #ANCIENS ECRANS DE RESULTATS REMPLACES PAR LES DIALOGUES
-            result_rect = self.parchemin_question_UI.get_rect()
-            if self.bonnes_reponses >= 5:
-                result_text = self.font_resultats.render("Tu es admis!", True, (0, 0, 0))
-                
-            else:
-                result_text = self.font_resultats.render("Tu n'es pas admis!", True, (0, 0, 0))
-            result_pos = result_text.get_rect(center=result_rect.center)
-            self.game_surface.blit(result_text, result_pos)'''
-            
             self.end(screen, saved)
         
         # Affichage des particules
@@ -462,7 +453,7 @@ class minigm_persuade:
         if self.playing and self.running:
             self.end(screen, saved)
         
-        return self.running
+        return self.running, self.victory
 
 #########################################
 # Lancement du mini-jeu

@@ -42,7 +42,8 @@ class minigm_collect :
         ### Variables ###
         self.gp_phases = Enum("Phase","BEGIN SEARCH LEAVING LOOSE WIN PERFECT_WIN")
          
-        self.perfect_win_time = 60000
+        self.perfect_win_time = 120000
+        self.victory_state = None
         self.obtained_objects = 0
         self.load_assets()
         
@@ -60,9 +61,10 @@ class minigm_collect :
         self.possible_alternate_objects = ["money10", "heal_potion"]
         self.items_hotspots = random.sample([i for i in range(1,11)],5)
         self.hot_spots = {str(i) : {"name":f"mgm_hotspot_{i}", "found":False, 'item':None }for i in range(1,11)}
-        self.hot_spots["0"] = {"name":"spawn"}
+        self.hot_spots["0"],self.hot_spots["exit"] = {"name":"spawn"},{"name":"exit_point"}
         j=0
-        order_randomizer=random.shuffle([1,2,3,4,5])
+        order_randomizer = [1,2,3,4,5]
+        random.shuffle(order_randomizer)
         for i in range (1,11):
             if i in self.items_hotspots:
                 self.hot_spots[str(i)]["item"] = f"food{order_randomizer[j]}"
@@ -75,7 +77,7 @@ class minigm_collect :
                 if display_zone.name=="collect_spot_"+str(i):
                     surf = surfaces_32x32[self.hot_spots[str(i)]["item"]].copy()
                     display_zone.set_assigned_surface(surf)
-        
+        self.rewards={"money":0,"heal_potion":0}
         self.display_catch_text = False
         self.press_a = True
         self.on_object = [False]
@@ -166,9 +168,11 @@ class minigm_collect :
                 self.current_gp_phase = self.gp_phases.WIN
 
         if self.current_gp_phase == self.gp_phases.LOOSE:
+            self.victory_state = 'loose'
             self.cin.cinematic_frame(screen,"forest2",3, "Vous n'avez malheureusement pas récupéré assez de vivres...", "N'hésitez pas à revenir !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
         else:
             if self.current_gp_phase == self.gp_phases.PERFECT_WIN:
+                self.victory_state = 'perfect_win'
                 self.cin.cinematic_frame(screen,"forest2",3, "Vous êtes impressionnant Samouraï, vous avez fait si vite !", "N'hésitez pas à revenir, votre aide est toujours appreciée.",  kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
                 self.cin.cinematic_frame(screen,"forest2",3, "Au revoir, monsieur.", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],1])
                 if saved=="KM":
@@ -176,6 +180,7 @@ class minigm_collect :
                 elif saved=="KT":
                     self.cin.cinematic_frame(screen,"forest2",3, "Bonne chance à vous, et au revoir.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1","no_weapon"],2])
             elif self.current_gp_phase == self.gp_phases.WIN:
+                self.victory_state = "win"
                 self.cin.cinematic_frame(screen,"forest2",3, "Bien joué, vous avez ramassé assez de vivres !","Merci pour votre aide !", "N'hésitez pas à revenir !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
                 self.cin.cinematic_frame(screen,"forest2",3, "Merci monsieur, et bonne chance à vous !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],2])
                 self.cin.cinematic_frame(screen,"forest2",3, "Bonne chance !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],1])
@@ -226,6 +231,10 @@ class minigm_collect :
             self.pickup_sounds['food'].play()
         else:
             loop=True
+            if self.hot_spots[str(obj_num)]['item']=="money10":
+                self.rewards['money']+=10
+            else:
+                self.rewards['heal_potion']+=1
             for i in self.items_hotspots:
                 if i not in self.arrow_queue and not self.hot_spots[str(i)]["found"] and loop:
                     self.arrow_queue.append(i)
@@ -253,7 +262,7 @@ class minigm_collect :
         
         if self.current_gp_phase == self.gp_phases.SEARCH:
             if not self.found_all_objects and self.obtained_objects == 5:
-                self.arrow_queue=[0]
+                self.arrow_queue=["exit"]
                 self.display_arrow=True
                 self.found_all_objects=True
             self.on_object = [False]
@@ -353,7 +362,7 @@ class minigm_collect :
         if self.playing and self.running:
             self.end(screen,saved)
         
-        return self.running
+        return self.running,self.rewards
 
 #Lancement du mini-jeu
 if __name__ == '__main__':
@@ -367,6 +376,7 @@ if __name__ == '__main__':
     pygame.display.set_caption("Kage no michi")
     
     minigm = minigm_collect(screen)
-    minigm.run(screen, 'KM')
+    a,b=minigm.run(screen, 'KM')
+    print(f"vous avez obtenu {b['money']} yen(s) et {b['heal_potion']} potion(s) de heal")
     pygame.quit()
     

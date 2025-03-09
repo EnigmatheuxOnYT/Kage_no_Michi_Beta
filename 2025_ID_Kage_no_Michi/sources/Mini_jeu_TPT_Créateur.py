@@ -1,7 +1,7 @@
 #############################################
 # Combat TPT - Jeu de Combat Tour par Tour  #
 #############################################
-
+# test commit
 # -----------------------------
 # 1. Importation et Initialisation
 # -----------------------------
@@ -10,6 +10,7 @@ import random
 import time
 from dataclasses import dataclass
 from typing import List
+from Fight_assets import *
 
 pygame.init()
 
@@ -19,7 +20,7 @@ pygame.init()
 # Dimensions de la fenêtre
 LONGUEUR_ECRAN = 1280              # Largeur de la fenêtre
 PANEL_HEIGHT = 180                 # Hauteur du panneau (zone d'infos en bas)
-HAUTEUR_TOTALE = 540 + PANEL_HEIGHT  # Hauteur totale de la fenêtre
+HAUTEUR_TOTALE = 720               # Hauteur totale de la fenêtre
 
 FPS = 60                           # Images par seconde
 
@@ -41,21 +42,21 @@ clock = pygame.time.Clock()
 # 4. Chargement des Ressources Graphiques
 # -----------------------------
 # Fond d'écran et panneau de dialogue
-fond = pygame.image.load("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/UIS/Fond_Ine_Dojo_Arene_1.png").convert_alpha()
-panel_affichage = pygame.image.load("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/UIS/Parchemin_Dialogues_V3.png").convert_alpha()
+fond = pygame.image.load("../data/assets/bgs/Fond_Ine_Dojo_Arene_1.png").convert_alpha()
+panel_affichage = pygame.image.load("../data/assets/minigm/Parchemin_Question.png").convert_alpha()
 
 # Polices d'écriture
-police_base = pygame.font.Font("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/Font/MadouFutoMaruGothic.ttf", 30)
-police_display = pygame.font.Font("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/Font/MadouFutoMaruGothic.ttf", 49)
-police_degats = pygame.font.Font("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/Font/MadouFutoMaruGothic.ttf", 40)
+police_base = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 30)
+police_display = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 49)
+police_degats = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf", 40)
 
 # Images des objets (ex : potion de soin)
-potion_image = pygame.image.load("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/UIS/potion de soin.png").convert_alpha()
+potion_image = pygame.image.load("../data/assets/minigm/potion_de_soin.png").convert_alpha()
 potion_image = pygame.transform.scale(potion_image, (80, 80))
 
 # Images des boutons d'attaque (interface utilisateur)
-attaque_frontale_box = pygame.image.load("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/UIS/Attaque_Frontale_V1.png").convert_alpha()
-attaque_special_box = pygame.image.load("Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/UIS/Attaque_Speciale_V1.png").convert_alpha()
+attaque_frontale_box = pygame.image.load("../data/assets/minigm/Attaque_Frontale_V1.png").convert_alpha()
+attaque_special_box = pygame.image.load("../data/assets/minigm/Attaque_Speciale_V1.png").convert_alpha()
 
 # Définition des zones cliquables (hitboxes)
 attaque_frontale_hitbox = pygame.Rect(15, 350, 100, 100)
@@ -206,19 +207,19 @@ class Perso:
         self._base_damage = 5
         self.weapon = weapon
         self.level = level #niveau du personnage
-        sprite = pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Idle.png") #Le spirte quand il reste immobile
+        sprite = pygame.image.load(f"../data/assets/sprites/{self.name}_Idle.png") #Le spirte quand il reste immobile
         self.image = pygame.transform.scale(sprite, nouvelle_taille) #On redimensionne le sprite de sorte à ce que ça soit cohérent avec le fond
         self.animations_combat = [
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_2.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_3.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_4.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_5.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_6.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_7.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_8.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_9.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{self.name}_Combat_10.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_1.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_2.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_3.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_4.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_5.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_6.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_7.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_8.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_9.png"),
+            pygame.image.load(f"../data/assets/sprites/{self.name}_Combat_10.png"),
             sprite
         ] #Tous les sprites présents lors de l'animation d'attaque
 
@@ -241,17 +242,17 @@ class Perso:
     
     def draw_animations(self,attaque_choisi:str,ennemi_position:tuple,orientation:str):
 
-        image_base = BaseGameDisplay(screen, fond, attaque_frontale_box, attaque_special_box,potion_image, HAUTEUR_TOTALE, PANEL_HEIGHT, barres_vie, persos_combat,affichage_display,action)
+        image_base = BaseGameDisplay(screen, fond, attaque_frontale_box, attaque_special_box,potion_image, HAUTEUR_TOTALE, PANEL_HEIGHT, barres_vie, persos_combat,affichage_display)
         self.animations_attaques = [
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_1_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_2_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_3_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_4_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_5_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_6_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_7_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_8_V1.png"),
-            pygame.image.load(f"Mini_Jeu_TPT_V1/Mini_Jeu_TPT_V1/UIS Interfaces/SPRITES/{attaque_choisi}_9_V1.png")
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_1_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_2_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_3_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_4_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_5_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_6_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_7_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_8_V1.png"),
+            pygame.image.load(f"../data/assets/sprites/{attaque_choisi}_9_V1.png")
         ]
 
 
@@ -322,37 +323,48 @@ class Degats(pygame.sprite.Sprite):
 # 8. Création des Personnages et des Barres de Vie
 # -----------------------------
 
-Musashi = Perso("Musashi",400,350,100,"no_weapon",(200,200))
-guerrier_takahiro = Perso('Musashi', 700, 350, 70,"no_weapon",(200, 200))
+no_weapon = Weapon(name="no_weapon",weapon_damage=0)
+op_weapon = Weapon(name='op_weapon',weapon_damage=10)
+
+
+Musashi = Perso(f"Musashi",400,350,100,op_weapon,(200,200))
+guerrier_takahiro = Perso('Musashi', 700, 350, 70,no_weapon,(200, 200))
 guerrier_takahiro.image = changer_orientation_sprite(guerrier_takahiro.image)
-guerrier_takahiro2 = Perso('Musashi', 850, 350, 70,"no_weapon",(200, 200))
+guerrier_takahiro2 = Perso('Musashi', 850, 350, 70,no_weapon,(200, 200))
 guerrier_takahiro2.image = changer_orientation_sprite(guerrier_takahiro2.image)
-persos_player=[Musashi]
-persos_ennemy=[guerrier_takahiro,guerrier_takahiro2]
-
-Musashi_barre_vie = BarreVie(100, HAUTEUR_TOTALE - PANEL_HEIGHT + 100, Musashi.pv, Musashi.pv_max)
-guerrier_takahiro_barre_vie = BarreVie(700, HAUTEUR_TOTALE - PANEL_HEIGHT + 100, guerrier_takahiro.pv, guerrier_takahiro.pv_max)
-guerrier_takahiro2_barre_vie = BarreVie(700, HAUTEUR_TOTALE - PANEL_HEIGHT + 150, guerrier_takahiro2.pv, guerrier_takahiro2.pv_max)
-
-barres_vie = [Musashi_barre_vie, guerrier_takahiro_barre_vie, guerrier_takahiro2_barre_vie]
-persos_combat = [Musashi, guerrier_takahiro, guerrier_takahiro2]
-
-# Création de l'affichage de base
-image_base = BaseGameDisplay(screen, fond, attaque_frontale_box, attaque_special_box,potion_image, HAUTEUR_TOTALE, PANEL_HEIGHT, barres_vie, persos_combat,affichage_display,action)
-
 # -----------------------------
 # 9. Boucle Principale du Jeu
 # -----------------------------
+
+
 def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
     nombre_ennemi=len(persos_ennemy)
     nombre_joueurs=len(allies)+1
+    modifieur_dégats = 5
 
+    #On va ici reprendre les barres de vie de sorte à ce qu'on puisse les intégrer dans l'interface du parchemin
+    barres_vie = []
 
-    global action, potion, attaque_frontale_compteur, attaque_frontale, attaque_special,persos_combat
+    perso_player_barrevie = BarreVie(100, HAUTEUR_TOTALE - PANEL_HEIGHT + 100, persos_player.pv, persos_player.pv_max)
+    barres_vie.append(perso_player_barrevie)
+
+    y = 150
+    for allie in allies:
+        allie_barre_vie = BarreVie(100, HAUTEUR_TOTALE - PANEL_HEIGHT +y, allie.pv, allie.pv_max)
+        barres_vie.append(allie_barre_vie)
+        y += 20
+
+    for ennemi in persos_ennemy:
+        ennemy_barre_vie = BarreVie(700, HAUTEUR_TOTALE - PANEL_HEIGHT + 100, ennemy.pv, ennemy.pv_max)
+
+    global action, potion, attaque_frontale_compteur, attaque_frontale, attaque_special,persos_combat,image_base
     global dernier_temps_attaque, ennemi_peut_attaquer,tour
 
     continuer = True
     click_cooldown = False
+
+    # Création de l'affichage de base
+    image_base = BaseGameDisplay(screen, fond, attaque_frontale_box, attaque_special_box,potion_image, HAUTEUR_TOTALE, PANEL_HEIGHT, barres_vie, persos_combat,affichage_display,action)
 
     while continuer:
         # Redessine l'affichage de base
@@ -377,35 +389,36 @@ def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
                             Degats(perso_player.x + 30, perso_player.y+50, soins_necessaire, VERT_VIE) #Affichage des dégâts
                             potion -= 1
                             action = 0
-                            Musashi_barre_vie.draw(perso_player.pv)
+                            perso_player.draw(perso_player.pv)
                         else: #Si le pv du joueur est au-dessus des pv données par la potion
                             soins_necessaire = 100 - perso_player.pv
                             perso_player.pv += soins_necessaire
                             Degats(perso_player.x+30, perso_player.y+50, soins_necessaire, VERT_VIE) #Affichage des dégâts
                             potion -= 1
                             action = 0
-                            Musashi_barre_vie.draw(perso_player.pv)
+                            perso_player.draw(perso_player.pv)
                         ennemi_peut_attaquer = False
 
                     # Attaque frontale
                     if attaque_frontale_hitbox.collidepoint(event.pos) and ennemi_peut_attaquer:
-                        if guerrier_takahiro.pv > 0:
+                        if persos_ennemy[0].pv > 0: #Il doit forcément y avoir un ennemi à affronter
                             perso_player.draw_animations("Attaque_Frontale",(guerrier_takahiro.x,guerrier_takahiro.y),"droite")
-                            attaque_frontale = random.randint(5, 100)
+                            attaque_frontale = random.randint(perso_player.current_damage-modifieur_dégats,perso_player.current_damage+modifieur_dégats)
                             Degats(guerrier_takahiro.x+30, guerrier_takahiro.y+50, attaque_frontale, ROUGE) #Affichage des dégâts
                             guerrier_takahiro.pv -= attaque_frontale
-                            guerrier_takahiro_barre_vie.draw(guerrier_takahiro.pv)
+                            barres_vie[len()].draw(guerrier_takahiro.pv)
                             attaque_frontale_compteur += 1
                             action = 0
-                        else:
-                            perso_player.draw_animations("Attaque_Frontale",(guerrier_takahiro2.x,guerrier_takahiro2.y),"droite")
-                            attaque_frontale = random.randint(5, 100)
-                            Degats(guerrier_takahiro2.x+30, guerrier_takahiro2.y+50, attaque_frontale, ROUGE)
-                            guerrier_takahiro2.pv -= attaque_frontale
-                            guerrier_takahiro2_barre_vie.draw(guerrier_takahiro2.pv)
-                            attaque_frontale_compteur += 1
-                            action = 0
-                            nombre_ennemi = 1
+                        elif len(persos_ennemy) == 2:
+                            if persos_ennemy[1].pv > 0:
+                                perso_player.draw_animations("Attaque_Frontale",(guerrier_takahiro2.x,guerrier_takahiro2.y),"droite")
+                                attaque_frontale = random.randint(perso_player.current_damage-modifieur_dégats,perso_player.current_damage+modifieur_dégats)
+                                Degats(guerrier_takahiro2.x+30, guerrier_takahiro2.y+50, attaque_frontale, ROUGE)
+                                guerrier_takahiro2.pv -= attaque_frontale
+                                guerrier_takahiro2_barre_vie.draw(guerrier_takahiro2.pv)
+                                attaque_frontale_compteur += 1
+                                action = 0
+                                nombre_ennemi = 1
                         dernier_temps_attaque = pygame.time.get_ticks()
                         ennemi_peut_attaquer = False
 
@@ -446,7 +459,7 @@ def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
                 for ennemy in persos_ennemy:
 
                     if ennemy.pv > 0:
-                        ennemy.draw_animations("Attaque_Frontale", (ennemy.x,ennemy.y), "gauche")
+                        ennemy.draw_animations("Attaque_Frontale", (perso_player.x,perso_player.y), "gauche")
                         attaque_ennemis = random.randint(5,10)
                         degats_total += attaque_ennemis
                         perso_player.pv -= attaque_ennemis
@@ -463,15 +476,13 @@ def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
             compteur_ennemi_mort = 0
             for i in range(nombre_ennemi):
                 ennemy=persos_ennemy[i]
-                if ennemy.pv < 1 :
+                if ennemy.pv <= 0 :
                     compteur_ennemi_mort+=1
             if compteur_ennemi_mort==nombre_ennemi:
                 print('WIN')
-                pygame.time.delay(4000)
                 continuer = False
-            elif perso_player.pv < 1:
+            elif perso_player.pv <= 0:
                 print('LOSE')
-                pygame.time.delay(4000)
                 continuer = False
 
         pygame.display.flip()
@@ -481,4 +492,4 @@ def main(perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso]):
     pygame.quit()
 
 if __name__ == '__main__':
-    main(Musashi,[],persos_ennemy)
+    main(Musashi,[],)

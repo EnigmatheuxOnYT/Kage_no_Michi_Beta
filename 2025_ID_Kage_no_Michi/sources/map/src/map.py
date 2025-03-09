@@ -111,7 +111,9 @@ class MapManager :
             Loading.display_loading(screen, 68,"Chargement de la carte principale")
             self.register_map("MAP PROJET NSI 2025 500x500",
                               spawn_name="spawn_Magome",
-                              event_zones=[Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="Ine",entities=["Player"], events=[Event(type="location",data=["ine"])])],
+                              event_zones=[Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="entrance_dojo_ine",entities=["Player"], events=[Event(type="gpp",data=["Chap1_e3_map","dojo_ine"])]),
+                                           Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="Ine",entities=["Player"], events=[Event(type="location",data=["ine"])]),
+                                           ],
                               npcs=[StaticNPC("Hoshida",[96,576],instance=1)],
                               sub_paths=[{'name':'mgm','lengh':3},
                                          {'name':"ine",'lengh':3},
@@ -192,7 +194,7 @@ class MapManager :
                     self.current_active_events+=event_zone.events
                     
                 for npc in self.get_map().npcs:
-                    if npc.feet.colliderect(rect) and npc.name in event_zone.entities:
+                    if npc.name in event_zone.entities and npc.feet.colliderect(rect):
                         self.current_active_events+=event_zone.events
             
             for npc in self.get_map().npcs:

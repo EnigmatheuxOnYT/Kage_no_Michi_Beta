@@ -111,7 +111,7 @@ class Main:
             elif self.loading_save:
                 self.loading_save,self.in_game = self.game.load_save(self.screen,self.loading_save)
             elif self.in_game:
-                self.game.game_update()
+                self.in_game = self.game.game_update()
             else:
                 #En cas d'état inattendu :
                 print("Redémarrage du menu")
