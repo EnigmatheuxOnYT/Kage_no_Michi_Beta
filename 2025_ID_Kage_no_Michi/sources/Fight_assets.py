@@ -10,8 +10,8 @@ from dataclasses import dataclass
 class Weapon:
     name : str
     weapon_damage : int
-    special_damage : int
-    crit_chance : float
+    special_damage : int = 0
+    crit_chance : float = 0
 
 class Perso:
     """
@@ -24,6 +24,7 @@ class Perso:
         self.pv = pv_max #Ses pv, qui vont prendre tout simplement la valeur de ses pvs
         self._base_damage = 2
         self.weapon = weapon
+        self.do_attacks = True
         self.level = 1 #niveau du personnage
         self.set_level(level)
         sprite = pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Idle.png") #Le spirte quand il reste immobile
@@ -53,7 +54,7 @@ class Perso:
         self.max_index = 10
 
     @property
-    def current_damage(self):return max(self._base_damage+self.weapon.weapon_damage,0)
+    def current_damage(self):return self._base_damage+self.weapon.weapon_damage
     @property
     def is_ko (self):return False if self.pv>0 else True
     
@@ -80,6 +81,8 @@ class Perso:
         self.rect.midtop = pos[0]+100,pos[1]
 
     def set_attacking(self,val):self.attacking=val
+
+    def set_do_attaks (self,val):self.do_attacks = val
 
     def draw_static(self,screen):
         """
@@ -132,9 +135,14 @@ class Fight_assets:
         #Armes à disposition
         self.tengoku_no_ikari = Weapon(name = 'Tengoku No Ikari', weapon_damage = 20,special_damage=10,crit_chance=0.1)
         self.wood_katana = Weapon(name="wood_katana",weapon_damage=5,special_damage=5,crit_chance=0.05)
+        self.training_katana = Weapon(name="wood_katana",weapon_damage=0,special_damage=5)
+        self.zero = Weapon(name="no_weapon",weapon_damage=-100,)
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
         self.Musashi = Perso("Musashi",10,self.op_weapon,level = 10)
+        self.Musashi_jeune = Perso("Musashi",5,self.training_katana)
+        self.pantin_de_combat = Perso("Soldat1",10,self.zero)
+        self.pantin_de_combat.set_do_attaks(False)
         self.guerrier_takahiro = Perso('Soldat1',70,self.no_weapon)
         self.guerrier_takahiro2 = Perso('Soldat1', 70,self.no_weapon)
         #self.ma_Juzo = Perso('Ma_Juzo',200, self.tengoku_no_ikari,level=10)

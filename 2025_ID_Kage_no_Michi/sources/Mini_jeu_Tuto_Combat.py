@@ -44,7 +44,7 @@ class minigm_tutofight :
     def load (self):
         self.playing = True
         self.load_assets()
-        self.fight.load ('mgm1',self.fight_assets.Musashi,[],[self.fight_assets.guerrier_takahiro],1)
+        self.fight.load ('mgm1',self.fight_assets.Musashi_jeune,[],[self.fight_assets.pantin_de_combat],1)
      
     def load_assets(self):
         # Importer les images, sons etc.. ici (depuis "../data/assets")

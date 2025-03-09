@@ -24,6 +24,7 @@ class Fight:
         self.PINK = (240, 120, 174)
         self.ROUGE = (255, 0, 0)
         self.BLANC = (255, 255, 255)
+        self.GRIS = (150,150,150)
 
         #Utiles
         self.clock=pygame.time.Clock()
@@ -174,7 +175,7 @@ class Fight:
             mult = random.random()+1.5
             base_damage=int(base_damage*mult)
         damage = random.randint(base_damage-self.modifieur_degats,base_damage+self.modifieur_degats)
-        return max(damage,1)
+        return max(damage,0)
 
     def handle_imput (self):
         for event in pygame.event.get():
@@ -257,11 +258,12 @@ class Fight:
     def ennemies_attack(self):
         if self.nombre_alive_ennemies != 0 and not self.attack_cooldown:
             ennemy = self.alive_ennemies[self.current_ennemy_attacking_index]
-            attacked_ally = random.choice(self.not_ko_allies+[self.perso_player])
-            self.number = self.get_damage(ennemy)
-            attacked_ally.hit(self.number)
-            ennemy.attacking=True
-            self.start_to_draw_number(True,attacked_ally)
+            if ennemy.do_attacks:
+                attacked_ally = random.choice(self.not_ko_allies+[self.perso_player])
+                self.number = self.get_damage(ennemy)
+                attacked_ally.hit(self.number)
+                ennemy.attacking=True
+                self.start_to_draw_number(True,attacked_ally)
             self.next_ennemy()
         elif self.attack_cooldown_timer-pygame.time.get_ticks()+self.attack_cooldown_stating_timer<=0:
             self.attack_cooldown = False
@@ -378,11 +380,16 @@ class Fight:
                     ennemy.draw_atk(screen,"Attaque_Frontale",self.perso_player.pos)
 
     def draw_number(self,screen):
-        if self.is_number_damage:
+        if self.number == 0:
+            col = self.GRIS
+        elif self.is_number_damage:
             col = self.ROUGE
         else:
             col = self.VERT_VIE
-        text = self.police_degats.render(str(self.number),False,col)
+        if self.number==0 and self.is_number_damage:
+            text = self.police_degats.render("Raté !",False,col)
+        else:
+            text = self.police_degats.render(str(self.number),False,col)
         screen.blit(text,self.number_pos)
 
     def draw_arrow (self,screen):
