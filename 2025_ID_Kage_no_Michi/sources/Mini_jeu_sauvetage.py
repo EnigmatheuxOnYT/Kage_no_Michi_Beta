@@ -199,8 +199,6 @@ class minigm_MashingGame:
         else:
             game_surface.fill((30, 30, 30))
         
-        pygame.draw.rect(game_surface, (255, 255, 0), self.villager_rect)
-        
         for i in reversed(range(self.num_levels)):
             if self.debris_removed[i]:
                 continue
@@ -211,8 +209,8 @@ class minigm_MashingGame:
             
             if i == self.current_level:
                 progress = min(self.force / self.levels[self.current_level]["threshold"], 1)
-                offset = int(progress * self.levels[self.current_level]["max_offset"])
-                angle = progress * 15
+                offset = int(progress * self.levels[self.current_level]["max_offset"] * 1.5)
+                angle = progress * 20
                 stone_rect.x -= offset
                 if angle != 0:
                     rotated_stone = pygame.transform.rotate(stone, angle)
