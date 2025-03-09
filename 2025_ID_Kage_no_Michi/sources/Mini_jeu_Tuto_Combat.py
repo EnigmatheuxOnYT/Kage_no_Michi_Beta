@@ -106,6 +106,7 @@ class minigm_tutofight :
     
     def end(self,screen):
         #Appeler ici la fonction self.cin.cinematic_frame()
+        self.cin.cinematic_frame(screen,'mgm1',2,"Bravo. Tu as su faire tes preuves et tu as réussi à incorporer cet art en toi.", "Ne l'oublie pas, car tu seras sûrement confronté à un adversaire redoutable.", "Ne baisse jamais les bras.",kind_info=[["MJ","no_weapon"],["DY","no_weapon"],2])
         
         
         #À la toute fin de la fonction
