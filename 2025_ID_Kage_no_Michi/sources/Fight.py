@@ -146,7 +146,7 @@ class Fight:
     @property
     def nombre_alive_ennemies (self):return len(self.alive_ennemies)
     @property
-    def pop_text_spe_not_ready (self):return self.police_hint.render(f"L'attaque spéciale n'est pas chargée ({4-self.attaque_frontale_compteur} attaques normales restantes) !",False,"black")
+    def pop_text_spe_not_ready (self):return self.police_hint.render(f"L'attaque spéciale n'est pas chargée ({4-self.attaque_frontale_compteur} attaque(s) normales restantes) !",False,"black")
 
     
     def change_phase(self,new_phase):
@@ -174,7 +174,7 @@ class Fight:
         if is_crit:
             mult = random.random()+1.5
             base_damage=int(base_damage*mult)
-        damage = random.randint(base_damage-self.modifieur_degats,base_damage+self.modifieur_degats)
+        damage = random.randint(base_damage-char.level,base_damage+char.level)
         return max(damage,0)
 
     def handle_imput (self):

@@ -38,6 +38,9 @@ class minigm_tutofight :
         
         ### Appel des classes pour l'audio, on utilisera principalement la fonction play() et les variables (aller voir le fichier)
         self.music,self.sound = Music(),Sound()
+
+        loops = ['main','hint1',"hint2","hint3"]
+        self.current_loop = 'main'
         
      
     ########## Démarrage du mini-jeu ##########
@@ -97,7 +100,8 @@ class minigm_tutofight :
                 self.running = False
             pygame.event.post(event)
         
-        self.fight.handle_imput()
+        if self.current_loop == 'main':
+            self.fight.handle_imput()
         
 
         
@@ -105,13 +109,15 @@ class minigm_tutofight :
     
     ########## Partie 2 : Mise à jour ##########
     def minigm_update (self):
-        self.fight.update()
+        if self.current_loop == 'main':
+            self.fight.update()
     
     
     ########## Partie 3 : Affichage ##########
     def minigm_draw (self,screen):
         #Remplissage avec du noir (fond)
-        self.fight.draw(screen)
+        if self.current_loop == 'main':
+            self.fight.draw(screen)
    
     ########## Boucle mini-jeu ##########
     def run (self,screen,saved='none',devomde=False):
