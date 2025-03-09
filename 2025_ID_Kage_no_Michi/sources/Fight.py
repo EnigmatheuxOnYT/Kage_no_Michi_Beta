@@ -65,15 +65,18 @@ class Fight:
         self.defeat_text = self.police_display.render("Défaite...",False,self.BLANC)
         self.any_turn_text_pos = (190,0)
 
-        self.pop_text_timer_lengh = 5000
+        self.pop_text_timer_lengh = 4000
         self.hint_timer = 0
         self.pop_text_choose_ennemy = self.police_hint.render("Choisissez l'adversaire à attaquer !",False,"black")
+        self.pop_text_no_potion = self.police_hint.render("Vous n'avez plus de potion !",False,"black")
         self.attaque_frontale_compteur = 0
         self.pop_text_choose_ennemy_rect = self.pop_text_choose_ennemy.get_rect()
         self.pop_text_spe_not_ready_rect = self.pop_text_spe_not_ready.get_rect()
+        self.pop_text_no_potion_rect = self.pop_text_no_potion.get_rect()
         midtop = (640,100)
         self.pop_text_spe_not_ready_rect.midtop = midtop
         self.pop_text_choose_ennemy_rect.midtop = midtop
+        self.pop_text_no_potion_rect.midtop = midtop
 
         self.characters_positions = {'main':(400,250),
                                      'ally1':(350,250),
@@ -150,7 +153,7 @@ class Fight:
     @property
     def nombre_alive_ennemies (self):return len(self.alive_ennemies)
     @property
-    def pop_text_spe_not_ready (self):return self.police_hint.render(f"L'attaque spéciale n'est pas chargée ({4-self.attaque_frontale_compteur} attaque(s) normales restantes) !",False,"black")
+    def pop_text_spe_not_ready (self):return self.police_hint.render(f"L'attaque spéciale n'est pas chargée ({4-self.attaque_frontale_compteur} attaque(s) normale(s) restante(s)) !",False,"black")
 
     def set_allowed_action (self,normal=True,spe=True,potion=True):
         self.allow_normal = normal
@@ -208,6 +211,8 @@ class Fight:
                         self.perso_player.pv += self.number
                         self.start_to_draw_number(False,self.perso_player)
                         self.change_phase("allies")
+                    elif self.potion < 1:
+                        self.start_draw_hint('potion')
 
                     elif self.is_target_choosen:
                         # Attaque frontale
@@ -431,6 +436,8 @@ class Fight:
             screen.blit(self.pop_text_spe_not_ready,self.pop_text_spe_not_ready_rect)
         elif self.to_draw_hint == "choose":
             screen.blit(self.pop_text_choose_ennemy,self.pop_text_choose_ennemy_rect)
+        elif  self.to_draw_hint == 'potion':
+            screen.blit(self.pop_text_no_potion,self.pop_text_no_potion_rect)
 
     def draw (self,screen,do_refresh=True):
         self.draw_overlay(screen)
