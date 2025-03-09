@@ -122,6 +122,10 @@ class Fight:
         self.start_drawing_number_timer = 0
         self.draw_spe = False
 
+        self.allow_normal = True
+        self.allow_spe = True
+        self.allow_potion = True
+
         # Variables pour gérer le temps (pour le cooldown des attaques ennemies)
         self.tour = 1
         self.current_ennemy_attacking_index = 0
@@ -148,6 +152,10 @@ class Fight:
     @property
     def pop_text_spe_not_ready (self):return self.police_hint.render(f"L'attaque spéciale n'est pas chargée ({4-self.attaque_frontale_compteur} attaque(s) normales restantes) !",False,"black")
 
+    def set_allowed_action (self,normal=True,spe=True,potion=True):
+        self.allow_normal = normal
+        self.allow_spe = spe
+        self.allow_potion = potion
     
     def change_phase(self,new_phase):
         self.queuing_phase=new_phase
@@ -194,7 +202,7 @@ class Fight:
 
 
                     #Utilisation de la potion
-                    if self.potion_hitbox.collidepoint(event.pos) and self.potion > 0:
+                    if self.potion_hitbox.collidepoint(event.pos) and self.potion > 0 and self.allow_potion:
                         self.potion -= 1
                         self.number = min(self.perso_player.pv_max,self.perso_player.pv+30) - self.perso_player.pv
                         self.perso_player.pv += self.number
@@ -203,7 +211,7 @@ class Fight:
 
                     elif self.is_target_choosen:
                         # Attaque frontale
-                        if self.attaque_frontale_hitbox.collidepoint(event.pos):
+                        if self.attaque_frontale_hitbox.collidepoint(event.pos) and self.allow_normal:
                             self.number = self.get_damage(self.perso_player)
                             self.current_ennemy.hit(self.number)
                             self.attaque_frontale_compteur += 1
@@ -213,7 +221,7 @@ class Fight:
                             self.draw_spe = False
 
                         # Attaque spéciale (se déclenche après 4 attaques de base)
-                        if self.attaque_special_hitbox.collidepoint(event.pos) and self.attaque_frontale_compteur >= 4:
+                        if self.attaque_special_hitbox.collidepoint(event.pos) and self.attaque_frontale_compteur >= 4 and self.allow_spe:
                             self.number = self.get_damage(self.perso_player,is_spe=True)
                             self.current_ennemy.hit(self.number)
                             self.attaque_frontale_compteur = 0
@@ -221,9 +229,9 @@ class Fight:
                             self.start_to_draw_number(True,self.current_ennemy)
                             self.change_phase("allies")
                             self.draw_spe = True
-                        elif self.attaque_special_hitbox.collidepoint(event.pos):
+                        elif self.attaque_special_hitbox.collidepoint(event.pos) and self.allow_spe:
                             self.start_draw_hint("spe")
-                    elif not self.is_target_choosen and (self.attaque_frontale_hitbox.collidepoint(event.pos) or self.attaque_special_hitbox.collidepoint(event.pos)):
+                    elif not self.is_target_choosen and ((self.attaque_frontale_hitbox.collidepoint(event.pos) and self.allow_normal) or (self.attaque_special_hitbox.collidepoint(event.pos) and self.allow_spe)):
                         self.start_draw_hint("choose")
         
             if event.type == pygame.KEYDOWN:
@@ -320,11 +328,12 @@ class Fight:
         Affiche le panneau de dialogue et les points de vie des personnages.
         """
         screen.blit(self.panel_affichage, (0, 720 - self.HAUTEUR_PANEL))
-        screen.blit(self.potion_image, (550,790-self.HAUTEUR_PANEL))
-        text_potion = self.police_base.render(str(self.potion),False,"black")
-        rect_potion = text_potion.get_rect()
-        rect_potion.midtop = (self.potion_image.get_width()/2+550,580)
-        screen.blit(text_potion,rect_potion)
+        if self.allow_potion :
+            screen.blit(self.potion_image, (550,790-self.HAUTEUR_PANEL))
+            text_potion = self.police_base.render(str(self.potion),False,"black")
+            rect_potion = text_potion.get_rect()
+            rect_potion.midtop = (self.potion_image.get_width()/2+550,580)
+            screen.blit(text_potion,rect_potion)
 
         #Joueur
         text = self.police_base.render(self.perso_player.sprite_name+' NIV : '+str(self.perso_player.level)+' PV : '+str(self.perso_player.pv),False,self.VERT)
@@ -410,8 +419,10 @@ class Fight:
         else:
             screen.blit(self.player_turn_text,self.any_turn_text_pos)
 
-        screen.blit(self.attaque_frontale_box, (15, 200))
-        screen.blit(self.attaque_special_box, (15, 320))
+        if self.allow_normal:
+            screen.blit(self.attaque_frontale_box, (15, 200))
+        if self.allow_spe:
+            screen.blit(self.attaque_special_box, (15, 320))
     
     def draw_hint(self,screen):
         if self.pop_text_timer_lengh-pygame.time.get_ticks()+self.hint_timer<=0:
@@ -421,7 +432,7 @@ class Fight:
         elif self.to_draw_hint == "choose":
             screen.blit(self.pop_text_choose_ennemy,self.pop_text_choose_ennemy_rect)
 
-    def draw (self,screen):
+    def draw (self,screen,do_refresh=True):
         self.draw_overlay(screen)
         self.draw_hint(screen)
         self.draw_persos(screen)
@@ -430,8 +441,8 @@ class Fight:
         if self.display_number:
             self.draw_number(screen)
         self.draw_panel(screen)
-
-        pygame.display.flip()
+        if do_refresh:
+            pygame.display.flip()
     
     def run(self,screen:pygame.surface.Surface,bg_name:str,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):
         self.load(bg_name,perso_player,allies,persos_ennemy,potions)

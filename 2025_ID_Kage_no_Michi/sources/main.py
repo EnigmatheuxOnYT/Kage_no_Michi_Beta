@@ -55,6 +55,8 @@ class Main:
                 if event.type == pygame.QUIT:
                     if self.in_game:
                         self.game.save_savefile()
+                        if pygame.display.is_fullscreen():
+                            pygame.display.toggle_fullscreen()
                     self.running = False
                 else:
                     ##### Vérification de la musique #####

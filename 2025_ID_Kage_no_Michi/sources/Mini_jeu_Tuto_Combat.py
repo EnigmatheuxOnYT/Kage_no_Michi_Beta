@@ -39,14 +39,29 @@ class minigm_tutofight :
         ### Appel des classes pour l'audio, on utilisera principalement la fonction play() et les variables (aller voir le fichier)
         self.music,self.sound = Music(),Sound()
 
-        loops = ['main','hint1',"hint2","hint3"]
+        self.load_assets()
+
+
+        loops = ['main','hint1',"hint2","hint3","hint4"]
         self.current_loop = 'main'
+        self.is_current_loop_launched = False
+
+        self.text1 = self.render("Choisissez l'ennemi à attaquer en cliquant dessus !")
+        self.rect1 = self.get_rect(self.text1)
+        self.text2 = self.render("Attaquez avec le bouton d'attaque !")
+        self.rect2 = self.get_rect(self.text2)
+        self.text3 = self.render("Utilisez une potion pour régénérer jusqu'à 30 points de vie !")
+        self.rect3 = self.get_rect(self.text3)
+        self.text4 = self.render("Utilisez votre attaque spéciale après 4 attaques normales !")
+        self.rect4 = self.get_rect(self.text4)
+
+    
+    def render(self,text):return self.font_MFMG30.render(text,False,"black")
         
      
     ########## Démarrage du mini-jeu ##########
     def load (self):
         self.playing = True
-        self.load_assets()
         self.fight.load ('mgm1',self.fight_assets.Musashi_jeune,[],[self.fight_assets.pantin_de_combat],1)
      
     def load_assets(self):
@@ -55,6 +70,11 @@ class minigm_tutofight :
         
         ### Importation de la police d'écriture (taille des textes des dialogues)
         self.font_MFMG30 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",30)
+    
+    def get_rect(self,text:pygame.surface.Surface):
+        rect = text.get_rect()
+        rect.midtop = (640,150)
+        return rect
      
     ########## Intro/Fin ##########
     def intro(self,screen,saved):
@@ -76,10 +96,10 @@ class minigm_tutofight :
             self.cin.cinematic_frame(screen,'ine1',3,"Oui Maître !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],1,True],running=self.running)
         self.cin.cinematic_frame(screen,'ine1',3,"(Tout à coup, Musashi se remémore un souvenir de son enfance)", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],0],running=self.running)
         self.cin.ecran_noir(screen)
-        self.cin.cinematic_frame(screen,'mgm1',2,"Souvenez-vous que le combat se fait non seulement pour vaincre son ennemi,","mais pour lui octroyer respect et reconnaissance.",kind_info=[["SM","no_weapon"],["DY","no_weapon"],2])
-        self.cin.cinematic_frame(screen,'mgm1',2,"Vous allez affronter de nombreux obstacles lors de vos péripéties,", "et il est important que vous gardiez en tête mes enseignements", "pour que vous puissiez vous défendre.",kind_info=[["SM","no_weapon"],["DY","no_weapon"],2])
-        self.cin.cinematic_frame(screen,'mgm1',2,"Très bien. Musashi, fait nous une démonstration de ce que tu as appris", "jusqu'ici.",kind_info=[["SM","no_weapon"],["DY","no_weapon"],2])
-        self.cin.cinematic_frame(screen,'mgm1',2,"Éliminez vos adversaires en utilisant votre attaque frontale et spéciale !", "Régénérez-vous de 30 PV avec vos potions de soin à disposition !", kind_info=[["SM","no_weapon"],["DY","no_weapon"],0])
+        self.cin.cinematic_frame(screen,'mgm1',2,"Souvenez-vous que le combat se fait non seulement pour vaincre son ennemi,","mais pour lui octroyer respect et reconnaissance.",kind_info=[["MJ","no_weapon"],["DY","no_weapon"],2])
+        self.cin.cinematic_frame(screen,'mgm1',2,"Vous allez affronter de nombreux obstacles lors de vos péripéties,", "et il est important que vous gardiez en tête mes enseignements", "pour que vous puissiez vous défendre.",kind_info=[["MJ","no_weapon"],["DY","no_weapon"],2])
+        self.cin.cinematic_frame(screen,'mgm1',2,"Très bien. Musashi, fait nous une démonstration de ce que tu as appris", "jusqu'ici.",kind_info=[["MJ","no_weapon"],["DY","no_weapon"],2])
+        self.cin.cinematic_frame(screen,'mgm1',2,"Éliminez vos adversaires en utilisant votre attaque frontale et spéciale !", "Régénérez-vous de 30 PV avec vos potions de soin à disposition !", kind_info=[["MJ","no_weapon"],["DY","no_weapon"],0])
         
         #À la toute fin de la fonction
         self.in_minigm = True
@@ -100,8 +120,7 @@ class minigm_tutofight :
                 self.running = False
             pygame.event.post(event)
         
-        if self.current_loop == 'main':
-            self.fight.handle_imput()
+        self.fight.handle_imput()
         
 
         
@@ -109,15 +128,63 @@ class minigm_tutofight :
     
     ########## Partie 2 : Mise à jour ##########
     def minigm_update (self):
-        if self.current_loop == 'main':
-            self.fight.update()
-    
+        self.fight.update()
+        if self.current_loop == 'main' and not self.is_current_loop_launched :
+            if self.fight.tour == 1 and self.fight.action == 'player':
+                if not self.fight.is_target_choosen:
+                    self.current_loop = 'hint1'
+            elif self.fight.tour == 2 and self.fight.action == 'player':
+                self.current_loop = 'hint3'
+            elif self.fight.tour == 6 and self.fight.action == "player":
+                self.current_loop = "hint4"
+        if self.current_loop == 'hint1':
+            if not self.is_current_loop_launched:
+                self.is_current_loop_launched = True
+                self.fight.set_allowed_action(False,False,False)
+            if self.fight.is_target_choosen:
+                self.is_current_loop_launched = False
+                self.current_loop = 'hint2'
+        if self.current_loop == 'hint2':
+            if not self.is_current_loop_launched:
+                self.is_current_loop_launched = True
+                self.fight.set_allowed_action(True,False,False)
+            if self.fight.action == 'ennemies':
+                self.is_current_loop_launched = False
+                self.current_loop = 'main'
+        if self.current_loop == "hint3":
+            if not self.is_current_loop_launched:
+                self.fight.perso_player.hit(4)
+                self.is_current_loop_launched = True
+                self.fight.set_allowed_action(False,False,True)
+            if self.fight.action == 'ennemies':
+                self.is_current_loop_launched = False
+                self.current_loop = 'main'
+                self.fight.set_allowed_action(True,False,True)
+        if self.current_loop == "hint4":
+            if not self.is_current_loop_launched:
+                self.is_current_loop_launched = True
+                self.fight.set_allowed_action(False,True,False)
+            if self.fight.action == 'ennemies':
+                self.is_current_loop_launched = False
+                self.current_loop = 'main'
+                self.fight.set_allowed_action(True,True,True)
     
     ########## Partie 3 : Affichage ##########
     def minigm_draw (self,screen):
         #Remplissage avec du noir (fond)
-        if self.current_loop == 'main':
-            self.fight.draw(screen)
+        self.fight.draw(screen,do_refresh=False)
+        if self.current_loop == 'hint1':
+            screen.blit(self.text1,self.rect1)
+        elif self.current_loop == 'hint2':
+            screen.blit(self.text2,self.rect2)
+        elif self.current_loop == 'hint3':
+            screen.blit(self.text3,self.rect3)
+        elif self.current_loop == 'hint4':
+            screen.blit(self.text4,self.rect4)
+        pygame.display.flip()
+
+
+
    
     ########## Boucle mini-jeu ##########
     def run (self,screen,saved='none',devomde=False):

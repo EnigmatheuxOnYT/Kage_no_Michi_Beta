@@ -69,7 +69,7 @@ class Perso:
         for i in range(diff):
             self.level_up()
     
-    def hit (self,damage):
+    def hit (self,damage:int):
         self.pv = max(self.pv-damage,0)
     
     def change_weapon (self,weapon):self.weapon=weapon

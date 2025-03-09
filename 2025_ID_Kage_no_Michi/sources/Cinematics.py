@@ -37,6 +37,7 @@ class Cinematics:
                       'N':  self.font_MFMG30.render("…",False,(0,0,0)),
                       '?': self.font_MFMG25.render("???",False,(0,0,0)),
                       'SM': self.font_MFMG25.render("Shikisha Musashi",False,(0,0,0)),
+                      'MJ': self.font_MFMG25.render("Shikisha Musashi",False,(0,0,0)),
                       'SH': self.font_MFMG25.render("Sensei Hoshida",False,(0,0,0)),
                       'SA': self.font_MFMG25.render("Senshi Akuma",False,(0,0,0)),
                       'TK': self.font_MFMG25.render("Takahiro Korijo",False,(0,0,0)),

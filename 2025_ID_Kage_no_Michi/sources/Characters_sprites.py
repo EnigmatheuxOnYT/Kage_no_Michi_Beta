@@ -35,6 +35,8 @@ class Characters_sprites:
                                                                 }
                                                 }
                                       },
+                               #Shikisha Jeune
+                               'MJ': self.load_character("Shikisha_jeune"),
                                #Sensei Hoshida
                                'SH': {'right': {'no_weapon': {'main': self.ldc("Hoshida_16bit_Droite_SansArme_V1.png"),
                                                               'secondary': self.ldc("Hoshida_16bit_Droite_SansArme_Ombre_V1.png")
