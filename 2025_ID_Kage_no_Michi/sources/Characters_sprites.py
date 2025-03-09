@@ -107,6 +107,7 @@ class Characters_sprites:
                                       },
                                #Yoshiro
                                'Y?' : self.load_character("Yoshiro"),
+                               'DY' : self.load_character("Doyen_Yoshiro"),
                                # Guerrier takahiro
                                'TW' : {'right': {'no_weapon': {'main': self.ldc("Soldat_16bit_Droite_SansCapuche_SansArme_V1.png"),
                                                                'secondary': self.ldc("Soldat_16bit_Droite_SansCapuche_SansArme_Ombre_V1.png")

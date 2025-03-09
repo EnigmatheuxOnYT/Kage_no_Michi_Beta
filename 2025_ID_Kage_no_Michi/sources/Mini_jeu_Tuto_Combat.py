@@ -73,10 +73,10 @@ class minigm_tutofight :
             self.cin.cinematic_frame(screen,'ine1',3,"Oui Maître !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],1,True],running=self.running)
         self.cin.cinematic_frame(screen,'ine1',3,"(Tout à coup, Musashi se remémore un souvenir de son enfance)", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],0],running=self.running)
         self.cin.ecran_noir(screen)
-        self.cin.cinematic_frame(screen,'mgm1',2,"Souvenez-vous que le combat se fait non seulement pour vaincre son ennemi,","mais pour lui octroyer respect et reconnaissance.",kind_info=[["SM","no_weapon"],["Y?","no_weapon"],2])
-        self.cin.cinematic_frame(screen,'mgm1',2,"Vous allez affronter de nombreux obstacles lors de vos péripéties,", "et il est important que vous gardiez en tête mes enseignements", "pour que vous puissiez vous défendre.",kind_info=[["SM","no_weapon"],["Y?","no_weapon"],2])
-        self.cin.cinematic_frame(screen,'mgm1',2,"Très bien. Musashi, fait nous une démonstration de ce que tu as appris", "jusqu'ici.",kind_info=[["SM","no_weapon"],["Y?","no_weapon"],2])
-        self.cin.cinematic_frame(screen,'mgm1',2,"Éliminez vos adversaires en utilisant votre attaque frontale et spéciale !", "Régénérez-vous de 30 PV avec vos potions de soin à disposition !", kind_info=[["SM","no_weapon"],["Y?","no_weapon"],0])
+        self.cin.cinematic_frame(screen,'mgm1',2,"Souvenez-vous que le combat se fait non seulement pour vaincre son ennemi,","mais pour lui octroyer respect et reconnaissance.",kind_info=[["SM","no_weapon"],["DY","no_weapon"],2])
+        self.cin.cinematic_frame(screen,'mgm1',2,"Vous allez affronter de nombreux obstacles lors de vos péripéties,", "et il est important que vous gardiez en tête mes enseignements", "pour que vous puissiez vous défendre.",kind_info=[["SM","no_weapon"],["DY","no_weapon"],2])
+        self.cin.cinematic_frame(screen,'mgm1',2,"Très bien. Musashi, fait nous une démonstration de ce que tu as appris", "jusqu'ici.",kind_info=[["SM","no_weapon"],["DY","no_weapon"],2])
+        self.cin.cinematic_frame(screen,'mgm1',2,"Éliminez vos adversaires en utilisant votre attaque frontale et spéciale !", "Régénérez-vous de 30 PV avec vos potions de soin à disposition !", kind_info=[["SM","no_weapon"],["DY","no_weapon"],0])
         
         #À la toute fin de la fonction
         self.in_minigm = True

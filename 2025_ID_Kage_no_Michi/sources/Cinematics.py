@@ -44,6 +44,7 @@ class Cinematics:
                       'KT': self.font_MFMG25.render("Kurosawa Takeshi",False,(0,0,0)),
                       'JM': self.font_MFMG25.render("Jizo Ma",False,(0,0,0)),
                       'Y?': self.font_MFMG25.render("Yoshirō",False,(0,0,0)),
+                      'DY': self.font_MFMG25.render("Yoshirō",False,(0,0,0)),
                       'TW': self.font_MFMG25.render("Guerrier Takahiro",False,(0,0,0)),
                       'TW_H': self.font_MFMG25.render("Guerrier Takahiro",False,(0,0,0)),
                       'TWs' : self.font_MFMG25.render("Guerriers Takahiro",False,(0,0,0)),
