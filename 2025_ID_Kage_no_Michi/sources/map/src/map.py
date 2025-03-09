@@ -49,13 +49,15 @@ class MapManager :
         self.maps_names = {"main":"MAP PROJET NSI 2025 500x500",
                            "intro":"Magome cinematic",
                            "mg5": "Ine_filature",
-                           "mg8": "Aizu_collecte"
+                           "mg8": "Aizu_collecte",
+                           "azw1":"Aizu_detruite"
                            }
         
         self.maps_shortcut = {"MAP PROJET NSI 2025 500x500":"main",
                               "Magome cinematic":"intro",
                               "Ine_filature": "mg5",
-                              "Aizu_collecte": "mg8"
+                              "Aizu_collecte": "mg8",
+                              "Aizu_detruite": "azw1"
                               }
         self.current_active_events = []
         self.maps_keys = list(self.maps_names.keys())
@@ -171,6 +173,14 @@ class MapManager :
                               layer=2,
                               placed_correctly=True
                               )
+            self.register_map(name="Aizu_detruite",
+                              spawn_name="spawn",
+                              portals=[],
+                              npcs=[],
+                              event_zones=[Event_zone("Aizu_detruite","exit",["Player"],[Event(type="ggp",data=["Chap2_e3_map","exit"])])],
+                              sub_paths=[],
+                              layer=8,
+                              placed_correctly=True)
         self.teleport_player_spawn()
         self.teleport_npcs()
 

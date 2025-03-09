@@ -17,6 +17,7 @@ from Savemgr import Savemgr
 from Cinematics import Cinematics
 from Commands import Commands
 from Mini_jeu_survivants import minigm_survivors
+from Mini_jeu_Tuto_Combat import minigm_tutofight
 from Mini_jeu_epreuve_combat import minigm_trial1
 from Mini_jeu_marchandage import minigm_trade
 from Mini_jeu_piege_environnemental import minigm_minesweeper
@@ -24,6 +25,7 @@ from Mini_jeu_persuasion import minigm_persuade
 from Mini_jeu_filature import minigm_follow
 from Mini_jeu_reconstruction import minigm_mastermind
 from Mini_jeu_collecte import minigm_collect
+from Mini_jeu_sauvetage import minigm_MashingGame
 from Audio import Music,Sound
 from Gameplay import Story
 from map.src.game import Game_map
@@ -40,24 +42,27 @@ class Game:
         Loading.display_loading(screen, 43,"Lancement des modules mini-jeux")
         self.minigm_02 = minigm_persuade()
         Loading.display_loading(screen, 46,"Lancement des modules mini-jeux")
-        self.minigm_04 = minigm_trial1()
+        self.minigm_03 = minigm_tutofight()
         Loading.display_loading(screen, 49,"Lancement des modules mini-jeux")
-        self.minigm_05 = minigm_follow(screen)
+        self.minigm_04 = minigm_trial1()
         Loading.display_loading(screen, 52,"Lancement des modules mini-jeux")
-        self.minigm_06 = minigm_trade()
+        self.minigm_05 = minigm_follow(screen)
         Loading.display_loading(screen, 55,"Lancement des modules mini-jeux")
-        self.minigm_07 = minigm_minesweeper()
+        self.minigm_06 = minigm_trade()
         Loading.display_loading(screen, 58,"Lancement des modules mini-jeux")
-        self.minigm_08 = minigm_mastermind()
+        self.minigm_07 = minigm_minesweeper()
         Loading.display_loading(screen, 61,"Lancement des modules mini-jeux")
+        self.minigm_08 = minigm_mastermind()
+        Loading.display_loading(screen, 64, "Lancement des modules mini-jeux")
         self.minigm_09 = minigm_collect(screen)
-        Loading.display_loading(screen, 64,"Lancement des modules secondaires")
+        Loading.display_loading(screen, 67, "Lancement des modules secondaires")
+        self.minigm_10 = minigm_MashingGame()
         self.music = Music()
         self.loaded_save = -1
-        Loading.display_loading(screen, 65,"Lancement du module de sauvegarde")
+        Loading.display_loading(screen, 67,"Lancement du module de sauvegarde")
         self.savemgr = Savemgr()
         self.story=Story()
-        Loading.display_loading(screen, 66,"Lancement du module de cinématiques")
+        Loading.display_loading(screen, 67,"Lancement du module de cinématiques")
         self.cinematics = Cinematics()
         Loading.display_loading(screen, 67,"Lancement du module de la carte")
         self.map = Game_map(screen)

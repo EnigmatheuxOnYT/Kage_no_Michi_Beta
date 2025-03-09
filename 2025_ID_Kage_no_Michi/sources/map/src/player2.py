@@ -105,6 +105,12 @@ class NPC(Entity,Interactible):
         self.current_point=0
     
     @property
+    def collision_rect(self):
+        rect=pygame.Rect(0,0,34,10)
+        rect.midbottom = self.rect.midbottom
+        return rect
+    
+    @property
     def interraction_rect(self):
         if self.is_interractible:
             rect=pygame.Rect(0,0,50,50)
