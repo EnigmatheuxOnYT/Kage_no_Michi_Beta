@@ -205,14 +205,15 @@ class Fight:
 
 
                     #Utilisation de la potion
-                    if self.potion_hitbox.collidepoint(event.pos) and self.potion > 0 and self.allow_potion:
-                        self.potion -= 1
-                        self.number = min(self.perso_player.pv_max,self.perso_player.pv+30) - self.perso_player.pv
-                        self.perso_player.pv += self.number
-                        self.start_to_draw_number(False,self.perso_player)
-                        self.change_phase("allies")
-                    elif self.potion < 1:
-                        self.start_draw_hint('potion')
+                    if self.potion_hitbox.collidepoint(event.pos) and self.allow_potion:
+                        if self.potion >=1:
+                            self.potion -= 1
+                            self.number = min(self.perso_player.pv_max,self.perso_player.pv+30) - self.perso_player.pv
+                            self.perso_player.pv += self.number
+                            self.start_to_draw_number(False,self.perso_player)
+                            self.change_phase("allies")
+                        elif self.potion < 1:
+                            self.start_draw_hint('potion')
 
                     elif self.is_target_choosen:
                         # Attaque frontale

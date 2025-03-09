@@ -17,9 +17,9 @@ class Perso:
     """
     Classe représentant un personnage du jeu.
     """
-    def __init__(self, name:str, pv_max:int, weapon:Weapon,level:int=1,instance:int=0): #Toutes les variables nécessaires pour la création d'un personnage
-        self.name = name+str(instance) #Son nom
-        self.sprite_name = name
+    def __init__(self, name:str,spritename:str, pv_max:int, weapon:Weapon,level:int=1,instance:int=0): #Toutes les variables nécessaires pour la création d'un personnage
+        self.name = name #Son nom
+        self.sprite_name = spritename
         self.pv_max = pv_max #Ses hp max
         self.pv = pv_max #Ses pv, qui vont prendre tout simplement la valeur de ses pvs
         self._base_damage = 2
@@ -139,12 +139,12 @@ class Fight_assets:
         self.zero = Weapon(name="no_weapon",weapon_damage=-100,)
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
-        self.Musashi = Perso("Musashi",10,self.op_weapon,level = 10)
-        self.Musashi_jeune = Perso("Musashi",5,self.training_katana)
-        self.pantin_de_combat = Perso("Musashi",30,self.zero)
+        self.Musashi = Perso("Musashi","Musashi",10,self.op_weapon,level = 10)
+        self.Musashi_jeune = Perso("Musashi","Musashi",5,self.training_katana)
+        self.pantin_de_combat = Perso("Pantin de combat", "Soldat1",30,self.zero)
         self.pantin_de_combat.set_do_attaks(False)
-        self.guerrier_takahiro = Perso('Musashi',70,self.no_weapon)
-        self.guerrier_takahiro2 = Perso('Musashi', 70,self.no_weapon)
+        self.guerrier_takahiro = Perso('Guerrier', "Soldat1",70,self.no_weapon)
+        self.guerrier_takahiro2 = Perso('Guerrier', "Soldat1", 70,self.no_weapon)
         #self.ma_Juzo = Perso('Ma_Juzo',200, self.tengoku_no_ikari,level=10)
 
 if __name__ == "__main__":
