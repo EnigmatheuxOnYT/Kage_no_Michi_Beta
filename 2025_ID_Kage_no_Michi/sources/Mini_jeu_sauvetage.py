@@ -77,7 +77,7 @@ class minigm_MashingGame:
         
         # Chargement du fond
         try:
-            self.background = pygame.image.load("../data/assets/bgs/Fond_Aizuwakamatsu_Détruit_Herbe_1.png").convert()
+            self.background = pygame.image.load("../data/assets/bgs/Fond_Aizuwakamatsu_Détruit_Herbe_2.png").convert()
             self.background = pygame.transform.scale(self.background, (self.width, self.height))
         except Exception as e:
             self.background = None
