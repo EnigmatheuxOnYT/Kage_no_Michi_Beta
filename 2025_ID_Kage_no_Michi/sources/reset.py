@@ -50,7 +50,7 @@ def set_all ():
 
 
 generic_blank_file ={"blank" : True,
-                     "dead" : False,
+                     "dead" : [False,False],
                      "scene" : [0,0],
                      "level" : 0,
                      "player_pos" : [0,0],
@@ -63,7 +63,7 @@ generic_blank_file ={"blank" : True,
                      }
     
 save0 ={"blank" : False,
-        "dead" : False,
+        "dead" : [False,False],
        "scene" : [0,0],
        "level" : 0,
        "player_pos" : [0,0],
@@ -76,7 +76,7 @@ save0 ={"blank" : False,
        }
 
 save1 ={"blank" : True,
-        "dead" : False,
+        "dead" : [False,False],
        "scene" : [0,0],
        "level" : 0,
        "player_pos" : [0,0],
@@ -89,7 +89,7 @@ save1 ={"blank" : True,
        }
 
 save2 ={"blank" : True,
-        "dead" : False,
+        "dead" : [False,False],
        "scene" : [0,0],
        "level" : 0,
        "player_pos" : [0,0],
@@ -102,7 +102,7 @@ save2 ={"blank" : True,
        }
 
 save3 ={"blank" : True,
-        "dead" : False,
+        "dead" : [False,False],
        "scene" : [0,0],
        "level" : 0,
        "player_pos" : [0,0],
@@ -117,4 +117,3 @@ save3 ={"blank" : True,
 ########## Fonctions à executer (ici réinitialiser) ##########
 if __name__ == '__main__':
     set_all()
-    #set_save(1,dead=True)

@@ -15,7 +15,7 @@ import json
 class Savemgr :
     def __init__ (self):
         self.generic_blank_file ={"blank" : True,
-                                  "dead" : False,
+                                  "dead" : [False,False],
                                   "scene" : [0,0],
                                   "level" : 0,
                                   "player_pos" : [13000,9000],

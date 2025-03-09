@@ -44,6 +44,7 @@ class minigm_follow:
         self.steps = 0
         self.guards_arrived = False
         self.win_timer = 0
+        self.end_state = None
         
         self.load_assets()
         
@@ -130,6 +131,7 @@ class minigm_follow:
         # Appel de self.cin.cinematic_frame() pour la fin
         if self.current_gp_phase in [self.gp_phases.WIN, self.gp_phases.PERFECT_WIN]:
             if self.guards_arrived:
+                self.end_state = 'win'
                 self.cin.cinematic_frame(screen, "ine1", 3,
                                           "Hayato, tu sais que le chef a ouvert une planque à Aizuwakamatsu ?",
                                           "Il m'a dit qu'il nous y enverrait prochainement.",
@@ -148,6 +150,7 @@ class minigm_follow:
                                           kind_info=[['TW','no_weapon'], ['TW_H','cin07'], ['SM','no_weapon'], 2],
                                           running=self.running)
                 if self.current_gp_phase == self.gp_phases.PERFECT_WIN:
+                    self.end_state = "perfect_win"
                     self.cin.cinematic_frame(screen, "ine1", 3,
                                               "Ils sont en position de faiblesse, si j’en profite, ils n’ont aucune chance.",
                                               "J’y vais, ou je rentre ? J’ai déjà assez d’informations comme ça, non ?",
@@ -169,6 +172,7 @@ class minigm_follow:
                                       "On ne joue pas au plus malin avec le clan Takahiro.",
                                       "Tu aurais dû le savoir.",
                                       kind_info=[["TW_H","no_weapon"], ["TW","no_weapon"], ["SM","no_weapon"], 1, True])
+            self.end_state = 'defeat'
         
         # Fin de l'ending
         self.map.player.set_allow_sprint(True)
@@ -400,7 +404,7 @@ class minigm_follow:
         
         if self.playing and self.running:
             self.end(screen, saved, passcode)
-        return self.running
+        return self.running,self.end_state
 
 # Lancement du mini-jeu
 if __name__ == '__main__':

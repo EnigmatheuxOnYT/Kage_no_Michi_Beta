@@ -89,6 +89,7 @@ class Game:
 
         self.devmode=False
         self.in_gameplay=False
+        self.lost = False
 
         self.current_interaction = {"is":False,"interaction":None}
         self.current_interration = 0
@@ -138,6 +139,18 @@ class Game:
             self.blank = False
             self.in_gameplay=True
         
+        if self.loaded_save != 0:            
+            if self.dead:
+                self.death()
+                self.in_gameplay = False
+                in_game = False
+                self.save_savefile()
+            elif self.lost:
+                self.cinematics.final_loose(screen)
+                self.in_gameplay = False
+                in_game = False
+                self.save_savefile()
+        
         
         pygame.mouse.set_visible(False)
         self.music.play(fade=500)
@@ -148,33 +161,7 @@ class Game:
         
         
         return loading_save,in_game
-      
-       # À modifier avec l'ajout des cinematiques
-    def load_scene (self, screen, scene):
-        in_gameplay = True
-        in_game = True
-        if self.blank:
-            self.begin()
-        
-        if self.loaded_save != 0:
-            
-            self.music.play(fade=500)
-            
-            if self.dead:
-                self.death()
-                in_gameplay = False
-                in_game = False
-                self.save_savefile()
-        
-        else:
-            print("Erreur d'appel de fontion")
-            in_gameplay = False
-            in_game = False
-        
-                
-        self.music.play(fade=500)
-        print(in_gameplay)
-        return in_gameplay,in_game
+
     
     def begin (self):
         self.current_passcode = random.choice(self.passcodes)
@@ -187,13 +174,15 @@ class Game:
         ########## Sauvegarde ##########
         self.player_pos = self.get_pos()
         self.inventory={'money':self.money,'weapon':self.current_weapon,'heal_potions':self.heal_potions_count}
-        save_data = self.savemgr.variable_compiler(self.blank,self.dead,self.scene,self.level,self.player_pos,self.current_map,self.choices,self.genocide_ending_events,self.pacifist_ending_events,self.inventory,self.current_passcode)
+        dead = [self.dead,self.lost]
+        save_data = self.savemgr.variable_compiler(self.blank,dead,self.scene,self.level,self.player_pos,self.current_map,self.choices,self.genocide_ending_events,self.pacifist_ending_events,self.inventory,self.current_passcode)
         self.savemgr.save(save_data,f"../data/saves/save{self.loaded_save}.json")
         print("Sauvegarde effectuée")
     
     def load_player_data(self,save_data):
-        self.blank,self.dead,self.scene,self.level,self.player_pos,self.current_map,self.choices,self.genocide_ending_events,self.pacifist_ending_events,self.inventory,self.current_passcode = self.savemgr.variable_extractor(save_data)
+        self.blank,dead,self.scene,self.level,self.player_pos,self.current_map,self.choices,self.genocide_ending_events,self.pacifist_ending_events,self.inventory,self.current_passcode = self.savemgr.variable_extractor(save_data)
         self.money,self.current_weapon,self.heal_potions_count=self.inventory['money'],self.inventory['weapon'],self.inventory['heal_potions']
+        self.dead,self.lost = dead
         self.map.map_manager.change_map(self.current_map,self.player_pos)
 
     def handle_zone_events(self,events):
@@ -349,25 +338,51 @@ class Game:
         if minigame == 1:
             self.running,reward = self.minigm_01.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 2:
-            self.running = self.minigm_02.run(self.screen_for_game,choices[0],devmode)
+            self.running,victory_state = self.minigm_02.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 3:
             print("Mini-jeu de tuto combat tour par tour non implémenté")
         elif minigame == 4:
             self.running = self.minigm_04.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 5:
-            self.running = self.minigm_05.run(self.screen_for_game,choices[0],self.current_passcode,devmode)
+            self.running,victory_state = self.minigm_05.run(self.screen_for_game,choices[0],self.current_passcode,devmode)
         elif minigame == 6:
-            self.running = self.minigm_06.run(self.screen_for_game,choices[0],devmode)
+            self.running,victory_state = self.minigm_06.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 7:
-            self.running = self.minigm_07.run(self.screen_for_game,choices[0],devmode)
+            self.running,victory_state = self.minigm_07.run(self.screen_for_game,choices[0],devmode)
         elif minigame ==8:
-            self.running = self.minigm_08.run(self.screen_for_game,choices[0],devmode)
+            self.running,victory_state = self.minigm_08.run(self.screen_for_game,choices[0],devmode)
         elif minigame ==9:
-            self.running,reward = self.minigm_09.run(self.screen_for_game,choices[0],devmode)
+            self.running,reward,victory_state = self.minigm_09.run(self.screen_for_game,choices[0],devmode)
+        
+        self.handle_minigame_output (minigame,victory_state)
         
         self.money+=reward['money']
         self.heal_potions_count+=reward['heal_potion']
         pygame.mouse.set_visible(False)
+    
+    def handle_minigame_output (self,minigame,victory_state):
+        
+        if victory_state != None:
+            if minigame == 2:
+                if not victory_state:
+                    self.lost = True
+                    self.in_gameplay = False
+            elif minigame == 5:
+                if victory_state == 'defeat':
+                    self.dead = True
+                    self.in_gameplay = False
+                elif victory_state == 'victory':
+                    pass
+                elif victory_state == 'perfect_win':
+                    pass
+            elif minigame == 6:
+                pass
+            elif minigame == 7:
+                pass
+            elif minigame == 8:
+                pass
+            elif minigame == 9:
+                pass
         
     
     def launch_cinematic (self,cinematic,choices=None):
@@ -436,6 +451,7 @@ class Game:
         if self.dead:
             self.death()
             self.save_savefile()
+
 
 
 
@@ -568,7 +584,10 @@ class Game:
     
     def game_update (self):
         ########## Mise à jour des éléments du jeu à afficher (partie 2) ##########
-        if self.in_gameplay:
+        if self.dead or self.lost:
+            pygame.mouse.set_visible(True)
+            return False
+        elif self.in_gameplay:
             self.map.update()
             current_active_events = self.map.map_manager.get_current_active_events()
             if current_active_events != None:
@@ -577,6 +596,7 @@ class Game:
             self.arrow_update(coordinates=self.current_arrow_point_coordinates)
         elif self.loaded_save !=0:
             self.launch_scene()
+        return True
     
     ############### Partie 3 ###############
     

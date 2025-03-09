@@ -683,6 +683,9 @@ class Cinematics:
         self.cinematic_frame(screen, 'mgm5', 0, "Musashi n'aura pas réussi à venger son village.", "Il mourut dans la réalisation que sa mort signifgiait sûrement la fin", "de son village.")
         self.ecran_noir(screen)
     
+    def final_loose (self,screen,saved ="none"):
+        self.cinematic_frame(screen, 'mgm1', 3, "Shikisha Musashi quitte le dojo, l'esprit troublé.", "Il retourne au village, mais le souvenir de ses échecs le hantera", "pour le restant de ses jours.", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH", "no_weapon"], 0])
+    
     def cinematic_01 (self, screen,saved='none'):
         self.music.play(self.music.intro,500)
         self.cinematic_frame(screen, 'mgm1', 0, 'Magome, un petit village reculé, perdu dans les forêts du Japon médiéval.','Ici, la vie est rude. Les récoltes sont maigres.','Et les guerres de clans rendent l\'existence encore plus précaire.')

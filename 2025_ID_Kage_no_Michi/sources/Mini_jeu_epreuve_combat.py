@@ -180,16 +180,16 @@ class minigm_trial1:
         self.in_minigm = True
 
     def end(self, screen, saved):
-        if self.state == self.GameState.VICTORY or self.state == self.GameState.DEFEAT :
+        if self.state == self.GameState.VICTORY:
             if saved=='none':
-                self.cin.cinematic_frame(screen, 'ine1', 2, "Bon travail. Continue sur cette voie et tu seras aussitôt devenu un nouveau", "samouraï. Sache qu'il faut devenir patient pour obtenir ce que l'on veut.", "Donc évite de vivre dans un avenir fictif mais plutôt dans un présent réaliste", kind_info=[["SM","no_weapon"],["SH", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'ine1', 2, "Bon travail. Continue sur cette voie et tu seras aussitôt devenu un nouveau", "samouraï. Mais reste patient, c'est la clef de la réussite", kind_info=[["SM","no_weapon"],["SH", "no_weapon"], 2], running=self.running)
                 self.cin.cinematic_frame(screen, 'ine1', 2, "Compris. La patience avant tout comme on le dit.", kind_info=[["SM","no_weapon"],["SH", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'ine1', 2, "Exactement. Nous poursuivrons l'entraînement demain et tu continueras", "à assimiler les bases nécessaires conformes au code Bushido.", kind_info=[["SM","no_weapon"],["SH", "no_weapon"], 2], running=self.running)
                 self.cin.cinematic_frame(screen, 'ine1', 2, "Je ne compte pas baisser les bras.", "La patience et la régularité je pense sont les deux vertus les plus", "importantes pour pouvoir accomplir nos objectifs.", kind_info=[["SM","no_weapon"],["SH", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'ine1', 2, "C'est exactement le genre d'élève que je recherche.", "Il faut rester concentré dans nos progrès actuels avant le résultat.", "Sur ce, je te laisse rentrer pour te reposer, et nous nous reverrons demain.", kind_info=[["SM","no_weapon"],["SH", "no_weapon"], 2], running=self.running)
                 self.cin.cinematic_frame(screen, 'ine1', 2, "Merci beaucoup Sensei Hoshida. A demain !", kind_info=[["SM","no_weapon"],["SH", "no_weapon"], 1], running=self.running)
             elif saved=='KM':
-                self.cin.cinematic_frame(screen, 'ine1', 3, "Bon travail. Continue sur cette voie et tu seras aussitôt devenu un nouveau", "samouraï. Sache qu'il faut devenir patient pour obtenir ce que l'on veut.", "Donc évite de vivre dans un avenir fictif mais plutôt dans un présent réaliste", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["SH", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'ine1', 3, "Bon travail. Continue sur cette voie et tu seras aussitôt devenu un nouveau", "samouraï. Mais reste patient, c'est la clef de la réussite", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["SH", "no_weapon"], 3], running=self.running)
                 self.cin.cinematic_frame(screen, 'ine1', 3, "Compris. La patience avant tout comme on le dit.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["SH", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'ine1', 3, "Exactement. Nous poursuivrons l'entraînement le lendemain et tu continueras", "à assimiler les bases nécessaires conformes au code Bushido.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["SH", "no_weapon"], 3], running=self.running)
                 self.cin.cinematic_frame(screen, 'ine1', 3, "Tu as été incroyable Shikisha ! Franchement plus personne ne pourra", "t'arrêter !", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["SH", "no_weapon"], 2], running=self.running)
@@ -204,7 +204,11 @@ class minigm_trial1:
                 self.cin.cinematic_frame(screen, 'ine1', 3, "Je ressens du potentiel chez vous deux. Vous avez la capacité d'agir pour le", "bien. Donc n'abandonnez pas si vous vous sentez accablé par le mal du monde", "extérieur. Poursuivons l'entraînement demain.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH", "no_weapon"], 3], running=self.running)
                 self.cin.cinematic_frame(screen, 'ine1', 3, "Nous intégrerons vos conseils coûte que coûte, puisque nous deviendrons des","samouraïs.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'ine1', 3, "Tu as tout compris Musashi. Ensemble, nous faisons la paire.", "A demain, Sensei Hoshida. J'ai hâte de reprendre.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH", "no_weapon"], 2], running=self.running)
-            
+        elif self.state == self.GameState.DEFEAT:
+            if self.saved == "none":
+                self.cin.cinematic_frame(screen,"ine1",3, "Musashi, cet entrainement n'était pas probant...",kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH", "no_weapon"], 3],running=self.running)
+                self.cin.cinematic_frame(screen,"ine1",3, "Sache qu'il faut se concentrer pour obtenir ce que l'on veut.", "Donc évite de vivre dans un avenir fictif mais plutôt dans un présent réaliste",kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH", "no_weapon"], 3],running=self.running)
+                self.cin.cinematic_frame(screen,"ine1",3, "Cet entraînement demande du sérieux, fais-en preuve la prochaine fois.",kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH", "no_weapon"], 3],running=self.running)
         self.playing= False
             
     ########## Partie 1 : Gestion des événements ##########

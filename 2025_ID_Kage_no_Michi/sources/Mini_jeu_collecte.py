@@ -43,6 +43,7 @@ class minigm_collect :
         self.gp_phases = Enum("Phase","BEGIN SEARCH LEAVING LOOSE WIN PERFECT_WIN")
          
         self.perfect_win_time = 120000
+        self.victory_state = None
         self.obtained_objects = 0
         self.load_assets()
         
@@ -167,9 +168,11 @@ class minigm_collect :
                 self.current_gp_phase = self.gp_phases.WIN
 
         if self.current_gp_phase == self.gp_phases.LOOSE:
+            self.victory_state = 'loose'
             self.cin.cinematic_frame(screen,"forest2",3, "Vous n'avez malheureusement pas récupéré assez de vivres...", "N'hésitez pas à revenir !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
         else:
             if self.current_gp_phase == self.gp_phases.PERFECT_WIN:
+                self.victory_state = 'perfect_win'
                 self.cin.cinematic_frame(screen,"forest2",3, "Vous êtes impressionnant Samouraï, vous avez fait si vite !", "N'hésitez pas à revenir, votre aide est toujours appreciée.",  kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
                 self.cin.cinematic_frame(screen,"forest2",3, "Au revoir, monsieur.", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],1])
                 if saved=="KM":
@@ -177,6 +180,7 @@ class minigm_collect :
                 elif saved=="KT":
                     self.cin.cinematic_frame(screen,"forest2",3, "Bonne chance à vous, et au revoir.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1","no_weapon"],2])
             elif self.current_gp_phase == self.gp_phases.WIN:
+                self.victory_state = "win"
                 self.cin.cinematic_frame(screen,"forest2",3, "Bien joué, vous avez ramassé assez de vivres !","Merci pour votre aide !", "N'hésitez pas à revenir !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],3])
                 self.cin.cinematic_frame(screen,"forest2",3, "Merci monsieur, et bonne chance à vous !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],2])
                 self.cin.cinematic_frame(screen,"forest2",3, "Bonne chance !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["VL1","no_weapon"],1])

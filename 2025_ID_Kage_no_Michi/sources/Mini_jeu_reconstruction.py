@@ -605,7 +605,7 @@ class minigm_mastermind:
         # Appeler end() si le jeu est terminé
         if self.running and self.game_over:
             self.end(screen, saved)
-            return self.running
+            return self.running,self.win
 
 if __name__ == '__main__':
     pygame.init()
