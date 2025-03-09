@@ -332,8 +332,6 @@ class Commands:
         return int(self.cmd[6:])
             
 
-
-
 if __name__ == '__main__':
     pygame.init()
     cmd = Commands()

@@ -250,6 +250,7 @@ class MapManager :
         if pos == [0,0]:
             pos = self.get_map().spawn
         self.teleport_player_pos(pos[0],pos[1])
+        self.teleport_npcs()
          
 
     def register_map(self,name,spawn_name,portals=[],npcs=[],event_zones=[],sub_paths=[],layer="",placed_correctly=False):
@@ -293,8 +294,6 @@ class MapManager :
 
         #recuperer tous les npcs pour les ajouter au groupe
         for npc in npcs:
-            #if npc.nb_points !=0:
-            #    npc.load_points(tmx_data)
             group.add(npc)
             group.change_layer(npc, layer-1)
             npc.give_layer(layer-1)

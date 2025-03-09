@@ -1060,6 +1060,8 @@ class Cinematics:
             self.cinematic_frame(screen, "bamboo1", 3, "La légende raconte que cette lame incarnerait le châtiment de Dieu. On la", "classe comme l'une des 7 épées légendaires. Tous ceux qui sont touchés", "par cette arme périssent en voyant leurs âmes séparées de leurs corps.", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
             self.cinematic_frame(screen, "bamboo1", 3, "C'est pour cela que je la vends pour 100 pièces d'or. Elle est très rare, et", "possède beaucoup de valeur. Alors ? Êtes-vous prêt à l'acheter ?", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
         self.ecran_noir(screen)
+
+        
     def cinematic_11 (self, screen, saved="none", choose=1):
         #cinématique vérifiée
         if saved == 'none':

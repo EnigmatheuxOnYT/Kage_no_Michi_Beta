@@ -26,6 +26,8 @@ class Perso:
         self.weapon = weapon
         self.do_attacks = True
         self.level = 1 #niveau du personnage
+        self.level_xp = 5
+        self.xp = 0
         self.set_level(level)
         sprite = pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Idle.png") #Le spirte quand il reste immobile
         self.image = pygame.transform.scale(sprite, (200,200)) #On redimensionne le sprite de sorte à ce que ça soit cohérent avec le fond
@@ -63,6 +65,13 @@ class Perso:
         self.pv_max=int(round(self.pv_max*1.1,0))
         self._base_damage=max(int(round(self._base_damage*1.1,0)),self._base_damage+1)
         self.pv = self.pv_max
+        self.level_xp = int(self.level_xp*1.1)+2
+    
+    def give_xp (self,xp):
+        self.xp += xp
+        if self.xp >= self.level_xp:
+            self.xp-=self.level_xp
+            self.level_up()
     
     def set_level (self,level):
         diff = max(level-self.level,0)

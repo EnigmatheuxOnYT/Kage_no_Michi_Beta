@@ -168,7 +168,8 @@ class NPC(Entity,Interactible):
     def load_points(self,tmx_data):
         for num in range(1,self.nb_points+1):
             point=tmx_data.get_object_by_name(f"{self.name}_path{num}")
-            rect=pygame.Rect(point.x, point.y, point.width, point.height)
+            rect=pygame.Rect(0, 0, 8, 8)
+            rect.center = (point.x,point.y)
             self.points.append(rect)
     
     def change_dialog(self,new_dialog:NPCDialog):
