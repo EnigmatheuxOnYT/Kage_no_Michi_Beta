@@ -185,7 +185,7 @@ class Fight:
             base_damage+=char.weapon.special_damage
         self.is_crit = random.random()<=char.weapon.crit_chance
         if self.is_crit:
-            mult = random.random()+1.25
+            mult = (random.random()*3/4)+1.5
             base_damage=int(base_damage*mult)
         damage = random.randint(base_damage-char.level,base_damage+char.level)
         return max(damage,0)
