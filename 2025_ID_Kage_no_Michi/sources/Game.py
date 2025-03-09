@@ -337,15 +337,16 @@ class Game:
         if choices==None:
             choices = self.choices
         
-        self.music.play(fade=500)
         reward = {'money':0,"heal_potion":0}
+
+        victory_state = None
         
         if minigame == 1:
             self.running,reward = self.minigm_01.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 2:
             self.running,victory_state = self.minigm_02.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 3:
-            print("Mini-jeu de tuto combat tour par tour non implémenté")
+            self.running = self.minigm_03.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 4:
             self.running = self.minigm_04.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 5:
@@ -358,7 +359,9 @@ class Game:
             self.running,victory_state = self.minigm_08.run(self.screen_for_game,choices[0],devmode)
         elif minigame ==9:
             self.running,reward,victory_state = self.minigm_09.run(self.screen_for_game,choices[0],devmode)
-        
+        elif minigame == 10:
+            self.running = self.minigm_10.run(self.screen_for_game,choices[0])
+
         self.handle_minigame_output (minigame,victory_state)
         
         self.money+=reward['money']
@@ -397,7 +400,6 @@ class Game:
         if choices==None:
             choices = self.choices
         
-        self.music.play(fade=500)
         
         choice=0
         if cinematic == 1:

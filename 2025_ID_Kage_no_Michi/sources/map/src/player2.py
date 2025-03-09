@@ -133,13 +133,13 @@ class NPC(Entity,Interactible):
             self.direction = ""
         
             if current_rect.y < target_rect.y and abs(current_rect.x - target_rect.x) < 3:
-                self.direction += "down"
+                self.direction = "down"
             elif current_rect.y > target_rect.y and abs(current_rect.x - target_rect.x) < 3:
-                self.direction += "up"
-            if current_rect.x > target_rect.x and abs(current_rect.y - target_rect.y) < 3:
-                self.direction += "left"
+                self.direction = "up"
+            elif current_rect.x > target_rect.x and abs(current_rect.y - target_rect.y) < 3:
+                self.direction = "left"
             elif current_rect.x < target_rect.x and abs(current_rect.y - target_rect.y) < 3:
-                self.direction += "right"
+                self.direction = "right"
         
             if self.direction != "":
                 self.move_dir(self.direction)
@@ -180,6 +180,7 @@ class StaticEntity(pygame.sprite.Sprite):
     def __init__(self, name, x, y,direction):
         super().__init__()
         self.name = name
+        self.nb_points = 0
         self.position = (x, y)
         self.sprite_sheet = pygame.image.load(f"../data/assets/sprites/{name}.png")
         sprite_height = self.get_sprite_height(direction)

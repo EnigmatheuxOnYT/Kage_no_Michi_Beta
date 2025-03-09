@@ -188,9 +188,9 @@ class minigm_tutofight :
 
    
     ########## Boucle mini-jeu ##########
-    def run (self,screen,saved='none',devomde=False):
+    def run (self,screen,saved='none',devmode=False):
         #L'argument saved permet de savoir quelle version de l'intro et de la fin afficher en fonction de qui a été sauvé. Il permet aussi d'afficher le bon sprite dans le mini-jeu le cas échéant 
-        
+        self.devmode = devmode
         self.load()
         self.intro(screen,saved)
         

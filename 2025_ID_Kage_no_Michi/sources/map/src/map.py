@@ -176,7 +176,10 @@ class MapManager :
             self.register_map(name="Aizu_detruite",
                               spawn_name="spawn",
                               portals=[],
-                              npcs=[],
+                              npcs=[NPC(name="Villager1", start_pos=[320,512],nb_points=4,speed=1.5),
+                                    NPC(name="Villager2", start_pos=[1632,1408],nb_points=4,speed=1.5),
+                                    NPC(name="Villager3", start_pos=[1184,1152],nb_points=4,speed=1.5)
+                                    ],
                               event_zones=[Event_zone("Aizu_detruite","exit",["Player"],[Event(type="ggp",data=["Chap2_e3_map","exit"])])],
                               sub_paths=[],
                               layer=8,
@@ -290,6 +293,8 @@ class MapManager :
 
         #recuperer tous les npcs pour les ajouter au groupe
         for npc in npcs:
+            #if npc.nb_points !=0:
+            #    npc.load_points(tmx_data)
             group.add(npc)
             group.change_layer(npc, layer-1)
             npc.give_layer(layer-1)

@@ -167,6 +167,9 @@ class GPPMap(GamePlayPhase):
         self.display_zones = display_zones
         self.path=path
         self.updates = updates
+    
+    def setup (self):pass
+
 
 
 class GPPCinematic(GamePlayPhase):
