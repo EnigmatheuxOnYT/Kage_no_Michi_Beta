@@ -160,7 +160,7 @@ class Cinematics:
                 added_char=" "
             if i in [0,len(line)-1] and char==" ":
                 new_char=""
-            elif char == "‘" or char == "’":
+            elif char in ["‘","’","’"]:
                 new_char="'"
             elif char == "…":
                 new_char = "..."
