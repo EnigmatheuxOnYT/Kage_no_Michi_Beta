@@ -62,6 +62,7 @@ class Sound:
         self.error = self.sound("SFX_Wrong_1")
         self.correct1 = self.sound("SFX_Cash_1")
         self.incorrect1 = self.sound("SFX_Wrong_1")
+        self.achievement = self.sound("SFX-achievement_1")
         self.swoosh1 = self.sound("SFX_Swoosh_Bamboo_Katana_1")
         self.swoosh2 = self.sound("SFX_Swoosh_Bamboo_Katana_2")
         self.swoosh3 = self.sound("SFX_Swoosh_Bamboo_Katana_3")
