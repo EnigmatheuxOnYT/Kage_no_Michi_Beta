@@ -51,7 +51,17 @@ class Characters_sprites:
                                                                }
                                                }
                                       },
-                               #Takahiro Korijo
+                               #Senshi Akuma
+                               'SA': {'right': {'no_weapon': {'main': self.ldc("Senshi_16bit_Droite_SansArme_V1.png"),
+                                                              'secondary': self.ldc("Senshi_16bit_Droite_SansArme_Ombre_V1.png")
+                                                              }
+                                                },
+                                      'left': {'no_weapon': {'main': self.ldc("Senshi_16bit_Gauche_SansArme_V1.png"),
+                                                             'secondary': self.ldc("Senshi_16bit_Gauche_SansArme_Ombre_V1.png")
+                                                             }
+                                               }
+                                      },
+                                #Takahiro Korijo
                                'TK': {'right': {'no_weapon': {'main': self.ldc("Takahiro_16bit_Droite_SansArme_V2.png"),
                                                               'secondary': self.ldc("Takahiro_16bit_Droite_SansArme_Ombre_V2.png")
                                                               }
