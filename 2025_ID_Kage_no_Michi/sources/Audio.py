@@ -72,6 +72,7 @@ class Sound:
         self.heartbeat = self.sound("SFX_Heartbeat_1")
         self.struggle = self.sound("SFX_Struggle_1")
         self.anxiety = self.sound("SFX_Anxiety_1")
+        self.arbre = self.sound("SFX_arbre")
     
     
     def sound (self,file):
