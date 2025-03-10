@@ -100,7 +100,6 @@ class NPC(Entity,Interactible):
         Entity.__init__(self,name,start_pos[0],start_pos[1])
         self.instance=instance
         interractions=self._get_interractions()
-        print(interractions)
         is_interractible=len(interractions)!=0
         Interactible.__init__(self,is_interractible,interractions)
         self.instance_name=self.name+str(self.instance)
