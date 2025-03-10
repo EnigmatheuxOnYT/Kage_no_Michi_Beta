@@ -188,7 +188,9 @@ class Game:
         self.blank,dead,self.scene,self.level,self.player_pos,self.current_map,self.choices,self.genocide_ending_events,self.pacifist_ending_events,self.inventory,self.current_passcode = self.savemgr.variable_extractor(save_data)
         self.money,self.current_weapon,self.heal_potions_count=self.inventory['money'],self.inventory['weapon'],self.inventory['heal_potions']
         self.dead,self.lost = dead
+        self.map.reload()
         self.map.map_manager.change_map(self.current_map,self.player_pos)
+        self.map.set_follower(self.choices[0])
 
     def handle_zone_events(self,events):
         self.display_fire=False
@@ -211,6 +213,7 @@ class Game:
             
             elif event.type == "interaction":
                 self.current_interaction = {"is":True,"interaction":event.data[0]}
+                print(event.data[0])
             
             elif event.type == "gpp_next":
                 self.next_gpp(event.data[0])
@@ -232,11 +235,14 @@ class Game:
         for npc in self.map.map_manager.get_map().npcs:
             if npc.instance_name==interaction.npc_name:
                 __npc = npc
+            else:
+                print(npc.instance_name,interaction.npc_name)
         for _ in range(len(interaction.actions)):
             self.handle_action(interaction.current_action,__npc)
             interaction.next_action()
         if interaction.end():
             __npc.next_interaction()
+        print(__npc.name,npc.instance_name,"a")
         self.temporary_storage=None
     
     def handle_action(self,action,__npc):
@@ -252,6 +258,8 @@ class Game:
             self.map.map_manager.get_map().npcs.remove(__npc)
         elif action.type=="NPCEndGPP":
             self.next_gpp(action.output)
+        elif action.type=='NPCMinigame':
+            self.launch_minigame(action.minigame_no)
         elif action.type =='NPCRepeatInteraction':
             pass
 
@@ -358,7 +366,7 @@ class Game:
         elif minigame ==8:
             self.running,victory_state = self.minigm_08.run(self.screen_for_game,choices[0],devmode)
         elif minigame ==9:
-            self.running,reward,victory_state = self.minigm_09.run(self.screen_for_game,choices[0],devmode)
+            self.running,reward = self.minigm_09.run(self.screen_for_game,choices[0],devmode)
         elif minigame == 10:
             self.running = self.minigm_10.run(self.screen_for_game,choices[0])
 
