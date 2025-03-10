@@ -31,6 +31,7 @@ class Dialogs(Cinematics):
 
     def dialog_minigm1(self, screen, saved):
         #dialogue vérifié
+        self.music.play(self.music.dialog1)
         if saved == 'none':
             self.cinematic_frame(screen, "azw2", 2, "Monsieur ! Monsieur ! Oui, vous, celui qui porte l'apparence d'un samouraï,", "venez m'aider ! ", kind_info=[['VL1','no_weapon'],['SM','no_weapon'],1])
             self.cinematic_frame(screen, "azw2", 2, "(Est-ce que j'accepte de l'aider..?) ", kind_info=[['VL1','no_weapon'],['SM','no_weapon'],2])
@@ -41,6 +42,7 @@ class Dialogs(Cinematics):
                     self.cinematic_frame(screen, "azw2", 2, "Je vous remercie fortement. ", kind_info=[['VL1','no_weapon'],['SM','no_weapon'],1])
                     self.ecran_noir(screen)
                     self.cinematic_frame(screen, "azw2", 2, "Merci beaucoup monsieur de m'avoir sorti de ce pétrin ! Tenez, voici de", "l'argent en guise de compensation. ", kind_info=[['VL1','no_weapon'],['SM','no_weapon'],1])
+                    self.sound.achievement.play()
                     self.cinematic_frame(screen, "azw2", 0, "(Le joueur obtient 15 pièces argent)")
                     self.cinematic_frame(screen, "azw2", 2, "L'argent n'était pas nécessaire mais je vous remercie de votre générosité.", "Faîtes très attention lors de votre retour !",kind_info=[['VL1', 'no_weapon'], ['SM', 'no_weapon'], 2])
                     self.cinematic_frame(screen, "azw2", 2, "A vous aussi monsieur ! Bonne chance à vous !", kind_info=[['VL1','no_weapon'],['SM','no_weapon'],1])
@@ -56,6 +58,7 @@ class Dialogs(Cinematics):
                 self.cinematic_frame(screen, "azw2", 3, "Je vous remercie fortement. ", kind_info=[['SM','no_weapon'],['KM','no_weapon'],['VL1','no_weapon'],3])
                 self.ecran_noir(screen)
                 self.cinematic_frame(screen, "azw2", 3, "Merci beaucoup monsieur de m'avoir sorti de ce pétrin ! Tenez, voici de", "l'argent en guise de compensation. ", kind_info=[['SM','no_weapon'],['KM','no_weapon'],['VL1','no_weapon'],3])
+                self.sound.achievement.play()
                 self.cinematic_frame(screen, "azw2", 0, "(Le joueur obtient 15 pièces argent)")
                 self.cinematic_frame(screen, "azw2", 3, "L'argent n'était pas nécessaire mais je vous remercie de votre générosité.", "Faîtes très attention lors de votre retour !",kind_info=[['SM', 'no_weapon'],['KM','no_weapon'], ['VL1','no_weapon'],1])
                 self.cinematic_frame(screen, "azw2", 3, "A vous aussi monsieur ! Bonne chance à vous !", kind_info=[['SM','no_weapon'],['KM','no_weapon'],['VL1','no_weapon'],3])
@@ -71,6 +74,7 @@ class Dialogs(Cinematics):
                 self.cinematic_frame(screen, "azw2", 3, "Je vous remercie fortement. ", kind_info=[['SM','no_weapon'],['KT','no_weapon'],['VL1','no_weapon'],3])
                 self.ecran_noir(screen)
                 self.cinematic_frame(screen, "azw2", 3, "Merci beaucoup monsieur de m'avoir sorti de ce pétrin ! Tenez, voici de", "l'argent en guise de compensation. ", kind_info=[['SM','no_weapon'],['KT','no_weapon'],['VL1','no_weapon'],3])
+                self.sound.achievement.play()
                 self.cinematic_frame(screen, "azw2", 0, "(Le joueur obtient 15 pièces argent)")
                 self.cinematic_frame(screen, "azw2", 3, " L'argent n'était pas nécessaire mais je vous remercie de votre générosité.", "Faîtes très attention lors de votre retour !",kind_info=[['SM', 'no_weapon'],['KT','no_weapon'],['VL1','no_weapon'], 1])
                 self.cinematic_frame(screen, "azw2", 3, "A vous aussi monsieur ! Bonne chance à vous !", kind_info=[['SM','no_weapon'],['KT','no_weapon'],['VL1','no_weapon'],3])
@@ -80,6 +84,7 @@ class Dialogs(Cinematics):
 
 
     def dialog_minigm2(self, screen,saved):
+        self.music.play(self.music.dialog1)
         #dialogue vérifié
         if saved == 'none':
             self.cinematic_frame(screen, "azw2", 2, "Tiens monsieur ? Vous ne serez pas par hasard un samouraï ?", kind_info=[['SM','no_weapon'],['VL2','no_weapon'],2])
@@ -133,6 +138,7 @@ class Dialogs(Cinematics):
 
 
     def dialog_minigm3(self, screen,saved):
+        self.music.play(self.music.dialog1)
         #dialogue vérifié
         if saved == 'none':
             self.cinematic_frame(screen, "azw2", 2, "Oh ? Un samouraï ? Je vous souhaite la bienvenue à Aizuwakamatsu.", kind_info=[['VL3','no_weapon'],['SM','no_weapon'],1])
@@ -196,6 +202,7 @@ class Dialogs(Cinematics):
 
     def dialog_infiltration(self,screen,saved,filature_reussie=True):
         #dialogue vérifié
+        self.music.play(self.music.theme_tkh1)
         if saved=='none':
             self.cinematic_frame(screen, "tkh1", 1,"Toc Toc", kind_info=["SM","SM", "no_weapon","right"])
             self.cinematic_frame(screen,"tkh1",2,"Vous faites partie du clan ? Quel est le code ?",kind_info=[['SM','no_weapon'],['TW','no_weapon'],2,None,None,['TW']])
@@ -245,6 +252,7 @@ class Dialogs(Cinematics):
                 self.cinematic_frame(screen, "tkh1", 2, "C'est sûrement une sous-planque de Takahiro, faisons-nous discrets.",kind_info=[['SM', 'no_weapon'],['KT','no_weapon'],1])
 
     def dialog_infiltration_base(self,screen,saved):
+        self.music.play(self.music.theme_tkh1)
         #dialogue vérifié
         if saved=='none' or saved=='KM':
             self.cinematic_frame(screen,"tkh1",1,"Bon, que faire maintenant ?",kind_info=["SM","SM", "no_weapon","right"])

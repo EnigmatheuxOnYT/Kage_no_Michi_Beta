@@ -136,7 +136,7 @@ class Update:
 
 class Direction:
     def __init__(self,no,reasons,dirs):
-        self.no = no
+        self.no = no #Nombre 
         self.reasons = reasons #-1 pour tout
         self.dirs = dirs #next pour la prochaine scène
 
@@ -167,6 +167,9 @@ class GPPMap(GamePlayPhase):
         self.display_zones = display_zones
         self.path=path
         self.updates = updates
+    
+    def setup (self):pass
+
 
 
 class GPPCinematic(GamePlayPhase):

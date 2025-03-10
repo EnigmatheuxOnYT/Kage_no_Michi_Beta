@@ -17,15 +17,17 @@ class Perso:
     """
     Classe représentant un personnage du jeu.
     """
-    def __init__(self, name:str, pv_max:int, weapon:Weapon,level:int=1,instance:int=0): #Toutes les variables nécessaires pour la création d'un personnage
-        self.name = name+str(instance) #Son nom, ATTENTION LE NOM DEFINIT LE SPRITE CHOISI !!
-        self.sprite_name = name
+    def __init__(self, name:str,spritename:str, pv_max:int, weapon:Weapon,level:int=1,instance:int=0): #Toutes les variables nécessaires pour la création d'un personnage
+        self.name = name #Son nom
+        self.sprite_name = spritename
         self.pv_max = pv_max #Ses hp max
         self.pv = pv_max #Ses pv, qui vont prendre tout simplement la valeur de ses pvs
         self._base_damage = 2
         self.weapon = weapon
         self.do_attacks = True
         self.level = 1 #niveau du personnage
+        self.level_xp = 5
+        self.xp = 0
         self.set_level(level)
         sprite = pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Idle.png") #Le spirte quand il reste immobile
         self.image = pygame.transform.scale(sprite, (200,200)) #On redimensionne le sprite de sorte à ce que ça soit cohérent avec le fond
@@ -63,13 +65,20 @@ class Perso:
         self.pv_max=int(round(self.pv_max*1.1,0))
         self._base_damage=max(int(round(self._base_damage*1.1,0)),self._base_damage+1)
         self.pv = self.pv_max
+        self.level_xp = int(self.level_xp*1.1)+2
+    
+    def give_xp (self,xp):
+        self.xp += xp
+        if self.xp >= self.level_xp:
+            self.xp-=self.level_xp
+            self.level_up()
     
     def set_level (self,level):
         diff = max(level-self.level,0)
         for i in range(diff):
             self.level_up()
     
-    def hit (self,damage):
+    def hit (self,damage:int):
         self.pv = max(self.pv-damage,0)
     
     def change_weapon (self,weapon):self.weapon=weapon
@@ -139,12 +148,12 @@ class Fight_assets:
         self.zero = Weapon(name="no_weapon",weapon_damage=-100,)
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
-        self.Musashi = Perso("Musashi",10,self.op_weapon,level = 10)
-        self.Musashi_jeune = Perso("Musashi",5,self.training_katana)
-        self.pantin_de_combat = Perso("Soldat1",10,self.zero)
+        self.Musashi = Perso("Musashi","Musashi",10,self.op_weapon,level = 10)
+        self.Musashi_jeune = Perso("Musashi","Musashi",5,self.training_katana)
+        self.pantin_de_combat = Perso("Pantin de combat", "Soldat1",30,self.zero)
         self.pantin_de_combat.set_do_attaks(False)
-        self.guerrier_takahiro = Perso('Soldat1',70,self.no_weapon)
-        self.guerrier_takahiro2 = Perso('Soldat1', 70,self.no_weapon)
+        self.guerrier_takahiro = Perso('Guerrier', "Soldat1",70,self.no_weapon)
+        self.guerrier_takahiro2 = Perso('Guerrier', "Soldat1", 70,self.no_weapon)
         #self.ma_Juzo = Perso('Ma_Juzo',200, self.tengoku_no_ikari,level=10)
 
 if __name__ == "__main__":

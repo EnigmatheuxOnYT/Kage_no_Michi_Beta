@@ -346,9 +346,9 @@ class minigm_survivors :
         elif self.correct_choices >= 6:
             if self.frame == 1:
                 
-                self.line1 = "Après plusieurs heures d’efforts, le village commence à reprendre forme."
+                self.line1 = "Après plusieurs heures d'efforts, le village commence à reprendre forme."
                 self.line2 = "Les survivants, bien que blessés et épuisés,"
-                self.line3 = "trouvent un semblant de réconfort dans l’organisation instaurée par Musashi."
+                self.line3 = "trouvent un semblant de réconfort dans l'organisation instaurée par Musashi."
     
                 screen.blit(self.sprites[choice]['left']["no_weapon"]['secondary'],self.cin.rects_caracters['left'])
                 char = 'N'
@@ -367,7 +367,7 @@ class minigm_survivors :
                     
                 elif self.frame == 3:
                     
-                    self.line1 = "C’est trop tard... je les ai déjà perdus."
+                    self.line1 = "C'est trop tard... je les ai déjà perdus."
                     self.line2 = ""
                     self.line3 = ""
                     
@@ -388,7 +388,7 @@ class minigm_survivors :
                 
                 elif self.frame == 3:
                     
-                    self.line1 = "Je n’ai pas encore réussi, Keiko."
+                    self.line1 = "Je n'ai pas encore réussi, Keiko."
                     self.line2 = "Mais je te promets que je ferai tout pour que ça tienne."
                     self.line3 = ""
                     
@@ -400,7 +400,7 @@ class minigm_survivors :
             elif choice == "KT":
                 if self.frame == 2:
                     
-                    self.line1 = "Tu t’en sors mieux que personne, comme toujours."
+                    self.line1 = "Tu t'en sors mieux que personne, comme toujours."
                     self.line2 = ""
                     self.line3 = ""
                     
@@ -410,7 +410,7 @@ class minigm_survivors :
                 
                 elif self.frame == 3:
                     
-                    self.line1 = "C’est toi qui dis ça, alors que tu m’as épaulé à chaque étape ?"
+                    self.line1 = "C'est toi qui dis ça, alors que tu m'as épaulé à chaque étape ?"
                     self.line2 = "Merci, Takeshi."
                     self.line3 = ""
                     

@@ -105,6 +105,12 @@ class NPC(Entity,Interactible):
         self.current_point=0
     
     @property
+    def collision_rect(self):
+        rect=pygame.Rect(0,0,34,10)
+        rect.midbottom = self.rect.midbottom
+        return rect
+    
+    @property
     def interraction_rect(self):
         if self.is_interractible:
             rect=pygame.Rect(0,0,50,50)
@@ -127,13 +133,13 @@ class NPC(Entity,Interactible):
             self.direction = ""
         
             if current_rect.y < target_rect.y and abs(current_rect.x - target_rect.x) < 3:
-                self.direction += "down"
+                self.direction = "down"
             elif current_rect.y > target_rect.y and abs(current_rect.x - target_rect.x) < 3:
-                self.direction += "up"
-            if current_rect.x > target_rect.x and abs(current_rect.y - target_rect.y) < 3:
-                self.direction += "left"
+                self.direction = "up"
+            elif current_rect.x > target_rect.x and abs(current_rect.y - target_rect.y) < 3:
+                self.direction = "left"
             elif current_rect.x < target_rect.x and abs(current_rect.y - target_rect.y) < 3:
-                self.direction += "right"
+                self.direction = "right"
         
             if self.direction != "":
                 self.move_dir(self.direction)
@@ -162,7 +168,8 @@ class NPC(Entity,Interactible):
     def load_points(self,tmx_data):
         for num in range(1,self.nb_points+1):
             point=tmx_data.get_object_by_name(f"{self.name}_path{num}")
-            rect=pygame.Rect(point.x, point.y, point.width, point.height)
+            rect=pygame.Rect(0, 0, 8, 8)
+            rect.center = (point.x,point.y)
             self.points.append(rect)
     
     def change_dialog(self,new_dialog:NPCDialog):
@@ -174,6 +181,7 @@ class StaticEntity(pygame.sprite.Sprite):
     def __init__(self, name, x, y,direction):
         super().__init__()
         self.name = name
+        self.nb_points = 0
         self.position = (x, y)
         self.sprite_sheet = pygame.image.load(f"../data/assets/sprites/{name}.png")
         sprite_height = self.get_sprite_height(direction)
