@@ -235,14 +235,11 @@ class Game:
         for npc in self.map.map_manager.get_map().npcs:
             if npc.instance_name==interaction.npc_name:
                 __npc = npc
-            else:
-                print(npc.instance_name,interaction.npc_name)
         for _ in range(len(interaction.actions)):
             self.handle_action(interaction.current_action,__npc)
             interaction.next_action()
         if interaction.end():
             __npc.next_interaction()
-        print(__npc.name,npc.instance_name,"a")
         self.temporary_storage=None
     
     def handle_action(self,action,__npc):

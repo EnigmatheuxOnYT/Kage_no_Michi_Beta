@@ -220,7 +220,6 @@ class MapManager :
             for npc in self.get_map().npcs:
                 if npc.is_interactible and self.player.feet.colliderect(npc.interaction_rect) and npc.current_interaction is not None:
                     self.current_active_events.append(npc.current_interaction.event)
-                    print("EEEEE")
                 if self.player.feet.colliderect(npc.collision_rect):
                     if not npc.is_moving_object:
                         self.player.move_back()
