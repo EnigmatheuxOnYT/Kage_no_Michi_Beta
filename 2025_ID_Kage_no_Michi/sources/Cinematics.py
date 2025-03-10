@@ -53,6 +53,8 @@ class Cinematics:
                       'VL2' : self.font_MFMG25.render("Villageois",False,(0,0,0)),
                       'VL3' : self.font_MFMG25.render("Villageoise",False,(0,0,0)),
                       }
+        self.males = ['P','N','SM','SH','TK','KT','JM','TW','TW_H','TWs','VL1','VL2','SA','Y?']
+        self.females = ['KM','VL3']
         
         self.rect_names = pygame.Rect(60,460,200,50)
         
@@ -431,14 +433,31 @@ class Cinematics:
                 keys_cooldown = False
             
             if not written:
-                if self.current_last_letter[0] < len(line1):
-                    self.current_last_letter[0] += 1
-                elif self.current_last_letter[1] < len(line2):
-                    self.current_last_letter[1] += 1
-                elif self.current_last_letter[2] < len(line3):
-                    self.current_last_letter[2] += 1
-                else:
-                    written = True
+                if name in self.males:
+                    if self.current_last_letter[0] < len(line1):
+                        self.sound.Dialogue_H_1.play()
+                        self.current_last_letter[0] += 1
+                    elif self.current_last_letter[1] < len(line2):
+                        self.sound.Dialogue_H_2.play()
+                        self.current_last_letter[1] += 1
+                    elif self.current_last_letter[2] < len(line3):
+                        self.sound.Dialogue_H_3.play()
+                        self.current_last_letter[2] += 1
+                    else:
+                        written = True
+
+                elif name in self.females:
+                    if self.current_last_letter[0] < len(line1):
+                        self.sound.Dialogue_F_1.play()
+                        self.current_last_letter[0] += 1
+                    elif self.current_last_letter[1] < len(line2):
+                        self.sound.Dialogue_F_2.play()
+                        self.current_last_letter[1] += 1
+                    elif self.current_last_letter[2] < len(line3):
+                        self.sound.Dialogue_F_3.play()
+                        self.current_last_letter[2] += 1
+                    else:
+                        written = True
                     
             else:
                 if next_indicator_frame == 60:
