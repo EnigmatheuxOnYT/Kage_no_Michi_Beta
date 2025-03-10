@@ -75,7 +75,8 @@ class Sound:
         self.arbre = self.sound("SFX_arbre")
         self.H_Essoufle = self.sound("SFX_Essoufle")
         self.F_Essoufle = self.sound("SFX_F_Essoufle")
-    
+        self.confused = self.sound('SFX_Confused_1')
+        self.crowdpanic = self.sound('SFX_CrowdPanic_1')
     
     def sound (self,file):
         sound = pygame.mixer.Sound(f"../data/assets/sounds/{file}.mp3")
