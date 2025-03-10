@@ -72,7 +72,17 @@ class Sound:
         self.heartbeat = self.sound("SFX_Heartbeat_1")
         self.struggle = self.sound("SFX_Struggle_1")
         self.anxiety = self.sound("SFX_Anxiety_1")
-    
+        self.arbre = self.sound("SFX_arbre")
+        self.H_Essoufle = self.sound("SFX_Essoufle")
+        self.F_Essoufle = self.sound("SFX_F_Essoufle")
+        self.confused = self.sound('SFX_Confused_1')
+        self.crowdpanic = self.sound('SFX_CrowdPanic_1')
+        self.Dialogue_H_1 = self.sound("Homme_Dialogue_1")
+        self.Dialogue_H_2 = self.sound("Homme_Dialogue_2")
+        self.Dialogue_H_3 = self.sound("Homme_Dialogue_3")
+        self.Dialogue_F_1 = self.sound("Femme_Dialogue_1")
+        self.Dialogue_F_2 = self.sound("Femme_Dialogue_2")
+        self.Dialogue_F_3 = self.sound("Femme_Dialogue_3")
     
     def sound (self,file):
         sound = pygame.mixer.Sound(f"../data/assets/sounds/{file}.mp3")

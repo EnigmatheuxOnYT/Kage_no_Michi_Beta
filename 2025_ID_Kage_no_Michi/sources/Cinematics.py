@@ -53,6 +53,8 @@ class Cinematics:
                       'VL2' : self.font_MFMG25.render("Villageois",False,(0,0,0)),
                       'VL3' : self.font_MFMG25.render("Villageoise",False,(0,0,0)),
                       }
+        self.males = ['P','N','SM','SH','TK','KT','JM','TW','TW_H','TWs','VL1','VL2','SA','Y?']
+        self.females = ['KM','VL3']
         
         self.rect_names = pygame.Rect(60,460,200,50)
         
@@ -431,14 +433,31 @@ class Cinematics:
                 keys_cooldown = False
             
             if not written:
-                if self.current_last_letter[0] < len(line1):
-                    self.current_last_letter[0] += 1
-                elif self.current_last_letter[1] < len(line2):
-                    self.current_last_letter[1] += 1
-                elif self.current_last_letter[2] < len(line3):
-                    self.current_last_letter[2] += 1
-                else:
-                    written = True
+                if name in self.males:
+                    if self.current_last_letter[0] < len(line1):
+                        self.sound.Dialogue_H_1.play()
+                        self.current_last_letter[0] += 1
+                    elif self.current_last_letter[1] < len(line2):
+                        self.sound.Dialogue_H_2.play()
+                        self.current_last_letter[1] += 1
+                    elif self.current_last_letter[2] < len(line3):
+                        self.sound.Dialogue_H_3.play()
+                        self.current_last_letter[2] += 1
+                    else:
+                        written = True
+
+                elif name in self.females:
+                    if self.current_last_letter[0] < len(line1):
+                        self.sound.Dialogue_F_1.play()
+                        self.current_last_letter[0] += 1
+                    elif self.current_last_letter[1] < len(line2):
+                        self.sound.Dialogue_F_2.play()
+                        self.current_last_letter[1] += 1
+                    elif self.current_last_letter[2] < len(line3):
+                        self.sound.Dialogue_F_3.play()
+                        self.current_last_letter[2] += 1
+                    else:
+                        written = True
                     
             else:
                 if next_indicator_frame == 60:
@@ -1854,12 +1873,208 @@ class Cinematics:
         self.ecran_noir(screen)
 
 
+    def cinematic_21(self,screen,saved):
+        if saved=='none':
+            self.music.play(self.music.exploration)
+            self.cinematic_frame(screen, "forest2", 1, "Le temps presse. Il faut que j'atteigne la ville d'Aizuwakamatsu au plus", "vite !",kind_info=['SM','SM','no_weapon','left'])
+            self.cinematic_frame(screen, "forest2", 1, "Mon objectif reste le même: Venger mon village natal. Alors, allons-y!",kind_info=['SM','SM','no_weapon','left'])
+            self.cinematic_frame(screen, "forest2", 1, "La sortie.. Je la vois !",kind_info=['SM','SM','no_weapon','left'])
+            self.cinematic_frame(screen, "forest2", 1, "Aizuwakamatsu.. Me voilà !",kind_info=['SM','SM','no_weapon','left'])
+            self.sound.arbre.play()
+            self.cinematic_frame(screen, "forest2", 0, "SCHLAC !")
+            self.cinematic_frame(screen, "forest2", 0, "(Deux arbres ont été coupées pour bloquer le passage)")
+            self.cinematic_frame(screen, "forest2", 1, " ! ! !",kind_info=['SM','SM','no_weapon','left'])
+            self.cinematic_frame(screen, "forest2", 1, "Qui a bloqué ce passage ?!",kind_info=['SM','SM','no_weapon','left'])
+            self.cinematic_frame(screen, "forest2", 0, "(L'escouade de Takahiro apparaît)")
+            self.music.play(self.music.theme_tkh1)
+            self.cinematic_frame(screen, 'forest2', 3, "Shikisha Musashi du village de Magome.. ",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'],  1])
+            self.cinematic_frame(screen, 'forest2', 3, "Vous avez osé chercher la tête de notre dirigeant..",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'],  2])
+            self.cinematic_frame(screen, 'forest2', 3, "L'heure est donc venue pour vous d'être puni pour vos crimes.",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, 'forest2', 3, "Puisque nous sommes l'escouade du clan Takahiro ! !",kind_info=[ ['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, 'forest2', 3, "...",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "...",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, 'forest2', 3, "...",kind_info=[['TW_H', 'no_weapon'],['TW', 'no_weapon'], ['SM', 'no_weapon'],  1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "Vas-tu réagir, insolent ?",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'],  1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "Eh ? C'est vous avec vos poses de fanfare ! Vous ne faîtes que d'embarrasser", "votre clan.",kind_info=[ ['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Embarrasser ? Hors de question ! La pose de la victoire est un atout", "extrêmement important pour un guerrier !",kind_info=[['TW_H', 'no_weapon'],['TW', 'no_weapon'], ['SM', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "Evidemment mon cher ! Tout le monde le fait. Pourquoi ce ne serait pas le", "cas ?",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "A ce que je sache, les samouraïs ne font pas des poses de la victoire à la", "fin de leurs combats..",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 3])
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen, 'forest2', 3, "Quel bande d'idiots ces deux-là..",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Bref, revenons à nos moutons. Si ces personnes tentent de m'assassiner..",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Il faut que je fasse le meilleur choix possible.",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Dois-je plutôt fuir ? Ou peut-être les combattre ? Ou même encore se servir","de l'environnement, et donc du milieu alentour à mon avantage ? Que faire ?",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 3])
+            self.switch_lowercase(False)
+            output1, output2 = self.choice_frame(screen, "forest2", [0, 3], ["FUIR", "COMBATTRE", "UTILISER MILIEU"])
+        elif saved =='KM':
+            self.music.play(self.music.exploration)
+            self.cinematic_frame(screen, "forest2", 2, "Le temps presse. Il faut que j'atteigne la ville d'Aizuwakamatsu au plus", "vite !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],1])
+            self.cinematic_frame(screen, "forest2", 2, "Mon objectif reste le même : Venger mon village natal. Alors, allons-y!",kind_info=[['SM','no_weapon'],['KM','no_weapon'],1])
+            self.cinematic_frame(screen, "forest2", 2, "Attends-moi grand-frère !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],2])
+            self.cinematic_frame(screen, "forest2", 2, "La sortie.. Je la vois !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],1])
+            self.cinematic_frame(screen, "forest2", 2, "Enfin ! Nous sommes enfin arrivés !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],2])
+            self.cinematic_frame(screen, "forest2", 2, "Aizuwakamatsu.. Me voilà !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],1])
+            self.sound.arbre.play()
+            self.cinematic_frame(screen, "forest2", 0, "SCHLAC !")
+            self.cinematic_frame(screen, "forest2", 0, "(Deux arbres ont été coupées pour bloquer le passage)")
+            self.cinematic_frame(screen, "forest2", 2, " ! ! !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],1])
+            self.cinematic_frame(screen, "forest2", 2, " ! ! !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],2])
+            self.cinematic_frame(screen, "forest2", 2, "Qui a bloqué ce passage ?!",kind_info=[['SM','no_weapon'],['KM','no_weapon'],1])
+            self.cinematic_frame(screen, "forest2", 0, "(L'escouade de Takahiro apparaît)")
+            self.music.play(self.music.theme_tkh1)
+            self.cinematic_frame(screen, 'forest2', 3, "Shikisha Musashi du village de Magome.. ",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Vous avez osé chercher la tête de notre dirigeant..",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW_H', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "L'heure est donc venue pour vous d'être puni pour vos crimes.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Puisque nous sommes l'escouade du clan Takahiro ! !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW_H', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "...",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW', 'no_weapon'], 1])
+            self.cinematic_frame(screen, 'forest2', 3, "...",kind_info=[['KM', 'no_weapon'], ['SM', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "...",kind_info=[['KM', 'no_weapon'], ['SM', 'no_weapon'],['TW', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "...",kind_info=[['KM', 'no_weapon'], ['SM', 'no_weapon'],['TW_H', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Allez-vous réagir, bande d'insolents?",kind_info=[['KM', 'no_weapon'], ['SM', 'no_weapon'],['TW', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Eh ? C'est vous avec vos poses de fanfare ! Vous ne faîtes que d'embarrasser", "votre clan.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "Je suis d'accord avec Shikisha. C'est tout simplement embarrassant.",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "Embarrasser ? Hors de question ! La pose de la victoire est un atout", "extrêmement important pour un guerrier !",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'],['TW_H', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Evidemment mon cher ! Tout le monde le fait. Pourquoi ce ne serait pas le", "cas ?",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'],['TW', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "A ce que je sache, les samouraïs ne font pas des poses de la victoire à la", "fin de leurs combats..",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen, 'forest2', 3, "Quel bande d'idiots ces deux-là..",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW', 'no_weapon'], 1])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen, 'forest2', 3, "Shikisha, il faut qu'on se sorte d'ici. Je ne pense pas qu'on devrait les", "affronter..",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen, 'forest2', 3, "C'est vrai. Cependant, il faut que je considère mes options..",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "et il faut que je fasse le meilleur choix possible.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW', 'no_weapon'], 1])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen, 'forest2', 3, "Dois-je plutôt fuir? Ou peut-être les combattre ? Ou même encore se servir de", "l'environnement, et donc du milieu alentour à mon avantage ? Que faire ?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW', 'no_weapon'], 1])
+            output1, output2 = self.choice_frame(screen, "forest2", [0, 3], ["FUIR", "COMBATTRE", "UTILISER MILIEU"])
+        elif saved =='KT':
+            self.music.play(self.music.exploration)
+            self.cinematic_frame(screen, "forest2", 2, "Le temps presse. Il faut que j'atteigne la ville d'Aizuwakamatsu au plus", "vite !",kind_info=[['SM','no_weapon'],['KT','no_weapon'],1])
+            self.cinematic_frame(screen, "forest2", 2, "Oui. Nous devons y aller sans plus tarder. Allons-y !",kind_info=[['SM','no_weapon'],['KT','no_weapon'],2])
+            self.cinematic_frame(screen, "forest2", 2, "La sortie.. Je la vois !",kind_info=[['SM','no_weapon'],['KT','no_weapon'],1])
+            self.cinematic_frame(screen, "forest2", 2, "Nous sommes enfin arrivés à notre destination..",kind_info=[['SM','no_weapon'],['KT','no_weapon'],2])
+            self.cinematic_frame(screen, "forest2", 2, "Aizuwakamatsu.. Nous voilà !",kind_info=[['SM','no_weapon'],['KT','no_weapon'],1])
+            self.sound.arbre.play()
+            self.cinematic_frame(screen, "forest2", 0, "SCHLAC !")
+            self.cinematic_frame(screen, "forest2", 0, "(Deux arbres ont été coupées pour bloquer le passage)")
+            self.cinematic_frame(screen, "forest2", 2, " ! ! !",kind_info=[['SM','no_weapon'],['KT','no_weapon'],1])
+            self.cinematic_frame(screen, "forest2", 2, " ! ! !",kind_info=[['SM','no_weapon'],['KT','no_weapon'],2])
+            self.cinematic_frame(screen, "forest2", 2, "Qui a bloqué ce passage ?!",kind_info=[['SM','no_weapon'],['KT','no_weapon'],1])
+            self.cinematic_frame(screen, "forest2", 0, "(L'escouade de Takahiro apparaît)")
+            self.music.play(self.music.theme_tkh1)
+            self.cinematic_frame(screen, 'forest2', 3, "Shikisha Musashi du village de Magome.. ",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Vous avez osé chercher la tête de notre dirigeant..",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW_H', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "L'heure est donc venue pour vous d'être puni pour vos crimes.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Puisque nous sommes l'escouade du clan Takahiro ! !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW_H', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "...",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW', 'no_weapon'], 1])
+            self.cinematic_frame(screen, 'forest2', 3, "...",kind_info=[['KT', 'no_weapon'], ['SM', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "...",kind_info=[['KT', 'no_weapon'], ['SM', 'no_weapon'],['TW', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "...",kind_info=[['KT', 'no_weapon'], ['SM', 'no_weapon'],['TW_H', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Allez-vous réagir, bande d'insolents?",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'],['TW', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Eh ? C'est vous avec vos poses de fanfare ! Vous ne faîtes que d'embarrasser", "votre clan.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "Je suis du même avis. Vous devez avoir honte. ",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "Embarrasser ? Hors de question ! La pose de la victoire est un atout", "extrêmement important pour un guerrier !",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'],['TW_H', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Evidemment mon cher ! Tout le monde le fait. Pourquoi ce ne serait pas le", "cas ?",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'],['TW', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "A ce que je sache, les samouraïs ne font pas des poses de la victoire à la", "fin de leurs combats..",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen, 'forest2', 3, "Quel bande d'idiots ces deux-là..",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW', 'no_weapon'], 1])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen, 'forest2', 3, "C'est un 2v2... À forces égales, je pense qu'on peut les battre.",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "Qu'en penses-tu Musashi ?",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'],['TW', 'no_weapon'], 1])
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen, 'forest2', 3, "C'est vrai, nous sommes des samouraïs. Cependant, il faut que je considère", "mes options..",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "et il faut que je fasse le meilleur choix possible.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW', 'no_weapon'], 1])
+            self.cinematic_frame(screen, 'forest2', 3, "Dois-je plutôt fuir? Ou peut-être les combattre ? Ou même encore se servir de", "l'environnement, et donc du milieu alentour à mon avantage ? Que faire ?",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW', 'no_weapon'], 1])
+            self.switch_lowercase(False)
+            output1, output2 = self.choice_frame(screen, "forest2", [0, 3], ["FUIR", "COMBATTRE", "UTILISER MILIEU"])
+
+    def cinematic_22(self,screen,saved):
+        self.music.play(self.music.theme_tkh1)
+        if saved == 'none':
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen, 'forest2', 3, "Très bien, je sais ce que je dois faire.",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 3])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen, 'forest2', 3, "J'aimerais bien vous affronter.. À condition que vous voyez ce qui se trouve", "derrière vous.",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Hein ?",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, 'forest2', 3, "Quoi ?",kind_info=[['TW_H', 'no_weapon'],['TW', 'no_weapon'], ['SM', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen,'forest2',0,"Les deux soldats du clan Takahiro se retournent stupidement")
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen, 'forest2', 3, "Ma chance !",kind_info=[['TW_H', 'no_weapon'],['TW', 'no_weapon'],['SM', 'no_weapon'], 3])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen, 'forest2', 3, "Une autre fois peut-être ! On se reverra plus tard !",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 3])
+            self.cinematic_frame(screen, 'forest2', 3, "Comment ?",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen, 'forest2', 3, "Il nous a bien eu !",kind_info=[['TW_H', 'no_weapon'],['TW', 'no_weapon'],['SM', 'no_weapon'], 1, True])
+            self.cinematic_frame(screen,'forest2',0,"(Musashi tente de s'enfuir avec le plus de force possible)")
+            self.ecran_noir(screen)
+            self.sound.H_Essoufle.play()
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen, "bamboo5", 1, "Sigh, sigh, sigh",kind_info=['SM','SM','no_weapon','left'])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen, "bamboo5", 1, "Phew.. Heureusement qu'ils sont tombés dans ma ruse, c'était moins d'une.",kind_info=['SM','SM','no_weapon','left'])
+            self.cinematic_frame(screen, "bamboo5", 1, "Trouvons maintenant un autre chemin pour aller dans la ville sans se faire", "repérer.",kind_info=['SM','SM','no_weapon','left'])
+        elif saved == 'KM':
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen,'forest2',3,"Très bien, je sais ce que je dois faire.",kind_info=[['SM','no_weapon'],['KM','no_weapon'],['TW','no_weapon'],1])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen,'forest2',3,"J'aimerais bien vous affronter.. À condition que vous voyez ce qui se trouve", "derrière vous.",kind_info=[['SM','no_weapon'],['KM','no_weapon'],['TW','no_weapon'],1])
+            self.cinematic_frame(screen,'forest2',3,"Hein ?",kind_info=[['SM','no_weapon'],['KM','no_weapon'],['TW','no_weapon'],3])
+            self.cinematic_frame(screen,'forest2',3,"Quoi ?",kind_info=[['SM','no_weapon'],['KM','no_weapon'],['TW_H','no_weapon'],3])
+            self.cinematic_frame(screen,'forest2',0,"Les deux soldats du clan Takahiro se retournent stupidement")
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen,'forest2',3,"Maintenant !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],['TW','no_weapon'],1])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen,'forest2',3,"Fuyons Keiko ! Une autre fois peut-être ! On se reverra plus tard !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],['TW','no_weapon'],1])
+            self.cinematic_frame(screen,'forest2',3,"Allez, on y va !",kind_info=[['KM','no_weapon'],['SM','no_weapon'],['TW','no_weapon'],1,True])
+            self.cinematic_frame(screen,'forest2',3,"Comment ?",kind_info=[['KM','no_weapon'],['SM','no_weapon'],['TW','no_weapon'],3])
+            self.cinematic_frame(screen,'forest2',3,"Il nous a bien eu !",kind_info=[['KM','no_weapon'],['SM','no_weapon'],['TW_H','no_weapon'],3])
+            self.cinematic_frame(screen,'forest2',0,"(Musashi et Keiko tentent de s'enfuir avec le plus de force possible)")
+            self.ecran_noir(screen)
+            self.sound.H_Essoufle.play()
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen,'bamboo5',2,"Sigh, sigh, sigh",kind_info=[['SM','no_weapon'],['KM','no_weapon'],1])
+            self.sound.F_Essoufle.play()
+            self.cinematic_frame(screen,'bamboo5',2,"Sigh, sigh, sigh",kind_info=[['SM','no_weapon'],['KM','no_weapon'],2])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen,'bamboo5',2,"Phew.. Heureusement qu'ils sont tombés dans ma ruse, c'était moins d'une.",kind_info=[['SM','no_weapon'],['KM','no_weapon'],1])
+            self.cinematic_frame(screen,'bamboo5',2,"Oui. C'était moins d'une.",kind_info=[['SM','no_weapon'],['KM','no_weapon'],2])
+            self.cinematic_frame(screen,'bamboo5',2,"Trouvons maintenant un autre chemin pour aller dans la ville sans se faire", "repérer.",kind_info=[['SM','no_weapon'],['KM','no_weapon'],1])
+            self.cinematic_frame(screen,'bamboo5',2,"Dans ce cas, je sais où aller. Suis-moi grand frère !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],2])
+            self.cinematic_frame(screen,'bamboo5',2,"Je te suis !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],1])
+        elif saved == 'KT':
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen,'forest2',3,"Très bien, je sais ce que je dois faire.",kind_info=[['SM','no_weapon'],['KT','no_weapon'],['TW','no_weapon'],1])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen,'forest2',3,"Même si on peut les battre Takeshi..Je pense qu'on devrait fuir.",kind_info=[['SM','no_weapon'],['KT','no_weapon'],['TW','no_weapon'],1])
+            self.cinematic_frame(screen,'forest2',3,"Pardon ? Pourquoi fuir ? Nous sommes des samouraïs !",kind_info=[['KT','no_weapon'],['SM','no_weapon'],['TW','no_weapon'],1, True])
+            self.cinematic_frame(screen,'forest2',3,"Nous ne sommes pas des lâches à ce que je sache..",kind_info=[['KT','no_weapon'],['SM','no_weapon'],['TW','no_weapon'],1])
+            self.cinematic_frame(screen,'forest2',3,"Je le sais. Mais ne dépensons pas toute notre énergie contre cette escouade.",kind_info=[['SM','no_weapon'],['KT','no_weapon'],['TW','no_weapon'],1, True])
+            self.cinematic_frame(screen,'forest2',3,"Il peut y avoir un ennemi beaucoup plus fort qu'on pourrait rencontrer", "bien plus tard.",kind_info=[['SM','no_weapon'],['KT','no_weapon'],['TW','no_weapon'],1])
+            self.cinematic_frame(screen,'forest2',3,"..Dans ce cas là, je suis désolé de te le dire Musashi..",kind_info=[['KT','no_weapon'],['SM','no_weapon'],['TW','no_weapon'],1, True])
+            self.cinematic_frame(screen,'forest2',3,"Mais je vais les affronter seul si tu ne souhaites pas venir m'aider dans ce", "combat.",kind_info=[['KT','no_weapon'],['SM','no_weapon'],['TW','no_weapon'],1])
+            self.cinematic_frame(screen,'forest2',3," ! ! !",kind_info=[['SM','no_weapon'],['KT','no_weapon'],['TW','no_weapon'],1, True])
+            self.cinematic_frame(screen,'forest2',3,"Mais pourtant Takeshi..Je pensais qu'on allait faire ce voyage ensemble..",kind_info=[['SM','no_weapon'],['KT','no_weapon'],['TW','no_weapon'],1])
+            self.cinematic_frame(screen,'forest2',3,"Je le pensais aussi..Mais on dirait que nos chemins se séparent.",kind_info=[['KT','no_weapon'],['SM','no_weapon'],['TW','no_weapon'],1, True])
+            self.cinematic_frame(screen,'forest2',3,"..Si jamais tu ressort de ce combat vivant, retrouvons nous à Aizuwakamatsu.",kind_info=[['SM','no_weapon'],['KT','no_weapon'],['TW','no_weapon'],1, True])
+            self.cinematic_frame(screen,'forest2',3,"Si tu le souhaites, alors pourquoi pas.",kind_info=[['KT','no_weapon'],['SM','no_weapon'],['TW','no_weapon'],1, True])
+            self.cinematic_frame(screen,'forest2',3,"Bonne chance Takeshi, ne meurs pas.",kind_info=[['SM','no_weapon'],['KT','no_weapon'],['TW','no_weapon'],1, True])
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen,'forest2',3,"Désolé Takeshi, mais c'est le choix le plus raisonnable que je puisse faire..","Je ne souhaite pas avoir recours à la violence.",kind_info=[['SM','no_weapon'],['KT','no_weapon'],['TW','no_weapon'],1])
+            self.switch_lowercase(False)
+            self.ecran_noir(screen)
+            self.cinematic_frame(screen,'forest2',3,"Sur ce, mettons nous au travail.",kind_info=[['TW_H','no_weapon'],['TW','no_weapon'],['KT','no_weapon'],3])
+            self.cinematic_frame(screen,'forest2',3,"Ne meurs pas vite.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['KT','no_weapon'],1, True])
+            self.cinematic_frame(screen,'forest2',3,"J'espère que tu ne fuiras pas à la fin du combat comme ton camarade.",kind_info=[['TW_H','no_weapon'],['TW','no_weapon'],['KT','no_weapon'],1, True])
+            self.cinematic_frame(screen,'forest2',3,"Ne nous sous-estime pas si tu penses pouvoir gagner facilement ce combat.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['KT','no_weapon'],1, True])
+
+
+
+
+
 
 if __name__ == '__main__':
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    output = c.cinematic_15(screen, "KM", True, True)
+    output = c.cinematic_22(screen, "KT")
     print(output)
     pygame.quit()
