@@ -55,6 +55,11 @@ class NPCRepeatInteraction(Action):
         self.name="NPCRepeatInteraction"
         self.repetitions=repetitions
         self.repetitions_left=repetitions
+
+class NPCMinigame(Action):
+    def __init__(self,minigame_no):
+        Action.__init__(self,"NPCMinigame")
+        self.minigame_no = minigame_no
     
     def read(self):
         if self.repetitions==-1:
@@ -121,5 +126,23 @@ CharactersInteractions = {"Hoshida1":[Interaction(npc_name="Hoshida1",
                                                              NPCRemove()
                                                              ]
                                                     ),
-                                       ]
+                                       ],
+                           "Villager10":[Interaction(npc_name="Villager10",
+                                                    actions=[NPCMinigame(minigame_no=9),
+                                                             NPCRepeatInteraction()
+                                                             ]
+                                                     )
+                                        ],
+                           "Villager20":[Interaction(npc_name="Villager20",
+                                                   actions=[NPCMinigame(minigame_no=10),
+                                                            NPCRepeatInteraction()
+                                                            ]
+                                                    )
+                                       ],
+                           "Villager30":[Interaction(npc_name="Villager30",
+                                                   actions=[NPCMinigame(minigame_no=8),
+                                                            NPCRepeatInteraction()
+                                                            ]
+                                                    )
+                                       ],
                            }

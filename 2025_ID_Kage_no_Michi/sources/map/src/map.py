@@ -39,6 +39,8 @@ class Map:
     display_zones : List[DisplayZone]
     sub_paths : List[SubPath]
     npcs : List[NPC]
+    has_follower : bool
+    default_layer : int
 
 class MapManager :
 
@@ -106,11 +108,12 @@ class MapManager :
                                                ],
                                   npcs=[],
                                   layer=2,
-                                  placed_correctly=True
+                                  placed_correctly=True,
+                                  has_follower=True
                                   )
                 self.current_map = self.maps_names["mg8"]
         else:
-            Loading.display_loading(screen, 68,"Chargement de la carte principale")
+            Loading.display_loading(screen, 69,"Chargement de la carte principale")
             self.register_map("MAP PROJET NSI 2025 500x500",
                               spawn_name="spawn_Magome",
                               event_zones=[Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="entrance_dojo_ine",entities=["Player"], events=[Event(type="gpp",data=["Chap1_e3_map","dojo_ine"])]),
@@ -122,7 +125,8 @@ class MapManager :
                                          {'name':'river','lengh':2},
                                          {"name":"forest_ine","lengh":3},
                                          {'name':"forest_azw","lengh":3}],
-                              layer=8
+                              layer=8,
+                              has_follower=True
                               )
             Loading.display_loading(screen, 77,"Chargement des cartes secondaires")
             self.register_map("Magome cinematic",
@@ -171,19 +175,22 @@ class MapManager :
                                            ],
                               npcs=[],
                               layer=2,
-                              placed_correctly=True
+                              placed_correctly=True,
+                              has_follower=True
                               )
             self.register_map(name="Aizu_detruite",
                               spawn_name="spawn",
                               portals=[],
-                              npcs=[NPC(name="Villager1", start_pos=[320,512],nb_points=4,speed=1.5),
-                                    NPC(name="Villager2", start_pos=[1632,1408],nb_points=4,speed=1.5),
-                                    NPC(name="Villager3", start_pos=[1184,1152],nb_points=4,speed=1.5)
+                              npcs=[NPC(name="Villager1", start_pos=[320,512],nb_points=6,speed=1),
+                                    NPC(name="Villager2", start_pos=[1632,1408],nb_points=4,speed=1),
+                                    NPC(name="Villager3", start_pos=[1184,1152],nb_points=5,speed=1)
                                     ],
                               event_zones=[Event_zone("Aizu_detruite","exit",["Player"],[Event(type="ggp",data=["Chap2_e3_map","exit"])])],
                               sub_paths=[],
                               layer=8,
-                              placed_correctly=True)
+                              placed_correctly=True,
+                              has_follower=True
+                              )
         self.teleport_player_spawn()
         self.teleport_npcs()
 
@@ -216,10 +223,13 @@ class MapManager :
                 if self.player.feet.colliderect(npc.collision_rect):
                     if not npc.is_moving_object:
                         self.player.move_back()
+                    #else:
+                    #    npc.move_back()
+                    #    self.player.move_back()
                 
             #collisions
             for sprite in self.get_group().sprites():
-                if sprite.is_moving_object:
+                if sprite.is_moving_object and sprite.collidable:
                     if sprite.feet.collidelist(self.get_walls()) > -1 :
                         sprite.move_back()
             
@@ -253,7 +263,7 @@ class MapManager :
         self.teleport_npcs()
          
 
-    def register_map(self,name,spawn_name,portals=[],npcs=[],event_zones=[],sub_paths=[],layer="",placed_correctly=False):
+    def register_map(self,name,spawn_name,portals=[],npcs=[],event_zones=[],sub_paths=[],layer="",placed_correctly=False,has_follower=False):
 
         # Charger la map tmx
         if placed_correctly:
@@ -302,7 +312,7 @@ class MapManager :
             group.add(displayzone)
 
         #Enregistrement de la nouvelle map chargée
-        self.maps[name] = Map(name,walls,group,tmx_data,spawn,portals,event_zones,display_zones,sub_paths_list,npcs)
+        self.maps[name] = Map(name,walls,group,tmx_data,spawn,portals,event_zones,display_zones,sub_paths_list,npcs,has_follower,layer)
     
     def get_map_subpaths(self,tmx_data,sub_paths:list):
         sub_paths_list=[]

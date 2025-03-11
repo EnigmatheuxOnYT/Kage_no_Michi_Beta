@@ -93,14 +93,14 @@ class minigm_MashingGame:
         self.screen = screen
         self.music.play(self.music.exploration)
         if saved=='none':
-            self.cin.cinematic_frame(screen, 'azw2', 2, "Très bien, je vais la retrouver pour vous. Restez en sécurité.", kind_info=[["SM","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'azw2', 2, "Merci infiniment ! Cette pierre est tout ce qu’il me reste de mes ancêtres...", kind_info=[["SM","no_weapon"],["VL1", "no_weapon"], 2], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 2, "Très bien, je vais la retrouver pour vous. Restez en sécurité.", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 2, "Merci infiniment ! Cette pierre est tout ce qu’il me reste de mes ancêtres...", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 2], running=self.running)
         elif saved=='KM':
-            self.cin.cinematic_frame(screen, 'azw2', 3, "Très bien, je vais la retrouver pour vous. Restez en sécurité.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'azw2', 3, "Merci infiniment ! Cette pierre est tout ce qu’il me reste de mes ancêtres...", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL1", "no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 3, "Très bien, je vais la retrouver pour vous. Restez en sécurité.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 3, "Merci infiniment ! Cette pierre est tout ce qu’il me reste de mes ancêtres...", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
         elif saved=='KT':
-            self.cin.cinematic_frame(screen, 'azw2', 3, "Très bien, je vais la retrouver pour vous. Restez en sécurité.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'azw2', 3, "Merci infiniment ! Cette pierre est tout ce qu’il me reste de mes ancêtres...", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1", "no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 3, "Très bien, je vais la retrouver pour vous. Restez en sécurité.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'azw2', 3, "Merci infiniment ! Cette pierre est tout ce qu’il me reste de mes ancêtres...", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
         self.music.play(self.music.intro)
         self.cin.cinematic_frame(screen, 'azw2', 0, "Appuyez rapidement sur la touche indiquée pour accumuler de la force et", "soulever les débris avant la fin du temps imparti !", kind_info=[[], 0], running=self.running)   
         self.in_minigm = True
@@ -110,33 +110,33 @@ class minigm_MashingGame:
         # Lancement de la cinématique de fin en fonction de la réussite ou de l'échec
         if self.current_level >= self.num_levels:
             if saved=='none':
-                self.cin.cinematic_frame(screen, 'azw2', 2, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez ceci, ce n’est pas grand-chose, mais c’est tout ce que je peux offrir.", kind_info=[["SM","no_weapon"],["VL1", "no_weapon"], 2], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 2, "Ce n’était pas nécessaire, mais je vous remercie.", "Gardez bien cette pierre, elle est précieuse. Prenez soin de vous.", kind_info=[["SM","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 2, "Que les esprits veillent sur vous ! Bonne chance à vous, noble samouraï !", kind_info=[["SM","no_weapon"],["VL1", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez ceci, ce n’est pas grand-chose, mais c’est tout ce que je peux offrir.", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "Ce n’était pas nécessaire, mais je vous remercie.", "Gardez bien cette pierre, elle est précieuse. Prenez soin de vous.", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "Que les esprits veillent sur vous ! Bonne chance à vous, noble samouraï !", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 2], running=self.running)
             elif saved=='KM':
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez ceci, ce n’est pas grand-chose, mais c’est tout ce que je peux offrir.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL1", "no_weapon"], 3], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Ce n’était pas nécessaire, mais je vous remercie.", "Gardez bien cette pierre, elle est précieuse. Prenez soin de vous.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Que les esprits veillent sur vous ! Bonne chance à vous, noble samouraï !", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL1", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez ceci, ce n’est pas grand-chose, mais c’est tout ce que je peux offrir.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Ce n’était pas nécessaire, mais je vous remercie.", "Gardez bien cette pierre, elle est précieuse. Prenez soin de vous.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Que les esprits veillent sur vous ! Bonne chance à vous, noble samouraï !", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
             elif saved=='KT':
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez ceci, ce n’est pas grand-chose, mais c’est tout ce que je peux offrir.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1", "no_weapon"], 3], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Ce n’était pas nécessaire, mais je vous remercie.", "Gardez bien cette pierre, elle est précieuse. Prenez soin de vous.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Que les esprits veillent sur vous ! Bonne chance à vous, noble samouraï !", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez ceci, ce n’est pas grand-chose, mais c’est tout ce que je peux offrir.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Ce n’était pas nécessaire, mais je vous remercie.", "Gardez bien cette pierre, elle est précieuse. Prenez soin de vous.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Que les esprits veillent sur vous ! Bonne chance à vous, noble samouraï !", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
         else:
             if saved=='none':
-                self.cin.cinematic_frame(screen, 'azw2', 2, "Je.. Je suis désolé. J’ai fouillé partout mais je ne parviens pas à", "retrouver votre pierre précieuse...", kind_info=[["SM","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 2, "Non... C’est impossible... Cette pierre représentait des générations entières", "d’histoire familiale...", kind_info=[["SM","no_weapon"],["VL1", "no_weapon"], 2], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 2, "Peut-être qu’avec le temps, les débris seront plus faciles à déplacer.", "Je reviendrai essayer plus tard.", kind_info=[["SM","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 2, "...D’accord. Je vais attendre ici.", kind_info=[["SM","no_weapon"],["VL1", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "Je.. Je suis désolé. J’ai fouillé partout mais je ne parviens pas à", "retrouver votre pierre précieuse...", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "Non... C’est impossible... Cette pierre représentait des générations entières", "d’histoire familiale...", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "Peut-être qu’avec le temps, les débris seront plus faciles à déplacer.", "Je reviendrai essayer plus tard.", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "...D’accord. Je vais attendre ici.", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 2], running=self.running)
             elif saved=='KM':
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Je.. Je suis désolé. J’ai fouillé partout mais je ne parviens pas à", "retrouver votre pierre précieuse...", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Non... C’est impossible... Cette pierre représentait des générations entières", "d’histoire familiale...", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL1", "no_weapon"], 3], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Peut-être qu’avec le temps, les débris seront plus faciles à déplacer.", "Je reviendrai essayer plus tard.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 3, "...D’accord. Je vais attendre ici.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL1", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Je.. Je suis désolé. J’ai fouillé partout mais je ne parviens pas à", "retrouver votre pierre précieuse...", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Non... C’est impossible... Cette pierre représentait des générations entières", "d’histoire familiale...", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Peut-être qu’avec le temps, les débris seront plus faciles à déplacer.", "Je reviendrai essayer plus tard.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "...D’accord. Je vais attendre ici.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
             elif saved=='KT':
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Je.. Je suis désolé. J’ai fouillé partout mais je ne parviens pas à", "retrouver votre pierre précieuse...", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Non... C’est impossible... Cette pierre représentait des générations entières", "d’histoire familiale...", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1", "no_weapon"], 3], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Peut-être qu’avec le temps, les débris seront plus faciles à déplacer.", "Je reviendrai essayer plus tard.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1", "no_weapon"], 1], running=self.running)
-                self.cin.cinematic_frame(screen, 'azw2', 3, "...D’accord. Je vais attendre ici.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL1", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Je.. Je suis désolé. J’ai fouillé partout mais je ne parviens pas à", "retrouver votre pierre précieuse...", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Non... C’est impossible... Cette pierre représentait des générations entières", "d’histoire familiale...", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Peut-être qu’avec le temps, les débris seront plus faciles à déplacer.", "Je reviendrai essayer plus tard.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "...D’accord. Je vais attendre ici.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
         self.playing = False
      
     ########## Partie 1 : évènements ##########

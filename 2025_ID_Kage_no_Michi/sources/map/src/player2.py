@@ -9,6 +9,7 @@ from map.src.animation import AnimateSprite
 from map.src.Interactions import *
 from typing import List
 from dataclasses import dataclass
+import copy
 
 
 class Entity(AnimateSprite):
@@ -25,6 +26,7 @@ class Entity(AnimateSprite):
         self.direction = ""
         self.allow_sprint=True
         self.is_moving_object=True
+        self.collidable = True
 
     def get(self):
         self.image = self.images["down"]
@@ -54,6 +56,9 @@ class Entity(AnimateSprite):
     
     def add_dir (self,direction):
         self.direction += direction
+    
+    def set_dir (self,direction):
+        self.direction = direction
 
     def update(self):
         self.rect.topleft = self.position
@@ -103,6 +108,7 @@ class NPC(Entity,Interactible):
         self.points= []
         self.speed=speed
         self.current_point=0
+        self.allow_sprint=False
     
     @property
     def collision_rect(self):
@@ -111,13 +117,21 @@ class NPC(Entity,Interactible):
         return rect
     
     @property
-    def interraction_rect(self):
-        if self.is_interractible:
+    def interaction_rect(self):
+        if self.is_interactible:
             rect=pygame.Rect(0,0,50,50)
         else:
             rect=pygame.Rect(0,0,0,0)
         rect.center=self.rect.midbottom
         return rect
+    
+    def reload (self):
+        name = self.name
+        start_pos = self.start_pos
+        nb_points = self.nb_points
+        speed = self.speed
+        instance = self.instance
+        self.__init__(name,start_pos,nb_points,speed,instance)
 
     def move_points(self):
         if self.nb_points !=0:
@@ -149,10 +163,7 @@ class NPC(Entity,Interactible):
         
     def _get_interractions(self):
         try:
-            if self.instance==0:
-                return CharactersInteractions[self.name]
-            else:
-                return CharactersInteractions[self.name+str(self.instance)]
+            return CharactersInteractions[self.name+str(self.instance)]
         except:
             return []
 
@@ -168,7 +179,7 @@ class NPC(Entity,Interactible):
     def load_points(self,tmx_data):
         for num in range(1,self.nb_points+1):
             point=tmx_data.get_object_by_name(f"{self.name}_path{num}")
-            rect=pygame.Rect(0, 0, 8, 8)
+            rect=pygame.Rect(0, 0, 16, 16)
             rect.center = (point.x,point.y)
             self.points.append(rect)
     
@@ -192,6 +203,7 @@ class StaticEntity(pygame.sprite.Sprite):
         self.rect.center=self.position
         self.direction = direction
         self.is_moving_object=False
+        self.collidable = False
     
     def get_sprite_height(self,direction):
         if direction=='down':
@@ -220,6 +232,8 @@ class StaticNPC(StaticEntity,Interactible):
             rect=pygame.Rect(0,0,0,0)
         rect.center=self.rect.midbottom
         return rect
+    
+    def reload (self):pass
 
     def _get_interactions(self):
         try:
@@ -241,3 +255,45 @@ class StaticNPC(StaticEntity,Interactible):
     def interract(self):pass
         
     
+class Follower(Entity):
+    def __init__(self,name):
+        super().__init__(name,0,0)
+        self.collidable = False
+        self.active = False
+    
+    def reload (self):
+        name = self.name
+        self.__init__(name)
+    
+    def init_pos (self,pos,speed):
+        self.position = pos
+        self.speed = speed
+        self.movment_queue = [pos for _ in range(30)]
+        self.speed_queue = [speed for _ in range(30)]
+        self.save_location()
+
+    
+    def update_move(self,pos,speed):
+        self.speed_queue.append(copy.deepcopy(speed))
+        self.speed = self.speed_queue.pop(0)
+        self.movment_queue.append(copy.deepcopy(pos))
+        position = self.movment_queue.pop(0)
+
+        direct = ""
+        if position[1] > self.position[1]:
+            direct += "down"
+        elif position[1] < self.position[1]:
+            direct += "up"
+        if position[0] < self.position[0]:
+            direct += "left"
+        elif position[0] > self.position[0]:
+            direct += "right"
+
+        if direct != "":
+            self.move_dir(direct)
+        self.position = position
+        self.update()
+        self.save_location()
+        self.direction = direct
+    
+    def set_active(self,state):self.active = state
