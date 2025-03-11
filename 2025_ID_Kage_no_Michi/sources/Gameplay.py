@@ -90,7 +90,6 @@ class Launcher:
         pygame.mouse.set_visible(True)
         
         
-        self.music.play(fade=500)
         
         if cinematic == 1:
             self.cinematics.cinematic_01(self.screen_for_game)
@@ -119,9 +118,7 @@ class Launcher:
         pygame.mouse.set_visible(False)
     
     def launch_dialog(self,dialog,choices=None):
-        
-        
-        self.music.play(fade=500)
+        pass
 
 
 @dataclass

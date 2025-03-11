@@ -65,7 +65,8 @@ class Game:
         Loading.display_loading(screen, 67,"Lancement du module de cinématiques")
         self.cinematics = Cinematics()
         Loading.display_loading(screen, 67,"Lancement du module de la carte")
-        self.map = Game_map(screen)
+        self.map_screen_surface = pygame.surface.Surface((1280,720))
+        self.map = Game_map(self.map_screen_surface)
         self.paths = self._get_paths(paths_list)
         self.current_path=self.paths[0]
         Loading.display_loading(screen, 80,"Finalisation")
@@ -213,7 +214,6 @@ class Game:
             
             elif event.type == "interaction":
                 self.current_interaction = {"is":True,"interaction":event.data[0]}
-                print(event.data[0])
             
             elif event.type == "gpp_next":
                 self.next_gpp(event.data[0])
@@ -225,7 +225,6 @@ class Game:
                 self.location = event.data[0]
             
             elif event.type=='gpp':
-                print("alpha")
                 self.update_scene(event.data)
 
     
@@ -457,9 +456,9 @@ class Game:
         if self.blank:
             self.begin()
         
-            
-        self.music.play(fade=500)
-            
+        print()
+        
+                        
         if self.dead:
             self.death()
             self.save_savefile()
@@ -616,10 +615,11 @@ class Game:
         ########## Dessin du jeu (partie 3) ##########
         if self.in_gameplay:
             self.map.map_manager.draw()
+            screen.blit(self.map_screen_surface,(0,0))
             self.draw_overlap(screen)
             if self.draw_arrow:
                 self.screen_for_game.blit(self.current_arrow_surface,self.current_arrow_rect)
-                pygame.display.flip()
+            #pygame.display.flip() AAAAAAAAAAAA
             return True
         return False
     
