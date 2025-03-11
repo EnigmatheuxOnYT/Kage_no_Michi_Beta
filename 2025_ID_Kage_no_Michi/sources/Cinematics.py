@@ -85,6 +85,7 @@ class Cinematics:
                                'tkh1' : self.load("bgs","Fond_Planque_Takahiro_Nuit_1").convert(),
                                'tkh2' : self.load("bgs","Fond_Planque_Takahiro_Jour_1").convert(),
                                'tkh3' : self.load("bgs","Fond_Planque_Takahiro_Nuit_2").convert(),
+                               'tkh4' : self.load("bgs","Fond_Planque_Takahiro_Jour_2").convert(),
                                'azw2' : self.load("bgs","Fond_Aizuwakamatsu_Détruit_1").convert(),
                                'azw1' : self.load("bgs","Fond_Aizuwakamatsu_2").convert(),
                                'azw2' : self.load("bgs","Fond_Aizuwakamatsu_Détruit_1").convert(),
@@ -1328,38 +1329,38 @@ class Cinematics:
         self.music.play(self.music.found)
         #cinématique vérifiée
         if saved =='none':
-            self.cinematic_frame(screen, "tkh3", 1," ! ! !",kind_info=["SM", "SM", "no_weapon", "right"])
-            self.cinematic_frame(screen, "tkh3", 1,"Attends une minute..ce lieu..",kind_info=["SM", "SM", "no_weapon", "right"])
-            self.cinematic_frame(screen, "tkh3", 1,"Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=["SM", "SM", "no_weapon", "right"])
-            self.cinematic_frame(screen, "tkh3", 1,"Mais oui ! La planque se situait près du village de Magome depuis tout ce","temps !",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "tkh4", 1," ! ! !",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "tkh4", 1,"Attends une minute..ce lieu..",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "tkh4", 1,"Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "tkh4", 1,"Mais oui ! La planque se situait près du village de Magome depuis tout ce","temps !",kind_info=["SM", "SM", "no_weapon", "right"])
             self.switch_lowercase(True)
-            self.cinematic_frame(screen, "tkh3", 1,"Tout s'explique ! Je sais désormais où aller !",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "tkh4", 1,"Tout s'explique ! Je sais désormais où aller !",kind_info=["SM", "SM", "no_weapon", "right"])
             self.switch_lowercase(False)
-            self.cinematic_frame(screen, "tkh3", 1,"Je n'ai pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y", "va ! ",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "tkh4", 1,"Je n'ai pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y", "va ! ",kind_info=["SM", "SM", "no_weapon", "right"])
         elif saved=='KM':
-            self.cinematic_frame(screen, "tkh3", 2, "..grand frère ?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "tkh3", 2," ! ! !",kind_info=[["SM", "no_weapon"], ['KM', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "tkh3", 2, "Attends une minute..ce lieu..",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "tkh3", 2, "Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "tkh3", 2, "Mais oui ! La planque se situait près de Magome depuis tout ce temps !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "..grand frère ?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2," ! ! !",kind_info=[["SM", "no_weapon"], ['KM', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2, "Attends une minute..ce lieu..",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Mais oui ! La planque se situait près de Magome depuis tout ce temps !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
             self.switch_lowercase(True)
-            self.cinematic_frame(screen, "tkh3", 2, "Tout s'explique ! Je sais désormais où aller !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Tout s'explique ! Je sais désormais où aller !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
             self.switch_lowercase(False)
-            self.cinematic_frame(screen, "tkh3", 2, "On n'a pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y ","va ! ",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "tkh3", 2, "Attends tu sais où se trouve la base du clan Takahiro…?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "tkh3", 2, "Oui ! On doit faire vite !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "On n'a pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y ","va ! ",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Attends tu sais où se trouve la base du clan Takahiro…?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2, "Oui ! On doit faire vite !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
         elif saved=='KT':
-            self.cinematic_frame(screen, "tkh3", 2," ! ! !",kind_info=[["SM", "no_weapon"], ['KT', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "tkh3", 2, "Musashi ? Quelque chose te tracasse ? ",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "tkh3", 2, "Attends une minute..ce lieu..",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "tkh3", 2, "Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "tkh3", 2, " ? ? ? Tu sais où se situe la base de l'ennemi ?",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "tkh3", 2, "Mais oui ! La planque se situait près de Magome depuis tout ce temps !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2," ! ! !",kind_info=[["SM", "no_weapon"], ['KT', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2, "Musashi ? Quelque chose te tracasse ? ",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2, "Attends une minute..ce lieu..",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, " ? ? ? Tu sais où se situe la base de l'ennemi ?",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2, "Mais oui ! La planque se situait près de Magome depuis tout ce temps !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
             self.switch_lowercase(True)
-            self.cinematic_frame(screen, "tkh3", 2, "Tout s'explique ! Je sais désormais où aller !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Tout s'explique ! Je sais désormais où aller !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
             self.switch_lowercase(False)
-            self.cinematic_frame(screen, "tkh3", 2, "On n'a pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y","va ! ",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "tkh3", 2, "Si tu le dis, alors je te fais confiance. Allons-y !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2, "On n'a pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y","va ! ",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Si tu le dis, alors je te fais confiance. Allons-y !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
         self.ecran_noir(screen)
 
 
@@ -2163,6 +2164,6 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    output = c.cinematic_07(screen,"KM")
+    output = c.cinematic_14(screen,"KM")
     print(output)
     pygame.quit()
