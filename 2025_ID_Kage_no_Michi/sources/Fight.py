@@ -344,7 +344,7 @@ class Fight:
             screen.blit(text_potion,rect_potion)
 
         #Joueur
-        text = self.police_base.render(self.perso_player.sprite_name+' NIV : '+str(self.perso_player.level)+' PV : '+str(self.perso_player.pv),False,self.VERT)
+        text = self.police_base.render(self.perso_player.sprite_name+ ' LVL:'+str(self.perso_player.level)+' PV : '+str(self.perso_player.pv),False,self.VERT)
         screen.blit(text,(100,790-self.HAUTEUR_PANEL))
         ratio = self.perso_player.pv / self.perso_player.pv_max #Différence entre les pvs actuel et les pv maxs
         pygame.draw.rect(screen, self.ROUGE, (100, 820-self.HAUTEUR_PANEL, 400, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
@@ -353,7 +353,7 @@ class Fight:
         #Alliés
         for i in range(len(self.allies)):
             ally = self.allies[i]
-            text = self.police_base.render(ally.sprite_name+' NIV : '+str(ally.level)+' PV : '+str(ally.pv),False,self.VERT)
+            text = self.police_base.render(ally.sprite_name+' LVL:'+str(ally.level)+' PV : '+str(ally.pv),False,self.VERT)
             screen.blit(text,(100,790-self.HAUTEUR_PANEL+60*(i+1)))
             ratio = ally.pv / ally.pv_max #Différence entre les pvs actuel et les pv maxs
             pygame.draw.rect(screen, self.ROUGE, (100, 820-self.HAUTEUR_PANEL+60*(i+1), 400, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
@@ -362,7 +362,7 @@ class Fight:
         #Ennemis
         for i in range(len(self.persos_ennemy)):
             ennemy = self.persos_ennemy[i]
-            text = self.police_base.render(ennemy.sprite_name+' NIV : '+str(ennemy.level)+' PV : '+str(ennemy.pv),False,self.PINK)
+            text = self.police_base.render(ennemy.sprite_name+' LVL:'+str(ennemy.level)+' PV : '+str(ennemy.pv),False,self.PINK)
             screen.blit(text,(700,790-self.HAUTEUR_PANEL+60*(i)))
             ratio = ennemy.pv / ennemy.pv_max #Différence entre les pvs actuel et les pv maxs
             pygame.draw.rect(screen, self.ROUGE, (700, 820-self.HAUTEUR_PANEL+60*(i), 400, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
@@ -433,7 +433,13 @@ class Fight:
         if self.allow_normal:
             screen.blit(self.attaque_frontale_box, (15, 200))
         if self.allow_spe:
-            screen.blit(self.attaque_special_box, (15, 320))
+
+            if self.attaque_frontale_compteur == 4:
+                self.attaque_special_box =  pygame.image.load("../data/assets/minigm/Attaque_Speciale_V1.png").convert_alpha()
+                screen.blit(self.attaque_special_box, (15, 320))
+            else:
+                self.attaque_special_box = pygame.image.load("../data/assets/minigm/Attaque_Speciale_Sombre_V1.png").convert_alpha()
+                screen.blit(self.attaque_special_box, (15,320))
     
     def draw_hint(self,screen):
         if self.pop_text_timer_lengh-pygame.time.get_ticks()+self.hint_timer<=0:
@@ -471,5 +477,5 @@ if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
-    Fight().run(screen,'ine1',fight_assets.Musashi,[],[fight_assets.guerrier_takahiro,fight_assets.guerrier_takahiro2],100)
+    Fight().run(screen,'ine1',fight_assets.Musashi,[],[fight_assets.Takahiro],100)
     pygame.quit()
