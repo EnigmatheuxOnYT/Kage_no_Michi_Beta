@@ -31,6 +31,7 @@ class Music:
         self.found = "Music_Found_Takahiro_Planque.mp3"
         self.choiceAizu = "Music_Choice_Aizu.mp3"
         self.zen = "Music_Zen.mp3"
+        self.epic = "Music_Epic.mp3"
 
         #Thèmes :
         self.theme_tkh1 = "Takahiro_Theme_V1.mp3"
