@@ -159,7 +159,6 @@ class Game:
         
         
         pygame.mouse.set_visible(False)
-        self.music.play(fade=500)
         
         loading_save = False
         in_game = True
@@ -202,6 +201,8 @@ class Game:
             
             if event.type == "choice":
                 self.choices[event.data[0]]=event.data[1]
+                if event.data[0]==0:
+                    self.map.set_follower(event.data[1])
             
             elif event.type == 'cinematic':
                 self.launch_cinematic(cinematic=event.data[0])
@@ -258,7 +259,6 @@ class Game:
             self.launch_minigame(action.minigame_no)
         elif action.type =='NPCRepeatInteraction':
             pass
-
             
 
 
@@ -456,7 +456,6 @@ class Game:
         if self.blank:
             self.begin()
         
-        print()
         
                         
         if self.dead:
