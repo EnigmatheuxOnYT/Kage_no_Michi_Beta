@@ -147,6 +147,8 @@ class Game:
         
         self.load_player_data(save_data)
         
+        in_game = True
+        
         if self.loaded_save == 0:
             self.blank = False
             self.in_gameplay=True
@@ -167,7 +169,6 @@ class Game:
         pygame.mouse.set_visible(False)
         
         loading_save = False
-        in_game = True
         print(f"Sauvegarde {self.loaded_save} chargée")
         
         
@@ -440,6 +441,8 @@ class Game:
             self.choices[2] = choice
         elif cinematic == 11:
             self.cinematics.cinematic_11(self.screen_for_game,choices[0],choices[2])
+        elif cinematic == 23:
+            self.cinematics.cinematic_23(self.screen_for_game)
         
         pygame.mouse.set_visible(False)
         return choice
@@ -505,6 +508,8 @@ class Game:
                 self.in_gameplay=True
             elif gpp.type == "GPPFight":
                 self.launch_fight(gpp.bg,gpp.ennemies)
+            elif gpp.type=='GPPDeath':
+                self.death()
         
 
     def update_scene (self,data=[]):

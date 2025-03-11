@@ -2139,23 +2139,23 @@ class Cinematics:
             self.cinematic_frame(screen,'forest2',3,"J'espère que tu ne fuiras pas à la fin du combat comme ton camarade.",kind_info=[['TW_H','no_weapon'],['TW','no_weapon'],['KT','no_weapon'],1, True])
             self.cinematic_frame(screen,'forest2',3,"Ne nous sous-estime pas si tu penses pouvoir gagner facilement ce combat.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['KT','no_weapon'],1, True])
 
-    def cinematic_23(self,screen,reussi=True):
+    def cinematic_23(self,screen,saved='none'):
         self.music.play(self.music.theme_tkh1)
-        if reussi == True:
-            self.cinematic_frame(screen,'ine2',3,"Im-Impossible..",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],1])
-            self.cinematic_frame(screen,'ine2',3,"Comment est-il si puissant...",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],2,True])
-            self.cinematic_frame(screen,'ine2',3,"Je l'ai fait.. J'ai réussi à les battre.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],3])
-            self.ecran_noir(screen)
-            self.cinematic_frame(screen,'ine2',3,"MUSASHI!!",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2])
-            self.cinematic_frame(screen,'ine2',3,"Que s'est-il passé? J'ai entendu un vacarme à l'extérieur du dojo..",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2])
-            self.cinematic_frame(screen,'ine2',3,"..Ah tout s'explique.",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2])
-            self.cinematic_frame(screen,'ine2',3,"Vous voyez Sensei Hoshida? J'ai réussi à les battre, je suis devenu très", "fort !",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],1,True])
-            self.cinematic_frame(screen,'ine2',3,"Oui, mais c'est quand même inacceptable de ta part. Je suis très déçu que", "tu aies choisi la violence à la vigilance.",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2,True])
-            self.cinematic_frame(screen,'ine2',3," Je vous prie de m'excuser Sensei Hoshida, s'ils se sont enfuis, on", "obtiendrait de lourdes conséquences à l'avenir.",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],1,True])
-            self.cinematic_frame(screen,'ine2',3,"Néanmoins je te félicite quand même d'avoir combattu comme un samouraï. ",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2,True])
-        elif reussi == False:
-            self.cinematic_frame(screen,'ine2',3,"Tiens donc, un petit fouineur.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],1])
-            self.cinematic_frame(screen,'ine2',3,"On ne joue pas au plus malin avec le clan Takahiro. Tu aurais dû le savoir.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],2,True])
+        self.cinematic_frame(screen,'ine2',3,"Im-Impossible..",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],1])
+        self.cinematic_frame(screen,'ine2',3,"Comment est-il si puissant...",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],2,True])
+        self.cinematic_frame(screen,'ine2',3,"Je l'ai fait.. J'ai réussi à les battre.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],3])
+        self.ecran_noir(screen)
+        self.cinematic_frame(screen,'ine2',3,"MUSASHI!!",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2])
+        self.cinematic_frame(screen,'ine2',3,"Que s'est-il passé? J'ai entendu un vacarme à l'extérieur du dojo..",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2])
+        self.cinematic_frame(screen,'ine2',3,"..Ah tout s'explique.",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2])
+        self.cinematic_frame(screen,'ine2',3,"Vous voyez Sensei Hoshida? J'ai réussi à les battre, je suis devenu très", "fort !",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],1,True])
+        self.cinematic_frame(screen,'ine2',3,"Oui, mais c'est quand même inacceptable de ta part. Je suis très déçu que", "tu aies choisi la violence à la vigilance.",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2,True])
+        self.cinematic_frame(screen,'ine2',3," Je vous prie de m'excuser Sensei Hoshida, s'ils se sont enfuis, on", "obtiendrait de lourdes conséquences à l'avenir.",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],1,True])
+        self.cinematic_frame(screen,'ine2',3,"Néanmoins je te félicite quand même d'avoir combattu comme un samouraï. ",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2,True])
+
+    def cinematic_24(self,screen,saved='none'):
+        self.cinematic_frame(screen,'ine2',3,"Tiens donc, un petit fouineur.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],1])
+        self.cinematic_frame(screen,'ine2',3,"On ne joue pas au plus malin avec le clan Takahiro. Tu aurais dû le savoir.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],2,True])
 
 
 if __name__ == '__main__':

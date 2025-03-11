@@ -344,11 +344,14 @@ class Story:
                                                             GPPFight(name="fight_ch1_e4_1",
                                                                      bg='ine1',
                                                                      ennemies=[self.fa.guerrier_ch1_e4_1_1,self.fa.guerrier_ch1_e4_1_2],
-                                                                     dirs_data=[1,[-1],['next']]),
+                                                                     dirs_data=[1,[-1],['cinematic_23']]),
                                                             GPPFight(name="fight_ch1_e4_2",
                                                                      bg='ine1',
                                                                      ennemies=[self.fa.guerrier_ch1_e4_1_1,self.fa.guerrier_ch1_e4_1_2],
-                                                                     dirs_data=[1,[-1],['next']])
+                                                                     dirs_data=[1,[-1],['cinematic_23']]),
+                                                            GPPCinematic(name='cinematic_23',
+                                                                         cinematic_no=23,
+                                                                         dirs_data=[1,[-1],['cinematic_09']])
                                                             ]
                                                        ),
                                                                 
