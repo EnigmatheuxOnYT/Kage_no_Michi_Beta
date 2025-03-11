@@ -53,7 +53,7 @@ class Cinematics:
                       'VL2' : self.font_MFMG25.render("Villageois",False,(0,0,0)),
                       'VL3' : self.font_MFMG25.render("Villageoise",False,(0,0,0)),
                       }
-        self.males = ['P','N','SM','SH','TK','KT','JM','TW','TW_H','TWs','VL1','VL2','SA','Y?']
+        self.males = ['P','N','SM','SH','TK','KT','JM','TW','TW_H','TWs','VL1','VL2','SA','Y?',"DY","?","MJ","none"]
         self.females = ['KM','VL3']
         
         self.rect_names = pygame.Rect(60,460,200,50)
