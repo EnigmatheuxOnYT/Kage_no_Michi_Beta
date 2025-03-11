@@ -981,7 +981,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="8" name="collisions" visible="0">
+ <objectgroup id="8" name="collisions">
   <object id="19" type="collisions" x="0" y="1720" width="2244" height="196"/>
   <object id="20" type="collisions" x="1808" y="1622.67" width="433.333" height="100"/>
   <object id="21" type="collisions" x="-4" y="1634.67" width="394.667" height="105.333"/>
@@ -1048,7 +1048,7 @@
   <object id="88" type="collisions" x="632.667" y="742" width="9.33333" height="20.6667"/>
   <object id="89" type="collisions" x="704" y="704" width="32" height="16"/>
  </objectgroup>
- <objectgroup id="10" name="spawn" visible="0">
+ <objectgroup id="10" name="spawn">
   <object id="71" name="spawn" x="362.667" y="813.333">
    <point/>
   </object>

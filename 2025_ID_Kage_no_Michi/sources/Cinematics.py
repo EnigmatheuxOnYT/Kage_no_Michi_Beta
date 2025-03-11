@@ -2077,6 +2077,6 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    output = c.cinematic_01(screen)
+    output = c.cinematic_21(screen,"KM")
     print(output)
     pygame.quit()
