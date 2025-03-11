@@ -1122,7 +1122,7 @@ class Cinematics:
                 self.sound.achievement.play()
                 self.cinematic_frame(screen, "bamboo2", 0,"Musashi obtient l'une des 7 épées légendaires: Le“Tengoku no Ikari”et", "poursuit son voyage pour venger son village natal. Sera-t-il conforme", "aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
             elif choose == 4:
-                self.music.play(self.music.zen)
+                self.music.play(self.music.epic)
                 self.cinematic_frame(screen, 'bamboo2', 2,"Pardonnez moi, mais je n'ai pas le choix de vous le prendre de force.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2,"Je ne vais pas dépenser mon argent sur une arme qui pourrait être une arnaque.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2,"Es-tu si sûr de ça mon garçon ? Je te déconseille fortement de me sous-", "estimer.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
@@ -1176,7 +1176,7 @@ class Cinematics:
                 self.sound.achievement.play()
                 self.cinematic_frame(screen, "bamboo2", 0,"Musashi obtient l'une des 7 épées légendaires: Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
             elif choose == 4:
-                self.music.play(self.music.zen)
+                self.music.play(self.music.epic)
                 self.cinematic_frame(screen, 'bamboo2', 3,"Pardonnez moi, mais je n'ai pas le choix de vous le prendre de force.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"QUe fais-tu grand frère ! ?",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'],['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Je ne vais pas dépenser mon argent sur une arme qui pourrait être une arnaque.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
@@ -1232,7 +1232,7 @@ class Cinematics:
                 self.sound.achievement.play()
                 self.cinematic_frame(screen, "bamboo2", 0,"Musashi obtient l'une des 7 épées légendaires: Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
             elif choose ==4:
-                self.music.play(self.music.zen)
+                self.music.play(self.music.epic)
                 self.cinematic_frame(screen, 'bamboo2', 3,"Pardonnez moi, mais je n'ai pas le choix de vous le prendre de force.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Que fais-tu Musashi ! ?",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'],['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Je ne vais pas dépenser mon argent sur une arme qui pourrait être une arnaque.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
