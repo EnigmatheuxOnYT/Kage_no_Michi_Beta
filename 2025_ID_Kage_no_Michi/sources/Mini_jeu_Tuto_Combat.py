@@ -67,7 +67,6 @@ class minigm_tutofight :
     def load_assets(self):
         # Importer les images, sons etc.. ici (depuis "../data/assets")
         
-        
         ### Importation de la police d'écriture (taille des textes des dialogues)
         self.font_MFMG30 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",30)
     
@@ -122,10 +121,6 @@ class minigm_tutofight :
             pygame.event.post(event)
         
         self.fight.handle_imput()
-        
-
-        
-    
     
     ########## Partie 2 : Mise à jour ##########
     def minigm_update (self):
