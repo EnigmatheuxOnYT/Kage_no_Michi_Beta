@@ -983,26 +983,25 @@
  </layer>
  <objectgroup id="8" name="collisions">
   <object id="19" type="collisions" x="0" y="1720" width="2244" height="196"/>
-  <object id="20" type="collisions" x="1808" y="1622.67" width="433.333" height="100"/>
-  <object id="21" type="collisions" x="-4" y="1634.67" width="394.667" height="105.333"/>
-  <object id="22" type="collisions" x="-8" y="960" width="105.333" height="698.667"/>
+  <object id="20" type="collisions" x="1787" y="1622.67" width="454.333" height="100"/>
+  <object id="21" type="collisions" x="-4" y="1621.67" width="411.667" height="118.333"/>
+  <object id="22" type="collisions" x="-8" y="960" width="145.333" height="698.667"/>
   <object id="23" type="collisions" x="1.33333" y="-1.33333" width="93.3333" height="700"/>
-  <object id="24" type="collisions" x="94.6667" y="-8" width="64" height="616"/>
-  <object id="25" type="collisions" x="156" y="0" width="52" height="573.333"/>
-  <object id="26" type="collisions" x="192" y="0" width="64" height="445.333"/>
-  <object id="27" type="collisions" x="230.667" y="2.66667" width="92" height="381.333"/>
-  <object id="28" type="collisions" x="306.667" y="4" width="80" height="314.667"/>
+  <object id="24" type="collisions" x="94.6667" y="-8" width="64" height="684"/>
+  <object id="25" type="collisions" x="156" y="0" width="72" height="591.333"/>
+  <object id="26" type="collisions" x="192" y="0" width="75" height="445.333"/>
+  <object id="27" type="collisions" x="230.667" y="2.66667" width="103" height="381.333"/>
+  <object id="28" type="collisions" x="306.667" y="4" width="105" height="314.667"/>
   <object id="30" type="collisions" x="161.333" y="1.33333" width="2080" height="236"/>
-  <object id="31" type="collisions" x="740" y="232" width="249.333" height="52"/>
-  <object id="32" type="collisions" x="804" y="281.333" width="180" height="101.333"/>
-  <object id="33" type="collisions" x="894.667" y="376" width="38.6667" height="72"/>
-  <object id="34" type="collisions" x="2110.67" y="230.667" width="132" height="196"/>
+  <object id="31" type="collisions" x="740" y="232" width="249.333" height="83"/>
+  <object id="32" type="collisions" x="804" y="281.333" width="180" height="131.333"/>
+  <object id="34" type="collisions" x="2085.67" y="230.667" width="157" height="196"/>
   <object id="35" type="collisions" x="2045.33" y="220" width="120" height="116"/>
-  <object id="36" type="collisions" x="1992" y="226.667" width="104" height="54.6667"/>
-  <object id="37" type="collisions" x="1652" y="233.333" width="140" height="202.667"/>
-  <object id="38" type="collisions" x="1737.33" y="222.667" width="104" height="157.333"/>
-  <object id="39" type="collisions" x="1562.67" y="225.333" width="114.667" height="110.667"/>
-  <object id="40" type="collisions" x="1612" y="313.333" width="85.3333" height="72"/>
+  <object id="36" type="collisions" x="1992" y="226.667" width="104" height="70.6667"/>
+  <object id="37" type="collisions" x="1652" y="233.333" width="140" height="180.667"/>
+  <object id="38" type="collisions" x="1737.33" y="222.667" width="124" height="190.333"/>
+  <object id="39" type="collisions" x="1553.67" y="225.333" width="123.667" height="110.667"/>
+  <object id="40" type="collisions" x="1592" y="313.333" width="105.333" height="103"/>
   <object id="41" type="collisions" x="1512" y="214.667" width="80" height="77.3333"/>
   <object id="42" type="collisions" x="1736" y="1394.67" width="114.667" height="65.3333"/>
   <object id="43" type="collisions" x="1472" y="1237.33" width="62.6667" height="36"/>
@@ -1072,11 +1071,11 @@
   <object id="16" type="fire" x="1792" y="929.333" width="32" height="36"/>
   <object id="17" type="fire" x="2049.33" y="1150.67" width="33.3333" height="37.3333"/>
  </objectgroup>
- <objectgroup id="19" name="Actifs" visible="0">
+ <objectgroup id="19" name="Actifs">
   <object id="90" name="mgm_8" type="v3" x="1184" y="1152">
    <point/>
   </object>
-  <object id="80" name="exit" x="-24" y="688" width="64" height="276"/>
+  <object id="80" name="exit" x="-24" y="688" width="113" height="276"/>
   <object id="91" name="mgm_10" type="v2" x="1632" y="1408">
    <point/>
   </object>

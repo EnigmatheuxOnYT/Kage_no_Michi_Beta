@@ -17,7 +17,7 @@ class Perso:
     """
     Classe représentant un personnage du jeu.
     """
-    def __init__(self, name:str,spritename:str, pv_max:int, weapon:Weapon,level:int=1,instance:int=0): #Toutes les variables nécessaires pour la création d'un personnage
+    def __init__(self, name:str,spritename:str, pv_max:int, weapon:Weapon,attaque_frames:int,level:int=1,instance:int=0): #Toutes les variables nécessaires pour la création d'un personnage
         self.name = name #Son nom
         self.sprite_name = spritename
         self.pv_max = pv_max #Ses hp max
@@ -38,22 +38,13 @@ class Perso:
         self.orientation="gauche"
         self.pos=(0,0)
         self.attacking=False
-        self.animations_combat = [
-            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_1.png"),
-            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_2.png"),
-            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_3.png"),
-            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_4.png"),
-            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_5.png"),
-            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_6.png"),
-            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_7.png"),
-            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_8.png"),
-            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_9.png"),
-            pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_10.png"),
-            sprite
-        ] #Tous les sprites présents lors de l'animation d'attaque
-
+        self.animations_combat = []
+        for i in range(attaque_frames):
+            self.animations_combat.append(pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Combat_{i+1}.png"))
+        
         self.index = 0
-        self.max_index = 10
+        self.max_index = attaque_frames-1
+        self.fin_attaque = False
 
     @property
     def current_damage(self):return self._base_damage+self.weapon.weapon_damage
@@ -116,22 +107,30 @@ class Perso:
             pygame.image.load(f"../data/assets/tpt/sprites/{attaque_choisie}_9_V1.png")
         ]
 
-        if self.index == 0 or self.atk_frame_lengh-pygame.time.get_ticks()+self.debut_frame<=0:
+        if self.index == 0 or self.atk_frame_lengh-pygame.time.get_ticks()+self.debut_frame<=0 and self.attacking:
             self.index +=1
+
             if self.index>self.max_index:
                 self.index=0
                 self.attacking=False
+
             self.debut_frame = pygame.time.get_ticks()
-        if self.index!=0:
+
+        if self.index!=0 and self.attacking:
             image = pygame.transform.scale(self.animations_combat[self.index], (200,200))
             if self.orientation == "gauche":
                 image = pygame.transform.flip(image, True, False)
             screen.blit(image,(self.pos))
-            if self.index >= 2:
-                image_attaque = pygame.transform.scale(self.animations_attaque[self.index-2],(200,200))
+
+            if self.index >= 2 and self.fin_attaque == False and self.attacking: #Début de l'apparition de l'attaque choisie
+                index_attaque = min(self.index - 2, len(self.animations_attaque) - 1)
+                image_attaque = pygame.transform.scale(self.animations_attaque[index_attaque],(200,200))
                 if self.orientation == "gauche":
                     image_attaque = pygame.transform.flip(image_attaque, True, False)
                 screen.blit(image_attaque, ennemi_position)
+                if image_attaque == self.animations_attaque[8]:
+                    self.fin_attaque = True
+                
         else:
             self.draw_static(screen)
 
@@ -143,17 +142,22 @@ class Fight_assets:
     def __init__(self):
         #Armes à disposition
         self.tengoku_no_ikari = Weapon(name = 'Tengoku No Ikari', weapon_damage = 20,special_damage=10,crit_chance=0.1)
+        self.jigoku_no_shizuka = Weapon(name = "Jigoku no Shizuka", weapon_damage=20,special_damage=10, crit_chance=0.1)
         self.wood_katana = Weapon(name="wood_katana",weapon_damage=5,special_damage=5,crit_chance=0.05)
         self.training_katana = Weapon(name="wood_katana",weapon_damage=0,special_damage=5)
         self.zero = Weapon(name="no_weapon",weapon_damage=-100,)
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
-        self.Musashi = Perso("Musashi","Musashi",10,self.op_weapon,level = 10)
-        self.Musashi_jeune = Perso("Musashi","Musashi",5,self.training_katana)
-        self.pantin_de_combat = Perso("Pantin de combat", "Soldat1",30,self.zero)
+        self.Musashi = Perso("Musashi","Musashi",100,self.op_weapon,10,level = 30)
+        #self.Musashi_Tengoku = Perso("Musashi", "Musashi_Tengoku", 50, 30)
+        self.Musashi_jeune = Perso("Musashi","Musashi",5,self.training_katana,0)
+        self.pantin_de_combat = Perso("Pantin de combat", "Soldat1",30,self.zero,0)
         self.pantin_de_combat.set_do_attaks(False)
-        self.guerrier_takahiro = Perso('Guerrier', "Soldat1",70,self.no_weapon)
-        self.guerrier_takahiro2 = Perso('Guerrier', "Soldat1", 70,self.no_weapon)
+        self.guerrier_takahiro = Perso('Soldat1', "Soldat1",70,self.no_weapon,11)
+        self.guerrier_takahiro2 = Perso('Soldat2', "Soldat1", 70,self.no_weapon,11)
+        self.Takahiro = Perso("Kojiro Takahiro", "Takahiro", 200, self.op_weapon,12, 30)
+        #self.Senshi = Perso("Senshi Akuma", "Senshi", 50, self.jigoku_no_shizuka, 30)
+
         #self.ma_Juzo = Perso('Ma_Juzo',200, self.tengoku_no_ikari,level=10)
 
 if __name__ == "__main__":
