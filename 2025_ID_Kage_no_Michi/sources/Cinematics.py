@@ -883,7 +883,6 @@ class Cinematics:
     def cinematic_07 (self,screen,saved='none'):
         self.music.play(self.music.exploration)
         texts = {'none':"Takeshi..Keiko..Vous verrez, je vous vengerai ainsi que Magome.",'KM':"Takeshi...Tu verra, je te vengerai ainsi que Magome.",'KT':"Keiko...Tu verra, je te vengerai ainsi que Magome."}
-        self.cinematic_frame(screen, "bamboo2", 0, "En ce moment même...")
         if saved == 'none':
             self.sound.swoosh1.play()
             self.switch_lowercase(True)
