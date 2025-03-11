@@ -1112,10 +1112,18 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo1', 2, "Entendu ! Bon courage à vous aussi marchand Juzo !",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, "bamboo1", 0,"Musashi obtient l'une des 7 épées légendaires: Le“Tengoku no Ikari”et", "poursuit son voyage pour venger son village natal. Sera-t-il conforme", "aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
             elif choose == 4:
-                self.cinematic_frame(screen, 'bamboo1', 2, "Pardonnez moi, mais je n'aurais pas le choix de vous le prendre de force. Je","ne vais pas dépenser mon argent sur une arme qui pourrait être une arnaque.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo1', 2, "Es-tu si sûr de ça mon garçon? Je te déconseille fortement de me sous-estimer.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
-                self.cinematic_frame(screen, 'bamboo1', 2, "Je vous retourne la même réponse. Si vous me passez gentiment cette arme, je ","ne vous tuerai pas.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo1', 2, "Essaie encore, jeune homme. Tu vas regretter d'avoir dit de tels propos.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo1', 2,"Pardonnez moi, mais je n'ai pas le choix de vous le prendre de force.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
+                self.cinematic_frame(screen, 'bamboo1', 2,"Je ne vais pas dépenser mon argent sur une arme qui pourrait être une arnaque.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
+                self.cinematic_frame(screen, 'bamboo1', 2,"Es-tu si sûr de ça mon garçon ? Je te déconseille fortement de me sous-estimer.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo1', 2,"Je vous retourne la question. Donnez-moi cette arme, et je vous","laisserai la vie sauve.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
+                self.cinematic_frame(screen, 'bamboo1', 2,"Hahaha.. Quelle arrogance.", "Tu ne sais vraiment pas à qui tu t’adresses, hein ?","Essaie encore, jeune homme. Tu vas regretter d'avoir dit de tels propos.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo1', 0,"Avant même que Musashi ne puisse dégainer son arme,", "une sensation glaciale traverse son corps.")
+                self.cinematic_frame(screen, 'bamboo1', 0,"Un filet de sang jaillit de sa gorge. Son souffle se coupe.", "Ses jambes flanchent.")
+                self.cinematic_frame(screen, 'bamboo1', 0,"Le marchand Juzo le regarde avec un sourire narquois, essuyant", "la lame d’un kunai recouvert du sang de Musashi.")
+                self.cinematic_frame(screen, 'bamboo1', 1,"Quelle naïveté... Pensais-tu vraiment pouvoir me prendre quelque chose", "impunément ?",kind_info=[['JM', 'no_weapon'], 1])
+                self.cinematic_frame(screen, 'bamboo1', 1,"Les idiots cupides finissent toujours de la même façon.",kind_info=[['JM', 'no_weapon'], 1])
+                self.cinematic_frame(screen, 'black', 0,"Les ténèbres envahissent la vision de Musashi. Son voyage s’arrête ici...")
+                self.cinematic_frame(screen, 'black', 0,"FIN.")
         elif saved == 'KM':
             if choose == 1:
                 self.cinematic_frame(screen, 'bamboo1', 3, "Marché conclu. J'achète votre arme.",kind_info=[['SM', 'no_weapon'],['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
@@ -1153,13 +1161,19 @@ class Cinematics:
                 self.cinematic_frame(screen, "bamboo1", 0,"Musashi obtient l'une des 7 épées légendaires: Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
             elif choose == 4:
                 self.cinematic_frame(screen, 'bamboo1', 3,"Pardonnez moi, mais je n'ai pas le choix de vous le prendre de force.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo1', 3,"Eh ? ! Mais pourquoi ferais-tu cela grand frère ?",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
+                self.cinematic_frame(screen, 'bamboo1', 3,"QUe fais-tu grand frère ! ?",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'],['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo1', 3,"Je ne vais pas dépenser mon argent sur une arme qui pourrait être une arnaque.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
-                self.cinematic_frame(screen, 'bamboo1', 3,"Mais dans ce cas là refuse alors ? Cela ne te correspond pas !",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
-                self.cinematic_frame(screen, 'bamboo1', 3,"Es-tu si sûr de ça mon garçon? Je te déconseille fortement de me sous-estimer.",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 3])
-                self.cinematic_frame(screen, 'bamboo1', 3,"Je vous retourne la même réponse. Si vous me passez gentiment cette arme,","je ne vous tuerai pas.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
-                self.cinematic_frame(screen, 'bamboo1', 3,"Que deviens-tu grand frère...",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
-                self.cinematic_frame(screen, 'bamboo1', 3,"Essaie encore, jeune homme. Tu vas regretter d'avoir dit de tels propos.",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo1', 3,"Es-tu si sûr de ça mon garçon ? Je te déconseille fortement de me sous-estimer.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo1', 3,"Je vous retourne la question. Donnez-moi cette arme, et je vous","laisserai la vie sauve.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
+                self.cinematic_frame(screen, 'bamboo1', 3,"Ce n’est pas toi.. Ce n’est pas le frère que je connais !", "Tu piétines notre honneur.. celui de notre famille..", "Papa et maman.. ils auraient honte de toi..",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'],1, True])
+                self.cinematic_frame(screen, 'bamboo1', 3,"Hahaha.. Quelle arrogance.", "Tu ne sais vraiment pas à qui tu t’adresses, hein ?","Essaie encore, jeune homme. Tu vas regretter d'avoir dit de tels propos.",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo1', 0,"Avant même que Musashi ne puisse dégainer son arme,", "une sensation glaciale traverse son corps.")
+                self.cinematic_frame(screen, 'bamboo1', 0,"Un filet de sang jaillit de sa gorge. Son souffle se coupe.", "Ses jambes flanchent.")
+                self.cinematic_frame(screen, 'bamboo1', 0,"Le marchand Juzo le regarde avec un sourire narquois, essuyant", "la lame d’un kunai recouvert du sang de Musashi.")
+                self.cinematic_frame(screen, 'bamboo1', 2,"Quelle naïveté... Pensais-tu vraiment pouvoir me prendre quelque chose", "impunément ?",kind_info=[['KM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo1', 2,"Les idiots cupides finissent toujours de la même façon.",kind_info=[['KM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'black', 0,"Les ténèbres envahissent la vision de Musashi. Son voyage s’arrête ici...")
+                self.cinematic_frame(screen, 'black', 0,"FIN.")
         elif saved == 'KT':
             if choose == 1:
                 self.cinematic_frame(screen, 'bamboo1', 3, "Marché conclu. J'achète votre arme.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
@@ -1197,12 +1211,19 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo1', 0,"Musashi poursuit son voyage pour venger son village natal. Arrivera-t-il","à atteindre sa destination? A suivre dans le prochain épisode.")
             elif choose ==4:
                 self.cinematic_frame(screen, 'bamboo1', 3,"Pardonnez moi, mais je n'ai pas le choix de vous le prendre de force.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo1', 3,"Que fais-tu Musashi !?",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'],['JM', 'no_weapon'], 1, True])
+                self.cinematic_frame(screen, 'bamboo1', 3,"Que fais-tu Musashi ! ?",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'],['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo1', 3,"Je ne vais pas dépenser mon argent sur une arme qui pourrait être une arnaque.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
-                self.cinematic_frame(screen, 'bamboo1', 3,"Es-tu si sûr de ça mon garçon? Je te déconseille fortement de me sous-estimer.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
-                self.cinematic_frame(screen, 'bamboo1', 3,"Je vous retourne la même réponse. Si vous me passez gentiment cette arme,","je ne vous tuerai pas.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
+                self.cinematic_frame(screen, 'bamboo1', 3,"Es-tu si sûr de ça mon garçon ? Je te déconseille fortement de me sous-estimer.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo1', 3,"Je vous retourne la question. Donnez-moi cette arme, et je vous","laisserai la vie sauve.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo1', 3,"Tu t'opposes au code Bushido, cesse tes singeries !",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'],1, True])
-                self.cinematic_frame(screen, 'bamboo1', 3,"Essaie encore, jeune homme. Tu vas regretter d'avoir dit de tels propos. ",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo1', 3,"Hahaha.. Quelle arrogance.", "Tu ne sais vraiment pas à qui tu t’adresses, hein ?","Essaie encore, jeune homme. Tu vas regretter d'avoir dit de tels propos.",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo1', 0,"Avant même que Musashi ne puisse dégainer son arme,", "une sensation glaciale traverse son corps.")
+                self.cinematic_frame(screen, 'bamboo1', 0,"Un filet de sang jaillit de sa gorge. Son souffle se coupe.", "Ses jambes flanchent.")
+                self.cinematic_frame(screen, 'bamboo1', 0,"Le marchand Juzo le regarde avec un sourire narquois, essuyant", "la lame d’un kunai recouvert du sang de Musashi.")
+                self.cinematic_frame(screen, 'bamboo1', 2,"Quelle naïveté... Pensais-tu vraiment pouvoir me prendre quelque chose", "impunément ?",kind_info=[['KT', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo1', 2,"Les idiots cupides finissent toujours de la même façon.",kind_info=[['KT', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'black', 0,"Les ténèbres envahissent la vision de Musashi. Son voyage s’arrête ici...")
+                self.cinematic_frame(screen, 'black', 0,"FIN.")
         self.ecran_noir(screen)
 
     def cinematic_12(self,screen,saved):
@@ -1238,7 +1259,7 @@ class Cinematics:
     def cinematic_13(self,screen,saved):
         #cinématique vérifiée
         if saved=='none':
-            self.cinematic_frame(screen, "mgm8", 1," …Magome…Mon village natal.",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "mgm8", 1," ..Magome..Mon village natal.",kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen, "mgm8", 1,"Cela fait un petit moment que je ne l'ai pas visité.",kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen, "mgm8", 1,"Qu'est qu'il est devenu depuis mon départ ? Ah, le bon vieux temps.",kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen, "mgm8", 1,"J'avais eu plein de souvenirs de mon enfance.. J'aurai bien aimé", "rester enfant.",kind_info=["SM", "SM", "no_weapon", "right"])
@@ -1247,7 +1268,7 @@ class Cinematics:
             self.cinematic_frame(screen, "mgm8", 1,"Le bon vieux temps, quelle nostalgie..",kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen, "mgm8", 1,"C'est comme si je revivais ces moments d'enfance..",kind_info=["SM", "SM", "no_weapon", "right"])
         elif saved=='KM':
-            self.cinematic_frame(screen, "mgm8", 2, "…Magome…Mon village natal.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "mgm8", 2, "..Magome..Notre village natal.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
             self.cinematic_frame(screen, "mgm8", 2, "Cela fait longtemps qu'on ne l'a pas visité.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 2])
             self.cinematic_frame(screen, "mgm8", 2, "C'est vrai. Qu'est qu'il est devenu depuis nôtre départ ? Ah, le bon vieux", "temps.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
             self.cinematic_frame(screen, "mgm8", 2, "Nous avions eu plein de souvenirs de mon enfance.. J'aurai bien aimé", "rester enfant.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
@@ -1258,7 +1279,7 @@ class Cinematics:
             self.cinematic_frame(screen, "mgm8", 2, "J'aurai bien aimé revoir nos parents. Malheureusement ils ont péri lors de", "l'incident..",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 2])
             self.cinematic_frame(screen, "mgm8", 2, "Oui, c'est fort dommage. J'aimerai bien revivre mon enfance..",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
         elif saved == 'KT':
-            self.cinematic_frame(screen, "mgm8", 2, "…Magome…Nôtre village natal.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "mgm8", 2, "..Magome..Notre village natal.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
             self.cinematic_frame(screen, "mgm8", 2, "On est parti il y a 1 mois. En 1 mois, nous sommes devenus des samouraïs.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
             self.cinematic_frame(screen, "mgm8", 2, "Oui, cela fait un petit moment qu'on ne l'a pas visité.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
             self.cinematic_frame(screen, "mgm8", 2, "Qu'est qu'il est devenu depuis nôtre départ ? Ah, le bon vieux temps.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
@@ -1275,7 +1296,7 @@ class Cinematics:
         #cinématique vérifiée
         if saved =='none':
             self.cinematic_frame(screen, "mgm8", 1," ! ! !",kind_info=["SM", "SM", "no_weapon", "right"])
-            self.cinematic_frame(screen, "mgm8", 1,"Attends une minute..ce lieu…",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "mgm8", 1,"Attends une minute..ce lieu..",kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen, "mgm8", 1,"Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen, "mgm8", 1,"Mais oui! La planque se situait près du village de Magome depuis tout ce","temps !",kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen, "mgm8", 1,"(Tout s'explique ! Je sais désormais où aller !)",kind_info=["SM", "SM", "no_weapon", "right"])
@@ -1283,7 +1304,7 @@ class Cinematics:
         elif saved=='KM':
             self.cinematic_frame(screen, "mgm8", 2, "..grand frère ?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 2])
             self.cinematic_frame(screen, "mgm8", 2," ! ! !",kind_info=[["SM", "no_weapon"], ['KM', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "mgm8", 2, "Attends une minute..ce lieu…",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "mgm8", 2, "Attends une minute..ce lieu..",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
             self.cinematic_frame(screen, "mgm8", 2, "Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
             self.cinematic_frame(screen, "mgm8", 2, "Mais oui ! La planque se situait près de Magome depuis tout ce temps !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
             self.cinematic_frame(screen, "mgm8", 2, "(Tout s'explique ! Je sais désormais où aller !)",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
@@ -1293,7 +1314,7 @@ class Cinematics:
         elif saved=='KT':
             self.cinematic_frame(screen, "mgm8", 2," ! ! !",kind_info=[["SM", "no_weapon"], ['KT', 'no_weapon'], 2])
             self.cinematic_frame(screen, "mgm8", 2, "Musashi ? Quelque chose te tracasse ? ",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "mgm8", 2, "Attends une minute..ce lieu…",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "mgm8", 2, "Attends une minute..ce lieu..",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
             self.cinematic_frame(screen, "mgm8", 2, "Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
             self.cinematic_frame(screen, "mgm8", 2, "??? Tu sais où se situe la base de l'ennemi ?",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
             self.cinematic_frame(screen, "mgm8", 2, "Mais oui ! La planque se situait près de Magome depuis tout ce temps !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
@@ -2067,16 +2088,11 @@ class Cinematics:
             self.cinematic_frame(screen,'forest2',3,"J'espère que tu ne fuiras pas à la fin du combat comme ton camarade.",kind_info=[['TW_H','no_weapon'],['TW','no_weapon'],['KT','no_weapon'],1, True])
             self.cinematic_frame(screen,'forest2',3,"Ne nous sous-estime pas si tu penses pouvoir gagner facilement ce combat.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['KT','no_weapon'],1, True])
 
-
-
-
-
-
 if __name__ == '__main__':
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    output = c.cinematic_01(screen)
+    output = c.cinematic_11(screen, "KM", 4)
     print(output)
     pygame.quit()
