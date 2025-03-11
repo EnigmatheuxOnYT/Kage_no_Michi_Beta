@@ -53,8 +53,8 @@ class Perso:
     
     def level_up (self):
         self.level+=1
-        self.pv_max=int(round(self.pv_max*1.1,0))
-        self._base_damage=max(int(round(self._base_damage*1.1,0)),self._base_damage+1)
+        self.pv_max=int(round(self.pv_max*1.1,0))+2
+        self._base_damage=int(round(self._base_damage*1.1,0))+2
         self.pv = self.pv_max
         self.level_xp = int(self.level_xp*1.1)+2
     
@@ -145,6 +145,7 @@ class Fight_assets:
         self.jigoku_no_shizuka = Weapon(name = "Jigoku no Shizuka", weapon_damage=20,special_damage=10, crit_chance=0.1)
         self.wood_katana = Weapon(name="wood_katana",weapon_damage=5,special_damage=5,crit_chance=0.05)
         self.training_katana = Weapon(name="wood_katana",weapon_damage=0,special_damage=5)
+        self.katana_guerriers = Weapon(name="katana",weapon_damage=10,special_damage=5,crit_chance=0.05)
         self.zero = Weapon(name="no_weapon",weapon_damage=-100,)
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
@@ -157,7 +158,8 @@ class Fight_assets:
         self.guerrier_takahiro2 = Perso('Soldat2', "Soldat1", 70,self.no_weapon,11)
         self.Takahiro = Perso("Kojiro Takahiro", "Takahiro", 200, self.op_weapon,12, 30)
         #self.Senshi = Perso("Senshi Akuma", "Senshi", 50, self.jigoku_no_shizuka, 30)
-
+        self.guerrier_ch1_e4_1_1 = Perso("Soldat","Soldat1",5,self.katana_guerriers,11,5)
+        self.guerrier_ch1_e4_1_2 = Perso("Soldat","Soldat1",5,self.katana_guerriers,11,5)
         #self.ma_Juzo = Perso('Ma_Juzo',200, self.tengoku_no_ikari,level=10)
 
 if __name__ == "__main__":
