@@ -217,7 +217,7 @@ class Scene:
                 if dirs.reasons[i] in [output,-1]:
                     ressearch=dirs.dirs[i]
             if not ressearch:
-                raise IndexError
+                raise IndexError("Can not get dir")
             else:
                 if ressearch=='next':
                     self.gppindex+=1
@@ -231,7 +231,7 @@ class Scene:
                         if gpp.name==ressearch:
                             self.gppindex=i
                             return
-                    raise IndexError
+                    raise IndexError("Dir not existant")
 
 class Story:
     def __init__ (self):
@@ -383,9 +383,11 @@ class Story:
                                                                         minigame_no=7,
                                                                         dirs_data=[2,["win","loose"],["fight_ch2_e2_2","next_scene"]]),
                                                             GPPFight(name='fight_ch2_e2_1',
+                                                                     bg='bamboo3',
                                                                      ennemies = [],
                                                                      dirs_data=[1,[-1],['cinematic_25']]),
                                                             GPPFight(name='fight_ch2_e2_2',
+                                                                     bg='bamboo3',
                                                                      ennemies = [],
                                                                      dirs_data=[1,[-1],['cinematic_25']]),
                                                             GPPCinematic(name="cinematic_25",
