@@ -80,12 +80,11 @@ class minigm_tutofight :
         #Appeler ici la fonction self.cin.cinematic_frame()
         #Exemple d'utilisation que vous pouvez copier coller (attention, TOUJOURS finir l'appel par running=self.running):
         
-        self.cin.ecran_noir(screen)
         self.cin.cinematic_frame(screen,'ine1',3,"Bonjour Sensei Hoshida.", "Merci encore une fois de m'avoir accepté en tant que disciple.", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],1],running=self.running)
         if saved == 'none':
             self.cin.cinematic_frame(screen,'ine1',3,"Rien n'est encore gagné, l'entraînement ne fait que de commencer.", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],3],running=self.running)
         if saved == 'KM':
-            self.cin.cinematic_frame(screen,'ine1',3,"Bonjour à vous Sensei Hoshida.", "Je suis très reconnaissant de l'entraînement que vous offrez à mon grand frère!", kind_info=[[saved,"no_weapon"],["SM","no_weapon"],["SH","no_weapon"],1,True],running=self.running)
+            self.cin.cinematic_frame(screen,'ine1',3,"Bonjour à vous Sensei Hoshida.", "Je suis très reconnaissant de l'entraînement que vous offrez", "à mon grand frère !", kind_info=[[saved,"no_weapon"],["SM","no_weapon"],["SH","no_weapon"],1,True],running=self.running)
             self.cin.cinematic_frame(screen,'ine1',3,"Je vois que vous êtes tous les deux en bonne forme.","C'est un très bon signe. Musashi, il est l'heure de l'entraînement.", kind_info=[[saved,"no_weapon"],["SM","no_weapon"],["SH","no_weapon"],3],running=self.running)
             self.cin.cinematic_frame(screen,'ine1',3,"Oui Maître !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],1,True],running=self.running)
         elif saved == 'KT':

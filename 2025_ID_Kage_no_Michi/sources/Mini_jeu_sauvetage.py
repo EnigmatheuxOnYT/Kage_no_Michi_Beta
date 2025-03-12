@@ -110,15 +110,15 @@ class minigm_MashingGame:
         # Lancement de la cinématique de fin en fonction de la réussite ou de l'échec
         if self.current_level >= self.num_levels:
             if saved=='none':
-                self.cin.cinematic_frame(screen, 'azw2', 2, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez ceci, ce n’est pas grand-chose, mais c’est tout ce que je peux offrir.", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 2, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez ces 10 pièces, ce n’est pas grand-chose, mais c’est tout ce que je", "peux vous offrir.", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 2], running=self.running)
                 self.cin.cinematic_frame(screen, 'azw2', 2, "Ce n’était pas nécessaire, mais je vous remercie.", "Gardez bien cette pierre, elle est précieuse. Prenez soin de vous.", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'azw2', 2, "Que les esprits veillent sur vous ! Bonne chance à vous, noble samouraï !", kind_info=[["SM","no_weapon"],["VL2", "no_weapon"], 2], running=self.running)
             elif saved=='KM':
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez ceci, ce n’est pas grand-chose, mais c’est tout ce que je peux offrir.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez ces 10 pièces, ce n’est pas grand-chose, mais c’est tout ce que je", "peux vous offrir.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
                 self.cin.cinematic_frame(screen, 'azw2', 3, "Ce n’était pas nécessaire, mais je vous remercie.", "Gardez bien cette pierre, elle est précieuse. Prenez soin de vous.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'azw2', 3, "Que les esprits veillent sur vous ! Bonne chance à vous, noble samouraï !", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
             elif saved=='KT':
-                self.cin.cinematic_frame(screen, 'azw2', 3, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez ceci, ce n’est pas grand-chose, mais c’est tout ce que je peux offrir.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
+                self.cin.cinematic_frame(screen, 'azw2', 3, "Vous l’avez trouvée ! Oh, mille mercis ! Je ne sais comment vous remercier...", "Prenez 10 pièces, ce n’est pas grand-chose, mais c’est tout ce que je", "peux vous offrir.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
                 self.cin.cinematic_frame(screen, 'azw2', 3, "Ce n’était pas nécessaire, mais je vous remercie.", "Gardez bien cette pierre, elle est précieuse. Prenez soin de vous.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'azw2', 3, "Que les esprits veillent sur vous ! Bonne chance à vous, noble samouraï !", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["VL2", "no_weapon"], 3], running=self.running)
         else:

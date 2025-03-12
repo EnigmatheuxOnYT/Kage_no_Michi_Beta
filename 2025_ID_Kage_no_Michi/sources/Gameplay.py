@@ -27,6 +27,7 @@ from Cinematics import Cinematics
 from map.src.Map_objects import *
 from map.src.player2 import *
 from map.src.map import Map
+from Fight_assets import Fight_assets
 
 class Launcher:
     def __init__(self,screen):
@@ -149,7 +150,7 @@ class Direction:
 
 
 class GamePlayPhase:
-    def __init__(self,name:str,type:str,dirs_data):
+    def __init__(self,name:str,type:str,dirs_data:list):
         self.dirs = Direction(dirs_data[0],dirs_data[1],dirs_data[2])
         self.name = name
         self.type = type
@@ -185,10 +186,14 @@ class GPPMinigame(GamePlayPhase):
         self.minigame_no = minigame_no
 
 class GPPFight(GamePlayPhase):
-    def __init__(self,name,ennemies:List[Any],dirs_data:list):
+    def __init__(self,name,bg,ennemies:List[Any],dirs_data:list):
         GamePlayPhase.__init__(self,name,"GPPFight",dirs_data)
         self.ennemies=ennemies
+        self.bg = bg
 
+class GPPDeath(GamePlayPhase):
+    def __init__(self,name):
+        GamePlayPhase.__init__(self,name,"GPPDeath",[])
 
 class Scene:
     def __init__(self,id:List[int],next_id:List[int],gpps:List[GamePlayPhase]):
@@ -216,6 +221,10 @@ class Scene:
             else:
                 if ressearch=='next':
                     self.gppindex+=1
+                elif ressearch == 'next_scene':
+                    self.gppindex=len(self.gpps)
+                elif ressearch == 'death':
+                    self.current_gpp = GPPDeath("death")
                 else:
                     for i in range(len(self.gpps)):
                         gpp=self.gpps[i]
@@ -226,6 +235,7 @@ class Scene:
 
 class Story:
     def __init__ (self):
+        self.fa=Fight_assets()
         self.scenes = {'Chapitre 0': {"Scene 0":Scene(id=[0,0],
                                                       next_id=[0,1],
                                                       gpps=[]),
@@ -302,8 +312,86 @@ class Story:
                                                             GPPMinigame(name="mimigm_02",
                                                                         minigame_no=2,
                                                                         dirs_data=[1,[-1],['next']]
-                                                                        )
+                                                                        ),
+                                                            GPPMinigame(name="minigm_03",
+                                                                        minigame_no=3,
+                                                                        dirs_data=[1,[-1],['next']])
                                                             ]
-                                                      )
+                                                      ),
+                                       'Scene 4':Scene(id=[1,4],
+                                                       next_id=[2,1],
+                                                       gpps=[GPPCinematic(name="cinematic_06",
+                                                                          cinematic_no=6,
+                                                                          dirs_data=[1,[-1],['next']]),
+                                                            GPPMinigame(name="minigm_04",
+                                                                        minigame_no=4,
+                                                                        dirs_data=[1,[-1],['next']]),
+                                                            GPPCinematic(name="cinematic_07",
+                                                                         cinematic_no=7,
+                                                                         dirs_data=[3,[1,2,3],["cinematic_08","cinematic_08","cinematic_08"]]),
+                                                            GPPCinematic(name = "cinematic_08",
+                                                                         cinematic_no=8,
+                                                                         dirs_data=[3,[1,2,3],["cinematic_09","minigm_05","fight_ch1_e4_1"]]),
+                                                            GPPCinematic(name="cinematic_09",
+                                                                         cinematic_no=9,
+                                                                         dirs_data=[1,[-1],["next_scene"]]),
+                                                            GPPMinigame(name="minigm_05",
+                                                                        minigame_no=5,
+                                                                        dirs_data=[2,["win","perfect_win1","perfect_win2"],["cinematic_09","fight_ch1_e4_2","cinematic_09"]]),
+                                                            GPPFight(name="fight_ch1_e4_1",
+                                                                     bg='ine1',
+                                                                     ennemies=[self.fa.guerrier_ch1_e4_1_1,self.fa.guerrier_ch1_e4_1_2],
+                                                                     dirs_data=[1,[-1],['cinematic_23']]),
+                                                            GPPFight(name="fight_ch1_e4_2",
+                                                                     bg='ine1',
+                                                                     ennemies=[self.fa.guerrier_ch1_e4_1_1,self.fa.guerrier_ch1_e4_1_2],
+                                                                     dirs_data=[1,[-1],['cinematic_23']]),
+                                                            GPPCinematic(name='cinematic_23',
+                                                                         cinematic_no=23,
+                                                                         dirs_data=[1,[-1],['cinematic_09']])
+                                                            ]
+                                                       ),
+                                                                
+                                      },
+                       'Chapitre 2': {"Scene 1":Scene(id=[2,1],
+                                                      next_id=[2,2],
+                                                      gpps=[GPPMap(name='Chap2_e1_map',
+                                                                   map='main',
+                                                                   spawn='spawn_chap2_e1',
+                                                                   path='ine_forest',
+                                                                   dirs_data=[1,[-1],['next']],
+                                                                   updates=[Update(condition=Condition(type="location",data=['forest']),effect='next')]),
+                                                            GPPCinematic(name='cinematic_10',
+                                                                         cinematic_no=10,
+                                                                         dirs_data=[4,[1,2,3,4],['minigm_06',"cinematic_11","cinematic_11","cinematic_11"]]),
+                                                            GPPCinematic(name='cinematic_11',
+                                                                         cinematic_no=11,
+                                                                         dirs_data=[1,[-1],["next_scene"]]),
+                                                            GPPMinigame(name='minigm_06',
+                                                                        minigame_no=6,
+                                                                        dirs_data=[1,[-1],["cinematic_11"]]),]
+                                                      ),
+                                      "Scene 2":Scene(id=[2,2],
+                                                      next_id=[2,3],
+                                                      gpps=[GPPCinematic(name='cinematic_21',
+                                                                         cinematic_no=21,
+                                                                         dirs_data=[3,[1,2,3],["cinematic_22","fight_ch2_e2_1","minigm_07"]]),
+                                                            GPPCinematic(name='cinematic_22',
+                                                                         cinematic_no=22,
+                                                                         dirs_data=[1,[-1],['next_scene']]),
+                                                            GPPMinigame(name='minigm_07',
+                                                                        minigame_no=7,
+                                                                        dirs_data=[2,["win","loose"],["fight_ch2_e2_2","next_scene"]]),
+                                                            GPPFight(name='fight_ch2_e2_1',
+                                                                     ennemies = [],
+                                                                     dirs_data=[1,[-1],['cinematic_25']]),
+                                                            GPPFight(name='fight_ch2_e2_2',
+                                                                     ennemies = [],
+                                                                     dirs_data=[1,[-1],['cinematic_25']]),
+                                                            GPPCinematic(name="cinematic_25",
+                                                                         cinematic_no=25,
+                                                                         dirs_data=[1,-1,["next_scene"]])
+                                                            ]
+                                                      ),
                                       }
                        }

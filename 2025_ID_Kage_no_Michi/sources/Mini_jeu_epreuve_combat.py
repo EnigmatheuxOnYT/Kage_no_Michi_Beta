@@ -205,7 +205,7 @@ class minigm_trial1:
                 self.cin.cinematic_frame(screen, 'ine1', 3, "Nous intégrerons vos conseils coûte que coûte, puisque nous deviendrons des","samouraïs.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'ine1', 3, "Tu as tout compris Musashi. Ensemble, nous faisons la paire.", "A demain, Sensei Hoshida. J'ai hâte de reprendre.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH", "no_weapon"], 2], running=self.running)
         elif self.state == self.GameState.DEFEAT:
-            if self.saved == "none":
+            if saved == "none":
                 self.cin.cinematic_frame(screen,"ine1",3, "Musashi, cet entrainement n'était pas probant...",kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH", "no_weapon"], 3],running=self.running)
                 self.cin.cinematic_frame(screen,"ine1",3, "Sache qu'il faut se concentrer pour obtenir ce que l'on veut.", "Donc évite de vivre dans un avenir fictif mais plutôt dans un présent réaliste",kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH", "no_weapon"], 3],running=self.running)
                 self.cin.cinematic_frame(screen,"ine1",3, "Cet entraînement demande du sérieux, fais-en preuve la prochaine fois.",kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH", "no_weapon"], 3],running=self.running)

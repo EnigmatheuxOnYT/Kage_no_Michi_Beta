@@ -233,28 +233,28 @@ class minigm_trade:
     def intro(self, screen, saved):
         # Affichage de l'intro via la cinématique (attention à bien finir l'appel par running=self.running)
         if saved=='none':
-            self.cin.cinematic_frame(screen, 'bamboo1', 2, "Votre arme m'a l'air fascinante. Avant cela, j'aimerai qu'on procède à", "des négociations.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 2, "Des négociations ? Très bien. On les fera de ma manière.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 2, "Tout d'abord, je vais prendre un total de 5 marchandises. Le but étant", "de deviner les prix de chacun.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 2, "En fonction du nombre de bonnes réponses, je suis prêt à diminuer", "le coût de l'arme.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 2, "Aucune objection ?", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 2, "Totalement ! Allons-y Marchand Juzo ! Débutons ces négociations.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 2, "Votre arme m'a l'air fascinante. Avant cela, j'aimerai qu'on procède à", "des négociations.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 2, "Des négociations ? Très bien. On les fera de ma manière.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 2, "Tout d'abord, je vais prendre un total de 5 marchandises. Le but étant", "de deviner les prix de chacun.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 2, "En fonction du nombre de bonnes réponses, je suis prêt à diminuer", "le coût de l'arme.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 2, "Aucune objection ?", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 2, "Totalement ! Allons-y Marchand Juzo ! Débutons ces négociations.", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
         elif saved=='KM':
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Votre arme m'a l'air fascinante. Avant cela, j'aimerai qu'on procède à", "des négociations.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Des négociations ? Très bien. On les fera de ma manière.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Tout d'abord, je vais prendre un total de 5 marchandises. Le but étant", "de deviner les prix de chacun.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "En fonction du nombre de bonnes réponses, je suis prêt à diminuer", "le coût de l'arme.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Aucune objection ?", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "C'est une très belle occasion grand frère. On pourra payer moins", "cher pour une arme aussi puissante !", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Totalement ! Allons-y Marchand Juzo ! Débutons ces négociations.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "Votre arme m'a l'air fascinante. Avant cela, j'aimerai qu'on procède à", "des négociations.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "Des négociations ? Très bien. On les fera de ma manière.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "Tout d'abord, je vais prendre un total de 5 marchandises. Le but étant", "de deviner les prix de chacun.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "En fonction du nombre de bonnes réponses, je suis prêt à diminuer", "le coût de l'arme.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "Aucune objection ?", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "C'est une très belle occasion grand frère. On pourra payer moins", "cher pour une arme aussi puissante !", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "Totalement ! Allons-y Marchand Juzo ! Débutons ces négociations.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
         elif saved=='KT':
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Ce “Tengoku no Ikari”... Je pense que tu devrais la prendre.", "Elle pourra nous être très utile dans le futur.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 2], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Votre arme m'a l'air fascinante. Avant cela, j'aimerai qu'on procède à", "des négociations.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 1], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Des négociations ? Très bien. On les fera de ma manière.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Tout d'abord, je vais prendre un total de 5 marchandises. Le but étant", "de deviner les prix de chacun.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "En fonction du nombre de bonnes réponses, je suis prêt à diminuer", "le coût de l'arme.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Aucune objection ?", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-            self.cin.cinematic_frame(screen, 'bamboo1', 3, "Totalement ! Allons-y Marchand Juzo ! Débutons ces négociations.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "Ce “Tengoku no Ikari”... Je pense que tu devrais la prendre.", "Elle pourra nous être très utile dans le futur.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 2], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "Votre arme m'a l'air fascinante. Avant cela, j'aimerai qu'on procède à", "des négociations.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 1], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "Des négociations ? Très bien. On les fera de ma manière.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "Tout d'abord, je vais prendre un total de 5 marchandises. Le but étant", "de deviner les prix de chacun.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "En fonction du nombre de bonnes réponses, je suis prêt à diminuer", "le coût de l'arme.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "Aucune objection ?", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 3, "Totalement ! Allons-y Marchand Juzo ! Débutons ces négociations.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 1], running=self.running)
         self.in_minigm = True
         self.start_ticks = pygame.time.get_ticks()
         self.timer_active = True  # Active le timer
@@ -263,17 +263,27 @@ class minigm_trade:
         if self.compteur_de_point >= 3:
             self.victory = True
             if saved == 'none':
-                self.cin.cinematic_frame(screen, 'bamboo1', 2, "Bravo. Vous vous êtes bien débrouillé. Désormais, que ferez-vous?", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
-                self.cin.cinematic_frame(screen, 'bamboo1', 2, "(Je dois maintenant décider d'acheter ou non l'arme...)", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'bamboo3', 2, "Bravo. Vous vous êtes bien débrouillé. Désormais, que ferez-vous?", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
+                self.switch_lowercase(True)
+                self.cin.cinematic_frame(screen, 'bamboo3', 2, "Je dois maintenant décider d'acheter ou non l'arme...", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
+                self.switch_lowercase(False)
             elif saved == 'KM':
-                self.cin.cinematic_frame(screen, 'bamboo1', 3, "Bravo. Vous vous êtes bien débrouillé. Désormais, que ferez-vous?", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-                self.cin.cinematic_frame(screen, 'bamboo1', 3, "(On devrait peut-être discuter avant de prendre une décision...)", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'bamboo3', 3, "Bravo. Vous vous êtes bien débrouillé. Désormais, que ferez-vous?", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
+                self.switch_lowercase(True)
+                self.cin.cinematic_frame(screen, 'bamboo3', 3, "On devrait peut-être discuter avant de prendre une décision...", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
+                self.switch_lowercase(False)
             elif saved == 'KT':
-                self.cin.cinematic_frame(screen, 'bamboo1', 3, "Bravo. Vous vous êtes bien débrouillé. Désormais, que ferez-vous?", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-                self.cin.cinematic_frame(screen, 'bamboo1', 3, "(Cette arme pourrait être cruciale pour notre mission...)", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'bamboo3', 3, "Bravo. Vous vous êtes bien débrouillé. Désormais, que ferez-vous?", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
+                self.switch_lowercase(True)
+                self.cin.cinematic_frame(screen, 'bamboo3', 3, "Cette arme pourrait être cruciale pour notre mission...", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 2], running=self.running)
+                self.switch_lowercase(False)
+            victory_state = "win"
         else:
-            self.cin.cinematic_frame(screen, 'bamboo1', 2, "Hmm… Pas terrible. Vous auriez pu mieux faire. Mais bon, les affaires", "sont les affaires. Alors, que décidez-vous ?", kind_info=[["SM","no_weapon"], [saved,'no_weapon'],["JM","no_weapon"], 3], running=self.running)
+            self.cin.cinematic_frame(screen, 'bamboo3', 2, "Hmm… Pas terrible. Vous auriez pu mieux faire. Mais bon, les affaires", "sont les affaires. Alors, que décidez-vous ?", kind_info=[["SM","no_weapon"], [saved,'no_weapon'],["JM","no_weapon"], 3], running=self.running)
             self.victory = False
+            victory_state = "loose"
+        out1,out2 = self.cin.choice_frame(screen,'bamboo3',[3,4],["Acheter","Refuser","Accepter contre un service","Le tuer"],[["SM","no_weapon"], [saved,'no_weapon'],["JM","no_weapon"]])
+        self.victory_state = victory_state+str(out2)
         self.playing = False
         self.in_minigm = False
     
@@ -533,7 +543,7 @@ class minigm_trade:
         if self.running:
             self.end(screen, saved)
         
-        return self.running,self.victory
+        return self.running,self.victory_state
 
 #########################################
 # Lancement du mini-jeu
