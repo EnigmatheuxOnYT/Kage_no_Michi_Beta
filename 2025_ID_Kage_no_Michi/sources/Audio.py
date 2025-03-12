@@ -94,7 +94,7 @@ class Sound:
         self.cough = self.sound('SFX_CoughingMan_1')
         self.oof = self.sound('SFX_Oof_1')
         self.flamme = self.sound("SFX_Flamme")
-        self.building = self.sound("SFX_BuildingDestroyed_1.mp3")
+        self.building = self.sound("SFX_BuildingDestroyed_1")
         self.galop = self.sound("SFX_galop.mp3")
         self.brise = self.sound("SFX_vent.mp3")
         self.Dialogue_H_1 = self.sound("Homme_Dialogue_1")
