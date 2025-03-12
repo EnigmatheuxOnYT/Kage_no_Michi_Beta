@@ -29,7 +29,7 @@ class Music:
         self.dialog1 = "Music_Dialogue_1.mp3"
         self.exploration = "Music_Exploration_1.mp3"
         self.found = "Music_Found_Takahiro_Planque.mp3"
-        self.choiceAizu = "Music_Choice_Aizu.mp3"
+        self.choice = "Music_Choice_Aizu.mp3"
         self.zen = "Music_Zen.mp3"
         self.epic = "Music_Epic.mp3"
         self.calmpacific = "Music_CalmPacific_1.mp3"
