@@ -441,27 +441,57 @@ class Cinematics:
             if not written:
                 if name in self.males:
                     if self.current_last_letter[0] < len(line1):
-                        self.sound.Dialogue_H_1.play()
+                        char = line1[self.current_last_letter[0]]
+                        if char in ['.', '!', '?',',']:
+                            self.sound.Dialogue_H_4.play()
+                        else:
+                            self.sound.Dialogue_H_1.play()
                         self.current_last_letter[0] += 1
+
                     elif self.current_last_letter[1] < len(line2):
-                        self.sound.Dialogue_H_2.play()
+                        char = line2[self.current_last_letter[1]]
+                        if char in ['.', '!', '?',',']:
+                            self.sound.Dialogue_H_4.play()
+                        else:
+                            self.sound.Dialogue_H_2.play()
                         self.current_last_letter[1] += 1
+
                     elif self.current_last_letter[2] < len(line3):
-                        self.sound.Dialogue_H_3.play()
+                        char = line3[self.current_last_letter[2]]
+                        if char in ['.', '!', '?',',']:
+                            self.sound.Dialogue_H_4.play()
+                        else:
+                            self.sound.Dialogue_H_3.play()
                         self.current_last_letter[2] += 1
+
                     else:
                         written = True
 
                 elif name in self.females:
                     if self.current_last_letter[0] < len(line1):
-                        self.sound.Dialogue_F_1.play()
+                        char = line1[self.current_last_letter[0]]
+                        if char in ['.', '!', '?',',']:
+                            self.sound.Dialogue_H_4.play()
+                        else:
+                            self.sound.Dialogue_H_1.play()
                         self.current_last_letter[0] += 1
+
                     elif self.current_last_letter[1] < len(line2):
-                        self.sound.Dialogue_F_2.play()
+                        char = line2[self.current_last_letter[1]]
+                        if char in ['.', '!', '?',',']:
+                            self.sound.Dialogue_H_4.play()
+                        else:
+                            self.sound.Dialogue_H_2.play()
                         self.current_last_letter[1] += 1
+
                     elif self.current_last_letter[2] < len(line3):
-                        self.sound.Dialogue_F_3.play()
+                        char = line3[self.current_last_letter[2]]
+                        if char in ['.', '!', '?',',']:
+                            self.sound.Dialogue_H_4.play()
+                        else:
+                            self.sound.Dialogue_H_3.play()
                         self.current_last_letter[2] += 1
+
                     else:
                         written = True
                     
@@ -2210,20 +2240,27 @@ class Cinematics:
         self.cinematic_frame(screen,'ine2',3,"Néanmoins je te félicite quand même d'avoir combattu comme un samouraï. ",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2,True])
 
     def cinematic_24(self,screen,saved='none'):
+        self.music.play(self.music.theme_tkh1)
         self.cinematic_frame(screen,'ine2',3,"Tiens donc, un petit fouineur.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],1])
         self.cinematic_frame(screen,'ine2',3,"On ne joue pas au plus malin avec le clan Takahiro. Tu aurais dû le savoir.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],2,True])
 
     def cinematic_25(self, screen, saved):
         if saved == 'none':
+                self.music.play(self.music.theme_tkh1)
                 self.cin.cinematic_frame(screen, 'forest2', 1, "Génial, je les ai tous mis à terre. Ils ne se relèveront pas de sitôt.", kind_info=[["SM", "no_weapon"], 1], running=self.running)
+                self.music.play(self.music.exploration)
                 self.cin.cinematic_frame(screen, 'forest2', 1, "Désormais, allons au village d'Aizuwakamatsu.", kind_info=[["SM", "no_weapon"], 1], running=self.running)
         elif saved == 'KM':
+                self.music.play(self.music.theme_tkh1)
                 self.cin.cinematic_frame(screen, 'forest2', 2, "Génial, je les ai tous mis à terre. Ils ne se relèveront pas de sitôt.", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'forest2', 2, "Génial grand frère ! C'est très rusé de ta part !", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], 2], running=self.running)
+                self.music.play(self.music.exploration)
                 self.cin.cinematic_frame(screen, 'forest2', 2, "Merci Keiko. Désormais, allons à la ville d'Aizuwakamatsu.", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], 1], running=self.running)
         elif saved == 'KT':
+                self.music.play(self.music.theme_tkh1)
                 self.cin.cinematic_frame(screen, 'forest2', 2, "Génial, je les ai tous mis à terre. Ils ne se relèveront pas de sitôt.", kind_info=[["SM", "no_weapon"], ["KT", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'forest2', 2, "Bien vu Musashi. On n'a même pas besoin d'utiliser nos armes.", kind_info=[["SM", "no_weapon"], ["KT", "no_weapon"], 2], running=self.running)
+                self.music.play(self.music.exploration)
                 self.cin.cinematic_frame(screen, 'forest2', 2, "Merci Takeshi. Désormais, allons à la ville d'Aizuwakamatsu.", kind_info=[["SM", "no_weapon"], ["KT", "no_weapon"], 1], running=self.running)
 
 if __name__ == '__main__':

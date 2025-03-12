@@ -100,6 +100,7 @@ class Sound:
         self.Dialogue_H_1 = self.sound("Homme_Dialogue_1")
         self.Dialogue_H_2 = self.sound("Homme_Dialogue_2")
         self.Dialogue_H_3 = self.sound("Homme_Dialogue_3")
+        self.Dialogue_H_4 = self.sound("Homme_Dialogue_4")
         self.Dialogue_F_1 = self.sound("Femme_Dialogue_1")
         self.Dialogue_F_2 = self.sound("Femme_Dialogue_2")
         self.Dialogue_F_3 = self.sound("Femme_Dialogue_3")
