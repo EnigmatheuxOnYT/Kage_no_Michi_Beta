@@ -780,7 +780,7 @@ class Cinematics:
         self.music.play(self.music.zen)
         self.sound.crowdagony.play()
         self.cinematic_frame(screen, 'mgm6', 0, "Les premières lueurs de l'aube peinent à percer l'épaisse fumée qui enveloppe", "Magome. Les cris de la nuit se sont tus, remplacés par un silence pesant.")
-        #self.sound.building.play()
+        self.sound.building.play()
         self.cinematic_frame(screen, 'mgm6', 0, "Quelques survivants errent parmi les débris, le regard vide. D'autres", "s'affairent à éteindre les derniers foyers.")
         self.cinematic_frame(screen, 'mgm6', 2, "Shikisha Musashi reste immobile, les mains tremblantes, son esprit hanté par", "les derniers évènements.", kind_info=[['SM','no_weapon'],[saved,'no_weapon'],0])
         if saved == 'none':
