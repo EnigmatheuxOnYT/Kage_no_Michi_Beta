@@ -107,6 +107,7 @@ class Game:
 
         self.scene=[0,0]
         self.location="wild"
+        self.choice1timer = 0
 
     @property
     def current_playing_scene(self):return self.story.scenes[f'Chapitre {self.scene[0]}'][f'Scene {self.scene[1]}']
@@ -421,6 +422,7 @@ class Game:
         choice=0
         if cinematic == 1:
             self.cinematics.cinematic_01(self.screen_for_game)
+            self.choice1timer = pygame.time.get_ticks()
         elif cinematic == 2:
             self.cinematics.cinematic_02(self.screen_for_game,choices[0])
         elif cinematic == 3:
@@ -444,6 +446,28 @@ class Game:
             self.choices[2] = choice
         elif cinematic == 11:
             self.cinematics.cinematic_11(self.screen_for_game,choices[0],choices[2])
+        elif cinematic == 12 :
+            self.cinematics.cinematic_12(self.screen_for_game,choices[0])
+        elif cinematic == 13 :
+            self.cinematics.cinematic_13(self.screen_for_game,choices[0])
+        elif cinematic == 14 :
+            self.cinematics.cinematic_14(self.screen_for_game,choices[0])
+        elif cinematic == 15 :
+            self.cinematics.cinematic_15(self.screen_for_game,choices[0])
+        elif cinematic == 16 :
+            self.cinematics.cinematic_16(self.screen_for_game,choices[0])
+        elif cinematic == 17 :
+            self.cinematics.cinematic_17(self.screen_for_game,choices[0])
+        elif cinematic == 18 :
+            self.cinematics.cinematic_18(self.screen_for_game,choices[0])
+        elif cinematic == 19 :
+            self.cinematics.cinematic_19(self.screen_for_game,choices[0])
+        elif cinematic == 20 :
+            self.cinematics.cinematic_20(self.screen_for_game,choices[0])
+        elif cinematic == 21 :
+            self.cinematics.cinematic_21(self.screen_for_game,choices[0])
+        elif cinematic == 22 :
+            self.cinematics.cinematic_22(self.screen_for_game,choices[0])
         elif cinematic == 23:
             self.cinematics.cinematic_23(self.screen_for_game)
         
@@ -527,6 +551,9 @@ class Game:
                     if gpp.name==data[0] and update.condition.data[0]==data[1]:
                         if update.effect=='next':
                             self.next_gpp(-1)
+            if gpp.name=='IntroChoice' and 10000-pygame.time.get_ticks()+self.choice1timer<=0:
+                self.choices[0] = "none"
+                self.next_gpp(-1)
         
 
     def change_map_for_game(self,by_name,map_info):
