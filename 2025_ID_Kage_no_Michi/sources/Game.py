@@ -564,7 +564,7 @@ class Game:
                 else:
                     points.append(self.map.map_manager.get_object(point_name))
             
-                 
+            
             path=Path(i['name'],sub_paths,points,i['order'])
             paths.append(path)
         return paths

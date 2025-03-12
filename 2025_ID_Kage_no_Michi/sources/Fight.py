@@ -434,7 +434,7 @@ class Fight:
             screen.blit(self.attaque_frontale_box, (15, 200))
         if self.allow_spe:
 
-            if self.attaque_frontale_compteur == 4:
+            if self.attaque_frontale_compteur >= 4:
                 self.attaque_special_box =  pygame.image.load("../data/assets/minigm/Attaque_Speciale_V1.png").convert_alpha()
                 screen.blit(self.attaque_special_box, (15, 320))
             else:

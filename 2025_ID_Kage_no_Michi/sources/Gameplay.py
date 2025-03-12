@@ -210,15 +210,12 @@ class Scene:
     def current_gpp(self):return self.gpps[self.gppindex] if not self.over else None
     
     def next_gpp(self,output):
-        print(output,"C")
         if not self.over:
             ressearch=False
             dirs=self.gpps[self.gppindex].dirs
             for i in range(dirs.no):
                 if dirs.reasons[i] in [output,-1]:
                     ressearch=dirs.dirs[i]
-                else:
-                    print(dirs.reasons[i],output)
             if not ressearch:
                 raise IndexError
             else:
@@ -358,7 +355,15 @@ class Story:
                                       },
                        'Chapitre 2': {"Scene 1":Scene(id=[2,1],
                                                       next_id=[2,2],
-                                                      gpps=[]
+                                                      gpps=[GPPMap(name='Chap2_e1_map',
+                                                                   map='main',
+                                                                   spawn='spawn_chap2_e1',
+                                                                   path='ine_forest',
+                                                                   dirs_data=[1,[-1],['next']],
+                                                                   updates=[Update(condition=Condition(type="location",data=['forest']),effect='next')]),
+                                                            GPPCinematic(name='cinematic_10',
+                                                                         cinematic_no=10,
+                                                                         dirs_data=[1,[-1],['next']])]
                                                       ),
                                       }
                        }
