@@ -168,6 +168,8 @@ class Cinematics:
                 new_char=""
             elif char in ["‘","’","’"]:
                 new_char="'"
+            elif char in ["“","”"]:
+                new_char='"'
             elif char == "…":
                 new_char = "..."
             else:
@@ -587,7 +589,7 @@ class Cinematics:
         assert len(choices) == kind[1], f"il doit y avoir autant de choix que le second paramètre de kind ({kind[1]})"
         for i in choices:
             assert type(i)==str, f"les choix doivent être des chaînes de caractères, ce n'est pas le cas du choix {i+1}"
-            assert len(i) <= 30, f"le choix {i} est trop long ({len(i)-19} caractère(s) en trop)"
+            assert len(i) <= 36, f"le choix {i} est trop long ({len(i)-19} caractère(s) en trop)"
         assert type(chars)==list, "les personnages doivent être rangés dans une liste"
         assert len(chars)==kind[0], f"il doit y avoir autant de personnages que le premier paramètre de kind ({kind[0]})"
         for i in chars:
@@ -1037,7 +1039,7 @@ class Cinematics:
             self.cinematic_frame(screen, 'bamboo1', 2, "Absolument! Actuellement, je possède une arme très destructrice. Le “Tengoku", "No Ikari”.(La colère du Paradis)", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
             self.cinematic_frame(screen, 'bamboo1', 2, "“Tengoku no Ikari”? Je n'en ai jamais entendu parler. Pourquoi porte-elle","ce nom ?", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 1])
             self.cinematic_frame(screen, 'bamboo1', 2, "La légende raconte que cette lame incarnerait le châtiment de Dieu. On la", "classait comme l'une des 7 épées légendaires. Tous ceux qui sont touchés", "par cette arme périssent en voyant leurs âmes séparées de leurs corps. ", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
-            self.cinematic_frame(screen, 'bamboo1', 2, "C'est pour cela que je la vends pour 100 pièces d'or. Elle est très rare,","et possède beaucoup de valeur. Alors ? Êtes-vous prêt à l'acheter ?", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
+            self.cinematic_frame(screen, 'bamboo1', 2, "C'est pour cela que je la vends pour 100 pièces d'or.", "Elle est très rare, et possède beaucoup de valeur.", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
         elif saved == 'KM':
             self.cinematic_frame(screen,'bamboo1', 2, "Le moment est enfin arrivé. Je suis enfin devenu un samouraï.",   kind_info=[['SM','no_weapon'], ['KM','no_weapon'], 1])
             self.cinematic_frame(screen,'bamboo1', 2, "Oui, tu es resté déterminé et tu as réussi à atteindre tes objectifs. Tu es","incroyable grand frère !",   kind_info=[['SM','no_weapon'], ['KM','no_weapon'], 2])
@@ -1063,7 +1065,7 @@ class Cinematics:
             self.cinematic_frame(screen, "bamboo1", 3, "Absolument ! Actuellement, je possède une arme très destructrice. Le", "“Tengoku No Ikari”. (La colère du Paradis)", kind_info=[['SM','no_weapon'], ['KM','no_weapon'],['JM','no_weapon'], 3])
             self.cinematic_frame(screen,'bamboo1', 3, "“Tengoku no Ikari”? Je n'en ai jamais entendu parler. Pourquoi porte-"," elle ce nom ?",   kind_info=[['SM','no_weapon'], ['KM','no_weapon'],['JM','no_weapon'], 1])
             self.cinematic_frame(screen, "bamboo1", 3, "La légende raconte que cette lame incarnerait le châtiment de Dieu. On la", "classe comme l'une des 7 épées légendaires. Tous ceux qui sont touchés", "par cette arme périssent en voyant leurs âmes séparées de leurs corps.  ", kind_info=[['SM','no_weapon'], ['KM','no_weapon'],['JM','no_weapon'], 3])
-            self.cinematic_frame(screen, "bamboo1", 3, "C'est pour cela que je la vends pour 100 pièces d'or. Elle est très rare, et", "possède beaucoup de valeur. Alors ? Êtes-vous prêt à l'acheter ?", kind_info=[['SM','no_weapon'], ['KM','no_weapon'],['JM','no_weapon'], 3])
+            self.cinematic_frame(screen, "bamboo1", 3, "C'est pour cela que je la vends pour 100 pièces d'or.", "Elle est très rare, et possède beaucoup de valeur.", kind_info=[['SM','no_weapon'], ['KM','no_weapon'],['JM','no_weapon'], 3])
 
 
         elif saved == 'KT':
@@ -1091,9 +1093,12 @@ class Cinematics:
             self.cinematic_frame(screen, "bamboo1", 3, "Absolument ! Actuellement, je possède une arme très destructrice. Le", "“Tengoku No Ikari”. (La colère du Paradis)", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
             self.cinematic_frame(screen,'bamboo1', 3, "“Tengoku no Ikari”? Je n'en ai jamais entendu parler. Pourquoi porte-"," elle ce nom ?",   kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 1])
             self.cinematic_frame(screen, "bamboo1", 3, "La légende raconte que cette lame incarnerait le châtiment de Dieu. On la", "classe comme l'une des 7 épées légendaires. Tous ceux qui sont touchés", "par cette arme périssent en voyant leurs âmes séparées de leurs corps.", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
-            self.cinematic_frame(screen, "bamboo1", 3, "C'est pour cela que je la vends pour 100 pièces d'or. Elle est très rare, et", "possède beaucoup de valeur. Alors ? Êtes-vous prêt à l'acheter ?", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
-        self.ecran_noir(screen)
-
+            self.cinematic_frame(screen, "bamboo1", 3, "C'est pour cela que je la vends pour 100 pièces d'or.", "Elle est très rare, et possède beaucoup de valeur.", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
+        self.cinematic_frame(screen,"bamboo1",3,"Cependant, vous me semblez être de confiance.", "Aussi vous proposais-je un marché.", "Échangeons l'arme contre un service futur que vous me devrez.",kind_info=[['SM','no_weapon'], [saved,'no_weapon'],['JM','no_weapon'], 3])
+        self.cinematic_frame(screen,"bamboo1",3,"Qu'en dites-vous ?",kind_info=[['SM','no_weapon'], [saved,'no_weapon'],['JM','no_weapon'], 3])
+        
+        out1,out2 = self.choice_frame(screen,"bamboo1",[3,4],["Négocier le prix","Refuser","Accepter contre un service","Le tuer"],[['SM','no_weapon'], [saved,'no_weapon'],['JM','no_weapon']])
+        return out2
         
     def cinematic_11 (self, screen, saved="none", choose=1):
         #cinématique vérifiée
@@ -1121,10 +1126,10 @@ class Cinematics:
             elif choose == 3:
                 self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 2, "J'aimerais bien vous prendre cette arme, en échange d'un service que vous", "pourriez me proposer.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 2, "Un service tu dis ? Je vois, tu me dois donc un service si jamais tu", "prends cette lame.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo2', 2, "Un service tu dis ? Donc, tu me dois donc un service si jamais tu", "prends cette lame.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "En effet. Je dois venger mon village natal qui a été détruit par le clan", "Takahiro. C'est un cas assez urgent pour moi. Je vous en fais la promesse.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 2, "Hmm... D'accord, j'accepte ton offre. Actuellement, je n'ai pas de service", "à te demander pour mon travail mais je t'en ferai part lorsqu'on se", "retrouvera.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
-                self.cinematic_frame(screen, 'bamboo2', 2, "Voici le“Tengoku no Ikari”. Fais-en bon usage et fais très attention,", "notamment aux ennemis que tu rencontreras. ", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo2', 2, "Actuellement, je n'ai pas de service", "à te demander pour mon travail mais je t'en ferai part lorsqu'on se", "retrouvera.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo2', 2, "Voici le “Tengoku no Ikari”. Fais-en bon usage et fais très attention,", "notamment aux ennemis que tu rencontreras. ", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "C'est noté. Je resterai prudent lors de mon voyage. Encore une fois, je", "vous remercie de votre bienveillance.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Aucun problème, on peut dire que c'est un cadeau en premier lieu. N'oublie", "pas ta promesse et on se reverra aussitôt ! Bon courage pour ta quête", "Musashi !", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Entendu ! Bon courage à vous aussi marchand Juzo !",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
@@ -1172,10 +1177,10 @@ class Cinematics:
             elif choose == 3:
                 self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 3,"J'aimerais bien vous prendre cette arme, en échange d'un service que vous","pourriez me proposer.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 3,"Un service tu dis ? Je vois, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo2', 3,"Un service tu dis ? Donc, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"En effet. Je dois venger mon village natal qui a été détruit par le clan","Takahiro.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"C'est un cas assez urgent pour moi. Je vous en fais la promesse.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 3,"Hmm... D'accord, j'accepte ton offre. Actuellement, je n'ai pas de service","à te demander pour mon travail mais je t'en ferai part lorsqu'on se","retrouvera.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo2', 3,"Actuellement, je n'ai pas de service","à te demander pour mon travail mais je t'en ferai part lorsqu'on se","retrouvera.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Voici le“Tengoku no Ikari”. Fais-en bon usage et fais très attention,","notamment aux ennemis que tu rencontreras.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Il faudra que tu sois plus vigilent Shikisha si jamais tu comptes battre","le clan Takahiro.",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3,"C'est noté. Je resterai prudent lors de mon voyage. Encore une fois, je vous","remercie de votre bienveillance.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
@@ -1227,10 +1232,10 @@ class Cinematics:
             elif choose == 3:
                 self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 3,"J'aimerais bien vous prendre cette arme, en échange d'un service que vous","pourriez me proposer.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 3,"Un service tu dis ? Je vois, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo2', 3,"Un service tu dis ? Donc, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"En effet. Je dois venger mon village natal qui a été détruit par le clan","Takahiro.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"C'est un cas assez urgent pour moi. Je vous en fais la promesse.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 3,"Hmm...D'accord, j'accepte ton offre. Actuellement, je n'ai pas de service","à te demander pour mon travail mais je t'en ferai part lorsqu'on se", "retrouvera.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo2', 3,"Actuellement, je n'ai pas de service","à te demander pour mon travail mais je t'en ferai part lorsqu'on se", "retrouvera.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Voici le“Tengoku no Ikari”. Fais-en bon usage et fais très attention,","notamment aux ennemis que tu rencontreras.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Continuons de rester sur nos gardes. On ne sait jamais.",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3,"C'est noté. Je resterai prudent lors de mon voyage. Encore une fois, je vous","remercie de votre bienveillance.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
@@ -2193,6 +2198,6 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    output = c.cinematic_15(screen,"none", False, True)
+    output = c.cinematic_16(screen,"KT")
     print(output)
     pygame.quit()
