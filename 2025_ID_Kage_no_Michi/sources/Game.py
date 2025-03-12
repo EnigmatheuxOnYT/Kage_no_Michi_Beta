@@ -446,6 +446,8 @@ class Game:
             self.choices[2] = choice
         elif cinematic == 11:
             self.cinematics.cinematic_11(self.screen_for_game,choices[0],choices[2])
+            if self.choices[2]==4:
+                self.death()
         elif cinematic == 12 :
             self.cinematics.cinematic_12(self.screen_for_game,choices[0])
         elif cinematic == 13 :

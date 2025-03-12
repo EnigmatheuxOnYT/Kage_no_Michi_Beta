@@ -190,7 +190,11 @@ paths_list = [{'name':'mgm_ine',
                {'name':'ine_forest',
                 "sub_paths_names":["forest_ine"],
                 'points_names':['spawn_chap2_e1'],
-                'order':[[0],[1,True]]}
+                'order':[[0],[1,True]]},
+                {'name':'forest_azw',
+                 'sub_paths_names':[],
+                 'points_names':["3","2","4","5","spawn_Aizu"],
+                 'order':[[0],[0],[0],[0],[0]]}
                 ]
 
 

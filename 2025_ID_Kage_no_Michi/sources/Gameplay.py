@@ -217,7 +217,7 @@ class Scene:
                 if dirs.reasons[i] in [output,-1]:
                     ressearch=dirs.dirs[i]
             if not ressearch:
-                raise IndexError("Can not get dir")
+                raise IndexError(f"Incompatible output ({output} not in {dirs.reasons})")
             else:
                 if ressearch=='next':
                     self.gppindex+=1
@@ -231,7 +231,7 @@ class Scene:
                         if gpp.name==ressearch:
                             self.gppindex=i
                             return
-                    raise IndexError("Dir not existant")
+                    raise IndexError(f"Dir not existant ({ressearch} not in {[gpp.name for gpp in self.gpps]})")
 
 class Story:
     def __init__ (self):
@@ -394,6 +394,15 @@ class Story:
                                                                          cinematic_no=25,
                                                                          dirs_data=[1,-1,["next_scene"]])
                                                             ]
+                                                      ),
+                                      "Scene 3":Scene(id=[2,3],
+                                                      next_id=[3,1],
+                                                      gpps=[GPPMap(name='Chap2_e3_map',
+                                                                   map='main',
+                                                                   spawn="path_forest_ine1",
+                                                                   path='forest_azw',
+                                                                   dirs_data=[],
+                                                                   updates=[])]
                                                       ),
                                       }
                        }
