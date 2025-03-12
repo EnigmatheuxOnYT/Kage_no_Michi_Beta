@@ -2001,7 +2001,7 @@ class Cinematics:
             self.cinematic_frame(screen, 'forest2', 3, "Dois-je plutôt fuir ? Ou peut-être les combattre ? Ou même encore se servir","de l'environnement, et donc du milieu alentour à mon avantage ? Que faire ?",kind_info=[['TW', 'no_weapon'], ['TW_H', 'no_weapon'],['SM', 'no_weapon'], 3])
             self.switch_lowercase(False)
 
-            output1, output2 = self.choice_frame(screen, "forest2", [0, 3], ["FUIR", "COMBATTRE", "UTILISER MILIEU"])
+            output1, output2 = self.choice_frame(screen, "forest2", [0, 3], ["Fuir", "Combattre", "Utiliser l'environnement"])
         elif saved =='KM':
             self.music.play(self.music.exploration)
             self.cinematic_frame(screen, "forest2", 2, "Le temps presse. Il faut que j'atteigne la ville d'Aizuwakamatsu au plus", "vite !",kind_info=[['SM','no_weapon'],['KM','no_weapon'],1])
@@ -2043,7 +2043,7 @@ class Cinematics:
             self.music.play(self.music.choice)
             self.switch_lowercase(False)
             self.cinematic_frame(screen, 'forest2', 3, "Dois-je plutôt fuir? Ou peut-être les combattre ? Ou même encore se servir de", "l'environnement, et donc du milieu alentour à mon avantage ? Que faire ?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['TW', 'no_weapon'], 1])
-            output1, output2 = self.choice_frame(screen, "forest2", [0, 3], ["FUIR", "COMBATTRE", "UTILISER MILIEU"])
+            output1, output2 = self.choice_frame(screen, "forest2", [0, 3], ["Fuir", "Combattre", "Utiliser l'environnement"])
         elif saved =='KT':
             self.music.play(self.music.exploration)
             self.cinematic_frame(screen, "forest2", 2, "Le temps presse. Il faut que j'atteigne la ville d'Aizuwakamatsu au plus", "vite !",kind_info=[['SM','no_weapon'],['KT','no_weapon'],1])
@@ -2085,7 +2085,7 @@ class Cinematics:
             self.music.play(self.music.choice)
             self.cinematic_frame(screen, 'forest2', 3, "Dois-je plutôt fuir? Ou peut-être les combattre ? Ou même encore se servir de", "l'environnement, et donc du milieu alentour à mon avantage ? Que faire ?",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW', 'no_weapon'], 1])
             self.switch_lowercase(False)
-            output1, output2 = self.choice_frame(screen, "forest2", [0, 3], ["FUIR", "COMBATTRE", "UTILISER MILIEU"])
+            output1, output2 = self.choice_frame(screen, "forest2", [0, 3], ["Fuir", "Combattre", "Utiliser l'environnement"])
         return output2
 
     def cinematic_22(self,screen,saved):
@@ -2197,6 +2197,6 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    output = c.cinematic_16(screen,"KT")
+    output = c.cinematic_21(screen,"none")
     print(output)
     pygame.quit()
