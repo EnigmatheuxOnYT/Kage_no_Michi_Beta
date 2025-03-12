@@ -231,7 +231,7 @@ class Scene:
                         if gpp.name==ressearch:
                             self.gppindex=i
                             return
-                    raise IndexError
+                    raise IndexError("Dir not existant")
 
 class Story:
     def __init__ (self):
