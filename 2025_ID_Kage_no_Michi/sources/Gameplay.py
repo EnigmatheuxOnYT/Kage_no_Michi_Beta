@@ -375,7 +375,22 @@ class Story:
                                                       next_id=[2,3],
                                                       gpps=[GPPCinematic(name='cinematic_21',
                                                                          cinematic_no=21,
-                                                                         dirs_data=[]),
+                                                                         dirs_data=[3,[1,2,3],["cinematic_22","fight_ch2_e2_1","minigm_07"]]),
+                                                            GPPCinematic(name='cinematic_22',
+                                                                         cinematic_no=22,
+                                                                         dirs_data=[1,[-1],['next_scene']]),
+                                                            GPPMinigame(name='minigm_07',
+                                                                        minigame_no=7,
+                                                                        dirs_data=[2,["win","loose"],["fight_ch2_e2_2","next_scene"]]),
+                                                            GPPFight(name='fight_ch2_e2_1',
+                                                                     ennemies = [],
+                                                                     dirs_data=[1,[-1],['cinematic_25']]),
+                                                            GPPFight(name='fight_ch2_e2_2',
+                                                                     ennemies = [],
+                                                                     dirs_data=[1,[-1],['cinematic_25']]),
+                                                            GPPCinematic(name="cinematic_25",
+                                                                         cinematic_no=25,
+                                                                         dirs_data=[1,-1,["next_scene"]])
                                                             ]
                                                       ),
                                       }
