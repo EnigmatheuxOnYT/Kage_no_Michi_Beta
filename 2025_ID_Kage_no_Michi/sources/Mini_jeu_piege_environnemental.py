@@ -186,6 +186,9 @@ class minigm_minesweeper:
         self.in_minigm = True
         
     def end(self, screen, saved):
+        
+        self.music.play(self.music.theme_tkh1)
+        
         # Les dialogues de fin ne se lancent que si le joueur n'a pas réussi parfaitement (c'est-à-dire s'il a perdu au moins 1 vie)
         if self.lives < 3:
             if saved == 'none':
