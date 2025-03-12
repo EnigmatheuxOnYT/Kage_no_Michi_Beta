@@ -551,10 +551,14 @@ class Game:
                     if self.location==update.condition.data[0]:
                         if update.effect=='next':
                             self.next_gpp(-1)
+                        else:
+                            self.next_gpp(update.effect)
                 elif update.condition.type=='event_zone' and data!=[]:
                     if gpp.name==data[0] and update.condition.data[0]==data[1]:
                         if update.effect=='next':
                             self.next_gpp(-1)
+                        else:
+                            self.next_gpp(update.effect)
             if gpp.name=='IntroChoice' and 10000-pygame.time.get_ticks()+self.choice1timer<=0:
                 self.choices[0] = "none"
                 self.next_gpp(-1)

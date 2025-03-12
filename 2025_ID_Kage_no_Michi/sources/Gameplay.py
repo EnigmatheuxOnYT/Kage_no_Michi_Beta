@@ -401,8 +401,40 @@ class Story:
                                                                    map='main',
                                                                    spawn="path_forest_ine1",
                                                                    path='forest_azw',
+                                                                   dirs_data=[1,[-1],['next']],
                                                                    updates=[Update(condition=Condition(type="event_zone",data=['entrance_azw_destroyed']),effect='next')])
                                                             ]
                                                       ),
-                                      }
+                                      },
+                       'Chapitre 3': {"Scene 1":Scene(id=[3,1],
+                                                      next_id=[3,2],
+                                                      gpps=[GPPMap(name='Chap3_e1_map',
+                                                                   map='azw1',
+                                                                   spawn='spawn',
+                                                                   dirs_data=[1,[-1],['cinematic_12']],
+                                                                   updates=[Update(condition=Condition(type="event_zone",data=['exit']),effect='next')]),
+                                                            GPPCinematic(name='cinematic_12',
+                                                                         cinematic_no=12,
+                                                                         dirs_data=[2,[1,2],['next','Chap3_e1_map']]),
+                                                            GPPMap(name='Chap3_e2_map',
+                                                                   map="main",
+                                                                   spawn='path_cross5',
+                                                                   path='azw_mgm',
+                                                                   dirs_data=[2,[1,2],['Chap3_e1_map','next']],
+                                                                   updates=[Update(condition=Condition(type="event_zone",data=['entrance_azw_destroyed']),effect=1),
+                                                                            Update(condition=Condition(type="location",data=['forest']),effect='next')]
+                                                                   )
+                                                            ]
+                                                      ),
+                                      "Scene 2":Scene(id=[3,2],
+                                                      next_id=[3,3],
+                                                      gpps=[GPPCinematic(name='cinematic_13',
+                                                                         cinematic_no=13,
+                                                                         dirs_data=[1,[-1],['next']]),
+                                                            GPPCinematic(name='cinematic_14',
+                                                                         cinematic_no=14,
+                                                                         dirs_data=[1,[-1],['next']]),
+                                                            ]
+                                                      )
+                                      },
                        }

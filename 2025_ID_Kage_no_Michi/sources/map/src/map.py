@@ -190,7 +190,7 @@ class MapManager :
                                     NPC(name="Villager2", start_pos=[1632,1408],nb_points=4,speed=1),
                                     NPC(name="Villager3", start_pos=[1184,1152],nb_points=5,speed=1)
                                     ],
-                              event_zones=[Event_zone("Aizu_detruite","exit",["Player"],[Event(type="ggp",data=["Chap2_e3_map","exit"])])],
+                              event_zones=[Event_zone("Aizu_detruite","exit",["Player"],[Event(type="ggp",data=["Chap3_e1_map","exit"])])],
                               sub_paths=[],
                               layer=8,
                               placed_correctly=True,
