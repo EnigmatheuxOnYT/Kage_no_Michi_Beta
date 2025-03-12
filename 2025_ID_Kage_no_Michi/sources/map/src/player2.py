@@ -86,8 +86,6 @@ class Entity(AnimateSprite):
         self.update()
         self.save_location()
 
-
-
 class Player(Entity):
 
     def __init__(self):

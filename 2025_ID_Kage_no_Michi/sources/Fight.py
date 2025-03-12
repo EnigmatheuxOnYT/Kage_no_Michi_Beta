@@ -471,11 +471,12 @@ class Fight:
             self.update()
             self.draw(screen)
             self.clock.tick(60)
+        return self.action,self.potion
 
 if __name__ == "__main__":
     fight_assets = Fight_assets()
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
-    Fight().run(screen,'ine1',fight_assets.Musashi,[],[fight_assets.Takahiro],100)
+    Fight().run(screen,'ine1',fight_assets.Musashi,[],[fight_assets.Senshi],100)
     pygame.quit()

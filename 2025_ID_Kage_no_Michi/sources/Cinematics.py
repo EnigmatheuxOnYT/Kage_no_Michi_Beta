@@ -53,7 +53,7 @@ class Cinematics:
                       'VL2' : self.font_MFMG25.render("Villageois",False,(0,0,0)),
                       'VL3' : self.font_MFMG25.render("Villageoise",False,(0,0,0)),
                       }
-        self.males = ['P','N','SM','SH','TK','KT','JM','TW','TW_H','TWs','VL1','VL2','SA','Y?']
+        self.males = ['P','N','SM','SH','TK','KT','JM','TW','TW_H','TWs','VL1','VL2','SA','Y?',"DY","?","MJ","none"]
         self.females = ['KM','VL3']
         
         self.rect_names = pygame.Rect(60,460,200,50)
@@ -79,10 +79,14 @@ class Cinematics:
                                'mgm7' : self.load("bgs","Fond_Magome_Encendres_2").convert(),
                                'mgm8' : self.load("bgs","Fond_Souvenir_Magome_Jardin_2").convert(),
                                'ine1' : self.load("bgs","Fond_Ine_Dojo_Arene_1").convert(),
+                               'ine2' : self.load("bgs", "Fond_Ine_Dojo_Arene_Nuit_1").convert(),
                                'doj1' : self.load("bgs","Ine_Dojo_1").convert(),
                                'doj2' : self.load("bgs","Fond_Ine_Dojo_Arene_Nuit_1").convert(),
                                'tkh1' : self.load("bgs","Fond_Planque_Takahiro_Nuit_1").convert(),
                                'tkh2' : self.load("bgs","Fond_Planque_Takahiro_Jour_1").convert(),
+                               'tkh3' : self.load("bgs","Fond_Planque_Takahiro_Nuit_2").convert(),
+                               'tkh4' : self.load("bgs","Fond_Planque_Takahiro_Jour_2").convert(),
+                               'azw2' : self.load("bgs","Fond_Aizuwakamatsu_Détruit_1").convert(),
                                'azw1' : self.load("bgs","Fond_Aizuwakamatsu_2").convert(),
                                'azw2' : self.load("bgs","Fond_Aizuwakamatsu_Détruit_1").convert(),
                                'azw3' : self.load("bgs","Fond_Aizuwakamatsu_Détruit_2").convert()
@@ -583,7 +587,7 @@ class Cinematics:
         assert len(choices) == kind[1], f"il doit y avoir autant de choix que le second paramètre de kind ({kind[1]})"
         for i in choices:
             assert type(i)==str, f"les choix doivent être des chaînes de caractères, ce n'est pas le cas du choix {i+1}"
-            assert len(i) <= 19, f"le choix {i} est trop long ({len(i)-19} caractère(s) en trop)"
+            assert len(i) <= 30, f"le choix {i} est trop long ({len(i)-19} caractère(s) en trop)"
         assert type(chars)==list, "les personnages doivent être rangés dans une liste"
         assert len(chars)==kind[0], f"il doit y avoir autant de personnages que le premier paramètre de kind ({kind[0]})"
         for i in chars:
@@ -712,6 +716,7 @@ class Cinematics:
     
     def cinematic_01 (self, screen,saved='none'):
         self.music.play(self.music.intro,500)
+        self.cinematic_frame(screen, 'mgm1', 0, "Mars 1664, ère Edo.")
         self.cinematic_frame(screen, 'mgm1', 0, 'Magome, un petit village reculé, perdu dans les forêts du Japon médiéval.','Ici, la vie est rude. Les récoltes sont maigres.','Et les guerres de clans rendent l\'existence encore plus précaire.')
         self.cinematic_frame(screen, 'mgm1', 0, 'Dans ce lieu marqué par les inégalités, les riches dominent','tandis que les plus pauvres luttent pour survivre.')
         self.cinematic_frame(screen, 'mgm1', 0, 'C\'est dans ce village que naît Shikisha Musashi.','Issu d\'une famille de fermiers, il grandit dans la pauvreté.')
@@ -782,7 +787,7 @@ class Cinematics:
     
     def cinematic_04 (self, screen, saved='none'):
         self.music.play(self.music.menu)
-        self.cinematic_frame(screen, "bamboo2", 0, "Mars 1664, ère Edo, alentours du village d'Ine.")
+        self.cinematic_frame(screen, "bamboo2", 0, "Alentours du village d'Ine.")
         if saved == 'none':
             self.cinematic_frame(screen, "bamboo2", 1, "Il faut que je devienne plus fort, que je les tue tous.", "J\'ai besoin de m\'améliorer pour pouvoir venger mon village.", "Pour l\'instant, je suis trop faible, je dois devenir un Samouraï.", kind_info = ["SM","SM","no_weapon"])
             self.cinematic_frame(screen, "bamboo2", 1, "Hmm ? Tiens ? un village ? Voyons voir cela de plus près...", kind_info = ["SM","SM","no_weapon"])
@@ -862,6 +867,7 @@ class Cinematics:
       
     def cinematic_06 (self,screen,saved='none'):
         self.music.play(self.music.exploration)
+        self.ecran_noir(screen)
         self.cinematic_frame(screen, "bamboo2", 0, "Cela fait plus d'une semaine que Shikisha s'entraîne pour devenir un Samouraï.","Il continue ses efforts, cherche à briser ses limites pour se reconstruire.")
         self.cinematic_frame(screen, "bamboo2", 0, "En ce moment même...")
         self.cinematic_frame(screen, "tkh1", 1, "Les trésors...les richesses...la gloire...la puissance...","Tout ce que recherche un homme pour devenir maître de son environnement.",kind_info=['TK','TK','no_weapon','right',None,['TK']])
@@ -878,10 +884,11 @@ class Cinematics:
     def cinematic_07 (self,screen,saved='none'):
         self.music.play(self.music.exploration)
         texts = {'none':"Takeshi..Keiko..Vous verrez, je vous vengerai ainsi que Magome.",'KM':"Takeshi...Tu verra, je te vengerai ainsi que Magome.",'KT':"Keiko...Tu verra, je te vengerai ainsi que Magome."}
-        self.cinematic_frame(screen, "bamboo2", 0, "En ce moment même...")
         if saved == 'none':
             self.sound.swoosh1.play()
+            self.switch_lowercase(True)
             self.cinematic_frame(screen, "ine1", 2, "Ha ! Hooh... Ryah !", kind_info=[['SM','no_weapon'],['SH','no_weapon'],1])
+            self.switch_lowercase(False)
             self.cinematic_frame(screen, "ine1", 2, "Évite tout mouvement inutile.", "Tu dois agir non seulement rapidement mais aussi correctement.", "La technique surpasse toujours la puissance.", kind_info=[['SM','no_weapon'],['SH','no_weapon'],2])
             self.sound.swoosh2.play()
             self.cinematic_frame(screen, "ine1", 2, "Oui Sensei Hoshida ! Hyah ! Ho ! Ha !", kind_info=[['SM','no_weapon'],['SH','no_weapon'],1])
@@ -894,16 +901,18 @@ class Cinematics:
             self.cinematic_frame(screen, "ine1", 2, "L'élève et le maître sont en plein duel.","L'entraînement commence à devenir féroce.", kind_info=[['SM','no_weapon'],['SH','no_weapon'],0])
             self.cinematic_frame(screen, "ine1", 3, "Allez grand frère! Tu peux le faire !", kind_info=[['SM','no_weapon'],['SH','no_weapon'],['KM','no_weapon'],3])
             self.sound.swoosh1.play()
+            self.switch_lowercase(True)
             self.cinematic_frame(screen, "ine1", 2, "Ha ! Ryah ! Ooh.. Hyah !", kind_info=[['SM','no_weapon'],['SH','no_weapon'],1])
+            self.switch_lowercase(False)
             self.cinematic_frame(screen, "ine1", 2, "Tu manques de vitesse Musashi ! Et tu es assez prévisible !", "Ta défense est trop faible... Ici !", kind_info=[['SM','no_weapon'],['SH','no_weapon'],2])
             self.sound.swoosh3.play()
             self.cinematic_frame(screen, "ine1", 2, "Aïe ! Même pas mal !", kind_info=[['SM','no_weapon'],['SH','no_weapon'],1])
             self.cinematic_frame(screen, "ine1", 2, "C'est bien, continue comme ça... Il faut que tu te surpasses chaque jour !", kind_info=[['SM','no_weapon'],['SH','no_weapon'],2])
             self.cinematic_frame(screen, "ine1", 2, "La prochaine fois, la victoire sera à moi !", kind_info=[['SM','no_weapon'],['SH','no_weapon'],1])
             self.cinematic_frame(screen, "ine1", 2, "J'ai hâte de voir ça. Sur ce, reposons-nous.", "Le repos après un entraînement est indispensable pour progresser.", kind_info=[['SM','no_weapon'],['SH','no_weapon'],2])
-            self.cinematic_frame(screen, "ine1", 2, "Très bien Sensei. Je vais faire un tour dans le dojo pendant ce temps.", "Keiko, tu m'accompagnes ?", kind_info=[['SM','no_weapon'],['KM','no_weapon'],['SH','no_weapon'],1])
-            self.cinematic_frame(screen, "ine1", 2, "Désolée, je dois aller faire ma gymnastique.", kind_info=[['KM','no_weapon'],['SM','no_weapon'],['SH','no_weapon'],1, True])
-            self.cinematic_frame(screen, "ine1", 2, "Comme tu veux.", kind_info=[['SM','no_weapon'],['KM','no_weapon'],['SH','no_weapon'],1, True])
+            self.cinematic_frame(screen, "ine1", 3, "Très bien Sensei. Je vais faire un tour dans le dojo pendant ce temps.", "Keiko, tu m'accompagnes ?", kind_info=[['SM','no_weapon'],['KM','no_weapon'],['SH','no_weapon'],1])
+            self.cinematic_frame(screen, "ine1", 3, "Désolée, je dois aller faire ma gymnastique.", kind_info=[['KM','no_weapon'],['SM','no_weapon'],['SH','no_weapon'],1, True])
+            self.cinematic_frame(screen, "ine1", 3, "Comme tu veux.", kind_info=[['SM','no_weapon'],['KM','no_weapon'],['SH','no_weapon'],1, True])
             
         elif saved == 'KT':
             self.cinematic_frame(screen, "ine1", 2, "Est-ce que tu es prêt Musashi ?","Il faut se donner à fond !", kind_info=[['SM','no_weapon'],['KT','no_weapon'],2])
@@ -924,8 +933,8 @@ class Cinematics:
             self.cinematic_frame(screen, "ine1", 2, "On dirait qu'on ne saura pas qui est le plus fort entre nous deux.", kind_info=[['SM','no_weapon'],['KT','no_weapon'],1])
             self.cinematic_frame(screen, "ine1", 2, "Dommage. On va en finir une autre fois.", kind_info=[['SM','no_weapon'],['KT','no_weapon'],1])
             self.cinematic_frame(screen, "ine1", 3, "Superbe duel vous deux.", "Musashi, il faut que tu anticipes un peu plus le mouvements de tes", "adversaires.", kind_info=[['SM','no_weapon'],['KT','no_weapon'],['SH','no_weapon'],3])
-            self.cinematic_frame(screen, "ine1", 2, "Takeshi, essaie de prendre plus souvent l'initiative.", "Ainsi, tu pourras te créer encore plus d'opportunités.", kind_info=[['SM','no_weapon'],['KT','no_weapon'],['SH','no_weapon'],3])
-            self.cinematic_frame(screen, "ine1", 2, " Bien, prenons une pause.", "Il faut reprendre des forces avant la prochaine séance.", kind_info=[['SM','no_weapon'],['KT','no_weapon'],['SH','no_weapon'],3])
+            self.cinematic_frame(screen, "ine1", 3, "Takeshi, essaie de prendre plus souvent l'initiative.", "Ainsi, tu pourras te créer encore plus d'opportunités.", kind_info=[['SM','no_weapon'],['KT','no_weapon'],['SH','no_weapon'],3])
+            self.cinematic_frame(screen, "ine1", 3, " Bien, prenons une pause.", "Il faut reprendre des forces avant la prochaine séance.", kind_info=[['SM','no_weapon'],['KT','no_weapon'],['SH','no_weapon'],3])
             self.cinematic_frame(screen, "ine1", 2, "Super. Je vais prendre quelque chose à manger. Tu as faim Musashi ?", kind_info=[['SM','no_weapon'],['KT','no_weapon'],2])
             self.cinematic_frame(screen, "ine1", 2, "Hmm...Pas encore, mais merci de me l'avoir demandé.", "Je vais faire un tour dans le dojo pendant ce temps.", kind_info=[['SM','no_weapon'],['KT','no_weapon'],1])
             self.cinematic_frame(screen, "ine1", 2, "Pas de problème. On se retrouve tout-à l'heure", kind_info=[['SM','no_weapon'],['KT','no_weapon'],2])
@@ -940,6 +949,8 @@ class Cinematics:
         self.cinematic_frame(screen, "doj2", 3, "Qui sont ces gens qui sont là depuis tout-à l'heure ?", "Des intrus ? Est-ce qu'ils nous espionnent ? Il faut les arrêter !", kind_info=[['TW','no_weapon'],['TW_H','cin07'],['SM','no_weapon'],3,])
         self.cinematic_frame(screen, "doj2", 3, "Que faire ? Je les suis ? Je préviens Sensei ?", "Je ne sais pas quoi faire...", kind_info=[['TW','no_weapon'],['TW_H','cin07'],['SM','no_weapon'],3,])
         self.lowercase = False
+        out1,out2 = self.choice_frame(screen,"doj2",[3,3],["Prévenir Hoshida","Les suivre discrètement","Les attaquer"],[['TW','no_weapon'],['TW_H','cin07'],['SM','no_weapon']])
+        return out2
     
     def cinematic_08 (self,screen, choose=1):
         self.music.play(self.music.exploration)
@@ -967,12 +978,13 @@ class Cinematics:
             self.cinematic_frame(screen, "doj2", 3, "Pff, tu penses vraiment nous battre tous les deux ?", "Franchement tu nous sous-estimes.", kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],2,])
             self.cinematic_frame(screen, "doj2", 3, "Ne viens pas demander pitié quand tu perdras.", kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],1,])
         else:
-            print("Si vous êtes sur la sauvegarde développeur, merci de paramétrer un choix avec la commande /choice 2 [choix]. Sinon, votre sauvegarde est corrompue")
+            print("Si vous êtes sur la sauvegarde développeur, merci de paramétrer un choix avec la commande /choice 2 [choix]. Sinon, votre sauvegarde est corrompue",choose)
+        return choose
         
     def cinematic_09 (self, screen, saved="none"):
         self.music.play(self.music.menu)
         if saved == 'none':
-            self.cinematic_frame(screen, "ine1", 0, "Ainsi, Musashi continue son entraînement avec Sensei Hoshida.", "Chaque jour, il continue à se dépasser, à s'améliorer et à progresser.",)
+            self.cinematic_frame(screen, "black", 0, "Ainsi, Musashi continue son entraînement avec Sensei Hoshida.", "Chaque jour, il continue à se dépasser, à s'améliorer et à progresser.",)
             self.ecran_noir(screen)
             self.cinematic_frame(screen, 'ine1', 0, "Un mois plus tard...")
             self.cinematic_frame(screen, 'ine1', 2, "Mon cher élève, je te félicite d'avoir participé à cet entraînement", "et d'avoir donné 100% de tes capacités quotidiennement.", "Désormais, je te nomme officiellement Samouraï. Tu l'as bien mérité.", kind_info=[["SM","no_weapon"],["SH","no_weapon"],2])
@@ -982,7 +994,7 @@ class Cinematics:
             self.cinematic_frame(screen, 'ine1', 2, "Bon voyage Musashi ! Fais attention à toi !", kind_info=[["SM","no_weapon"],["SH","no_weapon"],2])
             self.cinematic_frame(screen, 'ine1', 3, "Devenu samouraï, Musashi décide de partir à la recherche", "d'un village pour s'équiper afin de se préparer au long combat qui l'attend", "contre le clan Takahiro, celui qui a détruit son village natal.", kind_info=[["KT","no_weapon"],["SM","no_weapon"],["SH","no_weapon"],0])
         elif saved == 'KM':
-            self.cinematic_frame(screen, "ine1", 0, "Ainsi, Musashi continue son entraînement avec Sensei Hoshida.", "Chaque jour, il continue à se dépasser, à s'améliorer et à progresser.",)
+            self.cinematic_frame(screen, "black", 0, "Ainsi, Musashi continue son entraînement avec Sensei Hoshida.", "Chaque jour, il continue à se dépasser, à s'améliorer et à progresser.",)
             self.ecran_noir(screen)
             self.cinematic_frame(screen, 'ine1', 0, "Un mois plus tard...")
             self.cinematic_frame(screen, 'ine1', 3, "Mon cher élève, je te félicite d'avoir participé à cet entraînement", "et d'avoir donné 100% de tes capacités quotidiennement.", "Désormais, je te nomme officiellement Samouraï. Tu l'as bien mérité.", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["SH","no_weapon"],3])
@@ -993,7 +1005,7 @@ class Cinematics:
             self.cinematic_frame(screen, 'ine1', 3, "Bon voyage Shikisha et Keiko ! Faites attention à vous !", kind_info=[["KM","no_weapon"],["SM","no_weapon"],["SH","no_weapon"],3])
             self.cinematic_frame(screen, 'ine1', 3, "Musashi devenu samouraï, lui et sa sœur décident de partir à la recherche", "d'un village pour s'équiper afin de se préparer au long combat qui les attend", "contre le clan Takahiro, celui qui a détruit leur village natal.", kind_info=[["KM","no_weapon"],["SM","no_weapon"],["SH","no_weapon"],0])
         elif saved == 'KT':
-            self.cinematic_frame(screen, "ine1", 0, "Ainsi, Musashi et Takeshi continuent leur entraînement avec Sensei Hoshida.", "Chaque jour, il continuent à se dépasser, à s'améliorer et à progresser.",)
+            self.cinematic_frame(screen, "black", 0, "Ainsi, Musashi et Takeshi continuent leur entraînement avec Sensei Hoshida.", "Chaque jour, il continuent à se dépasser, à s'améliorer et à progresser.",)
             self.ecran_noir(screen)
             self.cinematic_frame(screen, 'ine1', 0, "Un mois plus tard...")
             self.cinematic_frame(screen, 'ine1', 3, "Mes chers élèves, je vous félicite d'avoir participé à cet entraînement", "et d'avoir donné 100% de vos capacités quotidiennement.", "Désormais, je vous nomme officiellement Samouraïs. Vous l'avez bien mérité.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH","no_weapon"],3])
@@ -1001,13 +1013,14 @@ class Cinematics:
             self.cinematic_frame(screen, 'ine1', 3, "Je vous suis très reconnaissant Sensei Hoshida.", "Vous nous avez très bien enseignés.", kind_info=[["KT","no_weapon"],["SM","no_weapon"],["SH","no_weapon"],1,True])
             self.cinematic_frame(screen, 'ine1', 3, "J'ai hâte de voir cela. Tenez, voici 50 pièces chacun pour votre voyage.", "N'hésitez pas à les utiliser pour vous équiper, nourrir ou vous renforcer.", "Sur ce, j'espère que vous accomplirez de nombreux exploits.", kind_info=[["KT","no_weapon"],["SM","no_weapon"],["SH","no_weapon"],3])
             self.cinematic_frame(screen, 'ine1', 3, "C'est sûr ! À la prochaine Sensei Hoshida !", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH","no_weapon"],1,True])
-            self.cinematic_frame(screen, 'ine1', 3,  "À la prochaine maître !", kind_info=[["KT","no_weapon"],["SM","no_weapon"],["SH","no_weapon"],1,True])
+            self.cinematic_frame(screen, 'ine1', 3, "À la prochaine maître !", kind_info=[["KT","no_weapon"],["SM","no_weapon"],["SH","no_weapon"],1,True])
             self.cinematic_frame(screen, 'ine1', 3, "Bon voyage Musashi et Takeshi ! Faites attention à vous !", kind_info=[["KT","no_weapon"],["SM","no_weapon"],["SH","no_weapon"],3])
             self.cinematic_frame(screen, 'ine1', 3, "Devenus samouraïs, Musashi et Takeshi décident de partir à la recherche", "d'un village pour s'équiper afin de se préparer au long combat qui les attend", "contre le clan Takahiro, celui qui a détruit leur village natal.", kind_info=[["KT","no_weapon"],["SM","no_weapon"],["SH","no_weapon"],0])
         self.ecran_noir(screen)
     
     def cinematic_10(self, screen, saved="none"):
         #cinématique vérifiée
+        self.music.play(self.music.zen)
         if saved == 'none':
             self.cinematic_frame(screen,'bamboo1', 1, "Un nouveau départ. Je suis enfin devenu un samouraï. Je vais enfin pouvoir", "venger Magome. Allons à la ville d'Aizuwakamatsu,on n'a plus de temps à ", "perdre. Hm? (Un ennemi ?)",  kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen,'bamboo1', 1, "Montrez vous ! Je sais que vous vous trouvez à l'intérieur de cette caravane.",  kind_info=["SM","SM", "no_weapon","right"])
@@ -1085,14 +1098,17 @@ class Cinematics:
         #cinématique vérifiée
         if saved == 'none':
             if choose == 1:
+                self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 2, "Marché conclu. J'achète votre arme.", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Ravi de faire affaire avec vous.", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Le“Tengoku no Ikari”... J'en prendrai bien soin.", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Faîtes en bon usage. Vous ne le regretterez pas.", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Je vous en remercie ! Faîtes attention à vous !", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Merci jeune homme ! N'hésite pas à revenir me voir !", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
+                self.sound.achievement.play()
                 self.cinematic_frame(screen, "bamboo2", 0, "Musashi obtient l'une des 7 épées légendaires: Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme", "aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
             elif choose == 2:
+                self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 2, "Je vous remercie de votre offre, mais je vais devoir refuser.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Ah bon ? Dommage. Peut-être une prochaine fois.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "En effet, peut-être une prochaine fois.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
@@ -1102,16 +1118,19 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo2', 2, "A la prochaine marchand Juzo ! Faîtes très attention lors de votre voyage ! ",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, "bamboo2", 0,"Musashi poursuit son voyage pour venger son village natal. Arrivera-t-il", "à atteindre sa destination ? A suivre dans le prochain épisode.")
             elif choose == 3:
+                self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 2, "J'aimerais bien vous prendre cette arme, en échange d'un service que vous", "pourriez me proposer.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Un service tu dis ? Je vois, tu me dois donc un service si jamais tu", "prends cette lame.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "En effet. Je dois venger mon village natal qui a été détruit par le clan", "Takahiro. C'est un cas assez urgent pour moi. Je vous en fais la promesse.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Hmm... D'accord, j'accepte ton offre. Actuellement, je n'ai pas de service", "à te demander pour mon travail mais je t'en ferai part lorsqu'on se", "retrouvera.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Voici le“Tengoku no Ikari”. Fais-en bon usage et fais très attention,", "notamment aux ennemis que tu rencontreras. ", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "C'est noté. Je resterai prudent lors de mon voyage. Encore une fois, je", "vous remercie de votre bienveillance.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 2, "Aucun problème, on peut dire que c'est un cadeau en premier lieu. N'oublie", "pas ta promesse et on se reverra aussitôt! Bon courage pour ta quête Musashi !", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo2', 2, "Aucun problème, on peut dire que c'est un cadeau en premier lieu. N'oublie", "pas ta promesse et on se reverra aussitôt ! Bon courage pour ta quête", "Musashi !", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Entendu ! Bon courage à vous aussi marchand Juzo !",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
+                self.sound.achievement.play()
                 self.cinematic_frame(screen, "bamboo2", 0,"Musashi obtient l'une des 7 épées légendaires: Le“Tengoku no Ikari”et", "poursuit son voyage pour venger son village natal. Sera-t-il conforme", "aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
             elif choose == 4:
+                self.music.play(self.music.epic)
                 self.cinematic_frame(screen, 'bamboo2', 2,"Pardonnez moi, mais je n'ai pas le choix de vous le prendre de force.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2,"Je ne vais pas dépenser mon argent sur une arme qui pourrait être une arnaque.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2,"Es-tu si sûr de ça mon garçon ? Je te déconseille fortement de me sous-", "estimer.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
@@ -1126,6 +1145,7 @@ class Cinematics:
                 self.cinematic_frame(screen, 'black', 0,"FIN.")
         elif saved == 'KM':
             if choose == 1:
+                self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 3, "Marché conclu. J'achète votre arme.",kind_info=[['SM', 'no_weapon'],['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Ravi de faire affaire avec vous.",kind_info=[['SM', 'no_weapon'],['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Super grand frère ! Te voilà bien équipé en cours de route !",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
@@ -1134,8 +1154,10 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo2', 3, "Je vous en remercie ! Faîtes attention à vous !",kind_info=[['SM', 'no_weapon'],['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3, "En effet, merci à vous ! Faîtes attention à vous !",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Merci jeune homme et sa sœur ! N'hésitez pas à revenir me voir !",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.sound.achievement.play()
                 self.cinematic_frame(screen, "bamboo2", 0,"Musashi obtient l'une des 7 épées légendaires : Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
             elif choose == 2:
+                self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 3, "Je vous remercie de votre offre, mais je vais devoir refuser.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Tu ne comptes pas acheter cette arme ? Cela pourrait-être utile.",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Ah bon ? Dommage. Peut-être une prochaine fois.",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 3])
@@ -1147,6 +1169,7 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo2', 3, "A la prochaine !",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, "bamboo2", 0, "Musashi poursuit son voyage pour venger son village natal. Arrivera-t-il à","atteindre sa destination ? A suivre dans le prochain épisode.")
             elif choose == 3:
+                self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 3,"J'aimerais bien vous prendre cette arme, en échange d'un service que vous","pourriez me proposer.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Un service tu dis ? Je vois, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"En effet. Je dois venger mon village natal qui a été détruit par le clan","Takahiro.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
@@ -1158,8 +1181,10 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo2', 3,"Aucun problème, on peut dire que c'est un cadeau en premier lieu. N'oublie","pas ta promesse et on se reverra aussitôt !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Bon courage pour ta quête Musashi ! Ainsi que toi Keiko !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Entendu ! Bon courage à vous aussi marchand Juzo !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
+                self.sound.achievement.play()
                 self.cinematic_frame(screen, "bamboo2", 0,"Musashi obtient l'une des 7 épées légendaires: Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
             elif choose == 4:
+                self.music.play(self.music.epic)
                 self.cinematic_frame(screen, 'bamboo2', 3,"Pardonnez moi, mais je n'ai pas le choix de vous le prendre de force.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"QUe fais-tu grand frère ! ?",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'],['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Je ne vais pas dépenser mon argent sur une arme qui pourrait être une arnaque.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
@@ -1176,6 +1201,7 @@ class Cinematics:
                 self.cinematic_frame(screen, 'black', 0,"FIN.")
         elif saved == 'KT':
             if choose == 1:
+                self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 3, "Marché conclu. J'achète votre arme.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Génial Musashi ! Tu vas devenir extrêmement puissant !",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Ravi de faire affaire avec vous.",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 3])
@@ -1184,8 +1210,10 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo2', 3, "Je vous en remercie ! Faîtes attention à vous !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Merci de votre offre ! A la prochaine !",kind_info=[['KT', 'no_weapon'], ['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Merci à vous ! N'hésite pas à revenir me voir !",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.sound.achievement.play()
                 self.cinematic_frame(screen, 'bamboo2', 0,"Musashi obtient l'une des 7 épées légendaires: Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï? A suivre dans le prochain épisode.")
             elif choose == 2:
+                self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 3, "Je vous remercie de votre offre, mais je vais devoir refuser.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"C'était une occasion gâchée. Cela n'est pas grave, on pourra acheter d'autres","armes dans le village.",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Ah bon ? Dommage. Peut-être une prochaine fois.",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 3])
@@ -1196,6 +1224,7 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo2', 3,"A la prochaine marchand Juzo! Faîtes très attention lors de votre voyage !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 0,"Musashi poursuit son voyage pour venger son village natal. Arrivera-t-il à","atteindre sa destination? A suivre dans le prochain épisode.")
             elif choose == 3:
+                self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 3,"J'aimerais bien vous prendre cette arme, en échange d'un service que vous","pourriez me proposer.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Un service tu dis ? Je vois, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"En effet. Je dois venger mon village natal qui a été détruit par le clan","Takahiro.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
@@ -1208,8 +1237,10 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo2', 3, "Bon courage pour ta quête Musashi !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Entendu ! Bon courage à vous aussi marchand Juzo !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Oui, au revoir marchand Juzo !",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
-                self.cinematic_frame(screen, 'bamboo2', 0,"Musashi poursuit son voyage pour venger son village natal. Arrivera-t-il","à atteindre sa destination? A suivre dans le prochain épisode.")
+                self.sound.achievement.play()
+                self.cinematic_frame(screen, "bamboo2", 0,"Musashi obtient l'une des 7 épées légendaires: Le“Tengoku no Ikari”et","poursuit son voyage pour venger son village natal. Sera-t-elle conforme","aux attentes de notre samouraï ? A suivre dans le prochain épisode.")
             elif choose ==4:
+                self.music.play(self.music.epic)
                 self.cinematic_frame(screen, 'bamboo2', 3,"Pardonnez moi, mais je n'ai pas le choix de vous le prendre de force.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Que fais-tu Musashi ! ?",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'],['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Je ne vais pas dépenser mon argent sur une arme qui pourrait être une arnaque.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
@@ -1227,6 +1258,7 @@ class Cinematics:
         self.ecran_noir(screen)
 
     def cinematic_12(self,screen,saved):
+        self.music.play(self.music.choiceAizu)
         #cinématique vérifiée
         if saved=='none':
             self.cinematic_frame(screen, "azw2", 1, "L'heure est-elle venue pour affronter le clan ?",kind_info=["SM", "SM", "no_weapon", "right"])
@@ -1258,6 +1290,7 @@ class Cinematics:
 
     def cinematic_13(self,screen,saved):
         #cinématique vérifiée
+        self.music.pay(self.music.zen)
         if saved=='none':
             self.cinematic_frame(screen, "mgm8", 1," ..Magome..Mon village natal.",kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen, "mgm8", 1,"Cela fait un petit moment que je ne l'ai pas visité.",kind_info=["SM", "SM", "no_weapon", "right"])
@@ -1293,34 +1326,41 @@ class Cinematics:
         self.ecran_noir(screen)
 
     def cinematic_14(self,screen,saved):
+        self.music.play(self.music.found)
         #cinématique vérifiée
         if saved =='none':
-            self.cinematic_frame(screen, "mgm8", 1," ! ! !",kind_info=["SM", "SM", "no_weapon", "right"])
-            self.cinematic_frame(screen, "mgm8", 1,"Attends une minute..ce lieu..",kind_info=["SM", "SM", "no_weapon", "right"])
-            self.cinematic_frame(screen, "mgm8", 1,"Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=["SM", "SM", "no_weapon", "right"])
-            self.cinematic_frame(screen, "mgm8", 1,"Mais oui! La planque se situait près du village de Magome depuis tout ce","temps !",kind_info=["SM", "SM", "no_weapon", "right"])
-            self.cinematic_frame(screen, "mgm8", 1,"(Tout s'explique ! Je sais désormais où aller !)",kind_info=["SM", "SM", "no_weapon", "right"])
-            self.cinematic_frame(screen, "mgm8", 1,"On n'a pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y", "va ! ",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "tkh4", 1," ! ! !",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "tkh4", 1,"Attends une minute..ce lieu..",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "tkh4", 1,"Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.cinematic_frame(screen, "tkh4", 1,"Mais oui ! La planque se situait près du village de Magome depuis tout ce","temps !",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen, "tkh4", 1,"Tout s'explique ! Je sais désormais où aller !",kind_info=["SM", "SM", "no_weapon", "right"])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen, "tkh4", 1,"Je n'ai pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y", "va ! ",kind_info=["SM", "SM", "no_weapon", "right"])
         elif saved=='KM':
-            self.cinematic_frame(screen, "mgm8", 2, "..grand frère ?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "mgm8", 2," ! ! !",kind_info=[["SM", "no_weapon"], ['KM', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "mgm8", 2, "Attends une minute..ce lieu..",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "mgm8", 2, "Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "mgm8", 2, "Mais oui ! La planque se situait près de Magome depuis tout ce temps !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "mgm8", 2, "(Tout s'explique ! Je sais désormais où aller !)",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "mgm8", 2, "On n'a pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y ","va ! ",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "mgm8", 2, "Attends tu sais où se trouve la base du clan Takahiro…?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "mgm8", 2, "Oui ! On doit faire vite !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "..grand frère ?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2," ! ! !",kind_info=[["SM", "no_weapon"], ['KM', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2, "Attends une minute..ce lieu..",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Mais oui ! La planque se situait près de Magome depuis tout ce temps !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen, "tkh4", 2, "Tout s'explique ! Je sais désormais où aller !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen, "tkh4", 2, "On n'a pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y ","va ! ",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Attends tu sais où se trouve la base du clan Takahiro…?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2, "Oui ! On doit faire vite !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], 1])
         elif saved=='KT':
-            self.cinematic_frame(screen, "mgm8", 2," ! ! !",kind_info=[["SM", "no_weapon"], ['KT', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "mgm8", 2, "Musashi ? Quelque chose te tracasse ? ",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "mgm8", 2, "Attends une minute..ce lieu..",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "mgm8", 2, "Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "mgm8", 2, "??? Tu sais où se situe la base de l'ennemi ?",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
-            self.cinematic_frame(screen, "mgm8", 2, "Mais oui ! La planque se situait près de Magome depuis tout ce temps !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "mgm8", 2, "(Tout s'explique ! Je sais désormais où aller !)",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "mgm8", 2, "On n'a pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y","va ! ",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
-            self.cinematic_frame(screen, "mgm8", 2, "Si tu le dis, alors je te fais confiance. Allons-y !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2," ! ! !",kind_info=[["SM", "no_weapon"], ['KT', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2, "Musashi ? Quelque chose te tracasse ? ",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2, "Attends une minute..ce lieu..",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Je m'en souviens..C'est là où se situe la planque de l'ennemi !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, " ? ? ? Tu sais où se situe la base de l'ennemi ?",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
+            self.cinematic_frame(screen, "tkh4", 2, "Mais oui ! La planque se situait près de Magome depuis tout ce temps !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.switch_lowercase(True)
+            self.cinematic_frame(screen, "tkh4", 2, "Tout s'explique ! Je sais désormais où aller !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.switch_lowercase(False)
+            self.cinematic_frame(screen, "tkh4", 2, "On n'a pas de temps à perdre ! Je vais battre le chef du clan lui-même, on y","va ! ",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
+            self.cinematic_frame(screen, "tkh4", 2, "Si tu le dis, alors je te fais confiance. Allons-y !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 2])
         self.ecran_noir(screen)
 
 
@@ -1328,13 +1368,14 @@ class Cinematics:
         #cinématique vérifiée
         if saved =='none':
             if juzo==True:
+                self.music.play(self.music.menu)
                 self.cinematic_frame(screen, 'bamboo5', 2, " ! Ce chariot..ce sac..ces vêtements, ce ne serait pas.. ?", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo5', 2, "Musashi ! C'est urgent ! !", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo5', 2, "Quoi donc ?", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo5', 2, "Je suis désolé de te dire cela, mais il va falloir que tu me rendes service", "ici et maintenant. ", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo5', 2, "Ici et maintenant ? Pourquoi ? Est-ce très urgent ?", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo5', 2, "Oui... Malheureusement je ne t'avais pas prévenu auparavant lors de notre", "rencontre dans la forêt..", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
-                self.cinematic_frame(screen, 'bamboo5', 2, "Le“Tengoku no Ikari”... est une arme maudite.", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo5', 2, "Le “Tengoku no Ikari”... est une arme maudite.", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo5', 2, "Une arme maudite ? Alors que c'est l'une des 7 épées légendaires ?", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo5', 2, "Oui..Sache que les 7 épées légendaires sont toutes maudites. ", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo5', 2, "Le seul moyen de lever la malédiction, c'est de battre une autre personne qui", "possède une autre arme légendaire.", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
@@ -1365,6 +1406,7 @@ class Cinematics:
                 self.cinematic_frame(screen, "bamboo5", 3, "Nos destins vont s'entrechoquer..Ici et maintenant !",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], ['SA', 'no_weapon'], 1])
                 self.ecran_noir(screen)
             if in_genocide_route==True:
+                self.music.play(self.music.epic)
                 self.ecran_noir(screen)
                 self.cinematic_frame(screen, 'bamboo2', 2, "..Musashi.", kind_info=[['SM','no_weapon'], ['SH','no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Sensei Hoshida ? Que faîtes vous ici ?", kind_info=[['SM','no_weapon'], ['SH','no_weapon'], 1])
@@ -1426,6 +1468,7 @@ class Cinematics:
                         self.ecran_noir(screen)
         elif saved =='KM':
             if juzo==True:
+                self.music.play(self.music.menu)
                 self.cinematic_frame(screen, "bamboo5", 3, " ! Ce chariot..ce sac..ces vêtements, ce ne serait pas.. ?",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'],1])
                 self.cinematic_frame(screen, "bamboo5", 3, "C'est marchand Juzo !",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'],1, True])
                 self.cinematic_frame(screen, "bamboo5", 3, "Musashi ! C'est urgent ! !",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'],3])
@@ -1468,6 +1511,7 @@ class Cinematics:
                 self.cinematic_frame(screen, "bamboo5", 3, "Nos destins vont s'entrechoquer..Ici et maintenant !",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'],['SA','no_weapon'],1])
                 self.ecran_noir(screen)
             if in_genocide_route==True:
+                self.music.play(self.music.epic)
                 self.cinematic_frame(screen, 'bamboo2', 3, "..Musashi.", kind_info=[['SM','no_weapon'], ['KM','no_weapon'], ['SH','no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Sensei Hoshida ? Que faîtes vous ici ?", kind_info=[['SM','no_weapon'], ['KM','no_weapon'],['SH','no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Tu sais très bien pourquoi je suis ici.", kind_info=[['SM','no_weapon'],['KM','no_weapon'], ['SH','no_weapon'], 3])
@@ -1533,6 +1577,7 @@ class Cinematics:
                         self.ecran_noir(screen)
         elif saved =='KT':
             if juzo==True:
+                self.music.play(self.music.menu)
                 self.cinematic_frame(screen, "bamboo5", 3, " ! Ce chariot..ce sac..ces vêtements, ce ne serait pas.. ?",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'],1])
                 self.cinematic_frame(screen, "bamboo5", 3, "C'est marchand Juzo !",kind_info=[['KT','no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'],1, True])
                 self.cinematic_frame(screen, "bamboo5", 3, "Musashi ! C'est urgent ! !",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'],3])
@@ -1575,6 +1620,7 @@ class Cinematics:
                 self.cinematic_frame(screen, "bamboo5", 3, "Nos destins vont s'entrechoquer..Ici et maintenant !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['SA','no_weapon'],1])
                 self.ecran_noir(screen)
             if in_genocide_route==True:
+                self.music.play(self.music.epic)
                 self.cinematic_frame(screen, 'bamboo2', 3, "..Musashi.", kind_info=[['SM','no_weapon'], ['KT','no_weapon'], ['SH','no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Sensei Hoshida ? Que faîtes vous ici ?", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['SH','no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Tu sais très bien pourquoi je suis ici.", kind_info=[['SM','no_weapon'],['KT','no_weapon'], ['SH','no_weapon'], 3])
@@ -1641,6 +1687,7 @@ class Cinematics:
 
     def cinematic_16(self,screen,saved):
         #cinématique vérifiée
+        self.music.play(self.music.theme_tkh1)
         if saved=='none':
             self.cinematic_frame(screen, "black",0,"Le combat tant attendu est arrivé.")
             self.cinematic_frame(screen, "black",0,"Musashi avec son visage coriace reprend sa respiration avant la bataille", "finale.")
@@ -1709,7 +1756,7 @@ class Cinematics:
         self.ecran_noir(screen)
 
     def cinematic_17(self,screen,saved):
-
+        self.music.play(self.music.theme_tkh1)
         if saved=='none' or saved=='KM':
             self.switch_lowercase(True)
             self.cinematic_frame(screen, "tkh2", 1, "Sigh...",kind_info=["SM", "SM", "no_weapon", "right"])
@@ -1752,6 +1799,7 @@ class Cinematics:
 
     def cinematic_18(self,screen):
         #cinématique vérifiée
+        self.music.play(self.music.theme_tkh1)
         self.cinematic_frame(screen, "tkh1", 2, "..Takhiro Kojiro, chef du clan Takahiro..",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 1])
         self.cinematic_frame(screen, "tkh1", 2, "Shikisha Musashi..tu es donc vivant..",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 2])
         self.cinematic_frame(screen, "tkh1", 2, "Je te félicite d'avoir vaincu mes très puissants subordonnées..Tu es bien", "l'élève de Sensei Hoshida.",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 2])
@@ -1783,6 +1831,7 @@ class Cinematics:
 
     def cinematic_19(self,screen,chef_tkh_battu):
         #cinématique vérifiée
+        self.music.play(self.music.theme_tkh1)
         if chef_tkh_battu==False:
             self.cinematic_frame(screen, "tkh1", 2, "Je te l'avais dit. Tu n'avais aucune chance de me battre.",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 2])
         elif chef_tkh_battu==True:
@@ -1803,6 +1852,7 @@ class Cinematics:
     def cinematic_20(self,screen,route):
         #cinématique vérifiée
         if route=='pacifist':
+            self.music.play(self.music.zen)
             self.cinematic_frame(screen, "tkh1", 2, "M.Takahiro...Je suis ravi d'avoir fait ce duel avec vous. Malgré vos actions", "passées...",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 1])
             self.cinematic_frame(screen, "tkh1", 2, "Je vous pardonne. Tout le monde mérite une seconde chance.",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 1])
             self.cinematic_frame(screen, "tkh1", 2, "Musashi...",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 2])
@@ -1829,6 +1879,7 @@ class Cinematics:
             self.cinematic_frame(screen, "tkh1", 0, "FIN")
 
         elif route=='neutral':
+            self.music.play(self.music.zen)
             self.cinematic_frame(screen, "tkh1", 2, "M.Takahiro. Je vais être honnête, je ne suis pas le mieux placé pour vous", "dire cela..",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 1])
             self.cinematic_frame(screen, "tkh1", 2, "Mais je comprends définitivement ce que vous ressentez.",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 1])
             self.cinematic_frame(screen, "tkh1", 2, "Moi-même j'ai fait des actes qui étaient considérés comme acceptables voire", "inacceptables.",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 1])
@@ -1858,6 +1909,7 @@ class Cinematics:
             self.cinematic_frame(screen,'tkh1',0,"FIN")
 
         elif route == 'genocide':
+            self.music.play(self.music.theme_tkh1)
             self.cinematic_frame(screen, "tkh1", 2, "Kh !",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 2])
             self.cinematic_frame(screen, "tkh1", 0, "(Une lame transperce la tête de Takahiro)")
             self.cinematic_frame(screen, "tkh1", 2, "Comment ???",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 2])
@@ -2088,11 +2140,30 @@ class Cinematics:
             self.cinematic_frame(screen,'forest2',3,"J'espère que tu ne fuiras pas à la fin du combat comme ton camarade.",kind_info=[['TW_H','no_weapon'],['TW','no_weapon'],['KT','no_weapon'],1, True])
             self.cinematic_frame(screen,'forest2',3,"Ne nous sous-estime pas si tu penses pouvoir gagner facilement ce combat.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['KT','no_weapon'],1, True])
 
+    def cinematic_23(self,screen,saved='none'):
+        self.music.play(self.music.theme_tkh1)
+        self.cinematic_frame(screen,'ine2',3,"Im-Impossible..",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],1])
+        self.cinematic_frame(screen,'ine2',3,"Comment est-il si puissant...",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],2,True])
+        self.cinematic_frame(screen,'ine2',3,"Je l'ai fait.. J'ai réussi à les battre.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],3])
+        self.ecran_noir(screen)
+        self.cinematic_frame(screen,'ine2',3,"MUSASHI!!",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2])
+        self.cinematic_frame(screen,'ine2',3,"Que s'est-il passé? J'ai entendu un vacarme à l'extérieur du dojo..",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2])
+        self.cinematic_frame(screen,'ine2',3,"..Ah tout s'explique.",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2])
+        self.cinematic_frame(screen,'ine2',3,"Vous voyez Sensei Hoshida? J'ai réussi à les battre, je suis devenu très", "fort !",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],1,True])
+        self.cinematic_frame(screen,'ine2',3,"Oui, mais c'est quand même inacceptable de ta part. Je suis très déçu que", "tu aies choisi la violence à la vigilance.",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2,True])
+        self.cinematic_frame(screen,'ine2',3," Je vous prie de m'excuser Sensei Hoshida, s'ils se sont enfuis, on", "obtiendrait de lourdes conséquences à l'avenir.",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],1,True])
+        self.cinematic_frame(screen,'ine2',3,"Néanmoins je te félicite quand même d'avoir combattu comme un samouraï. ",kind_info=[['SM','no_weapon'],['SH','no_weapon'],['TW','no_weapon'],2,True])
+
+    def cinematic_24(self,screen,saved='none'):
+        self.cinematic_frame(screen,'ine2',3,"Tiens donc, un petit fouineur.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],1])
+        self.cinematic_frame(screen,'ine2',3,"On ne joue pas au plus malin avec le clan Takahiro. Tu aurais dû le savoir.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],2,True])
+
+
 if __name__ == '__main__':
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    output = c.cinematic_11(screen, "KM", 1)
+    output = c.cinematic_14(screen,"KM")
     print(output)
     pygame.quit()

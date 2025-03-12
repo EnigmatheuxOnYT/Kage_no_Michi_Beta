@@ -156,6 +156,9 @@ class minigm_follow:
                                               "J’y vais, ou je rentre ? J’ai déjà assez d’informations comme ça, non ?",
                                               kind_info=[['TW','no_weapon'], ['TW_H','cin07'], ['SM','no_weapon'], 3],
                                               running=self.running)
+                    out1,out2 = self.cin.choice_frame(screen,"ine1",[3,2],["Les attaquer","Rentrer"],[['TW','no_weapon'], ['TW_H','cin07'], ['SM','no_weapon']])
+                    if out1=="choice":
+                        self.end_state+=str(out2)
                 else:
                     self.cin.cinematic_frame(screen, "ine1", 3,
                                               "Parfait, c’est noté. Retournons voir Sensei pour expliquer la situation.",

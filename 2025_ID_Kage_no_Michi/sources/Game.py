@@ -30,6 +30,8 @@ from Audio import Music,Sound
 from Gameplay import Story
 from map.src.game import Game_map
 from map.src.Map_objects import Path,paths_list
+from Fight import Fight
+from Fight_assets import Fight_assets
 
 class Game:
     
@@ -64,8 +66,13 @@ class Game:
         self.story=Story()
         Loading.display_loading(screen, 67,"Lancement du module de cinématiques")
         self.cinematics = Cinematics()
+        self.fight = Fight()
+        self.fight_assets = Fight_assets()
+        self.fighter = self.fight_assets.Musashi
+        self.allies = []
         Loading.display_loading(screen, 67,"Lancement du module de la carte")
-        self.map = Game_map(screen)
+        self.map_screen_surface = pygame.surface.Surface((1280,720))
+        self.map = Game_map(self.map_screen_surface)
         self.paths = self._get_paths(paths_list)
         self.current_path=self.paths[0]
         Loading.display_loading(screen, 80,"Finalisation")
@@ -94,7 +101,6 @@ class Game:
 
         self.devmode=False
         self.in_gameplay=False
-        self.lost = False
 
         self.current_interaction = {"is":False,"interaction":None}
         self.current_interration = 0
@@ -140,6 +146,8 @@ class Game:
         
         self.load_player_data(save_data)
         
+        in_game = True
+
         if self.loaded_save == 0:
             self.blank = False
             self.in_gameplay=True
@@ -158,10 +166,8 @@ class Game:
         
         
         pygame.mouse.set_visible(False)
-        self.music.play(fade=500)
         
         loading_save = False
-        in_game = True
         print(f"Sauvegarde {self.loaded_save} chargée")
         
         
@@ -177,6 +183,7 @@ class Game:
     
     def save_savefile(self):
         ########## Sauvegarde ##########
+        self.scene = self.current_playing_scene.id
         self.player_pos = self.get_pos()
         self.inventory={'money':self.money,'weapon':self.current_weapon,'heal_potions':self.heal_potions_count}
         dead = [self.dead,self.lost]
@@ -201,6 +208,8 @@ class Game:
             
             if event.type == "choice":
                 self.choices[event.data[0]]=event.data[1]
+                if event.data[0]==0:
+                    self.setup_saved(event.data[1])                    
             
             elif event.type == 'cinematic':
                 self.launch_cinematic(cinematic=event.data[0])
@@ -213,7 +222,6 @@ class Game:
             
             elif event.type == "interaction":
                 self.current_interaction = {"is":True,"interaction":event.data[0]}
-                print(event.data[0])
             
             elif event.type == "gpp_next":
                 self.next_gpp(event.data[0])
@@ -225,10 +233,13 @@ class Game:
                 self.location = event.data[0]
             
             elif event.type=='gpp':
-                print("alpha")
                 self.update_scene(event.data)
 
-    
+    def setup_saved (self,saved):
+        self.map.set_follower(saved)
+        #if saved == "KT":
+        #    self.allies.append(self.fight_assets.Takeshi)
+
 
 
     def handle_interaction (self,interaction):
@@ -259,7 +270,6 @@ class Game:
             self.launch_minigame(action.minigame_no)
         elif action.type =='NPCRepeatInteraction':
             pass
-
             
 
 
@@ -379,10 +389,12 @@ class Game:
             if minigame == 2:
                 if not victory_state:
                     self.lost = True
+                    self.save_savefile()
                     self.in_gameplay = False
             elif minigame == 5:
                 if victory_state == 'defeat':
                     self.dead = True
+                    self.save_savefile()
                     self.in_gameplay = False
                 elif victory_state == 'victory':
                     pass
@@ -420,9 +432,10 @@ class Game:
         elif cinematic == 6:
             self.cinematics.cinematic_06(self.screen_for_game,choices[0])
         elif cinematic == 7:
-            self.cinematics.cinematic_07(self.screen_for_game,choices[0])
+            choice = self.cinematics.cinematic_07(self.screen_for_game,choices[0])
+            self.choices[1]=choice
         elif cinematic == 8:
-            self.cinematics.cinematic_08(self.screen_for_game,choices[1])
+            choice = self.cinematics.cinematic_08(self.screen_for_game,choices[1])
         elif cinematic == 9:
             self.cinematics.cinematic_09(self.screen_for_game,choices[0])
         elif cinematic == 10:
@@ -430,6 +443,8 @@ class Game:
             self.choices[2] = choice
         elif cinematic == 11:
             self.cinematics.cinematic_11(self.screen_for_game,choices[0],choices[2])
+        elif cinematic == 23:
+            self.cinematics.cinematic_23(self.screen_for_game)
         
         pygame.mouse.set_visible(False)
         return choice
@@ -441,6 +456,10 @@ class Game:
             choices = self.choices
         
         self.music.play(fade=500)
+    
+    def launch_fight(self,bg,ennemies):
+        state,self.heal_potions_count = self.fight.run(self.screen_for_game,bg,self.fighter,self.allies,ennemies,self.heal_potions_count)
+        return state
     
     def next_gpp(self,output):
         scene = self.current_playing_scene
@@ -457,9 +476,8 @@ class Game:
         if self.blank:
             self.begin()
         
-            
-        self.music.play(fade=500)
-            
+        
+                        
         if self.dead:
             self.death()
             self.save_savefile()
@@ -490,6 +508,10 @@ class Game:
                     self.arrow_mode='spawn'
                     self.draw_arrow=False
                 self.in_gameplay=True
+            elif gpp.type == "GPPFight":
+                self.launch_fight(gpp.bg,gpp.ennemies)
+            elif gpp.type=='GPPDeath':
+                self.death()
         
 
     def update_scene (self,data=[]):
@@ -616,10 +638,11 @@ class Game:
         ########## Dessin du jeu (partie 3) ##########
         if self.in_gameplay:
             self.map.map_manager.draw()
+            screen.blit(self.map_screen_surface,(0,0))
             self.draw_overlap(screen)
             if self.draw_arrow:
                 self.screen_for_game.blit(self.current_arrow_surface,self.current_arrow_rect)
-                pygame.display.flip()
+            #pygame.display.flip() AAAAAAAAAAAA
             return True
         return False
     

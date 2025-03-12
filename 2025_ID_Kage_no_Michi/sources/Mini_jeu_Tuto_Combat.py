@@ -67,7 +67,6 @@ class minigm_tutofight :
     def load_assets(self):
         # Importer les images, sons etc.. ici (depuis "../data/assets")
         
-        
         ### Importation de la police d'écriture (taille des textes des dialogues)
         self.font_MFMG30 = pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",30)
     
@@ -86,7 +85,7 @@ class minigm_tutofight :
         if saved == 'none':
             self.cin.cinematic_frame(screen,'ine1',3,"Rien n'est encore gagné, l'entraînement ne fait que de commencer.", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],3],running=self.running)
         if saved == 'KM':
-            self.cin.cinematic_frame(screen,'ine1',3,"Bonjour à vous Sensei Hoshida.", "Je suis très reconnaissant de l'entraînement que vous offrez à mon grand frère!", kind_info=[[saved,"no_weapon"],["SM","no_weapon"],["SH","no_weapon"],1,True],running=self.running)
+            self.cin.cinematic_frame(screen,'ine1',3,"Bonjour à vous Sensei Hoshida.", "Je suis très reconnaissant de l'entraînement que vous offrez", "à mon grand frère !", kind_info=[[saved,"no_weapon"],["SM","no_weapon"],["SH","no_weapon"],1,True],running=self.running)
             self.cin.cinematic_frame(screen,'ine1',3,"Je vois que vous êtes tous les deux en bonne forme.","C'est un très bon signe. Musashi, il est l'heure de l'entraînement.", kind_info=[[saved,"no_weapon"],["SM","no_weapon"],["SH","no_weapon"],3],running=self.running)
             self.cin.cinematic_frame(screen,'ine1',3,"Oui Maître !", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],1,True],running=self.running)
         elif saved == 'KT':
@@ -122,10 +121,6 @@ class minigm_tutofight :
             pygame.event.post(event)
         
         self.fight.handle_imput()
-        
-
-        
-    
     
     ########## Partie 2 : Mise à jour ##########
     def minigm_update (self):

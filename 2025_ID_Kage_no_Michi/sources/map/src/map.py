@@ -134,6 +134,9 @@ class MapManager :
                               event_zones=[Event_zone(from_world="Magome cinematic", origin_point="Keiko", entities=["Player"], events=[Event(type='choice',data=[0,"KM"]),Event(type='gpp_next',data=[-1])]),
                                            Event_zone(from_world="Magome cinematic", origin_point="Takeshi", entities=["Player"], events=[Event(type='choice',data=[0,"KT"]),Event(type='gpp_next',data=[-1])])
                                            ],
+                            npcs=[StaticNPC("Keiko",[352,192]),
+                                  StaticNPC("Takeshi",[896,224])
+                                  ],
                               layer=7
                               )
             self.register_map("Ine_filature",

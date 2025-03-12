@@ -17,7 +17,7 @@ class Perso:
     """
     Classe représentant un personnage du jeu.
     """
-    def __init__(self, name:str,spritename:str, pv_max:int, weapon:Weapon,attaque_frames:int,level:int=1,instance:int=0): #Toutes les variables nécessaires pour la création d'un personnage
+    def __init__(self, name:str,spritename:str,nouvelle_taille:tuple, pv_max:int, weapon:Weapon,attaque_frames:int,level:int=1,instance:int=0): #Toutes les variables nécessaires pour la création d'un personnage
         self.name = name #Son nom
         self.sprite_name = spritename
         self.pv_max = pv_max #Ses hp max
@@ -28,9 +28,10 @@ class Perso:
         self.level = 1 #niveau du personnage
         self.level_xp = 5
         self.xp = 0
+        self.nouvelle_taille = nouvelle_taille
         self.set_level(level)
         sprite = pygame.image.load(f"../data/assets/tpt/sprites/{self.sprite_name}_Idle.png") #Le spirte quand il reste immobile
-        self.image = pygame.transform.scale(sprite, (200,200)) #On redimensionne le sprite de sorte à ce que ça soit cohérent avec le fond
+        self.image = pygame.transform.scale(sprite, nouvelle_taille) #On redimensionne le sprite de sorte à ce que ça soit cohérent avec le fond
         self.rect = self.image.get_rect()
         self.rect.width = 100
         self.atk_frame_lengh = 80
@@ -53,8 +54,8 @@ class Perso:
     
     def level_up (self):
         self.level+=1
-        self.pv_max=int(round(self.pv_max*1.1,0))
-        self._base_damage=max(int(round(self._base_damage*1.1,0)),self._base_damage+1)
+        self.pv_max=int(round(self.pv_max*1.1,0))+2
+        self._base_damage=int(round(self._base_damage*1.1,0))+2
         self.pv = self.pv_max
         self.level_xp = int(self.level_xp*1.1)+2
     
@@ -117,7 +118,7 @@ class Perso:
             self.debut_frame = pygame.time.get_ticks()
 
         if self.index!=0 and self.attacking:
-            image = pygame.transform.scale(self.animations_combat[self.index], (200,200))
+            image = pygame.transform.scale(self.animations_combat[self.index], self.nouvelle_taille)
             if self.orientation == "gauche":
                 image = pygame.transform.flip(image, True, False)
             screen.blit(image,(self.pos))
@@ -145,19 +146,21 @@ class Fight_assets:
         self.jigoku_no_shizuka = Weapon(name = "Jigoku no Shizuka", weapon_damage=20,special_damage=10, crit_chance=0.1)
         self.wood_katana = Weapon(name="wood_katana",weapon_damage=5,special_damage=5,crit_chance=0.05)
         self.training_katana = Weapon(name="wood_katana",weapon_damage=0,special_damage=5)
+        self.katana_guerriers = Weapon(name="katana",weapon_damage=10,special_damage=5,crit_chance=0.05)
         self.zero = Weapon(name="no_weapon",weapon_damage=-100,)
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
-        self.Musashi = Perso("Musashi","Musashi",100,self.op_weapon,10,level = 30)
-        #self.Musashi_Tengoku = Perso("Musashi", "Musashi_Tengoku", 50, 30)
-        self.Musashi_jeune = Perso("Musashi","Musashi",5,self.training_katana,0)
-        self.pantin_de_combat = Perso("Pantin de combat", "Soldat1",30,self.zero,0)
+        self.Musashi = Perso("Musashi","Musashi",(200,200),100,self.op_weapon,9,level = 30)
+        self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku", (250,250),50,self.tengoku_no_ikari, 9, 30)
+        self.Musashi_jeune = Perso("Musashi","Musashi_Jeune",(200,200),5,self.training_katana,0)
+        self.pantin_de_combat = Perso("Pantin de combat", "Pantin",(200,200),30,self.zero,0)
         self.pantin_de_combat.set_do_attaks(False)
-        self.guerrier_takahiro = Perso('Soldat1', "Soldat1",70,self.no_weapon,11)
-        self.guerrier_takahiro2 = Perso('Soldat2', "Soldat1", 70,self.no_weapon,11)
-        self.Takahiro = Perso("Kojiro Takahiro", "Takahiro", 200, self.op_weapon,12, 30)
-        #self.Senshi = Perso("Senshi Akuma", "Senshi", 50, self.jigoku_no_shizuka, 30)
-
+        self.guerrier_takahiro = Perso('Soldat1', "Soldat1",(250,250),70,self.no_weapon,11)
+        self.guerrier_takahiro2 = Perso('Soldat2', "Soldat1",(250,250), 70,self.no_weapon,11)
+        self.Takahiro = Perso("Kojiro Takahiro", "Takahiro", (250,250), 200, self.op_weapon,12, 30)
+        self.Senshi = Perso("Senshi Akuma", "Senshi",(250,250), 50, self.jigoku_no_shizuka,12, 30)
+        self.guerrier_ch1_e4_1_1 = Perso("Soldat","Soldat1",(250,250),5,self.katana_guerriers,11,5)
+        self.guerrier_ch1_e4_1_2 = Perso("Soldat","Soldat1",(250,250),5,self.katana_guerriers,11,5)
         #self.ma_Juzo = Perso('Ma_Juzo',200, self.tengoku_no_ikari,level=10)
 
 if __name__ == "__main__":
