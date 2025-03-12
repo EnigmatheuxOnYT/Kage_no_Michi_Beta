@@ -2088,6 +2088,7 @@ class Cinematics:
             self.cinematic_frame(screen, 'forest2', 3, "Dois-je plutôt fuir? Ou peut-être les combattre ? Ou même encore se servir de", "l'environnement, et donc du milieu alentour à mon avantage ? Que faire ?",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'],['TW', 'no_weapon'], 1])
             self.switch_lowercase(False)
             output1, output2 = self.choice_frame(screen, "forest2", [0, 3], ["FUIR", "COMBATTRE", "UTILISER MILIEU"])
+        return output2
 
     def cinematic_22(self,screen,saved):
         self.music.play(self.music.theme_tkh1)

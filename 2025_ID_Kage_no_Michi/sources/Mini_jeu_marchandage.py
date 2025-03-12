@@ -277,9 +277,13 @@ class minigm_trade:
                 self.switch_lowercase(True)
                 self.cin.cinematic_frame(screen, 'bamboo3', 3, "Cette arme pourrait être cruciale pour notre mission...", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 2], running=self.running)
                 self.switch_lowercase(False)
+            victory_state = "win"
         else:
             self.cin.cinematic_frame(screen, 'bamboo3', 2, "Hmm… Pas terrible. Vous auriez pu mieux faire. Mais bon, les affaires", "sont les affaires. Alors, que décidez-vous ?", kind_info=[["SM","no_weapon"], [saved,'no_weapon'],["JM","no_weapon"], 3], running=self.running)
             self.victory = False
+            victory_state = "loose"
+        out1,out2 = self.cin.choice_frame(screen,'bamboo3',[3,4],["Acheter","Refuser","Accepter contre un service","Le tuer"],[["SM","no_weapon"], [saved,'no_weapon'],["JM","no_weapon"]])
+        self.victory_state = victory_state+str(out2)
         self.playing = False
         self.in_minigm = False
     
@@ -539,7 +543,7 @@ class minigm_trade:
         if self.running:
             self.end(screen, saved)
         
-        return self.running,self.victory
+        return self.running,self.victory_state
 
 #########################################
 # Lancement du mini-jeu

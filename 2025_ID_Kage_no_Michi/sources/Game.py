@@ -396,12 +396,12 @@ class Game:
                     self.dead = True
                     self.save_savefile()
                     self.in_gameplay = False
-                elif victory_state == 'victory':
-                    pass
-                elif victory_state == 'perfect_win':
-                    pass
             elif minigame == 6:
-                pass
+                self.choices[2] = str(victory_state[-1])
+                if victory_state=='loose2':
+                    self.money-=100
+                elif victory_state=="win2":
+                    self.money-=50
             elif minigame == 7:
                 pass
             elif minigame == 8:
@@ -438,6 +438,7 @@ class Game:
             choice = self.cinematics.cinematic_08(self.screen_for_game,choices[1])
         elif cinematic == 9:
             self.cinematics.cinematic_09(self.screen_for_game,choices[0])
+            self.money+=100
         elif cinematic == 10:
             choice = self.cinematics.cinematic_10(self.screen_for_game,choices[0])
             self.choices[2] = choice

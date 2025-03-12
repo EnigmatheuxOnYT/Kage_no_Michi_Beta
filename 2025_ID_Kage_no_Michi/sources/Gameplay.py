@@ -363,7 +363,13 @@ class Story:
                                                                    updates=[Update(condition=Condition(type="location",data=['forest']),effect='next')]),
                                                             GPPCinematic(name='cinematic_10',
                                                                          cinematic_no=10,
-                                                                         dirs_data=[4,[1,2,3,4],['minigm_06',"cinematic_11","cinematic_11","cinematic_11"]])]
+                                                                         dirs_data=[4,[1,2,3,4],['minigm_06',"cinematic_11","cinematic_11","cinematic_11"]]),
+                                                            GPPCinematic(name='cinematic_11',
+                                                                         cinematic_no=11,
+                                                                         dirs_data=[]),
+                                                            GPPMinigame(name='minigm_06',
+                                                                        minigame_no=6,
+                                                                        dirs_data=[1,[-1],["cinematic_11"]])]
                                                       ),
                                       }
                        }
