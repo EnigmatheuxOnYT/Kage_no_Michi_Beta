@@ -17,7 +17,7 @@ class Perso:
     """
     Classe représentant un personnage du jeu.
     """
-    def __init__(self, name:str,spritename:str,nouvelle_taille:tuple, pv_max:int, weapon:Weapon,attaque_frames:int,level:int=1,instance:int=0): #Toutes les variables nécessaires pour la création d'un personnage
+    def __init__(self, name:str,spritename:str,position_y:float,nouvelle_taille:tuple, pv_max:int, weapon:Weapon,attaque_frames:int,level:int=1,instance:int=0): #Toutes les variables nécessaires pour la création d'un personnage
         self.name = name #Son nom
         self.sprite_name = spritename
         self.pv_max = pv_max #Ses hp max
@@ -46,6 +46,7 @@ class Perso:
         self.index = 0
         self.max_index = attaque_frames-1
         self.fin_attaque = False
+        self.position_y = position_y
 
     @property
     def current_damage(self):return self._base_damage+self.weapon.weapon_damage
@@ -128,7 +129,8 @@ class Perso:
                 image_attaque = pygame.transform.scale(self.animations_attaque[index_attaque],(200,200))
                 if self.orientation == "gauche":
                     image_attaque = pygame.transform.flip(image_attaque, True, False)
-                screen.blit(image_attaque, ennemi_position)
+                attack_rect = image_attaque.get_rect(center=ennemi_position)
+                screen.blit(image_attaque, attack_rect)
                 if image_attaque == self.animations_attaque[8]:
                     self.fin_attaque = True
                 
@@ -150,27 +152,17 @@ class Fight_assets:
         self.zero = Weapon(name="no_weapon",weapon_damage=-100,)
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
-        self.Musashi = Perso("Musashi","Musashi",(200,200),100,self.op_weapon,9,level = 30)
-        self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku",(250,250),50,self.tengoku_no_ikari, 9, 30)
-        self.Musashi_jeune = Perso("Musashi","Musashi_Jeune",(200,200),5,self.training_katana,9,)
-        self.pantin_de_combat = Perso("Pantin de combat", "Pantin",(200,200),30,self.zero,0,0)
-        self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku", (250,250),50,self.tengoku_no_ikari, 9, 30)
-        self.Musashi_jeune = Perso("Musashi","Musashi_Jeune",(200,200),5,self.training_katana,0)
-        self.pantin_de_combat = Perso("Pantin de combat", "Pantin",(200,200),15,self.zero,0)
+        self.Musashi = Perso("Musashi","Musashi",250,(200,200),40,self.wood_katana,9,level = 10)
+        self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku",230,(250,250),50,self.tengoku_no_ikari, 9, 20)
+        self.Musashi_jeune = Perso("Musashi","Musashi_Jeune",0,(200,200),5,self.training_katana,9,)
+        self.pantin_de_combat = Perso("Pantin de combat", "Pantin",0,(200,200),30,self.zero,0,0)
         self.pantin_de_combat.set_do_attaks(False)
-        self.guerrier_takahiro = Perso('Soldat1', "Soldat1",(250,250),70,self.no_weapon,11)
-        self.guerrier_takahiro2 = Perso('Soldat2', "Soldat1",(250,250), 70,self.no_weapon,11)
-        self.Takahiro = Perso("Kojiro Takahiro", "Takahiro", (250,250), 200, self.op_weapon,12, 30)
-        self.Senshi = Perso("Senshi Akuma", "Senshi",(300,300), 50, self.jigoku_no_shizuka,12, 30)
+        self.guerrier_takahiro = Perso('Soldat1', "Soldat1",200,(250,250),70,self.no_weapon,11)
+        self.guerrier_takahiro2 = Perso('Soldat2', "Soldat2",200,(250,250), 70,self.no_weapon,10)
+        self.Takahiro = Perso("Kojiro Takahiro", "Takahiro",200,(300,300), 200, self.op_weapon,12, 20)
+        self.Senshi = Perso("Senshi Akuma", "Senshi",180,(350,350), 50, self.jigoku_no_shizuka,12, 30)
 
         self.autres_sprites = [self.Musashi_Tengoku, self.guerrier_takahiro, self.guerrier_takahiro2, self.Takahiro, self.Senshi]
-        self.Senshi = Perso("Senshi Akuma", "Senshi",(280,280), 50, self.jigoku_no_shizuka,12, 30)
-
-        self.Senshi = Perso("Senshi Akuma", "Senshi",(250,250), 50, self.jigoku_no_shizuka,12, 30)
-        self.guerrier_ch1_e4_1_1 = Perso("Soldat","Soldat1",(250,250),5,self.katana_guerriers,11,5)
-        self.guerrier_ch1_e4_1_2 = Perso("Soldat","Soldat1",(250,250),5,self.katana_guerriers,11,5)
-        #self.ma_Juzo = Perso('Ma_Juzo',200, self.tengoku_no_ikari,level=10)
 
 if __name__ == "__main__":
         fight_assets = Fight_assets()
-        print(fight_assets.ma_Juzo.level)
