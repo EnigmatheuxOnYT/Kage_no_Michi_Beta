@@ -79,11 +79,11 @@ class Fight:
         self.pop_text_no_potion_rect.midtop = midtop
 
         self.characters_positions = {'main':(400,250),
-                                     'ally1':(350,250),
-                                     'ally2':(300,250),
-                                     'ennemy1':(700, 200),
-                                     'ennemy2':(850, 250),
-                                     'ennemy3':(900, 250)
+                                     'ally0':(350,250),
+                                     'ally1':(300,250),
+                                     'ennemy0':(700, 250),
+                                     'ennemy1':(850, 250),
+                                     'ennemy2':(900, 250)
                                      }
         
         self.continuer = True
@@ -143,11 +143,11 @@ class Fight:
         self.perso_player.set_orientation("droite")
         for i in range(len(self.allies)):
             ally=self.allies[i]
-            ally.set_pos(self.characters_positions[f'ally{i+1}'])
+            ally.set_pos(self.characters_positions[f'ally{i}'])
             ally.set_orientation("droite")
         for i in range(len(self.persos_ennemy)):
             ennemy = self.persos_ennemy[i]
-            ennemy.set_pos(self.characters_positions[f'ennemy{i+1}'])
+            ennemy.set_pos(self.characters_positions[f'ennemy{i}'])
             ennemy.set_orientation('gauche')
     
     @property
@@ -210,6 +210,7 @@ class Fight:
                     if self.potion_hitbox.collidepoint(event.pos) and self.allow_potion:
                         if self.potion >=1:
                             self.potion -= 1
+
                             self.number = min(self.perso_player.pv_max,self.perso_player.pv+30) - self.perso_player.pv
                             self.perso_player.pv += self.number
                             self.start_to_draw_number(False,self.perso_player)
@@ -382,17 +383,17 @@ class Fight:
                     ennemy.draw_static(screen)
         if self.perso_player.pv > 0:
             if self.perso_player.attacking:
-                self.perso_player.draw_atk(screen,"Attaque_Speciale" if self.draw_spe else "Attaque_Frontale",self.current_ennemy.pos)
+                self.perso_player.draw_atk(screen, "Attaque_Speciale" if self.draw_spe else "Attaque_Frontale", self.current_ennemy.rect.center)
         for i in range(len(self.allies)):
             ally=self.allies[i]
             if ally.pv > 0:
                 if ally.attacking:
-                    ally.draw_atk(screen,"Attaque_Frontale",self.current_ennemy.pos)
+                    ally.draw_atk(screen,"Attaque_Frontale",self.current_ennemy.rect.center)
         for i in range(len(self.persos_ennemy)):
             ennemy=self.persos_ennemy[i]
             if ennemy.pv > 0:
                 if ennemy.attacking:
-                    ennemy.draw_atk(screen,"Attaque_Frontale",self.perso_player.pos)
+                    ennemy.draw_atk(screen,"Attaque_Frontale",self.perso_player.rect.center)
 
     def draw_number(self,screen):
         if self.number == 0:
@@ -412,7 +413,7 @@ class Fight:
 
     def draw_arrow (self,screen):
         pos = self.current_ennemy.pos
-        pos = pos[0]+73,pos[1]-70
+        pos = pos[0]+150,pos[1]-40
         screen.blit(self.red_arrow,pos)
 
     def draw_overlay (self,screen):
@@ -463,6 +464,32 @@ class Fight:
     
     def run(self,screen:pygame.surface.Surface,bg_name:str,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):
 
+        if perso_player in fight_assets.autres_sprites:
+            self.characters_positions['main'] = (self.characters_positions['main'][0],perso_player.position_y)
+
+        if len(allies)>0:
+            for i in range(len(allies)):
+
+                key = f'ally{i}'  # Correction du nom de clé
+                if key in self.characters_positions and allies[i] in fight_assets.autres_sprites:
+                    self.characters_positions[key] = (self.characters_positions[key][0], allies[i].position_y)
+
+        if len(persos_ennemy) > 0:
+
+            for i in range(len(persos_ennemy)):
+
+                 key = f'ennemy{i}'  # Correction du nom de clé
+                 
+                 if key in self.characters_positions:
+                    old_x, old_y = self.characters_positions[key]  # Récupération de l'ancienne position
+                    new_y = persos_ennemy[i].position_y
+
+                    print(f"Modification de {key}: Ancienne position: ({old_x}, {old_y}) → Nouvelle position: ({old_x}, {new_y})")
+                    
+                    # Mise à jour de la position Y sans toucher X
+                    self.characters_positions[key] = (old_x, new_y)
+
+
         self.load(bg_name,perso_player,allies,persos_ennemy,potions)
 
         while self.continuer:
@@ -477,5 +504,5 @@ if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
-    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.Takahiro],100)
+    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.guerrier_takahiro, fight_assets.guerrier_takahiro2],100)
     pygame.quit()
