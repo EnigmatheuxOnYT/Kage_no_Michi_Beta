@@ -495,7 +495,7 @@ class minigm_minesweeper:
         if self.running and (self.victoire or self.lives <= 0):
             self.end(screen, saved)
         
-        return self.running, self.victoire
+        return self.running, ("win" if self.victoire else "loose")
 
 #########################################
 # Lancement du mini-jeu

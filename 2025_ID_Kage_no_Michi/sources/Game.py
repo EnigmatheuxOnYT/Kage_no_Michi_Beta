@@ -538,6 +538,7 @@ class Game:
                 self.in_gameplay=True
             elif gpp.type == "GPPFight":
                 self.launch_fight(gpp.bg,gpp.ennemies)
+                print("combat terminé")
             elif gpp.type=='GPPDeath':
                 self.death()
         
