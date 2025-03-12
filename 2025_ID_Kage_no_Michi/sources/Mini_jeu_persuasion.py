@@ -232,6 +232,7 @@ class minigm_persuade:
                 self.cin.cinematic_frame(screen, 'mgm1', 3, "Merci, Sensei !", "Vous ne pouvez pas imaginer combien ces mots me rendent heureux !", "Je ferai tout ce qu'il faut pour honorer cette chance.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'mgm1', 3, "Je savais que tu pouvais le faire, mon ami !", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH", "no_weapon"], 2], running=self.running)
                 self.cin.cinematic_frame(screen, 'mgm1', 3, "Tu as réussi cette première épreuve, Musashi.", "Mais souviens-toi : ce n'est que le début.  Reviens demain, prêt à débuter", "cet entraînement sans relâche.", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["SH", "no_weapon"], 3], running=self.running)
+            self.cin.ecran_noir(screen)
             self.victory = True
         else :
             if saved=='none' :

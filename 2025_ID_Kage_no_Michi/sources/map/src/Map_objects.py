@@ -105,7 +105,7 @@ class SubPath:
     def _set_points(self,objects:List[pytmx.TiledObject],length):
         points=[]
         objects_list = list(objects)
-        for i in range(3):
+        for i in range(length):
             for object in objects_list:
                 if object.name=="path_"+self.name+str(i+1):
                     points.append(object)
@@ -131,10 +131,7 @@ class SubPath:
     def get_raw_points(self,reversed:bool=False):
         points=self.raw_points
         if reversed:
-            reversed_points=[]
-            for i in range(1,len(points)):
-                reversed_points=points[-i]
-            points=reversed_points
+            points.reverse()
         return points
     
 
@@ -147,12 +144,14 @@ class Path:
         self.over=False
     
     def __get_path_points(self,subpaths,crosss,order):
+        
         objects=[]
         subpaths_index=0
         crosss_index=0
         for i in order:
             if i[0] == 1:
-                objects+=subpaths[subpaths_index].get_raw_points(reversed=i[1])
+                object = subpaths[subpaths_index].get_raw_points(reversed=i[1])
+                objects+=object
                 subpaths_index+=1
             else:
                 objects.append(crosss[crosss_index])
@@ -187,7 +186,12 @@ class Path:
 paths_list = [{'name':'mgm_ine',
                'sub_paths_names':['mgm','river','ine'],
                'points_names':['1','2','3','spawn_Ine'],
-               'order':[[1,False],[0],[1,False],[0],[0],[1,False],[0]]}]
+               'order':[[1,False],[0],[1,False],[0],[0],[1,False],[0]]},
+               {'name':'ine_forest',
+                "sub_paths_names":["forest_ine"],
+                'points_names':['spawn_chap2_e1'],
+                'order':[[0],[1,True]]}
+                ]
 
 
 @dataclass

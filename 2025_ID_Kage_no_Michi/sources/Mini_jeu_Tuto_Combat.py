@@ -80,7 +80,6 @@ class minigm_tutofight :
         #Appeler ici la fonction self.cin.cinematic_frame()
         #Exemple d'utilisation que vous pouvez copier coller (attention, TOUJOURS finir l'appel par running=self.running):
         
-        self.cin.ecran_noir(screen)
         self.cin.cinematic_frame(screen,'ine1',3,"Bonjour Sensei Hoshida.", "Merci encore une fois de m'avoir accepté en tant que disciple.", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],1],running=self.running)
         if saved == 'none':
             self.cin.cinematic_frame(screen,'ine1',3,"Rien n'est encore gagné, l'entraînement ne fait que de commencer.", kind_info=[["SM","no_weapon"],[saved,"no_weapon"],["SH","no_weapon"],3],running=self.running)
