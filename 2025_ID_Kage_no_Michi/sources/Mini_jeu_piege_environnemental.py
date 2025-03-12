@@ -20,7 +20,7 @@ class minigm_minesweeper:
       - Heartbeat smooth sur le timer (avec interpolation de couleur et scale)
       - Confettis et overlay dynamique en cas de victoire
       - Gestion soignée du hover
-      - Système de vie : le joueur démarre avec 3 vies. À chaque pic découvert, il perd une vie et le mini-jeu se termine.
+      - Système de vie : le joueur démarre avec 3 vies. À chaque pic découvert, il perd une vie et le mini-jeu se termine (sauf si des vies restent, auquel cas une nouvelle carte est générée).
     """
     
     def __init__(self):
@@ -81,7 +81,7 @@ class minigm_minesweeper:
         self._init_game()
         
     def _init_game(self):
-        """Réinitialise l'état du jeu et les variables d'effets, sans réinitialiser les vies."""
+        """Réinitialise l'état du plateau et des variables d'effets, sans réinitialiser les vies."""
         self.plateau = [[0 for _ in range(self.TAILLE)] for _ in range(self.TAILLE)]
         self.revele = [[False for _ in range(self.TAILLE)] for _ in range(self.TAILLE)]
         self.drapeaux = [[False for _ in range(self.TAILLE)] for _ in range(self.TAILLE)]
@@ -186,7 +186,8 @@ class minigm_minesweeper:
         self.in_minigm = True
         
     def end(self, screen, saved):
-        if not (self.victoire and self.lives == 3) :
+        # Les dialogues de fin ne se lancent que si le joueur n'a pas réussi parfaitement (c'est-à-dire s'il a perdu au moins 1 vie)
+        if self.lives < 3:
             if saved == 'none':
                 self.cin.cinematic_frame(screen, 'forest2', 2, "Maraud... Tu vas le payer...", kind_info=[["SM", "no_weapon"], ["TW_H", "no_weapon"], 2], running=self.running)
                 self.cin.switch_lowercase(True)
@@ -209,7 +210,6 @@ class minigm_minesweeper:
                 self.cin.switch_lowercase(False)
                 self.cin.cinematic_frame(screen, 'forest2', 3, "Bon Takeshi. Tu connais la chanson.", kind_info=[["SM", "no_weapon"], ["KT", "no_weapon"], ["TW_H", "no_weapon"], 1], running=self.running)
                 self.cin.cinematic_frame(screen, 'forest2', 3, "Oui. C'est l'heure de gagner.", kind_info=[["SM", "no_weapon"], ["KT", "no_weapon"], ["TW_H", "no_weapon"], 2], running=self.running)
-
         self.playing = False
 
     ########## GESTION DES ÉVÈNEMENTS ##########
@@ -250,7 +250,7 @@ class minigm_minesweeper:
                                     self.afficher_pics = True
                                     self.flash_effect = {"time": pygame.time.get_ticks(), "cell": (board_x, board_y), "color": (255, 50, 50)}
                                     self.sfx_pic.play()
-                                    if self.lives <= 0:  # Vérifie si toutes les vies sont perdues avant d'arrêter
+                                    if self.lives <= 0:  # Si plus de vies, le jeu sera terminé
                                         self.game_over = True
                                 else:
                                     if self.plateau[board_x][board_y] == 0:
@@ -278,21 +278,23 @@ class minigm_minesweeper:
                 self.game_over = True
                 self.temps_ecoule = self.LIMITE_TIMER
                 print("Temps écoulé, Game Over")
-
+    
         if not self.victoire and not self.game_over:
             if self._verifier_victoire() and self.lives > 0:
                 self.victory_effect_start = pygame.time.get_ticks()
                 self._init_confetti()
                 self.victoire = True
-
+    
         if self.afficher_pics:
-            if pygame.time.get_ticks() - self.temps_clic_pic >= 1500:
+            # Pendant 1500 ms, les pics sont affichés ; ensuite, si des vies restent, on réinitialise le plateau, sinon le jeu est terminé.
+            if pygame.time.get_ticks() - self.temps_clic_pic < 1500:
+                pass
+            else:
                 self.afficher_pics = False
-                if self.lives <= 0:
+                if self.lives > 0:
+                    self._init_game()
+                else:
                     self.game_over = True
-
-        if self.game_over and not self.victoire:
-            self.playing = False
     
     ########## AFFICHAGE ##########
     def minigm_draw(self, screen, saved):
@@ -362,9 +364,7 @@ class minigm_minesweeper:
                                                self.offset_y + x * self.TAILLE_CASE,
                                                self.TAILLE_CASE, self.TAILLE_CASE)
                             render_surface.blit(self.images["pic"], rect.topleft)
-            else:
-                self.afficher_pics = False
-                self.game_over = True
+            # La réinitialisation du plateau se fait dans minigm_update une fois le délai écoulé
         
         if self.devmode:
             for x in range(self.TAILLE):
