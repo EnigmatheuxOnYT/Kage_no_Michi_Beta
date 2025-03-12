@@ -186,20 +186,7 @@ class minigm_minesweeper:
         self.in_minigm = True
         
     def end(self, screen, saved):
-        if self.victoire:
-            if self.lives == 3:
-                if saved == 'none':
-                    self.cin.cinematic_frame(screen, 'forest2', 1, "Génial, je les ai tous mis à terre. Ils ne se relèveront pas de sitôt.", kind_info=[["SM", "no_weapon"], 1], running=self.running)
-                    self.cin.cinematic_frame(screen, 'forest2', 1, "Désormais, allons au village d'Aizuwakamatsu.", kind_info=[["SM", "no_weapon"], 1], running=self.running)
-                elif saved == 'KM':
-                    self.cin.cinematic_frame(screen, 'forest2', 2, "Génial, je les ai tous mis à terre. Ils ne se relèveront pas de sitôt.", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], 1], running=self.running)
-                    self.cin.cinematic_frame(screen, 'forest2', 2, "Génial grand frère ! C'est très rusé de ta part !", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], 2], running=self.running)
-                    self.cin.cinematic_frame(screen, 'forest2', 2, "Merci Keiko. Désormais, allons à la ville d'Aizuwakamatsu.", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], 1], running=self.running)
-                elif saved == 'KT':
-                    self.cin.cinematic_frame(screen, 'forest2', 2, "Génial, je les ai tous mis à terre. Ils ne se relèveront pas de sitôt.", kind_info=[["SM", "no_weapon"], ["KT", "no_weapon"], 1], running=self.running)
-                    self.cin.cinematic_frame(screen, 'forest2', 2, "Bien vu Musashi. On n'a même pas besoin d'utiliser nos armes.", kind_info=[["SM", "no_weapon"], ["KT", "no_weapon"], 2], running=self.running)
-                    self.cin.cinematic_frame(screen, 'forest2', 2, "Merci Takeshi. Désormais, allons à la ville d'Aizuwakamatsu.", kind_info=[["SM", "no_weapon"], ["KT", "no_weapon"], 1], running=self.running)
-        else:
+        if not (self.victoire and self.lives == 3) :
             if saved == 'none':
                 self.cin.cinematic_frame(screen, 'forest2', 2, "Maraud... Tu vas le payer...", kind_info=[["SM", "no_weapon"], ["TW_H", "no_weapon"], 2], running=self.running)
                 self.cin.switch_lowercase(True)

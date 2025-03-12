@@ -2205,6 +2205,18 @@ class Cinematics:
         self.cinematic_frame(screen,'ine2',3,"Tiens donc, un petit fouineur.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],1])
         self.cinematic_frame(screen,'ine2',3,"On ne joue pas au plus malin avec le clan Takahiro. Tu aurais dû le savoir.",kind_info=[['TW','no_weapon'],['TW_H','no_weapon'],['SM','no_weapon'],2,True])
 
+    def cinematic_25(self, screen, saved):
+        if saved == 'none':
+                self.cin.cinematic_frame(screen, 'forest2', 1, "Génial, je les ai tous mis à terre. Ils ne se relèveront pas de sitôt.", kind_info=[["SM", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'forest2', 1, "Désormais, allons au village d'Aizuwakamatsu.", kind_info=[["SM", "no_weapon"], 1], running=self.running)
+        elif saved == 'KM':
+                self.cin.cinematic_frame(screen, 'forest2', 2, "Génial, je les ai tous mis à terre. Ils ne se relèveront pas de sitôt.", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'forest2', 2, "Génial grand frère ! C'est très rusé de ta part !", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'forest2', 2, "Merci Keiko. Désormais, allons à la ville d'Aizuwakamatsu.", kind_info=[["SM", "no_weapon"], ["KM", "no_weapon"], 1], running=self.running)
+        elif saved == 'KT':
+                self.cin.cinematic_frame(screen, 'forest2', 2, "Génial, je les ai tous mis à terre. Ils ne se relèveront pas de sitôt.", kind_info=[["SM", "no_weapon"], ["KT", "no_weapon"], 1], running=self.running)
+                self.cin.cinematic_frame(screen, 'forest2', 2, "Bien vu Musashi. On n'a même pas besoin d'utiliser nos armes.", kind_info=[["SM", "no_weapon"], ["KT", "no_weapon"], 2], running=self.running)
+                self.cin.cinematic_frame(screen, 'forest2', 2, "Merci Takeshi. Désormais, allons à la ville d'Aizuwakamatsu.", kind_info=[["SM", "no_weapon"], ["KT", "no_weapon"], 1], running=self.running)
 
 if __name__ == '__main__':
     pygame.init()
