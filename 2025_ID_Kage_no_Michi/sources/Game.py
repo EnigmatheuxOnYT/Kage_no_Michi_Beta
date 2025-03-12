@@ -444,6 +444,28 @@ class Game:
             self.choices[2] = choice
         elif cinematic == 11:
             self.cinematics.cinematic_11(self.screen_for_game,choices[0],choices[2])
+        elif cinematic == 12 :
+            self.cinematics.cinematic_12(self.screen_for_game,choices[0])
+        elif cinematic == 13 :
+            self.cinematics.cinematic_13(self.screen_for_game,choices[0])
+        elif cinematic == 14 :
+            self.cinematics.cinematic_14(self.screen_for_game,choices[0])
+        elif cinematic == 15 :
+            self.cinematics.cinematic_15(self.screen_for_game,choices[0])
+        elif cinematic == 16 :
+            self.cinematics.cinematic_16(self.screen_for_game,choices[0])
+        elif cinematic == 17 :
+            self.cinematics.cinematic_17(self.screen_for_game,choices[0])
+        elif cinematic == 18 :
+            self.cinematics.cinematic_18(self.screen_for_game,choices[0])
+        elif cinematic == 19 :
+            self.cinematics.cinematic_19(self.screen_for_game,choices[0])
+        elif cinematic == 20 :
+            self.cinematics.cinematic_20(self.screen_for_game,choices[0])
+        elif cinematic == 21 :
+            self.cinematics.cinematic_21(self.screen_for_game,choices[0])
+        elif cinematic == 22 :
+            self.cinematics.cinematic_22(self.screen_for_game,choices[0])
         elif cinematic == 23:
             self.cinematics.cinematic_23(self.screen_for_game)
         
