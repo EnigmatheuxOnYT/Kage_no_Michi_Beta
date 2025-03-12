@@ -493,10 +493,7 @@ class Fight:
                     self.characters_positions[key] = (old_x, new_y)
 
 
-<<<<<<< HEAD
-=======
         pygame.mouse.set_visible(True)
->>>>>>> 8078d0ff2f2cecf3e916048b410db2e08a784c8e
         self.load(bg_name,perso_player,allies,persos_ennemy,potions)
 
         while self.continuer:
