@@ -210,17 +210,14 @@ class Scene:
     def current_gpp(self):return self.gpps[self.gppindex] if not self.over else None
     
     def next_gpp(self,output):
-        print(output,"C")
         if not self.over:
             ressearch=False
             dirs=self.gpps[self.gppindex].dirs
             for i in range(dirs.no):
                 if dirs.reasons[i] in [output,-1]:
                     ressearch=dirs.dirs[i]
-                else:
-                    print(dirs.reasons[i],output)
             if not ressearch:
-                raise IndexError
+                raise IndexError("Can not get dir")
             else:
                 if ressearch=='next':
                     self.gppindex+=1
@@ -358,7 +355,45 @@ class Story:
                                       },
                        'Chapitre 2': {"Scene 1":Scene(id=[2,1],
                                                       next_id=[2,2],
-                                                      gpps=[]
+                                                      gpps=[GPPMap(name='Chap2_e1_map',
+                                                                   map='main',
+                                                                   spawn='spawn_chap2_e1',
+                                                                   path='ine_forest',
+                                                                   dirs_data=[1,[-1],['next']],
+                                                                   updates=[Update(condition=Condition(type="location",data=['forest']),effect='next')]),
+                                                            GPPCinematic(name='cinematic_10',
+                                                                         cinematic_no=10,
+                                                                         dirs_data=[4,[1,2,3,4],['minigm_06',"cinematic_11","cinematic_11","cinematic_11"]]),
+                                                            GPPCinematic(name='cinematic_11',
+                                                                         cinematic_no=11,
+                                                                         dirs_data=[1,[-1],["next_scene"]]),
+                                                            GPPMinigame(name='minigm_06',
+                                                                        minigame_no=6,
+                                                                        dirs_data=[1,[-1],["cinematic_11"]]),]
+                                                      ),
+                                      "Scene 2":Scene(id=[2,2],
+                                                      next_id=[2,3],
+                                                      gpps=[GPPCinematic(name='cinematic_21',
+                                                                         cinematic_no=21,
+                                                                         dirs_data=[3,[1,2,3],["cinematic_22","fight_ch2_e2_1","minigm_07"]]),
+                                                            GPPCinematic(name='cinematic_22',
+                                                                         cinematic_no=22,
+                                                                         dirs_data=[1,[-1],['next_scene']]),
+                                                            GPPMinigame(name='minigm_07',
+                                                                        minigame_no=7,
+                                                                        dirs_data=[2,["win","loose"],["fight_ch2_e2_2","next_scene"]]),
+                                                            GPPFight(name='fight_ch2_e2_1',
+                                                                     bg='bamboo3',
+                                                                     ennemies = [],
+                                                                     dirs_data=[1,[-1],['cinematic_25']]),
+                                                            GPPFight(name='fight_ch2_e2_2',
+                                                                     bg='bamboo3',
+                                                                     ennemies = [],
+                                                                     dirs_data=[1,[-1],['cinematic_25']]),
+                                                            GPPCinematic(name="cinematic_25",
+                                                                         cinematic_no=25,
+                                                                         dirs_data=[1,-1,["next_scene"]])
+                                                            ]
                                                       ),
                                       }
                        }
