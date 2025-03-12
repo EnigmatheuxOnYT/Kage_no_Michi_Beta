@@ -161,6 +161,9 @@ class Fight_assets:
         self.guerrier_takahiro = Perso('Soldat1', "Soldat1",(250,250),70,self.no_weapon,11)
         self.guerrier_takahiro2 = Perso('Soldat2', "Soldat1",(250,250), 70,self.no_weapon,11)
         self.Takahiro = Perso("Kojiro Takahiro", "Takahiro", (250,250), 200, self.op_weapon,12, 30)
+        self.Senshi = Perso("Senshi Akuma", "Senshi",(300,300), 50, self.jigoku_no_shizuka,12, 30)
+
+        self.autres_sprites = [self.Musashi_Tengoku, self.guerrier_takahiro, self.guerrier_takahiro2, self.Takahiro, self.Senshi]
         self.Senshi = Perso("Senshi Akuma", "Senshi",(280,280), 50, self.jigoku_no_shizuka,12, 30)
 
         self.Senshi = Perso("Senshi Akuma", "Senshi",(250,250), 50, self.jigoku_no_shizuka,12, 30)
