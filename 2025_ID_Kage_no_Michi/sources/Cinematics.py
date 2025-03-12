@@ -786,7 +786,7 @@ class Cinematics:
         self.ecran_noir(screen)
     
     def cinematic_04 (self, screen, saved='none'):
-        self.music.play(self.music.menu)
+        self.music.play(self.music.arrivedine)
         self.cinematic_frame(screen, "bamboo2", 0, "Alentours du village d'Ine.")
         if saved == 'none':
             self.cinematic_frame(screen, "bamboo2", 1, "Il faut que je devienne plus fort, que je les tue tous.", "J\'ai besoin de m\'améliorer pour pouvoir venger mon village.", "Pour l\'instant, je suis trop faible, je dois devenir un Samouraï.", kind_info = ["SM","SM","no_weapon"])
@@ -1290,7 +1290,7 @@ class Cinematics:
 
     def cinematic_13(self,screen,saved):
         #cinématique vérifiée
-        self.music.pay(self.music.zen)
+        self.music.play(self.music.retourmagome)
         if saved=='none':
             self.cinematic_frame(screen, "mgm8", 1," ..Magome..Mon village natal.",kind_info=["SM", "SM", "no_weapon", "right"])
             self.cinematic_frame(screen, "mgm8", 1,"Cela fait un petit moment que je ne l'ai pas visité.",kind_info=["SM", "SM", "no_weapon", "right"])
@@ -1852,7 +1852,7 @@ class Cinematics:
     def cinematic_20(self,screen,route):
         #cinématique vérifiée
         if route=='pacifist':
-            self.music.play(self.music.zen)
+            self.music.play(self.music.calmpacific)
             self.cinematic_frame(screen, "tkh1", 2, "M.Takahiro...Je suis ravi d'avoir fait ce duel avec vous. Malgré vos actions", "passées...",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 1])
             self.cinematic_frame(screen, "tkh1", 2, "Je vous pardonne. Tout le monde mérite une seconde chance.",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 1])
             self.cinematic_frame(screen, "tkh1", 2, "Musashi...",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 2])
@@ -2164,6 +2164,6 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    output = c.cinematic_14(screen,"KM")
+    output = c.cinematic_13(screen,"KM")
     print(output)
     pygame.quit()

@@ -32,6 +32,9 @@ class Music:
         self.choiceAizu = "Music_Choice_Aizu.mp3"
         self.zen = "Music_Zen.mp3"
         self.epic = "Music_Epic.mp3"
+        self.calmpacific = "Music_CalmPacific_1.mp3"
+        self.arrivedine = "Music_ArrivedIne_1.mp3"
+        self.retourmagome = "Music_RetourMagome_1.mp3"
 
         #Thèmes :
         self.theme_tkh1 = "Takahiro_Theme_V1.mp3"
