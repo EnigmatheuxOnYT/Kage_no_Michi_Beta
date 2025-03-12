@@ -355,7 +355,7 @@ class Game:
         
         reward = {'money':0,"heal_potion":0}
 
-        victory_state = None
+        victory_state = -1
         
         if minigame == 1:
             self.running,reward = self.minigm_01.run(self.screen_for_game,choices[0],devmode)
@@ -383,6 +383,7 @@ class Game:
         self.money+=reward['money']
         self.heal_potions_count+=reward['heal_potion']
         pygame.mouse.set_visible(False)
+        return victory_state
     
     def handle_minigame_output (self,minigame,victory_state):
         
@@ -419,7 +420,7 @@ class Game:
             choices = self.choices
         
         
-        choice=0
+        choice="Non Attribué"
         if cinematic == 1:
             self.cinematics.cinematic_01(self.screen_for_game)
             self.choice1timer = pygame.time.get_ticks()
@@ -449,7 +450,7 @@ class Game:
             if self.choices[2]==4:
                 self.death()
         elif cinematic == 12 :
-            self.cinematics.cinematic_12(self.screen_for_game,choices[0])
+            choice = self.cinematics.cinematic_12(self.screen_for_game,choices[0])
         elif cinematic == 13 :
             self.cinematics.cinematic_13(self.screen_for_game,choices[0])
         elif cinematic == 14 :
@@ -467,7 +468,7 @@ class Game:
         elif cinematic == 20 :
             self.cinematics.cinematic_20(self.screen_for_game,choices[0])
         elif cinematic == 21 :
-            self.cinematics.cinematic_21(self.screen_for_game,choices[0])
+            choice = self.cinematics.cinematic_21(self.screen_for_game,choices[0])
         elif cinematic == 22 :
             self.cinematics.cinematic_22(self.screen_for_game,choices[0])
         elif cinematic == 23:
@@ -524,7 +525,7 @@ class Game:
                 output = self.launch_cinematic(gpp.cinematic_no)
                 scene.next_gpp(output)
             elif gpp.type=='GPPMinigame':
-                self.launch_minigame(gpp.minigame_no)
+                output = self.launch_minigame(gpp.minigame_no)
                 scene.next_gpp(output)
             elif gpp.type=='GPPMap':
                 self.change_map_for_game(True,gpp.map)
