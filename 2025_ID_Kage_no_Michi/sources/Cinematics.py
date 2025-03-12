@@ -43,7 +43,7 @@ class Cinematics:
                       'TK': self.font_MFMG25.render("Takahiro Korijo",False,(0,0,0)),
                       'KM': self.font_MFMG25.render("Keiko musashi",False,(0,0,0)),
                       'KT': self.font_MFMG25.render("Kurosawa Takeshi",False,(0,0,0)),
-                      'JM': self.font_MFMG25.render("Jizo Ma",False,(0,0,0)),
+                      'JM': self.font_MFMG25.render("Juzo Ma",False,(0,0,0)),
                       'Y?': self.font_MFMG25.render("Yoshirō",False,(0,0,0)),
                       'DY': self.font_MFMG25.render("Yoshirō",False,(0,0,0)),
                       'TW': self.font_MFMG25.render("Guerrier Takahiro",False,(0,0,0)),
@@ -710,7 +710,7 @@ class Cinematics:
     ########## Cinématiques ##########
     
     def final_death (self,screen,saved="none"):
-        self.cinematic_frame(screen, 'mgm5', 0, "Musashi n'aura pas réussi à venger son village.", "Il mourut dans la réalisation que sa mort signifgiait sûrement la fin", "de son village.")
+        self.cinematic_frame(screen, 'mgm5', 0, "Musashi n'aura pas réussi à venger son village.", "Il mourut dans la réalisation que sa mort signifiait sûrement la fin", "de son village.")
         self.ecran_noir(screen)
     
     def final_loose (self,screen,saved ="none"):
@@ -1839,7 +1839,7 @@ class Cinematics:
         self.cinematic_frame(screen, "tkh1", 2, "Amenez-vous, je vous attends !",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 1])
         self.ecran_noir(screen)
 
-    def cinematic_19(self,screen,chef_tkh_battu):
+    def cinematic_19(self,screen,saved,chef_tkh_battu):
         #cinématique vérifiée
         self.music.play(self.music.theme_tkh1)
         if chef_tkh_battu==False:
@@ -1860,7 +1860,7 @@ class Cinematics:
             self.cinematic_frame(screen, "tkh1", 2, "Je reconnais mes erreurs...J'ai perdu mon duel...La mort ne fait que de", "m'attendre.",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 2])
         self.ecran_noir(screen)
 
-    def cinematic_20(self,screen,route):
+    def cinematic_20(self,screen,saved,route):
         #cinématique vérifiée
         if route=='pacifist':
             self.music.play(self.music.calmpacific)
