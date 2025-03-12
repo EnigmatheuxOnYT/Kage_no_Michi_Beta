@@ -84,7 +84,12 @@ class Sound:
         self.H_Essoufle = self.sound("SFX_Essoufle")
         self.F_Essoufle = self.sound("SFX_F_Essoufle")
         self.confused = self.sound('SFX_Confused_1')
+        self.confused2 = self.sound('SFX_Confused_2') #Pas utilisé
         self.crowdpanic = self.sound('SFX_CrowdPanic_1')
+        self.crowdagony = self.sound('SFX_AgonyCrowd_1')
+        self.bodyfalling = self.sound('SFX_BodyFalling_1')
+        self.ahah = self.sound('SFX_CrazyLaugh_1')
+        self.gasp = self.sound('SFX_Gasp_1') #Pas utilisé
         self.Dialogue_H_1 = self.sound("Homme_Dialogue_1")
         self.Dialogue_H_2 = self.sound("Homme_Dialogue_2")
         self.Dialogue_H_3 = self.sound("Homme_Dialogue_3")
