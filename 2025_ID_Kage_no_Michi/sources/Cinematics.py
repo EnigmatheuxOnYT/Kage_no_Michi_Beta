@@ -1146,7 +1146,7 @@ class Cinematics:
                 self.cinematic_frame(screen, 'bamboo2', 2,"Je vous retourne la question. Donnez-moi cette arme, et je vous laisserai", "la vie sauve.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2,"Hahaha.. Quelle arrogance. Tu ne sais donc pas à qui tu t’adresses, hein ?","Essaie encore, jeune homme et tu regrettera d'avoir dit de tels propos.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 0,"Avant même que Musashi ne puisse dégainer son arme, une sensation glaciale", "traverse son corps.")
-                 self.sound.swoosh3.play()
+                self.sound.swoosh3.play()
                 self.cinematic_frame(screen, 'bamboo2', 0,"Un filet de sang jaillit de sa gorge. Son souffle se coupe. Ses jambes", "flanchent.")
                 self.cinematic_frame(screen, 'bamboo2', 0,"Le marchand Juzo le regarde avec un sourire narquois, essuyant la lame d’un", "kunai recouvert du sang de Musashi.")
                 self.cinematic_frame(screen, 'bamboo2', 1,"Quelle naïveté... Pensais-tu vraiment pouvoir me prendre quelque chose", "impunément ?","Tu es peut-être un Samouraï, mais je suis à un autre niveau.",kind_info=['JM','JM', 'no_weapon', 'right'])
