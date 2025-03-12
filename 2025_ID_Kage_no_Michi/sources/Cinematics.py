@@ -1335,6 +1335,8 @@ class Cinematics:
                     self.cinematic_frame(screen, "azw2", 2, "Il me reste des choses plus importantes à faire.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], 1])
 
         self.ecran_noir(screen)
+        return output2
+
 
     def cinematic_13(self,screen,saved):
         #cinématique vérifiée

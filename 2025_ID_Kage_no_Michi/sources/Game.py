@@ -420,7 +420,7 @@ class Game:
             choices = self.choices
         
         
-        choice=0
+        choice="Non Attribué"
         if cinematic == 1:
             self.cinematics.cinematic_01(self.screen_for_game)
             self.choice1timer = pygame.time.get_ticks()
@@ -450,7 +450,7 @@ class Game:
             if self.choices[2]==4:
                 self.death()
         elif cinematic == 12 :
-            self.cinematics.cinematic_12(self.screen_for_game,choices[0])
+            choice = self.cinematics.cinematic_12(self.screen_for_game,choices[0])
         elif cinematic == 13 :
             self.cinematics.cinematic_13(self.screen_for_game,choices[0])
         elif cinematic == 14 :
@@ -468,7 +468,7 @@ class Game:
         elif cinematic == 20 :
             self.cinematics.cinematic_20(self.screen_for_game,choices[0])
         elif cinematic == 21 :
-            self.cinematics.cinematic_21(self.screen_for_game,choices[0])
+            choice = self.cinematics.cinematic_21(self.screen_for_game,choices[0])
         elif cinematic == 22 :
             self.cinematics.cinematic_22(self.screen_for_game,choices[0])
         elif cinematic == 23:
