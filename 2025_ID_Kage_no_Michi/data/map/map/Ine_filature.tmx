@@ -504,7 +504,7 @@
   <object id="84" name="in_sight_1b" x="462" y="246" width="191" height="154"/>
   <object id="86" name="in_sight_2b_3b" x="83" y="612" width="428" height="136"/>
   <object id="87" name="in_sight_4b" x="162" y="1070" width="207" height="89"/>
-  <object id="89" name="in_sight_4c" x="450" y="1118" width="182" height="160"/>
+  <object id="89" name="in_sight_4c" x="450" y="1150.5" width="182" height="127.5"/>
   <object id="90" x="-458" y="1236"/>
  </objectgroup>
 </map>
