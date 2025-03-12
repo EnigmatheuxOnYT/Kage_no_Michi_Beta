@@ -81,7 +81,7 @@ class Fight:
         self.characters_positions = {'main':(400,250),
                                      'ally1':(350,250),
                                      'ally2':(300,250),
-                                     'ennemy1':(700, 250),
+                                     'ennemy1':(700, 200),
                                      'ennemy2':(850, 250),
                                      'ennemy3':(900, 250)
                                      }
@@ -245,8 +245,6 @@ class Fight:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_F11:
                     pygame.display.toggle_fullscreen()
-
-
 
     def allies_attack(self):
         if self.nombre_alive_allies == 0:
@@ -464,6 +462,7 @@ class Fight:
             pygame.display.flip()
     
     def run(self,screen:pygame.surface.Surface,bg_name:str,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):
+
         self.load(bg_name,perso_player,allies,persos_ennemy,potions)
 
         while self.continuer:
@@ -478,5 +477,5 @@ if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
-    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.Senshi],100)
+    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.Takahiro],100)
     pygame.quit()
