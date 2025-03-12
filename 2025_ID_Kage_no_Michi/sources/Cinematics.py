@@ -442,7 +442,7 @@ class Cinematics:
                 if name in self.males:
                     if self.current_last_letter[0] < len(line1):
                         char = line1[self.current_last_letter[0]]
-                        if char in ['.', '!', '?',',']:
+                        if char in ['.', '!', '?']:
                             self.sound.Dialogue_H_4.play()
                         else:
                             self.sound.Dialogue_H_1.play()
@@ -450,7 +450,7 @@ class Cinematics:
 
                     elif self.current_last_letter[1] < len(line2):
                         char = line2[self.current_last_letter[1]]
-                        if char in ['.', '!', '?',',']:
+                        if char in ['.', '!', '?']:
                             self.sound.Dialogue_H_4.play()
                         else:
                             self.sound.Dialogue_H_2.play()
@@ -458,7 +458,7 @@ class Cinematics:
 
                     elif self.current_last_letter[2] < len(line3):
                         char = line3[self.current_last_letter[2]]
-                        if char in ['.', '!', '?',',']:
+                        if char in ['.', '!', '?']:
                             self.sound.Dialogue_H_4.play()
                         else:
                             self.sound.Dialogue_H_3.play()
@@ -470,7 +470,7 @@ class Cinematics:
                 elif name in self.females:
                     if self.current_last_letter[0] < len(line1):
                         char = line1[self.current_last_letter[0]]
-                        if char in ['.', '!', '?',',']:
+                        if char in ['.', '!', '?']:
                             self.sound.Dialogue_H_4.play()
                         else:
                             self.sound.Dialogue_H_1.play()
@@ -478,7 +478,7 @@ class Cinematics:
 
                     elif self.current_last_letter[1] < len(line2):
                         char = line2[self.current_last_letter[1]]
-                        if char in ['.', '!', '?',',']:
+                        if char in ['.', '!', '?']:
                             self.sound.Dialogue_H_4.play()
                         else:
                             self.sound.Dialogue_H_2.play()
@@ -486,7 +486,7 @@ class Cinematics:
 
                     elif self.current_last_letter[2] < len(line3):
                         char = line3[self.current_last_letter[2]]
-                        if char in ['.', '!', '?',',']:
+                        if char in ['.', '!', '?']:
                             self.sound.Dialogue_H_4.play()
                         else:
                             self.sound.Dialogue_H_3.play()
