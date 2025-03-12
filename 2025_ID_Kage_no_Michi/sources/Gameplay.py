@@ -337,7 +337,7 @@ class Story:
                                                                          dirs_data=[1,[-1],["next_scene"]]),
                                                             GPPMinigame(name="minigm_05",
                                                                         minigame_no=5,
-                                                                        dirs_data=[2,["win","perfect_win1","perfect_win2"],["cinematic_09","fight_ch1_e4_2","cinematic_09"]]),
+                                                                        dirs_data=[3,["win","perfect_win1","perfect_win2"],["cinematic_09","fight_ch1_e4_2","cinematic_09"]]),
                                                             GPPFight(name="fight_ch1_e4_1",
                                                                      bg='ine1',
                                                                      ennemies=[self.fa.guerrier_ch1_e4_1_1,self.fa.guerrier_ch1_e4_1_2],

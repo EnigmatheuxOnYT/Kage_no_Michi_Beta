@@ -355,7 +355,7 @@ class Game:
         
         reward = {'money':0,"heal_potion":0}
 
-        victory_state = None
+        victory_state = -1
         
         if minigame == 1:
             self.running,reward = self.minigm_01.run(self.screen_for_game,choices[0],devmode)
@@ -383,6 +383,7 @@ class Game:
         self.money+=reward['money']
         self.heal_potions_count+=reward['heal_potion']
         pygame.mouse.set_visible(False)
+        return victory_state
     
     def handle_minigame_output (self,minigame,victory_state):
         
@@ -524,7 +525,7 @@ class Game:
                 output = self.launch_cinematic(gpp.cinematic_no)
                 scene.next_gpp(output)
             elif gpp.type=='GPPMinigame':
-                self.launch_minigame(gpp.minigame_no)
+                output = self.launch_minigame(gpp.minigame_no)
                 scene.next_gpp(output)
             elif gpp.type=='GPPMap':
                 self.change_map_for_game(True,gpp.map)
