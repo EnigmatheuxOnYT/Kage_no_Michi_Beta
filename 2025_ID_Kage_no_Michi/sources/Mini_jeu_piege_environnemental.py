@@ -186,6 +186,7 @@ class minigm_minesweeper:
         self.in_minigm = True
         
     def end(self, screen, saved):
+        self.music.play(self.music.theme_tkh1)
         if not (self.victoire and self.lives == 3) :
             if saved == 'none':
                 self.cin.cinematic_frame(screen, 'forest2', 2, "Maraud... Tu vas le payer...", kind_info=[["SM", "no_weapon"], ["TW_H", "no_weapon"], 2], running=self.running)
