@@ -401,7 +401,8 @@ class Story:
                                                                    map='main',
                                                                    spawn="path_forest_ine1",
                                                                    path='forest_azw',
-                                                                   updates=[])]
+                                                                   updates=[Update(condition=Condition(type="event_zone",data=['entrance_azw_destroyed']),effect='next')])
+                                                            ]
                                                       ),
                                       }
                        }
