@@ -104,7 +104,7 @@ class Fight:
         self.not_ko_allies = self.allies
         self.persos_ennemy = persos_ennemy
         self.alive_ennemies = self.persos_ennemy
-        self.current_ennemy = persos_ennemy[0]
+        self.current_ennemy = None
         self.nombre_ennemi = len(persos_ennemy)
         self.nombre_allies = len(allies)
         self.attaque_frontale_compteur = 0
@@ -463,6 +463,7 @@ class Fight:
             pygame.display.flip()
     
     def run(self,screen:pygame.surface.Surface,bg_name:str,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):
+<<<<<<< HEAD
 
         if perso_player in fight_assets.autres_sprites:
             self.characters_positions['main'] = (self.characters_positions['main'][0],perso_player.position_y)
@@ -490,6 +491,9 @@ class Fight:
                     self.characters_positions[key] = (old_x, new_y)
 
 
+=======
+        pygame.mouse.set_visible(True)
+>>>>>>> a0a46e3278112e2c282102ee51f0b98ec7d6715d
         self.load(bg_name,perso_player,allies,persos_ennemy,potions)
 
         while self.continuer:

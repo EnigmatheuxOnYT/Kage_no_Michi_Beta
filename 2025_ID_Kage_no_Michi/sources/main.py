@@ -117,6 +117,7 @@ class Main:
             else:
                 #En cas d'état inattendu :
                 print("Redémarrage du menu")
+                pygame.mouse.set_visible(True)
                 self.loading_menu=True
         
             self.fps_showed = self.game.get_fps_showed()
