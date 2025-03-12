@@ -104,7 +104,7 @@ class Fight:
         self.not_ko_allies = self.allies
         self.persos_ennemy = persos_ennemy
         self.alive_ennemies = self.persos_ennemy
-        self.current_ennemy = None
+        self.current_ennemy = persos_ennemy[0]
         self.nombre_ennemi = len(persos_ennemy)
         self.nombre_allies = len(allies)
         self.attaque_frontale_compteur = 0
@@ -205,15 +205,18 @@ class Fight:
                             self.is_target_choosen = True
                             self.current_ennemy = ennemy
 
-
                     #Utilisation de la potion
                     if self.potion_hitbox.collidepoint(event.pos) and self.allow_potion:
                         if self.potion >=1:
                             self.potion -= 1
 
-                            self.number = min(self.perso_player.pv_max,self.perso_player.pv+30) - self.perso_player.pv
-                            self.perso_player.pv += self.number
-                            self.start_to_draw_number(False,self.perso_player)
+                            self.number = round(self.perso_player.pv_max * 0.8,0)
+                            if self.number > self.perso_player.pv:
+                                self.perso_player.pv = self.perso_player.pv_max
+                                self.start_to_draw_number(False,self.perso_player)
+                            else:
+                                self.perso_player.pv += self.number
+                                self.start_to_draw_number(False,self.perso_player)
                             self.change_phase("allies")
                         elif self.potion < 1:
                             self.start_draw_hint('potion')
@@ -463,7 +466,6 @@ class Fight:
             pygame.display.flip()
     
     def run(self,screen:pygame.surface.Surface,bg_name:str,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):
-<<<<<<< HEAD
 
         if perso_player in fight_assets.autres_sprites:
             self.characters_positions['main'] = (self.characters_positions['main'][0],perso_player.position_y)
@@ -491,9 +493,6 @@ class Fight:
                     self.characters_positions[key] = (old_x, new_y)
 
 
-=======
-        pygame.mouse.set_visible(True)
->>>>>>> a0a46e3278112e2c282102ee51f0b98ec7d6715d
         self.load(bg_name,perso_player,allies,persos_ennemy,potions)
 
         while self.continuer:
@@ -508,5 +507,5 @@ if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
-    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.guerrier_takahiro, fight_assets.guerrier_takahiro2],100)
+    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.Takahiro, fight_assets.guerrier_takahiro2],3)
     pygame.quit()
