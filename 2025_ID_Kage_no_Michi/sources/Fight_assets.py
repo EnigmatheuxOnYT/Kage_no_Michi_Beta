@@ -154,28 +154,22 @@ class Fight_assets:
         self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku",(250,250),50,self.tengoku_no_ikari, 9, 30)
         self.Musashi_jeune = Perso("Musashi","Musashi_Jeune",(200,200),5,self.training_katana,9,)
         self.pantin_de_combat = Perso("Pantin de combat", "Pantin",(200,200),30,self.zero,0,0)
-<<<<<<< HEAD
-=======
         self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku", (250,250),50,self.tengoku_no_ikari, 9, 30)
         self.Musashi_jeune = Perso("Musashi","Musashi_Jeune",(200,200),5,self.training_katana,0)
         self.pantin_de_combat = Perso("Pantin de combat", "Pantin",(200,200),15,self.zero,0)
->>>>>>> c2d2d42c34cd2acc690503bbbd5e9665db983014
         self.pantin_de_combat.set_do_attaks(False)
         self.guerrier_takahiro = Perso('Soldat1', "Soldat1",(250,250),70,self.no_weapon,11)
         self.guerrier_takahiro2 = Perso('Soldat2', "Soldat1",(250,250), 70,self.no_weapon,11)
         self.Takahiro = Perso("Kojiro Takahiro", "Takahiro", (250,250), 200, self.op_weapon,12, 30)
-<<<<<<< HEAD
         self.Senshi = Perso("Senshi Akuma", "Senshi",(300,300), 50, self.jigoku_no_shizuka,12, 30)
 
         self.autres_sprites = [self.Musashi_Tengoku, self.guerrier_takahiro, self.guerrier_takahiro2, self.Takahiro, self.Senshi]
-=======
         self.Senshi = Perso("Senshi Akuma", "Senshi",(280,280), 50, self.jigoku_no_shizuka,12, 30)
 
         self.Senshi = Perso("Senshi Akuma", "Senshi",(250,250), 50, self.jigoku_no_shizuka,12, 30)
         self.guerrier_ch1_e4_1_1 = Perso("Soldat","Soldat1",(250,250),5,self.katana_guerriers,11,5)
         self.guerrier_ch1_e4_1_2 = Perso("Soldat","Soldat1",(250,250),5,self.katana_guerriers,11,5)
         #self.ma_Juzo = Perso('Ma_Juzo',200, self.tengoku_no_ikari,level=10)
->>>>>>> c2d2d42c34cd2acc690503bbbd5e9665db983014
 
 if __name__ == "__main__":
         fight_assets = Fight_assets()
