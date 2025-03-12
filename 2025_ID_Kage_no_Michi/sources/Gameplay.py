@@ -401,7 +401,6 @@ class Story:
                                                                    map='main',
                                                                    spawn="path_forest_ine1",
                                                                    path='forest_azw',
-                                                                   dirs_data=[],
                                                                    updates=[])]
                                                       ),
                                       }
