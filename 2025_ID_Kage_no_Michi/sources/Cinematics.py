@@ -587,7 +587,7 @@ class Cinematics:
         assert len(choices) == kind[1], f"il doit y avoir autant de choix que le second paramètre de kind ({kind[1]})"
         for i in choices:
             assert type(i)==str, f"les choix doivent être des chaînes de caractères, ce n'est pas le cas du choix {i+1}"
-            assert len(i) <= 30, f"le choix {i} est trop long ({len(i)-19} caractère(s) en trop)"
+            assert len(i) <= 36, f"le choix {i} est trop long ({len(i)-19} caractère(s) en trop)"
         assert type(chars)==list, "les personnages doivent être rangés dans une liste"
         assert len(chars)==kind[0], f"il doit y avoir autant de personnages que le premier paramètre de kind ({kind[0]})"
         for i in chars:
@@ -1037,7 +1037,7 @@ class Cinematics:
             self.cinematic_frame(screen, 'bamboo1', 2, "Absolument! Actuellement, je possède une arme très destructrice. Le “Tengoku", "No Ikari”.(La colère du Paradis)", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
             self.cinematic_frame(screen, 'bamboo1', 2, "“Tengoku no Ikari”? Je n'en ai jamais entendu parler. Pourquoi porte-elle","ce nom ?", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 1])
             self.cinematic_frame(screen, 'bamboo1', 2, "La légende raconte que cette lame incarnerait le châtiment de Dieu. On la", "classait comme l'une des 7 épées légendaires. Tous ceux qui sont touchés", "par cette arme périssent en voyant leurs âmes séparées de leurs corps. ", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
-            self.cinematic_frame(screen, 'bamboo1', 2, "C'est pour cela que je la vends pour 100 pièces d'or. Elle est très rare,","et possède beaucoup de valeur. Alors ? Êtes-vous prêt à l'acheter ?", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
+            self.cinematic_frame(screen, 'bamboo1', 2, "C'est pour cela que je la vends pour 100 pièces d'or.", "Elle est très rare, et possède beaucoup de valeur.", kind_info=[['SM','no_weapon'], ['JM','no_weapon'], 2])
         elif saved == 'KM':
             self.cinematic_frame(screen,'bamboo1', 2, "Le moment est enfin arrivé. Je suis enfin devenu un samouraï.",   kind_info=[['SM','no_weapon'], ['KM','no_weapon'], 1])
             self.cinematic_frame(screen,'bamboo1', 2, "Oui, tu es resté déterminé et tu as réussi à atteindre tes objectifs. Tu es","incroyable grand frère !",   kind_info=[['SM','no_weapon'], ['KM','no_weapon'], 2])
@@ -1063,7 +1063,7 @@ class Cinematics:
             self.cinematic_frame(screen, "bamboo1", 3, "Absolument ! Actuellement, je possède une arme très destructrice. Le", "“Tengoku No Ikari”. (La colère du Paradis)", kind_info=[['SM','no_weapon'], ['KM','no_weapon'],['JM','no_weapon'], 3])
             self.cinematic_frame(screen,'bamboo1', 3, "“Tengoku no Ikari”? Je n'en ai jamais entendu parler. Pourquoi porte-"," elle ce nom ?",   kind_info=[['SM','no_weapon'], ['KM','no_weapon'],['JM','no_weapon'], 1])
             self.cinematic_frame(screen, "bamboo1", 3, "La légende raconte que cette lame incarnerait le châtiment de Dieu. On la", "classe comme l'une des 7 épées légendaires. Tous ceux qui sont touchés", "par cette arme périssent en voyant leurs âmes séparées de leurs corps.  ", kind_info=[['SM','no_weapon'], ['KM','no_weapon'],['JM','no_weapon'], 3])
-            self.cinematic_frame(screen, "bamboo1", 3, "C'est pour cela que je la vends pour 100 pièces d'or. Elle est très rare, et", "possède beaucoup de valeur. Alors ? Êtes-vous prêt à l'acheter ?", kind_info=[['SM','no_weapon'], ['KM','no_weapon'],['JM','no_weapon'], 3])
+            self.cinematic_frame(screen, "bamboo1", 3, "C'est pour cela que je la vends pour 100 pièces d'or.", "Elle est très rare, et possède beaucoup de valeur.", kind_info=[['SM','no_weapon'], ['KM','no_weapon'],['JM','no_weapon'], 3])
 
 
         elif saved == 'KT':
@@ -1091,9 +1091,12 @@ class Cinematics:
             self.cinematic_frame(screen, "bamboo1", 3, "Absolument ! Actuellement, je possède une arme très destructrice. Le", "“Tengoku No Ikari”. (La colère du Paradis)", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
             self.cinematic_frame(screen,'bamboo1', 3, "“Tengoku no Ikari”? Je n'en ai jamais entendu parler. Pourquoi porte-"," elle ce nom ?",   kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 1])
             self.cinematic_frame(screen, "bamboo1", 3, "La légende raconte que cette lame incarnerait le châtiment de Dieu. On la", "classe comme l'une des 7 épées légendaires. Tous ceux qui sont touchés", "par cette arme périssent en voyant leurs âmes séparées de leurs corps.", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
-            self.cinematic_frame(screen, "bamboo1", 3, "C'est pour cela que je la vends pour 100 pièces d'or. Elle est très rare, et", "possède beaucoup de valeur. Alors ? Êtes-vous prêt à l'acheter ?", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
-        self.ecran_noir(screen)
-
+            self.cinematic_frame(screen, "bamboo1", 3, "C'est pour cela que je la vends pour 100 pièces d'or.", "Elle est très rare, et possède beaucoup de valeur.", kind_info=[['SM','no_weapon'], ['KT','no_weapon'],['JM','no_weapon'], 3])
+        self.cinematic_frame(screen,"bamboo1",3,"Cependant, vous me semblez être de confiance.", "Aussi vous proposais-je un marché.", "Échangeons l'arme contre un service futur que vous me devrez.",kind_info=[['SM','no_weapon'], [saved,'no_weapon'],['JM','no_weapon'], 3])
+        self.cinematic_frame(screen,"bamboo1",3,"Qu'en dites-vous ?",kind_info=[['SM','no_weapon'], [saved,'no_weapon'],['JM','no_weapon'], 3])
+        
+        out1,out2 = self.choice_frame(screen,"bamboo1",[3,4],["Refuser","Négocier le prix","Accepter contre un service","Le tuer"],[['SM','no_weapon'], [saved,'no_weapon'],['JM','no_weapon']])
+        return out2
         
     def cinematic_11 (self, screen, saved="none", choose=1):
         #cinématique vérifiée
@@ -2191,6 +2194,6 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Cinématiques")
     c = Cinematics()
-    output = c.cinematic_21(screen,"KM")
+    output = c.cinematic_10(screen,"KM")
     print(output)
     pygame.quit()
