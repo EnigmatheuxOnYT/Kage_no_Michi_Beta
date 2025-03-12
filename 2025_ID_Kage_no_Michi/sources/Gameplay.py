@@ -366,10 +366,17 @@ class Story:
                                                                          dirs_data=[4,[1,2,3,4],['minigm_06',"cinematic_11","cinematic_11","cinematic_11"]]),
                                                             GPPCinematic(name='cinematic_11',
                                                                          cinematic_no=11,
-                                                                         dirs_data=[]),
+                                                                         dirs_data=[1,[-1],["next_scene"]]),
                                                             GPPMinigame(name='minigm_06',
                                                                         minigame_no=6,
-                                                                        dirs_data=[1,[-1],["cinematic_11"]])]
+                                                                        dirs_data=[1,[-1],["cinematic_11"]]),]
+                                                      ),
+                                      "Scene 2":Scene(id=[2,2],
+                                                      next_id=[2,3],
+                                                      gpps=[GPPCinematic(name='cinematic_21',
+                                                                         cinematic_no=21,
+                                                                         dirs_data=[]),
+                                                            ]
                                                       ),
                                       }
                        }
