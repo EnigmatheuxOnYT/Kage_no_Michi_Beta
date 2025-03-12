@@ -1807,7 +1807,7 @@ class Cinematics:
             self.cinematic_frame(screen, "tkh2",0, "Qui le remportera ? A suivre dans ce dernier épisode.")
         self.ecran_noir(screen)
 
-    def cinematic_18(self,screen):
+    def cinematic_18(self,screen,saved):
         #cinématique vérifiée
         self.music.play(self.music.theme_tkh1)
         self.cinematic_frame(screen, "tkh1", 2, "..Takhiro Kojiro, chef du clan Takahiro..",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 1])
