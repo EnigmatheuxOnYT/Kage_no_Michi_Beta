@@ -168,6 +168,8 @@ class Cinematics:
                 new_char=""
             elif char in ["‘","’","’"]:
                 new_char="'"
+            elif char in ["“","”"]:
+                new_char='"'
             elif char == "…":
                 new_char = "..."
             else:
@@ -1095,7 +1097,7 @@ class Cinematics:
         self.cinematic_frame(screen,"bamboo1",3,"Cependant, vous me semblez être de confiance.", "Aussi vous proposais-je un marché.", "Échangeons l'arme contre un service futur que vous me devrez.",kind_info=[['SM','no_weapon'], [saved,'no_weapon'],['JM','no_weapon'], 3])
         self.cinematic_frame(screen,"bamboo1",3,"Qu'en dites-vous ?",kind_info=[['SM','no_weapon'], [saved,'no_weapon'],['JM','no_weapon'], 3])
         
-        out1,out2 = self.choice_frame(screen,"bamboo1",[3,4],["Refuser","Négocier le prix","Accepter contre un service","Le tuer"],[['SM','no_weapon'], [saved,'no_weapon'],['JM','no_weapon']])
+        out1,out2 = self.choice_frame(screen,"bamboo1",[3,4],["Négocier le prix","Refuser","Accepter contre un service","Le tuer"],[['SM','no_weapon'], [saved,'no_weapon'],['JM','no_weapon']])
         return out2
         
     def cinematic_11 (self, screen, saved="none", choose=1):
@@ -1124,10 +1126,10 @@ class Cinematics:
             elif choose == 3:
                 self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 2, "J'aimerais bien vous prendre cette arme, en échange d'un service que vous", "pourriez me proposer.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 2, "Un service tu dis ? Je vois, tu me dois donc un service si jamais tu", "prends cette lame.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo2', 2, "Un service tu dis ? Donc, tu me dois donc un service si jamais tu", "prends cette lame.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "En effet. Je dois venger mon village natal qui a été détruit par le clan", "Takahiro. C'est un cas assez urgent pour moi. Je vous en fais la promesse.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 2, "Hmm... D'accord, j'accepte ton offre. Actuellement, je n'ai pas de service", "à te demander pour mon travail mais je t'en ferai part lorsqu'on se", "retrouvera.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
-                self.cinematic_frame(screen, 'bamboo2', 2, "Voici le“Tengoku no Ikari”. Fais-en bon usage et fais très attention,", "notamment aux ennemis que tu rencontreras. ", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo2', 2, "Actuellement, je n'ai pas de service", "à te demander pour mon travail mais je t'en ferai part lorsqu'on se", "retrouvera.", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
+                self.cinematic_frame(screen, 'bamboo2', 2, "Voici le “Tengoku no Ikari”. Fais-en bon usage et fais très attention,", "notamment aux ennemis que tu rencontreras. ", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "C'est noté. Je resterai prudent lors de mon voyage. Encore une fois, je", "vous remercie de votre bienveillance.",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Aucun problème, on peut dire que c'est un cadeau en premier lieu. N'oublie", "pas ta promesse et on se reverra aussitôt ! Bon courage pour ta quête", "Musashi !", kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 2])
                 self.cinematic_frame(screen, 'bamboo2', 2, "Entendu ! Bon courage à vous aussi marchand Juzo !",kind_info=[['SM', 'no_weapon'], ['JM', 'no_weapon'], 1])
@@ -1175,10 +1177,10 @@ class Cinematics:
             elif choose == 3:
                 self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 3,"J'aimerais bien vous prendre cette arme, en échange d'un service que vous","pourriez me proposer.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 3,"Un service tu dis ? Je vois, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo2', 3,"Un service tu dis ? Donc, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"En effet. Je dois venger mon village natal qui a été détruit par le clan","Takahiro.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"C'est un cas assez urgent pour moi. Je vous en fais la promesse.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 3,"Hmm... D'accord, j'accepte ton offre. Actuellement, je n'ai pas de service","à te demander pour mon travail mais je t'en ferai part lorsqu'on se","retrouvera.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo2', 3,"Actuellement, je n'ai pas de service","à te demander pour mon travail mais je t'en ferai part lorsqu'on se","retrouvera.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Voici le“Tengoku no Ikari”. Fais-en bon usage et fais très attention,","notamment aux ennemis que tu rencontreras.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Il faudra que tu sois plus vigilent Shikisha si jamais tu comptes battre","le clan Takahiro.",kind_info=[['KM', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3,"C'est noté. Je resterai prudent lors de mon voyage. Encore une fois, je vous","remercie de votre bienveillance.",kind_info=[['SM', 'no_weapon'], ['KM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
@@ -1230,10 +1232,10 @@ class Cinematics:
             elif choose == 3:
                 self.music.play(self.music.exploration)
                 self.cinematic_frame(screen, 'bamboo2', 3,"J'aimerais bien vous prendre cette arme, en échange d'un service que vous","pourriez me proposer.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 3,"Un service tu dis ? Je vois, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo2', 3,"Un service tu dis ? Donc, tu me dois donc un service si jamais tu prends","cette lame.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"En effet. Je dois venger mon village natal qui a été détruit par le clan","Takahiro.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
                 self.cinematic_frame(screen, 'bamboo2', 3,"C'est un cas assez urgent pour moi. Je vous en fais la promesse.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1])
-                self.cinematic_frame(screen, 'bamboo2', 3,"Hmm...D'accord, j'accepte ton offre. Actuellement, je n'ai pas de service","à te demander pour mon travail mais je t'en ferai part lorsqu'on se", "retrouvera.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
+                self.cinematic_frame(screen, 'bamboo2', 3,"Actuellement, je n'ai pas de service","à te demander pour mon travail mais je t'en ferai part lorsqu'on se", "retrouvera.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3,"Voici le“Tengoku no Ikari”. Fais-en bon usage et fais très attention,","notamment aux ennemis que tu rencontreras.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 3])
                 self.cinematic_frame(screen, 'bamboo2', 3, "Continuons de rester sur nos gardes. On ne sait jamais.",kind_info=[['KT', 'no_weapon'],['SM', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
                 self.cinematic_frame(screen, 'bamboo2', 3,"C'est noté. Je resterai prudent lors de mon voyage. Encore une fois, je vous","remercie de votre bienveillance.",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['JM', 'no_weapon'], 1, True])
