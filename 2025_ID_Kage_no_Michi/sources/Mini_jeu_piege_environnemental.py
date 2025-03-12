@@ -484,7 +484,7 @@ class minigm_minesweeper:
         self.load()
         self.intro(screen, saved)
         
-        while self.playing and self.running and self.in_minigm and not self.victoire:
+        while self.playing and self.running and self.in_minigm and not self.victoire and not self.game_over:
             self.minigm_events()
             self.minigm_update()
             self.minigm_draw(screen, saved)
