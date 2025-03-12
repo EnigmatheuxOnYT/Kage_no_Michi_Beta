@@ -101,7 +101,6 @@ class Game:
 
         self.devmode=False
         self.in_gameplay=False
-        self.lost = False
 
         self.current_interaction = {"is":False,"interaction":None}
         self.current_interration = 0
@@ -148,7 +147,7 @@ class Game:
         self.load_player_data(save_data)
         
         in_game = True
-        
+
         if self.loaded_save == 0:
             self.blank = False
             self.in_gameplay=True
@@ -184,6 +183,7 @@ class Game:
     
     def save_savefile(self):
         ########## Sauvegarde ##########
+        self.scene = self.current_playing_scene.id
         self.player_pos = self.get_pos()
         self.inventory={'money':self.money,'weapon':self.current_weapon,'heal_potions':self.heal_potions_count}
         dead = [self.dead,self.lost]
@@ -389,10 +389,12 @@ class Game:
             if minigame == 2:
                 if not victory_state:
                     self.lost = True
+                    self.save_savefile()
                     self.in_gameplay = False
             elif minigame == 5:
                 if victory_state == 'defeat':
                     self.dead = True
+                    self.save_savefile()
                     self.in_gameplay = False
                 elif victory_state == 'victory':
                     pass
