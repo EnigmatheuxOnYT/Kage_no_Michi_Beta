@@ -91,6 +91,8 @@ class Sound:
         self.ahah = self.sound('SFX_CrazyLaugh_1')
         self.gasp = self.sound('SFX_Gasp_1')
         self.sigh = self.sound('SFX_Sigh_1')
+        self.cough = self.sound('SFX_CoughingMan_1')
+        self.oof = self.sound('SFX_Oof_1')
         self.Dialogue_H_1 = self.sound("Homme_Dialogue_1")
         self.Dialogue_H_2 = self.sound("Homme_Dialogue_2")
         self.Dialogue_H_3 = self.sound("Homme_Dialogue_3")
