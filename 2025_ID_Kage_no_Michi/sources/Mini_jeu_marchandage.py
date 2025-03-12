@@ -264,19 +264,19 @@ class minigm_trade:
             self.victory = True
             if saved == 'none':
                 self.cin.cinematic_frame(screen, 'bamboo3', 2, "Bravo. Vous vous êtes bien débrouillé. Désormais, que ferez-vous?", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
-                self.switch_lowercase(True)
+                self.cin.switch_lowercase(True)
                 self.cin.cinematic_frame(screen, 'bamboo3', 2, "Je dois maintenant décider d'acheter ou non l'arme...", kind_info=[["SM","no_weapon"],["JM","no_weapon"], 1], running=self.running)
-                self.switch_lowercase(False)
+                self.cin.switch_lowercase(False)
             elif saved == 'KM':
                 self.cin.cinematic_frame(screen, 'bamboo3', 3, "Bravo. Vous vous êtes bien débrouillé. Désormais, que ferez-vous?", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-                self.switch_lowercase(True)
+                self.cin.switch_lowercase(True)
                 self.cin.cinematic_frame(screen, 'bamboo3', 3, "On devrait peut-être discuter avant de prendre une décision...", kind_info=[["SM","no_weapon"],["KM","no_weapon"],["JM","no_weapon"], 2], running=self.running)
-                self.switch_lowercase(False)
+                self.cin.switch_lowercase(False)
             elif saved == 'KT':
                 self.cin.cinematic_frame(screen, 'bamboo3', 3, "Bravo. Vous vous êtes bien débrouillé. Désormais, que ferez-vous?", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 3], running=self.running)
-                self.switch_lowercase(True)
+                self.cin.switch_lowercase(True)
                 self.cin.cinematic_frame(screen, 'bamboo3', 3, "Cette arme pourrait être cruciale pour notre mission...", kind_info=[["SM","no_weapon"],["KT","no_weapon"],["JM","no_weapon"], 2], running=self.running)
-                self.switch_lowercase(False)
+                self.cin.switch_lowercase(False)
             victory_state = "win"
         else:
             self.cin.cinematic_frame(screen, 'bamboo3', 2, "Hmm… Pas terrible. Vous auriez pu mieux faire. Mais bon, les affaires", "sont les affaires. Alors, que décidez-vous ?", kind_info=[["SM","no_weapon"], [saved,'no_weapon'],["JM","no_weapon"], 3], running=self.running)
