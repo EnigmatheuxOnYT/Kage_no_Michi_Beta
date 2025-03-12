@@ -107,6 +107,7 @@ class Game:
 
         self.scene=[0,0]
         self.location="wild"
+        self.choice1timer = 0
 
     @property
     def current_playing_scene(self):return self.story.scenes[f'Chapitre {self.scene[0]}'][f'Scene {self.scene[1]}']
@@ -421,6 +422,7 @@ class Game:
         choice=0
         if cinematic == 1:
             self.cinematics.cinematic_01(self.screen_for_game)
+            self.choice1timer = pygame.time.get_ticks()
         elif cinematic == 2:
             self.cinematics.cinematic_02(self.screen_for_game,choices[0])
         elif cinematic == 3:
@@ -549,6 +551,9 @@ class Game:
                     if gpp.name==data[0] and update.condition.data[0]==data[1]:
                         if update.effect=='next':
                             self.next_gpp(-1)
+            if gpp.name=='IntroChoice' and 10000-pygame.time.get_ticks()+self.choice1timer<=0:
+                self.choices[0] = "none"
+                self.next_gpp(-1)
         
 
     def change_map_for_game(self,by_name,map_info):
