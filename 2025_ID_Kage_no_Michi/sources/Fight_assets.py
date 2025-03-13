@@ -155,10 +155,6 @@ class Fight_assets:
         self.Musashi = Perso("Musashi","Musashi",250,(225,225),40,self.wood_katana,9,level = 10)
         self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku",230,(250,250),80,self.tengoku_no_ikari, 9, 35)
         self.Musashi_jeune = Perso("Musashi","Musashi_Jeune",0,(200,200),5,self.training_katana,9,)
-<<<<<<< HEAD
-        self.pantin_de_combat = Perso("Pantin de combat", "Pantin",250,(200,200),30,self.zero,0,0)
-=======
->>>>>>> 1099ca7223e264fae2353c7854bb6bf5395261c4
         self.pantin_de_combat = Perso("Pantin de combat", "Pantin",0,(200,200),15,self.zero,0,0)
         self.pantin_de_combat.set_do_attaks(False)
         self.guerrier_takahiro = Perso('Soldat1', "Soldat1",225,(250,250),70,self.no_weapon,11)
