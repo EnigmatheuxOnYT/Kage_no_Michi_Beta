@@ -171,7 +171,7 @@ class GPPMap(GamePlayPhase):
 
 
 class GPPCinematic(GamePlayPhase):
-    def __init__(self,name:str,cinematic_no:int,dirs_data:list):
+    def __init__(self,name:str,cinematic_no:int,dirs_data:list=[1,[-1],['next']]):
         GamePlayPhase.__init__(self,name,"GPPCinematic",dirs_data)
         self.cinematic_no = cinematic_no
 
@@ -422,7 +422,7 @@ class Story:
                                                                    path='azw_mgm',
                                                                    dirs_data=[2,[1,2],['Chap3_e1_map','next']],
                                                                    updates=[Update(condition=Condition(type="event_zone",data=['entrance_azw_destroyed']),effect=1),
-                                                                            Update(condition=Condition(type="location",data=['forest']),effect='next')]
+                                                                            Update(condition=Condition(type="location",data=['mgm']),effect='next')]
                                                                    )
                                                             ]
                                                       ),
@@ -434,6 +434,61 @@ class Story:
                                                             GPPCinematic(name='cinematic_14',
                                                                          cinematic_no=14,
                                                                          dirs_data=[1,[-1],['next']]),
+                                                            ]
+                                                      ),
+                                      "Scene 3":Scene(id=[3,3],
+                                                      next_id=[3,4],
+                                                      gpps=[GPPMap(name='Chap3_e3_map',
+                                                                   map='main',
+                                                                   spawn='spawn_Magome',
+                                                                   path='mgm_tkh',
+                                                                   updates=[Update(condition=Condition(type="location",data=['Takahiro']),effect='next')]
+                                                                   ),
+                                                            GPPCinematic(name='cinematic_15',
+                                                                         cinematic_no=15,
+                                                                         dirs_data=[1,[-1],['next']]),
+                                                            GPPCinematic(name='cinematic_16',
+                                                                         cinematic_no=16,
+                                                                         dirs_data=[1,[-1],['next']]),
+                                                            ]
+                                                      ),
+                                      "Scene 4":Scene(id=[3,4],
+                                                      next_id=[3,5],
+                                                      gpps=[GPPMap(name="Chap3_e4_map",
+                                                                   map='main',
+                                                                   spawn='spawn_Boss',
+                                                                   updates=[Update(condition=Condition(type="event_zone",data=['tkh_end']),effect='next')]
+                                                                   ),
+                                                            GPPFight(name='Chap3_e4_fight',
+                                                                     bg='tkh2',
+                                                                     ennemies=[],
+                                                                     dirs_data=[1,[-1],['next']]
+                                                                     ),
+                                                            GPPCinematic(name="cinematic_17",
+                                                                         cinematic_no=17,
+                                                                         ),
+                                                            GPPCinematic(name="cinematic_18",
+                                                                         cinematic_no=18,
+                                                                         ),
+                                                            ]
+                                                      ),
+                                      "Scene 5":Scene(id=[3,5],
+                                                      next_id=[0,0],
+                                                      gpps=[GPPFight(name='final_fight',
+                                                                     bg="tkh1",
+                                                                     ennemies=[],
+                                                                     dirs_data=[1,[-1],['next']]
+                                                                     ),
+                                                            GPPCinematic(name='cinematic_19',
+                                                                         cinematic_no=19,
+                                                                         ),
+                                                            GPPCinematic(name='cinematic_19',
+                                                                         cinematic_no=20,
+                                                                         ),
+                                                            GPPMap(name='end',
+                                                                   map='main',
+                                                                   spawn='spawn_Magome',
+                                                                   )
                                                             ]
                                                       )
                                       },

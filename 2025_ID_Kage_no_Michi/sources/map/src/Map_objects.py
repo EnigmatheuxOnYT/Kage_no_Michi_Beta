@@ -199,6 +199,11 @@ paths_list = [{'name':'mgm_ine',
                  'sub_paths_names':['mgm'],
                  'points_names':["5",'4','1','spawn_Magome'],
                  'order':[[0],[0],[0],[1,True],[0]]
+                 },
+                {'name':'mgm_tkh',
+                 'sub_paths_names':[],
+                 'points_names':['path_mgm1','spawn_tkh'],
+                 'order':[[0],[0]]
                  }
                 ]
 

@@ -50,7 +50,7 @@ class minigm_tutofight :
         self.rect1 = self.get_rect(self.text1)
         self.text2 = self.render("Attaquez avec le bouton d'attaque !")
         self.rect2 = self.get_rect(self.text2)
-        self.text3 = self.render("Utilisez une potion pour régénérer jusqu'à 30 points de vie !")
+        self.text3 = self.render("Utilisez une potion pour régénérer vos points de vie !")
         self.rect3 = self.get_rect(self.text3)
         self.text4 = self.render("Utilisez votre attaque spéciale après 4 attaques normales !")
         self.rect4 = self.get_rect(self.text4)
