@@ -420,7 +420,7 @@ class Game:
             choices = self.choices
         
         
-        choice="Non Attribué"
+        choice=1
         if cinematic == 1:
             self.cinematics.cinematic_01(self.screen_for_game)
             self.choice1timer = pygame.time.get_ticks()
@@ -459,7 +459,7 @@ class Game:
         elif cinematic == 14 :
             self.cinematics.cinematic_14(self.screen_for_game,choices[0])
         elif cinematic == 15 :
-            self.cinematics.cinematic_15(self.screen_for_game,choices[0],choices[2]==2,False)
+            choice = self.cinematics.cinematic_15(self.screen_for_game,choices[0],choices[2]==2,False)
         elif cinematic == 16 :
             self.cinematics.cinematic_16(self.screen_for_game,choices[0])
         elif cinematic == 17 :
@@ -476,6 +476,8 @@ class Game:
             self.cinematics.cinematic_22(self.screen_for_game,choices[0])
         elif cinematic == 23:
             self.cinematics.cinematic_23(self.screen_for_game)
+        elif cinematic == 25:
+            self.cinematics.cinematic_25(self.screen_for_game,choices[0])
         
         pygame.mouse.set_visible(False)
         return choice
