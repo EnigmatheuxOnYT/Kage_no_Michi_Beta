@@ -493,10 +493,7 @@ class Fight:
                     self.characters_positions[key] = (old_x, new_y)
 
 
-<<<<<<< HEAD
-=======
         pygame.mouse.set_visible(True)
->>>>>>> 8078d0ff2f2cecf3e916048b410db2e08a784c8e
         self.load(bg_name,perso_player,allies,persos_ennemy,potions)
 
         while self.continuer:
@@ -511,5 +508,5 @@ if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
-    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.Takahiro, fight_assets.guerrier_takahiro2],3)
+    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.Takahiro],3)
     pygame.quit()
