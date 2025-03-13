@@ -194,7 +194,12 @@ paths_list = [{'name':'mgm_ine',
                 {'name':'forest_azw',
                  'sub_paths_names':[],
                  'points_names':["3","2","4","5","spawn_Aizu"],
-                 'order':[[0],[0],[0],[0],[0]]}
+                 'order':[[0],[0],[0],[0],[0]]},
+                {'name':"azw_mgm",
+                 'sub_paths_names':['mgm'],
+                 'points_names':["5",'4','1','spawn_Magome'],
+                 'order':[[0],[0],[0],[1,True],[0]]
+                 }
                 ]
 
 
