@@ -51,7 +51,8 @@ class Fight:
         # Images des boutons d'attaque (interface utilisateur)
         self.attaque_frontale_box = pygame.image.load("../data/assets/minigm/Attaque_Frontale_V1.png").convert_alpha()
         self.attaque_special_box = pygame.image.load("../data/assets/minigm/Attaque_Speciale_V1.png").convert_alpha()
-
+        self.attaque_special_fonce_box = pygame.image.load("../data/assets/minigm/Attaque_Speciale_Sombre_V1.png").convert_alpha()
+        
         # Définition des zones cliquables (hitboxes)
         self.attaque_frontale_hitbox = pygame.Rect(15, 200, 100, 100)
         self.attaque_special_hitbox = pygame.Rect(15, 320, 100, 100)
@@ -78,12 +79,12 @@ class Fight:
         self.pop_text_choose_ennemy_rect.midtop = midtop
         self.pop_text_no_potion_rect.midtop = midtop
 
-        self.characters_positions = {'main':(400,250),
-                                     'ally0':(350,250),
-                                     'ally1':(300,250),
-                                     'ennemy0':(700, 250),
-                                     'ennemy1':(850, 250),
-                                     'ennemy2':(900, 250)
+        self.characters_positions = {'main':(500,350),
+                                     'ally1':(450,350),
+                                     'ally2':(400,350),
+                                     'ennemy1':(800, 350),
+                                     'ennemy2':(950, 350),
+                                     'ennemy3':(1000, 350)
                                      }
         
         self.continuer = True
@@ -143,11 +144,11 @@ class Fight:
         self.perso_player.set_orientation("droite")
         for i in range(len(self.allies)):
             ally=self.allies[i]
-            ally.set_pos(self.characters_positions[f'ally{i}'])
+            ally.set_pos(self.characters_positions[f'ally{i+1}'])
             ally.set_orientation("droite")
         for i in range(len(self.persos_ennemy)):
             ennemy = self.persos_ennemy[i]
-            ennemy.set_pos(self.characters_positions[f'ennemy{i}'])
+            ennemy.set_pos(self.characters_positions[f'ennemy{i+1}'])
             ennemy.set_orientation('gauche')
     
     @property
@@ -173,7 +174,7 @@ class Fight:
         self.is_number_damage = damage
         self.start_drawing_number_timer = pygame.time.get_ticks()
         pos = char.pos
-        self.number_pos = (pos[0],pos[1]-30)
+        self.number_pos = (pos[0]-50,pos[1]-130)
 
     def start_draw_hint(self,hint):
         self.to_draw_hint = hint
@@ -205,18 +206,14 @@ class Fight:
                             self.is_target_choosen = True
                             self.current_ennemy = ennemy
 
+
                     #Utilisation de la potion
                     if self.potion_hitbox.collidepoint(event.pos) and self.allow_potion:
                         if self.potion >=1:
                             self.potion -= 1
-
-                            self.number = round(self.perso_player.pv_max * 0.8,0)
-                            if self.number > self.perso_player.pv:
-                                self.perso_player.pv = self.perso_player.pv_max
-                                self.start_to_draw_number(False,self.perso_player)
-                            else:
-                                self.perso_player.pv += self.number
-                                self.start_to_draw_number(False,self.perso_player)
+                            self.number = min(self.perso_player.pv_max,self.perso_player.pv+30) - self.perso_player.pv
+                            self.perso_player.pv += self.number
+                            self.start_to_draw_number(False,self.perso_player)
                             self.change_phase("allies")
                         elif self.potion < 1:
                             self.start_draw_hint('potion')
@@ -249,6 +246,8 @@ class Fight:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_F11:
                     pygame.display.toggle_fullscreen()
+
+
 
     def allies_attack(self):
         if self.nombre_alive_allies == 0:
@@ -346,7 +345,7 @@ class Fight:
             screen.blit(text_potion,rect_potion)
 
         #Joueur
-        text = self.police_base.render(self.perso_player.sprite_name+ ' LVL:'+str(self.perso_player.level)+' PV : '+str(self.perso_player.pv),False,self.VERT)
+        text = self.police_base.render(self.perso_player.sprite_name+' NIV : '+str(self.perso_player.level)+' PV : '+str(self.perso_player.pv),False,self.VERT)
         screen.blit(text,(100,790-self.HAUTEUR_PANEL))
         ratio = self.perso_player.pv / self.perso_player.pv_max #Différence entre les pvs actuel et les pv maxs
         pygame.draw.rect(screen, self.ROUGE, (100, 820-self.HAUTEUR_PANEL, 400, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
@@ -355,7 +354,7 @@ class Fight:
         #Alliés
         for i in range(len(self.allies)):
             ally = self.allies[i]
-            text = self.police_base.render(ally.sprite_name+' LVL:'+str(ally.level)+' PV : '+str(ally.pv),False,self.VERT)
+            text = self.police_base.render(ally.sprite_name+' NIV : '+str(ally.level)+' PV : '+str(ally.pv),False,self.VERT)
             screen.blit(text,(100,790-self.HAUTEUR_PANEL+60*(i+1)))
             ratio = ally.pv / ally.pv_max #Différence entre les pvs actuel et les pv maxs
             pygame.draw.rect(screen, self.ROUGE, (100, 820-self.HAUTEUR_PANEL+60*(i+1), 400, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
@@ -364,7 +363,7 @@ class Fight:
         #Ennemis
         for i in range(len(self.persos_ennemy)):
             ennemy = self.persos_ennemy[i]
-            text = self.police_base.render(ennemy.sprite_name+' LVL:'+str(ennemy.level)+' PV : '+str(ennemy.pv),False,self.PINK)
+            text = self.police_base.render(ennemy.sprite_name+' NIV : '+str(ennemy.level)+' PV : '+str(ennemy.pv),False,self.PINK)
             screen.blit(text,(700,790-self.HAUTEUR_PANEL+60*(i)))
             ratio = ennemy.pv / ennemy.pv_max #Différence entre les pvs actuel et les pv maxs
             pygame.draw.rect(screen, self.ROUGE, (700, 820-self.HAUTEUR_PANEL+60*(i), 400, 30)) #Les pvs qui ont été enlevé dans la barre d'hp
@@ -386,17 +385,17 @@ class Fight:
                     ennemy.draw_static(screen)
         if self.perso_player.pv > 0:
             if self.perso_player.attacking:
-                self.perso_player.draw_atk(screen, "Attaque_Speciale" if self.draw_spe else "Attaque_Frontale", self.current_ennemy.rect.center)
+                self.perso_player.draw_atk(screen,"Attaque_Speciale" if self.draw_spe else "Attaque_Frontale",self.current_ennemy.pos)
         for i in range(len(self.allies)):
             ally=self.allies[i]
             if ally.pv > 0:
                 if ally.attacking:
-                    ally.draw_atk(screen,"Attaque_Frontale",self.current_ennemy.rect.center)
+                    ally.draw_atk(screen,"Attaque_Frontale",self.current_ennemy.pos)
         for i in range(len(self.persos_ennemy)):
             ennemy=self.persos_ennemy[i]
             if ennemy.pv > 0:
                 if ennemy.attacking:
-                    ennemy.draw_atk(screen,"Attaque_Frontale",self.perso_player.rect.center)
+                    ennemy.draw_atk(screen,"Attaque_Frontale",self.perso_player.pos)
 
     def draw_number(self,screen):
         if self.number == 0:
@@ -416,7 +415,7 @@ class Fight:
 
     def draw_arrow (self,screen):
         pos = self.current_ennemy.pos
-        pos = pos[0]+150,pos[1]-40
+        pos = pos[0]-20,pos[1]-170
         screen.blit(self.red_arrow,pos)
 
     def draw_overlay (self,screen):
@@ -435,13 +434,10 @@ class Fight:
         if self.allow_normal:
             screen.blit(self.attaque_frontale_box, (15, 200))
         if self.allow_spe:
-
-            if self.attaque_frontale_compteur >= 4:
-                self.attaque_special_box =  pygame.image.load("../data/assets/minigm/Attaque_Speciale_V1.png").convert_alpha()
+            if self.attaque_frontale_compteur >=4:
                 screen.blit(self.attaque_special_box, (15, 320))
             else:
-                self.attaque_special_box = pygame.image.load("../data/assets/minigm/Attaque_Speciale_Sombre_V1.png").convert_alpha()
-                screen.blit(self.attaque_special_box, (15,320))
+                screen.blit(self.attaque_special_fonce_box, (15, 320))
     
     def draw_hint(self,screen):
         if self.pop_text_timer_lengh-pygame.time.get_ticks()+self.hint_timer<=0:
@@ -466,41 +462,14 @@ class Fight:
             pygame.display.flip()
     
     def run(self,screen:pygame.surface.Surface,bg_name:str,perso_player:Perso,allies:List[Perso],persos_ennemy:List[Perso],potions:int):
-
-        if perso_player in fight_assets.autres_sprites:
-            self.characters_positions['main'] = (self.characters_positions['main'][0],perso_player.position_y)
-
-        if len(allies)>0:
-            for i in range(len(allies)):
-
-                key = f'ally{i}'  # Correction du nom de clé
-                if key in self.characters_positions and allies[i] in fight_assets.autres_sprites:
-                    self.characters_positions[key] = (self.characters_positions[key][0], allies[i].position_y)
-
-        if len(persos_ennemy) > 0:
-
-            for i in range(len(persos_ennemy)):
-
-                 key = f'ennemy{i}'  # Correction du nom de clé
-                 
-                 if key in self.characters_positions:
-                    old_x, old_y = self.characters_positions[key]  # Récupération de l'ancienne position
-                    new_y = persos_ennemy[i].position_y
-
-                    print(f"Modification de {key}: Ancienne position: ({old_x}, {old_y}) → Nouvelle position: ({old_x}, {new_y})")
-                    
-                    # Mise à jour de la position Y sans toucher X
-                    self.characters_positions[key] = (old_x, new_y)
-
-
-        pygame.mouse.set_visible(True)
         self.load(bg_name,perso_player,allies,persos_ennemy,potions)
-
+        pygame.mouse.set_visible(True)
         while self.continuer:
             self.handle_imput()
             self.update()
             self.draw(screen)
             self.clock.tick(60)
+        
         return self.action,self.potion
 
 if __name__ == "__main__":
@@ -508,5 +477,5 @@ if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
-    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.Takahiro],3)
+    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.guerrier_takahiro,fight_assets.guerrier_takahiro2],100)
     pygame.quit()

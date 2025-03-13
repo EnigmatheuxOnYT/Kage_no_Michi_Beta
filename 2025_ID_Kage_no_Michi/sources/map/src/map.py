@@ -119,6 +119,8 @@ class MapManager :
                               event_zones=[Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="entrance_dojo_ine",entities=["Player"], events=[Event(type="gpp",data=["Chap1_e3_map","dojo_ine"])]),
                                            Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="entrance_azw_destroyed",entities=["Player"], events=[Event(type="gpp",data=["Chap2_e3_map","entrance_azw_destroyed"])]),
                                            Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="Ine",entities=["Player"], events=[Event(type="location",data=["ine"])]),
+                                           Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="Magome",entities=["Player"], events=[Event(type="location",data=["mgm"])]),
+                                           Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="Takahiro",entities=["Player"], events=[Event(type="location",data=["Takahiro"])]),
                                            Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point='forest',entities=["Player"],events=[Event(type='location',data=["forest"])]),
                                            Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point='Takahiro',entities=["Player"],events=[Event(type='location',data=["Takahiro"])])
                                            ],
@@ -191,7 +193,7 @@ class MapManager :
                                     NPC(name="Villager2", start_pos=[1632,1408],nb_points=4,speed=1),
                                     NPC(name="Villager3", start_pos=[1184,1152],nb_points=5,speed=1)
                                     ],
-                              event_zones=[Event_zone("Aizu_detruite","exit",["Player"],[Event(type="ggp",data=["Chap3_e1_map","exit"])])],
+                              event_zones=[Event_zone("Aizu_detruite","exit",["Player"],[Event(type="gpp",data=["Chap3_e1_map","exit"])])],
                               sub_paths=[],
                               layer=8,
                               placed_correctly=True,

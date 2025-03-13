@@ -437,11 +437,14 @@ class Game:
         elif cinematic == 7:
             choice = self.cinematics.cinematic_07(self.screen_for_game,choices[0])
             self.choices[1]=choice
+            self.fighter.set_level(7)
         elif cinematic == 8:
             choice = self.cinematics.cinematic_08(self.screen_for_game,choices[1])
         elif cinematic == 9:
             self.cinematics.cinematic_09(self.screen_for_game,choices[0])
             self.money+=100
+            self.fighter.set_level(15)
+            self.heal_potions_count += 5
         elif cinematic == 10:
             choice = self.cinematics.cinematic_10(self.screen_for_game,choices[0])
             self.choices[2] = choice
@@ -456,7 +459,7 @@ class Game:
         elif cinematic == 14 :
             self.cinematics.cinematic_14(self.screen_for_game,choices[0])
         elif cinematic == 15 :
-            self.cinematics.cinematic_15(self.screen_for_game,choices[0],choices[2]==2)
+            self.cinematics.cinematic_15(self.screen_for_game,choices[0],choices[2]==2,False)
         elif cinematic == 16 :
             self.cinematics.cinematic_16(self.screen_for_game,choices[0])
         elif cinematic == 17 :
@@ -487,6 +490,7 @@ class Game:
     
     def launch_fight(self,bg,ennemies):
         state,self.heal_potions_count = self.fight.run(self.screen_for_game,bg,self.fighter,self.allies,ennemies,self.heal_potions_count)
+        self.fighter.set_level(self.fighter.level+5)
         return state
     
     def next_gpp(self,output):
@@ -537,8 +541,7 @@ class Game:
                     self.draw_arrow=False
                 self.in_gameplay=True
             elif gpp.type == "GPPFight":
-                self.launch_fight(gpp.bg,gpp.ennemies)
-                print("combat terminé")
+                state = self.launch_fight(gpp.bg,gpp.ennemies)
             elif gpp.type=='GPPDeath':
                 self.death()
         

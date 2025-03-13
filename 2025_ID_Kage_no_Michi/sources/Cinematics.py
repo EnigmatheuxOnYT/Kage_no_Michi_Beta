@@ -1414,7 +1414,7 @@ class Cinematics:
         self.ecran_noir(screen)
 
 
-    def cinematic_15(self,screen,saved,juzo,in_genocide_route):
+    def cinematic_15(self,screen,saved,juzo,in_genocide_route=False):
         #cinématique vérifiée
         if saved =='none':
             if in_genocide_route==True:
@@ -1891,7 +1891,7 @@ class Cinematics:
         self.cinematic_frame(screen, "tkh1", 2, "Amenez-vous, je vous attends !",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 1])
         self.ecran_noir(screen)
 
-    def cinematic_19(self,screen,saved,chef_tkh_battu):
+    def cinematic_19(self,screen,saved,chef_tkh_battu=True):
         #cinématique vérifiée
         self.music.play(self.music.theme_tkh1)
         if chef_tkh_battu==False:
@@ -1912,7 +1912,7 @@ class Cinematics:
             self.cinematic_frame(screen, "tkh1", 2, "Je reconnais mes erreurs...J'ai perdu mon duel...La mort ne fait que", "m'attendre.",kind_info=[['SM', 'no_weapon'], ['TK', 'no_weapon'], 2])
         self.ecran_noir(screen)
 
-    def cinematic_20(self,screen,saved,route):
+    def cinematic_20(self,screen,saved,route='neutral'):
         #cinématique vérifiée
         if route=='pacifist':
             self.music.play(self.music.calmpacific)
