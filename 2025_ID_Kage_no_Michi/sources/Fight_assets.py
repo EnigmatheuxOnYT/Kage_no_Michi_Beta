@@ -144,7 +144,7 @@ class Ennemy(Perso):
 class Fight_assets:
     def __init__(self):
         #Armes à disposition
-        self.tengoku_no_ikari = Weapon(name = 'Tengoku No Ikari', weapon_damage = 20,special_damage=10,crit_chance=0.1)
+        self.tengoku_no_ikari = Weapon(name = 'Tengoku No Ikari', weapon_damage = 30,special_damage=100,crit_chance=0.2)
         self.jigoku_no_shizuka = Weapon(name = "Jigoku no Shizuka", weapon_damage=20,special_damage=10, crit_chance=0.1)
         self.wood_katana = Weapon(name="wood_katana",weapon_damage=5,special_damage=5,crit_chance=0.05)
         self.training_katana = Weapon(name="wood_katana",weapon_damage=0,special_damage=5)
@@ -153,16 +153,22 @@ class Fight_assets:
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
         self.Musashi = Perso("Musashi","Musashi",250,(225,225),40,self.wood_katana,9,level = 10)
-        self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku",230,(250,250),80,self.tengoku_no_ikari, 9, 20)
+        self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku",230,(250,250),80,self.tengoku_no_ikari, 9, 35)
         self.Musashi_jeune = Perso("Musashi","Musashi_Jeune",0,(200,200),5,self.training_katana,9,)
         self.pantin_de_combat = Perso("Pantin de combat", "Pantin",0,(200,200),15,self.zero,0,0)
         self.pantin_de_combat.set_do_attaks(False)
         self.guerrier_takahiro = Perso('Soldat1', "Soldat1",225,(250,250),70,self.no_weapon,11)
         self.guerrier_takahiro2 = Perso('Soldat2', "Soldat2",225,(300,300), 70,self.no_weapon,10)
-        self.Takahiro = Perso("Kojiro Takahiro", "Takahiro",200,(300,300), 130, self.op_weapon,12, 20)
+        self.Takahiro = Perso("Kojiro Takahiro", "Takahiro",200,(300,300), 130, self.katana_guerriers,12, 38)
         self.Senshi = Perso("Senshi Akuma", "Senshi",180,(350,350), 50, self.jigoku_no_shizuka,12, 30)
 
         self.autres_sprites = [self.Musashi_Tengoku, self.guerrier_takahiro, self.guerrier_takahiro2, self.Takahiro, self.Senshi]
+
+        self.ch1_e4_1 = Perso("Soldat1","Soldat1",225,(250,250),50,self.katana_guerriers,11,5)
+        self.ch1_e4_2 = Perso("Soldat2","Soldat2",225,(300,300),50,self.katana_guerriers,10,5)
+
+        self.ch2_e2_1 = Perso("Soldat1","Soldat1",225,(250,250),70,self.katana_guerriers,11,6)
+        self.ch2_e2_2 = Perso("Soldat2","Soldat2",225,(300,300), 70,self.katana_guerriers,10,6)
 
 if __name__ == "__main__":
         fight_assets = Fight_assets()

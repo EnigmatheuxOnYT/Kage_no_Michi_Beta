@@ -508,5 +508,5 @@ if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
-    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.Takahiro, fight_assets.guerrier_takahiro2],3)
+    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.Takahiro],3)
     pygame.quit()
