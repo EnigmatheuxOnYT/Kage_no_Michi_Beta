@@ -1,4 +1,8 @@
 
+#Projet : Kage no Michi
+#Auteurs : Alptan Korkmaz, Maxime Rousseaux, Ahmed-Adam Rezkallah, Clément Roux--Bénabou, Cyril Zhao
+
+
 '''
 Persos pouvant être utilisées dans le Combat TPT et fonctions
 '''
@@ -148,14 +152,14 @@ class Fight_assets:
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
 
 
-        self.Musashi = Perso("Musashi","Musashi",10,10,self.op_weapon,level = 10)
+        self.Musashi = Perso("Musashi","Musashi",10,10,self.wood_katana,level = 40)
         self.Musashi_jeune = Perso("Musashi","Musashi_Jeune",9,5,self.training_katana)
         self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku",9,80,self.tengoku_no_ikari, 35)
         self.pantin_de_combat = Perso("Pantin de combat", "Pantin",0,15,self.zero)
-        self.guerrier_takahiro = Perso('Guerrier', "Soldat1",11,70,self.no_weapon)
-        self.guerrier_takahiro2 = Perso('Guerrier', "Soldat2",10, 70,self.no_weapon)
+        self.guerrier_takahiro = Perso('Guerrier', "Soldat1",11,70,self.katana_guerriers,25)
+        self.guerrier_takahiro2 = Perso('Guerrier', "Soldat2",10, 70,self.katana_guerriers,25)
 
-        self.Takahiro = Perso("Kojiro Takahiro", "Takahiro",12, 130, self.katana_guerriers, 38)
+        self.Takahiro = Perso("Kojiro Takahiro", "Takahiro",12, 130, self.katana_guerriers, 25)
         self.Senshi = Perso("Senshi Akuma", "Senshi",12, 50, self.jigoku_no_shizuka, 30)
 
         self.ch1_e4_1 = Perso("Soldat1","Soldat1",11,50,self.wood_katana,5)

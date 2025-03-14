@@ -118,6 +118,7 @@ class MapManager :
                               spawn_name="spawn_Magome",
                               event_zones=[Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="entrance_dojo_ine",entities=["Player"], events=[Event(type="gpp",data=["Chap1_e3_map","dojo_ine"])]),
                                            Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="entrance_azw_destroyed",entities=["Player"], events=[Event(type="gpp",data=["Chap2_e3_map","entrance_azw_destroyed"])]),
+                                           Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="tkh_end",entities=["Player"], events=[Event(type="gpp",data=["Chap3_e4_map","tkh_end"])]),
                                            Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="Ine",entities=["Player"], events=[Event(type="location",data=["ine"])]),
                                            Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="Magome",entities=["Player"], events=[Event(type="location",data=["mgm"])]),
                                            Event_zone(from_world="MAP PROJET NSI 2025 500x500",origin_point="Takahiro",entities=["Player"], events=[Event(type="location",data=["Takahiro"])]),
