@@ -1,4 +1,4 @@
-V0.3.2.0 :
+V1.0.0.0 :
 - Commandes fonctionelles :
 	- /leave ou / :
 		- Ferme le terminal

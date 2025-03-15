@@ -1,1 +1,2 @@
-Licence GPL v3+
+Licence libre GPL v3+
+License Creative Commons CC-BY-SA

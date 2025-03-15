@@ -1,4 +1,4 @@
-#Kage no michi V0.3.2.0
+#Kage no michi V1.0.0.0
 
 **Pour installer les packages requis :**
 
