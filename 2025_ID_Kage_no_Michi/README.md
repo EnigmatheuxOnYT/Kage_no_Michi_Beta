@@ -34,5 +34,5 @@ Sans spyder :
 
 Dans la sauvegarde développeur (Sauvegarde 0), vous avez accès à un terminal de commande en appuyant sur le bouton "c". Les différentes commandes disponibles sont listées dans le fichier Terminal.txt inclus.
 
-**Communauté**
+**Communauté :**
 Rejoignez la communauté de Kage no Michi sur le serveur discord officiel (Français) https://discord.gg/Ywg6jESDMP
