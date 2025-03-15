@@ -1754,7 +1754,7 @@ class Cinematics:
                 self.cinematic_frame(screen, "bamboo5", 3, "Sache que tu n'es pas le seul à avoir gagné en puissance grâce à ton clan. ",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['SA','no_weapon'],1])
                 self.cinematic_frame(screen, "bamboo5", 3, "Nos destins vont s'entrechoquer..Ici et maintenant !",kind_info=[['SM', 'no_weapon'], ['KT', 'no_weapon'], ['SA','no_weapon'],1])
                 self.ecran_noir(screen)
-        return juzo
+        return 1 if juzo else 2
 
     def cinematic_16(self,screen,saved):
         #cinématique vérifiée

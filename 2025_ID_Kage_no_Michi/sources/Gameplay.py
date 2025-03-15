@@ -465,7 +465,7 @@ class Story:
                                                                    ),
                                                             GPPFight(name='Chap3_e4_fight',
                                                                      bg='tkh2',
-                                                                     ennemies=[],
+                                                                     ennemies=[self.fa.guerrier_takahiro,self.fa.guerrier_takahiro2],
                                                                      dirs_data=[1,[-1],['next']]
                                                                      ),
                                                             GPPCinematic(name="cinematic_17",
@@ -486,7 +486,7 @@ class Story:
                                                             GPPCinematic(name='cinematic_19',
                                                                          cinematic_no=19,
                                                                          ),
-                                                            GPPCinematic(name='cinematic_19',
+                                                            GPPCinematic(name='cinematic_20',
                                                                          cinematic_no=20,
                                                                          ),
                                                             GPPMap(name='end',

@@ -398,6 +398,8 @@ class Game:
                     self.dead = True
                     self.save_savefile()
                     self.in_gameplay = False
+                elif victory_state=="perfect_win2":
+                    self.genocide_ending_events+=1
             elif minigame == 6:
                 self.choices[2] = str(victory_state[-1])
                 if victory_state=='loose2':
@@ -437,6 +439,10 @@ class Game:
         elif cinematic == 7:
             choice = self.cinematics.cinematic_07(self.screen_for_game,choices[0])
             self.choices[1]=choice
+            if choice == 1:
+                self.pacifist_ending_events+=1
+            elif choice == 3:
+                self.genocide_ending_events+=1
             self.fighter.set_level(7)
         elif cinematic == 8:
             choice = self.cinematics.cinematic_08(self.screen_for_game,choices[1])
@@ -448,6 +454,10 @@ class Game:
         elif cinematic == 10:
             choice = self.cinematics.cinematic_10(self.screen_for_game,choices[0])
             self.choices[2] = choice
+            if choice == 2:
+                self.pacifist_ending_events+=1
+            elif choice == 4:
+                self.genocide_ending_events+=1
         elif cinematic == 11:
             self.cinematics.cinematic_11(self.screen_for_game,choices[0],choices[2])
             if self.choices[2]==4:
@@ -459,7 +469,7 @@ class Game:
         elif cinematic == 14 :
             self.cinematics.cinematic_14(self.screen_for_game,choices[0])
         elif cinematic == 15 :
-            choice = self.cinematics.cinematic_15(self.screen_for_game,choices[0],choices[2]==2,False)
+            choice = self.cinematics.cinematic_15(self.screen_for_game,choices[0],choices[2]==3,self.genocide_ending_events>=4)
         elif cinematic == 16 :
             self.cinematics.cinematic_16(self.screen_for_game,choices[0])
         elif cinematic == 17 :
@@ -469,9 +479,19 @@ class Game:
         elif cinematic == 19 :
             self.cinematics.cinematic_19(self.screen_for_game,choices[0])
         elif cinematic == 20 :
-            self.cinematics.cinematic_20(self.screen_for_game,choices[0])
+            if self.genocide_ending_events>=4:
+                route='genocide'
+            elif self.pacifist_ending_events>=3:
+                route='pacifist'
+            else:
+                route = 'neutral'
+            self.cinematics.cinematic_20(self.screen_for_game,choices[0],route)
         elif cinematic == 21 :
             choice = self.cinematics.cinematic_21(self.screen_for_game,choices[0])
+            if choice == 1:
+                self.pacifist_ending_events+=1
+            else:
+                self.genocide_ending_events+=1
         elif cinematic == 22 :
             self.cinematics.cinematic_22(self.screen_for_game,choices[0])
         elif cinematic == 23:
@@ -544,6 +564,10 @@ class Game:
                 self.in_gameplay=True
             elif gpp.type == "GPPFight":
                 state = self.launch_fight(gpp.bg,gpp.ennemies)
+                if state == 'defeat':
+                    self.death()
+                else:
+                    self.next_gpp(state)
             elif gpp.type=='GPPDeath':
                 self.death()
         
@@ -566,6 +590,7 @@ class Game:
                             self.next_gpp(update.effect)
             if gpp.name=='IntroChoice' and 10000-pygame.time.get_ticks()+self.choice1timer<=0:
                 self.choices[0] = "none"
+                self.genocide_ending_events+=1
                 self.next_gpp(-1)
         
 
