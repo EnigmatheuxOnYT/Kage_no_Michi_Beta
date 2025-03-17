@@ -17,7 +17,7 @@ class Savemgr :
         self.generic_blank_file ={"blank" : True,
                                   "dead" : [False,False],
                                   "scene" : [0,0],
-                                  "level" : 0,
+                                  "tpt" : None,
                                   "player_pos" : [13000,9000],
                                   "map" : "main",
                                   "choices" : ['none',0,0,0],
@@ -67,7 +67,7 @@ class Savemgr :
         blank = save_data["blank"]
         dead = save_data["dead"]
         scene = save_data["scene"]
-        level = save_data["level"]
+        tpt = save_data["tpt"]
         player_pos = save_data["player_pos"]
         map = save_data["map"]
         choices = save_data["choices"]
@@ -75,14 +75,14 @@ class Savemgr :
         pacifist_ending_events = save_data["pacifist_ending_events"]
         inventory = save_data["inventory"]
         hideout_passcode = save_data["hideout_passcode"]
-        return blank,dead,scene,level,player_pos,map,choices,genocide_ending_events,pacifist_ending_events,inventory,hideout_passcode
+        return blank,dead,scene,tpt,player_pos,map,choices,genocide_ending_events,pacifist_ending_events,inventory,hideout_passcode
 
-    def variable_compiler (self,blank,dead,scene,level,player_pos,map,choices,genocide_ending_events,pacifist_ending_events,inventory,hideout_passcode):
+    def variable_compiler (self,blank,dead,scene,tpt,player_pos,map,choices,genocide_ending_events,pacifist_ending_events,inventory,hideout_passcode):
         ########## Transformation des variables en données de sauvegarde ##########
         save_data = {"blank" : blank,
                      "dead" : dead,
                      "scene" : scene,
-                     "level" : level,
+                     "tpt" : tpt,
                      "player_pos" : player_pos,
                      "map" : map,
                      "choices" : choices,

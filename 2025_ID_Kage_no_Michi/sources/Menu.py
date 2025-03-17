@@ -126,7 +126,7 @@ class Menu:
         self.text_saves_main = [self.font_MFMG20.render(f"Sauvegarde {save}",False,(0,0,0)) for save in range(4)]
         self.text_saves_chapter = [self.font_MFMG15.render(f"Chapitre {self.save_data_for_menu[save]['scene'][0]}",False,(0,0,0)) for save in range(4)]
         self.text_saves_episode = [self.font_MFMG15.render(f"Épisode {self.save_data_for_menu[save]['scene'][1]}",False,(0,0,0)) for save in range(4)]
-        self.text_saves_level = [self.font_MFMG15.render(f"Niveau {self.save_data_for_menu[save]['level']}",False,(0,0,0)) for save in range(4)]
+        self.text_saves_level = [self.font_MFMG15.render(f"Niveau {self.save_data_for_menu[save]['tpt']['main'][5] if self.save_data_for_menu[save]['tpt']!=None else 0}",False,(0,0,0)) for save in range(4)]
         self.text_saves_blank = self.font_MFMG15.render("Nouvelle Sauvegarde",False,(0,0,0))
         
     ############### Partie 1 ###############

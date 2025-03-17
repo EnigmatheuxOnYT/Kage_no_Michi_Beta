@@ -31,7 +31,7 @@ from Gameplay import Story
 from map.src.game import Game_map
 from map.src.Map_objects import Path,paths_list
 from Fight import Fight
-from Fight_assets import Fight_assets
+from Fight_assets import Fight_assets,Perso,Weapon
 
 class Game:
     
@@ -179,26 +179,37 @@ class Game:
         self.current_passcode = random.choice(self.passcodes)
         self.blank = False
         self.scene=[0,1]
+        self.tpt = {'main':self.fight_assets.Musashi,'allies':[]}
+        self.fighter=self.fight_assets.Musashi
+        self.allies=[]
     
     def get_fps_showed(self): return self.fps_showed
     
     def save_savefile(self):
         ########## Sauvegarde ##########
+        tpt = {'main':self.fighter.wrapped(),'allies':[ally.wrapped() for ally in self.allies]}
         self.scene = self.current_playing_scene.id
         self.player_pos = self.get_pos()
         self.inventory={'money':self.money,'weapon':self.current_weapon,'heal_potions':self.heal_potions_count}
         dead = [self.dead,self.lost]
-        save_data = self.savemgr.variable_compiler(self.blank,dead,self.scene,self.level,self.player_pos,self.current_map,self.choices,self.genocide_ending_events,self.pacifist_ending_events,self.inventory,self.current_passcode)
+        save_data = self.savemgr.variable_compiler(self.blank,dead,self.scene,tpt,self.player_pos,self.current_map,self.choices,self.genocide_ending_events,self.pacifist_ending_events,self.inventory,self.current_passcode)
         self.savemgr.save(save_data,f"../data/saves/save{self.loaded_save}.json")
         print("Sauvegarde effectuée")
     
     def load_player_data(self,save_data):
-        self.blank,dead,self.scene,self.level,self.player_pos,self.current_map,self.choices,self.genocide_ending_events,self.pacifist_ending_events,self.inventory,self.current_passcode = self.savemgr.variable_extractor(save_data)
+        self.blank,dead,self.scene,tpt,self.player_pos,self.current_map,self.choices,self.genocide_ending_events,self.pacifist_ending_events,self.inventory,self.current_passcode = self.savemgr.variable_extractor(save_data)
         self.money,self.current_weapon,self.heal_potions_count=self.inventory['money'],self.inventory['weapon'],self.inventory['heal_potions']
         self.dead,self.lost = dead
         self.map.reload()
         self.map.map_manager.change_map(self.current_map,self.player_pos)
         self.map.set_follower(self.choices[0])
+        if tpt!=None:
+            self.tpt = {'main':Perso(tpt['main'][0],tpt['main'][1],tpt['main'][2],tpt['main'][3],Weapon(tpt['main'][4][0],tpt['main'][4][1],tpt['main'][4][2],tpt['main'][4][2]),tpt['main'][5],tpt['main'][6]),'allies':[Perso(tpt['allies'][i][0],tpt['allies'][i][1],tpt['allies'][i][2],tpt['allies'][i][3],Weapon(tpt['allies'][i][4][0],tpt['allies'][i][4][1],tpt['allies'][i][4][2],tpt['allies'][i][4][3]),tpt['allies'][i][5],tpt['allies'][i][6]) for i in range(len(tpt['allies']))]}
+            self.fighter = self.tpt['main']
+            self.allies = self.tpt['allies']
+        else:
+            self.fighter=None
+            self.allies = []
 
     def handle_zone_events(self,events):
         self.display_fire=False
@@ -238,8 +249,8 @@ class Game:
 
     def setup_saved (self,saved):
         self.map.set_follower(saved)
-        #if saved == "KT":
-        #    self.allies.append(self.fight_assets.Takeshi)
+        if saved == "KT":
+            self.allies.append(self.fight_assets.Takeshi)
 
 
 

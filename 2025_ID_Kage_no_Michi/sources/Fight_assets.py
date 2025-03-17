@@ -25,6 +25,7 @@ class Perso:
         self.name = name #Son nom
         self.sprite_name = spritename
         self.pv_max = pv_max #Ses hp max
+        self.__base_pv_max = pv_max
         self.pv = pv_max #Ses pv, qui vont prendre tout simplement la valeur de ses pvs
         self._base_damage = 2
         self.weapon = weapon
@@ -52,11 +53,14 @@ class Perso:
      
         self.index = 0
         self.max_index = self.atk_length
+        self.instance = instance
 
     @property
     def current_damage(self):return self._base_damage+self.weapon.weapon_damage
     @property
     def is_ko (self):return False if self.pv>0 else True
+
+    def wrapped (self):return [self.name,self.sprite_name,self.atk_length,self.__base_pv_max,[self.weapon.name,self.weapon.weapon_damage,self.weapon.special_damage,self.weapon.crit_chance],self.level,self.instance]
 
     def set_taille(self,size):
         self.size=size
@@ -155,6 +159,9 @@ class Fight_assets:
         self.Musashi = Perso("Musashi","Musashi",10,10,self.wood_katana,level = 40)
         self.Musashi_jeune = Perso("Musashi","Musashi_Jeune",9,5,self.training_katana)
         self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku",9,80,self.tengoku_no_ikari, 35)
+        self.Takeshi = Perso("Takeshi","Musashi",0,30,self.wood_katana)
+
+
         self.pantin_de_combat = Perso("Pantin de combat", "Pantin",0,15,self.zero)
         self.guerrier_takahiro = Perso('Guerrier', "Soldat1",11,70,self.katana_guerriers,25)
         self.guerrier_takahiro2 = Perso('Guerrier', "Soldat2",10, 70,self.katana_guerriers,25)
