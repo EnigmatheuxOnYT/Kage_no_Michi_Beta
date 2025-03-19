@@ -13,6 +13,7 @@ import pygame
 import random
 from Savemgr import Savemgr
 from Audio import Music,Sound
+from credits.credits_format_py import credits
 
 class Menu:
     
@@ -94,6 +95,13 @@ class Menu:
         self.text_button_save = self.font_MFMG27.render("Sauvegarder",False,(0,0,0))
         self.text_button_OK = self.font_MFMG27.render("OK",False,(0,0,0))
         self.text_button_cancel = self.font_MFMG27.render("Annuler",False,(0,0,0))
+
+        ## Crédits ##
+
+        self.credits_text=[]
+        for ligne in credits.split("/n"):
+            self.credits_text.append(self.font_MFMG15.render(ligne,False,"black"))
+        self.current_credits_y_offset=0
         
         
     ############### Chargement ###############
@@ -156,7 +164,8 @@ class Menu:
                         print ("Options lancées")
                     elif self.rect_button_credits.collidepoint(pygame.mouse.get_pos()):
                         in_main_menu = False
-                        in_credits = True            
+                        in_credits = True
+                        self.current_credits_y_offset=0
                         print ("Crédits lancés")
         return running,in_main_menu,in_save_choice,in_settings,in_credits
     
@@ -458,10 +467,25 @@ class Menu:
             screen.blit(self.button_green_bg,self.rect_settings_button_save)
         screen.blit(self.text_button_save,pygame.Rect(234,540,150,20))
     
+
+    def get_credits_surface (self):
+        surf = pygame.image.load("../data/assets/menu/Fond_Menu_Vide.png").convert_alpha()
+        x,y=260,480-self.current_credits_y_offset
+        for ligne in self.credits_text:
+            surf.blit(ligne,(x,y))
+            y+=15
+        if y<-15:
+            self.current_credits_y_offset=0
+        self.current_credits_y_offset+=0.5
+        return surf
+
     def draw_credits (self, screen):
         ########## Dessin des crédits (partie 3) ##########
 
         screen.blit(self.menu_save_background,self.rect_save_background)
+
+        screen.blit(self.get_credits_surface(),(131,121))
+        
         if self.mouse_on_button['OK']:
             screen.blit(self.button_dgreen_bg,self.rect_credits_button_OK)
         else:
