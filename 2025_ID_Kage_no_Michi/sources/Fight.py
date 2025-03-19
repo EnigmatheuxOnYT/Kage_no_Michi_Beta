@@ -211,10 +211,18 @@ class Fight:
                     if self.potion_hitbox.collidepoint(event.pos) and self.allow_potion:
                         if self.potion >=1:
                             self.potion -= 1
-                            self.number = min(self.perso_player.pv_max,self.perso_player.pv+30) - self.perso_player.pv
-                            self.perso_player.pv += self.number
-                            self.start_to_draw_number(False,self.perso_player)
-                            self.change_phase("allies")
+
+                            self.number = int(self.perso_player.pv_max*0.7)
+
+                            if self.number+self.perso_player.pv > self.perso_player.pv_max:
+                                self.perso_player.pv = self.perso_player.pv_max
+                                self.start_to_draw_number(False,self.perso_player)
+                                self.change_phase("allies")
+                            else:
+                                self.perso_player.pv += int(self.number)
+                                self.start_to_draw_number(False,self.perso_player)
+                                self.change_phase("allies")
+
                         elif self.potion < 1:
                             self.start_draw_hint('potion')
 
@@ -477,5 +485,5 @@ if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode((1280,720))
     pygame.display.set_caption("Kage no Michi - Système de combat TPT")
-    Fight().run(screen,'ine1',fight_assets.Musashi_Tengoku,[],[fight_assets.guerrier_takahiro,fight_assets.guerrier_takahiro2],100)
+    Fight().run(screen,'ine1',fight_assets.Musashi,[],[fight_assets.Takahiro],3)
     pygame.quit()

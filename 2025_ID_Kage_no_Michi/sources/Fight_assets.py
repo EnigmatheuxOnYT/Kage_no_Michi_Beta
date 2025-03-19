@@ -147,18 +147,21 @@ class Fight_assets:
     def __init__(self):
         #Armes à disposition
         self.tengoku_no_ikari = Weapon(name = 'Tengoku No Ikari', weapon_damage = 30,special_damage=100,crit_chance=0.2)
-        self.jigoku_no_shizuka = Weapon(name = "Jigoku no Shizuka", weapon_damage=20,special_damage=10, crit_chance=0.1)
+        self.jigoku_no_shizuka = Weapon(name = "Jigoku no Shizuka", weapon_damage=40,special_damage=200, crit_chance=0.1)
         self.wood_katana = Weapon(name="wood_katana",weapon_damage=5,special_damage=5,crit_chance=0.05)
         self.training_katana = Weapon(name="wood_katana",weapon_damage=0,special_damage=5)
         self.katana_guerriers = Weapon(name="katana",weapon_damage=10,special_damage=5,crit_chance=0.05)
+        self.nozarashi = Weapon(name = "Nozarashi", weapon_damage=45,special_damage=100, crit_chance=0.2)
         self.zero = Weapon(name="no_weapon",weapon_damage=-100,)
         self.no_weapon = Weapon(name="no_weapon",weapon_damage=0,special_damage=0,crit_chance=0)
         self.op_weapon = Weapon(name='op_weapon',weapon_damage=10,special_damage=15,crit_chance=0.25)
 
 
-        self.Musashi = Perso("Musashi","Musashi",10,10,self.wood_katana,level = 40)
+        #self.Musashi = Perso("Musashi","Musashi",10,10,self.wood_katana,level = 15) Musashi au chapitre 1, ep4
+        #self.Musashi = Perso("Musashi","Musashi",10,15,self.wood_katana,level = 23) #Musashi au chapitre 2, ep2
+        self.Musashi = Perso("Musashi","Musashi",10,15,self.wood_katana,level = 35)
         self.Musashi_jeune = Perso("Musashi","Musashi_Jeune",9,5,self.training_katana)
-        self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku",9,80,self.tengoku_no_ikari, 35)
+        self.Musashi_Tengoku = Perso("Musashi","Musashi_Tengoku",9,45,self.tengoku_no_ikari, 30)
         self.Takeshi = Perso("Takeshi","Musashi",0,30,self.wood_katana)
 
 
@@ -166,11 +169,11 @@ class Fight_assets:
         self.guerrier_takahiro = Perso('Guerrier', "Soldat1",11,70,self.katana_guerriers,25)
         self.guerrier_takahiro2 = Perso('Guerrier', "Soldat2",10, 70,self.katana_guerriers,25)
 
-        self.Takahiro = Perso("Kojiro Takahiro", "Takahiro",12, 130, self.katana_guerriers, 25)
-        self.Senshi = Perso("Senshi Akuma", "Senshi",12, 50, self.jigoku_no_shizuka, 30)
+        self.Takahiro = Perso("Kojiro Takahiro", "Takahiro",12, 95, self.nozarashi, 25)
+        self.Senshi = Perso("Senshi Akuma", "Senshi",12, 50, self.jigoku_no_shizuka, 35)
 
-        self.ch1_e4_1 = Perso("Soldat1","Soldat1",11,50,self.wood_katana,5)
-        self.ch1_e4_2 = Perso("Soldat2","Soldat2",10,50,self.wood_katana,5)
+        self.ch1_e4_1 = Perso("Soldat1","Soldat1",11,40,self.wood_katana,5)
+        self.ch1_e4_2 = Perso("Soldat2","Soldat2",10,40,self.wood_katana,5)
         self.ch1_e4_3 = Perso("Soldat1","Soldat1",11,50,self.wood_katana,5)
         self.ch1_e4_4 = Perso("Soldat2","Soldat2",10,50,self.wood_katana,5)
         self.ch1_e4_3.hit(self.ch1_e4_3.pv_max//2)
