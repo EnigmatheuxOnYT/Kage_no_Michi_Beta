@@ -209,6 +209,9 @@ class Scene:
     @property
     def current_gpp(self):return self.gpps[self.gppindex] if not self.over else None
     
+    def reload(self):
+        self.gppindex=0
+
     def next_gpp(self,output):
         if not self.over:
             ressearch=False

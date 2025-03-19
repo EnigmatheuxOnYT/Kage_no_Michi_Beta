@@ -136,6 +136,7 @@ class Game:
     ############### Chargement ###############
     
     def load_save(self, screen, loading_save):
+        self.reload()
         ########## Récupération des données de sauvegarde pour lancer le jeu ##########
         self.screen_for_game = screen
         if self.loaded_save == 0:
@@ -179,6 +180,8 @@ class Game:
         
         return loading_save,in_game
 
+    def reload(self):
+        self.current_playing_scene.reload()
     
     def begin (self):
         self.current_passcode = random.choice(self.passcodes)
