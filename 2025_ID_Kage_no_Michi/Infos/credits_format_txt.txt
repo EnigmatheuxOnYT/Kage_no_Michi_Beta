@@ -46,7 +46,7 @@ Maxime ROUSSEAUX
 Améliorations des mini-jeux (Marchandage, Reconstruction, Filature, Persuasion)
 Ahmed-Adam REZKALLAH
 _____________________________
-Graphismes et animations
+Graphismes, animations et sons
 ---------------
 Direction artistique et conception graphique
 Ahmed-Adam REZKALLAH
@@ -59,13 +59,18 @@ Alptan KORKMAZ
 
 Éléments graphiques additionnels des maps
 Cyril ZHAO
+
+Recherches de sons libre de droit
+Ahmed-Adam REZKALLAH
+Alptan KORKMAZ
+
 _____________________________
 Écriture et scénario
 ---------------
 Idée originale et écriture du prologue
 Ahmed-Adam REZKALLAH
 
-Scénario principal et dialogues
+Scénario principal, personnages et dialogues
 Alptan KORKMAZ
 
 Script de la vidéo de présentation (Français & Japonais)
@@ -77,6 +82,8 @@ Maxime ROUSSEAUX, Clément ROUX-BÉNABOU
 Contributions au script de la vidéo
 Cyril ZHAO
 
+Montage de la vidéo
+Ahmed-Adam REZKALLAH
 
 ----------------------------------------------
 
