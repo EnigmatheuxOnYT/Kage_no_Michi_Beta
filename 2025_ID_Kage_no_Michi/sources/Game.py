@@ -99,11 +99,15 @@ class Game:
         self.money_rect=pygame.Rect(1020,20,240,20)
         self.fontMFMG20=pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",20)
 
+        self.fontMFMG30=pygame.font.Font("../data/assets/fonts/MadouFutoMaruGothic.ttf",30)
+        self.interaction_text=self.fontMFMG30.render("E pour discuter",False,"white")
+        self.interaction_text_rect = self.interaction_text.get_rect()
+        self.interaction_text_rect.midbottom = (640,700)
+
         self.devmode=False
         self.in_gameplay=False
 
         self.current_interaction = {"is":False,"interaction":None}
-        self.current_interration = 0
 
         self.scene=[0,0]
         self.location="wild"
@@ -733,6 +737,8 @@ class Game:
             surf.fill("red")
             surf.set_alpha(50)
             screen.blit(surf,pygame.Rect(0,0,1280,720))
+        if self.current_interaction['is']:
+            screen.blit(self.interaction_text,self.interaction_text_rect)
         pygame.display.flip()
 
 

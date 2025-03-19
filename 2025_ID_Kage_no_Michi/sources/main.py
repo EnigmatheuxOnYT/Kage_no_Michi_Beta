@@ -36,11 +36,11 @@ class Main:
         self.fps = 60
         
         ########## Importation du menu et du jeu ##########
-        Loading.display_loading(screen, 30,"Lanncement des modules")
+        Loading.display_loading(screen, 30,"Lancement des modules")
         self.menu = Menu()
-        Loading.display_loading(screen, 35,"Lanncement des modules")
+        Loading.display_loading(screen, 35,"Lancement des modules")
         self.game = Game(self.screen)
-        Loading.display_loading(screen, 85,"Lanncement des modules")
+        Loading.display_loading(screen, 85,"Lancement des modules")
         self.music = Music()
         
     
