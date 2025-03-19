@@ -11,6 +11,7 @@ Created on Mon Jan  6 20:29:01 2025
 
 import pygame
 import random
+import math
 from Savemgr import Savemgr
 from Audio import Music,Sound
 from credits.credits_format_py import credits
@@ -454,19 +455,22 @@ class Menu:
     
     def draw_settings (self, screen):
         ########## Dessin des options (partie 3) ##########
-
-        screen.blit(self.menu_save_background,self.rect_save_background)
+        screen.blit(self.menu_save_background, self.rect_save_background)
+        
+        message = "Ce parchemin est encore scellé. Peut-être qu'un jour..."
+        settings_message = self.font_MFMG27.render(message, False, (0, 0, 0))
+        screen.blit(settings_message, (250, 300))
+        
         if self.mouse_on_button['cancel']:
-            screen.blit(self.button_dblue_bg,pygame.Rect(888.5,525.5,165,60))
+            screen.blit(self.button_dblue_bg, pygame.Rect(888.5,525.5,165,60))
         else:
-            screen.blit(self.button_blue_bg,self.rect_menus_button_cancel)
-        screen.blit(self.text_button_cancel,pygame.Rect(922,540,150,20))
+            screen.blit(self.button_blue_bg, self.rect_menus_button_cancel)
+        screen.blit(self.text_button_cancel, pygame.Rect(922,540,150,20))
         if self.mouse_on_button['save']:
-            screen.blit(self.button_dgreen_bg,self.rect_settings_button_save)
+            screen.blit(self.button_dgreen_bg, self.rect_settings_button_save)
         else:
-            screen.blit(self.button_green_bg,self.rect_settings_button_save)
-        screen.blit(self.text_button_save,pygame.Rect(234,540,150,20))
-    
+            screen.blit(self.button_green_bg, self.rect_settings_button_save)
+        screen.blit(self.text_button_save, pygame.Rect(234,540,150,20))    
 
     def get_credits_surface (self):
         surf = pygame.image.load("../data/assets/menu/Fond_Menu_Vide.png").convert_alpha()
