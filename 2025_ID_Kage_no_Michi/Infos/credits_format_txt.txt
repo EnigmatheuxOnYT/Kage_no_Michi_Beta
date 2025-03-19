@@ -332,3 +332,346 @@ Libre
 SFX
 Tree Falling SOUND EFFECT - Baum fällen SOUNDS
 
+=======
+Développement
+---------------
+Chef de projet, graphiste principal, co-développeur, écrivain
+Ahmed-Adam REZKALLAH
+
+Développeur principal, écrivain
+Clément ROUX-BÉNABOU
+
+Écrivain principal, développeur, graphiste
+Alptan KORKMAZ
+
+Mapmaker, développeur, graphiste
+Cyril ZHAO
+
+Développeur, écrivain
+Maxime ROUSSEAUX
+_____________________________
+Systèmes et mécaniques de jeu
+---------------
+Système de combat au tour par tour
+Clément ROUX-BÉNABOU, Alptan KORKMAZ, Cyril ZHAO
+
+Système de dialogue et sauvegarde
+Clément ROUX-BÉNABOU
+
+Intégration des cinématiques
+Maxime ROUSSEAUX
+_____________________________
+Mini-jeux
+---------------
+Filature, Collecte, Survivants, Tutoriel combat TPT
+Clément ROUX-BÉNABOU
+
+Épreuve de combat (mémorisation), Piège environnemental (démineur), Sauvetage
+Ahmed-Adam REZKALLAH
+
+Persuasion
+Alptan KORKMAZ
+
+Marchandage
+Cyril ZHAO
+
+Reconstruction
+Maxime ROUSSEAUX
+
+Améliorations des mini-jeux (Marchandage, Reconstruction, Filature, Persuasion)
+Ahmed-Adam REZKALLAH
+_____________________________
+Graphismes, animations et sons
+---------------
+Direction artistique et conception graphique
+Ahmed-Adam REZKALLAH
+
+Sprites personnages 8-bit et 16-bit, interfaces, boutons, animations menus, mini-jeux et maps
+Ahmed-Adam REZKALLAH
+
+Animations combat au tour par tour (Musashi, Guerriers Takahiro, Takahiro, Senshi)
+Alptan KORKMAZ
+
+Éléments graphiques additionnels des maps
+Cyril ZHAO
+
+Recherches de sons libre de droit
+Ahmed-Adam REZKALLAH
+Alptan KORKMAZ
+
+_____________________________
+Écriture et scénario
+---------------
+Idée originale et écriture du prologue
+Ahmed-Adam REZKALLAH
+
+Scénario principal, personnages et dialogues
+Alptan KORKMAZ
+
+Script de la vidéo de présentation (Français & Japonais)
+Alptan KORKMAZ
+
+Corrections et restructuration des dialogues
+Maxime ROUSSEAUX, Clément ROUX-BÉNABOU
+
+Contributions au script de la vidéo
+Cyril ZHAO
+
+Montage de la vidéo
+Ahmed-Adam REZKALLAH
+
+----------------------------------------------
+
+
+Fond_Menu_V1_1280p.png
+EiskalterEnger18
+aucune licence spécifique n'est mentionnée
+graphisme
+ArtStation Japanese Village, Pixel Art
+
+Fond_Menu_V4_1280p.png
+Lennart Butz
+droits sont réservés à l’artiste
+graphisme
+ArtStation View over Japanese Valley in Autumn
+
+Fond_Place_Aizuwakamatsu_1.png
+Firefly
+graphisme
+https://mx.pinterest.com/pin/82261130687668071/
+
+une partie de map/map
+PeekyChew
+copyright libres d'utilisation et de modification pour des projets personnels
+graphisme
+https://www.deviantart.com/peekychew/art/Traditional-Japanese-Building-Tiles-Mix-756684511
+
+terrain-v7.png
+vaious
+CC BY-SA 3.0 et GPL 3.0.
+graphisme
+https://opengameart.org/content/lpc-terrain-repack
+
+Music_Dialogue_1.mp3
+PM Music
+CC BY
+musique
+https://www.youtube.com/watch?v=NF2wAWGYmHE
+
+Music_Exploration_1.mp3
+Kevin MacLeod
+musique
+https://www.youtube.com/watch?v=EQmZ0oS6lOY
+
+
+Music_Game_2.mp3
+Kevin MacLeod
+musique
+https://www.youtube.com/watch?v=73OvysjMMSo&list=OLAK5uy_mAPG0JB4KmoQaTZgRzTumSawO5r5ItQv0&index=13
+
+
+inspiration des principaux sprites
+Scottbailey
+graphisme
+https://www.freepik.com/premium-vector/pixel-art-character_26027133.html
+
+
+Prologue_Theme_V1.mp3
+Kevin MacLeod
+musique
+Kevin MacLeod: Rising
+
+Takahiro_Theme_V1.mp3
+TeknoAXE's Royalty Free Music
+Libre
+musique
+Samurai Patrol -- World/Percussion/Background -- Royalty Free Music
+
+SFX_Countdown_1.mp3
+Tuomas_Data
+Libre
+SFX
+https://pixabay.com/sound-effects/game-countdown-62-199828/
+
+video-game-menu-click-sounds-148373.mp3
+Not_Amazingrock
+Libre
+SFX
+https://pixabay.com/sound-effects/video-game-menu-click-sounds-148373/
+
+Music_Game_1.mp3
+Prettysleepy
+Libre
+Musique
+https://pixabay.com/music/world-koto-traditional-japanese-music-264711/
+
+SFX_ClickSound_4.MP3
+Freesound_community
+Libre
+SFX
+https://pixabay.com/sound-effects/pop-91931/
+
+Code inspiré dans Mini_jeu_TPT_Créateur.py
+Coding With Russ
+Inspiration
+Code
+https://www.youtube.com/watch?v=M4LjMbhkcfs
+
+
+Réutilisation du code pour Map.py
+Graven
+Inspiration
+Comment créer un JEU en Python ? (https://www.youtube.com/watch?v=ooITOxbYVTo)
+
+reste des SFX
+Pixabay (freesound_community, RibhavAgrawal, Ivan_Luzan, Universfield, gregorquendel, fronbondi skegs, soundreality)
+Libre
+SFX et Musique
+https://pixabay.com/users/freesound_community-46691455
+https://pixabay.com/users/ribhavagrawal-39286533
+https://pixabay.com/users/ivan_luzan-34614814/
+https://pixabay.com/users/universfield-28281460/
+https://pixabay.com/users/gregorquendel-19912121/
+https://pixabay.com/users/fronbondi_skegs-23154649
+https://pixabay.com/users/soundreality-31074404/
+
+SFX_Confused_1.mp3
+kidchessHermanJ
+Libre
+SFX
+https://www.myinstants.com/fr/instant/huuuh-confused-88303/
+
+Music_CalmPacific_1.mp3
+Godgrafix
+Libre
+Musique
+https://pixabay.com/music/beats-japanese-162771/
+
+cinematic
+Monument_Music
+Libre
+Musique
+https://pixabay.com/music/world-misora-traditional-japanese-music-03-141356/
+
+cinematic
+Monument_Music
+Libre
+Musique
+https://pixabay.com/music/world-koto-traditional-japanese-music-01-141355/ 
+
+cinematic
+pixabay: pas d’auteur
+Libre
+Musique
+https://pixabay.com/music/world-sakura-dance-background-music-traditional-japanese-165338/
+
+cinematic
+pixabay : pas d’auteur
+Libre
+Musique
+https://pixabay.com/music/world-missing-in-wind-japanese-ancient-flute-simulate-wind-sound-166932/
+
+Music_ArrivedIne_1.mp3
+Diamond_Tunes
+Libre
+Musique
+https://pixabay.com/music/world-tokyo-japanese-music-165731/
+
+
+Music_Choice_Aizu.MP3
+AyItsMatt
+Libre
+Musique
+https://pixabay.com/music/main-title-the-law-of-the-samurai-247993/
+
+cinematic
+9JackJack8
+Libre
+Musique
+https://pixabay.com/music/beats-this-is-japan-trap-276601/
+
+SFX_Oof1.mp3
+Homemade_SFX
+Libre
+SFX
+Ouch Oof Hurt Sound Effect | Royalty-free Music - Pixabay
+
+SFX_BodyFalling_1.MP3
+Futuretechman
+Libre
+SFX
+body falling on rug | Royalty-free Music - Pixabay
+
+SFX_AgonyCrowd_1.MP3
+Henri Langosh
+Libre
+SFX
+https://deadsounds.com/moaning-crowd-agony-coughing-and-crying-sound
+
+SFX_AgonyCrowd_1.MP3
+Morshuman
+Libre
+SFX
+https://pixabay.com/sound-effects/wounded-coughing-95153/
+
+SFX_CrazyLaugh_1.MP3
+SakkeSode
+Libre
+SFX
+https://pixabay.com/sound-effects/the-man-laughs-madly-182951/
+
+SFX_Gasp_1.mp3
+slamaxu
+Libre
+SFX
+https://pixabay.com/sound-effects/male-gasp-40729/
+
+SFX_Sigh_1.mp3
+Reitanna
+Libre
+SFX
+https://pixabay.com/sound-effects/male-sigh-6763/
+
+Music_RetourMagome_1.mp3
+Jean-Paul-V
+Libre
+SFX
+https://pixabay.com/music/world-voyage-au-japon-song-7-slow-293664/
+
+Music_Zen.mp3
+Steve Oxen
+Libre
+Musique
+https://www.fesliyanstudios.com/royalty-free-music/downloads-c/japanese-music/63
+
+Music_Epic.mp3
+Steve Oxen
+Libre
+Musique
+https://www.fesliyanstudios.com/royalty-free-music/downloads-c/japanese-music/63
+
+SFX_vent.mp3
+JCI-21
+Libre
+SFX
+https://pixabay.com/fr/sound-effects/wind-blowing-sfx-12809/
+
+SFX_galop.mp3
+Joseph Sardin
+Libre
+SFX
+Galop de cheval sur sol dur (son gratuit)
+
+SFX_Flamme.mp3
+Alice_soundz
+Libre
+SFX
+https://pixabay.com/fr/sound-effects/fire-sound-effects-224089/
+
+SFX_arbre.mp3
+Berlinatmospheres
+Libre
+SFX
+Tree Falling SOUND EFFECT - Baum fällen SOUNDS
+
+>>>>>>> fd906801b3b4898453615d48e39147a4ac62ae2a
