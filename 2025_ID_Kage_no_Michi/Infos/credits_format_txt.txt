@@ -4,7 +4,7 @@ Chef de projet, graphiste principal, co-développeur, écrivain
 Ahmed-Adam REZKALLAH
 
 Développeur principal, écrivain
-Clément ROUX-BÉNABOU
+Clément ROUX--BÉNABOU
 
 Écrivain principal, développeur, graphiste
 Alptan KORKMAZ
@@ -18,10 +18,10 @@ _____________________________
 Systèmes et mécaniques de jeu
 ---------------
 Système de combat au tour par tour
-Clément ROUX-BÉNABOU, Alptan KORKMAZ, Cyril ZHAO
+Clément ROUX--BÉNABOU, Alptan KORKMAZ, Cyril ZHAO
 
 Système de dialogue et sauvegarde
-Clément ROUX-BÉNABOU
+Clément ROUX--BÉNABOU
 
 Intégration des cinématiques
 Maxime ROUSSEAUX
@@ -29,7 +29,7 @@ _____________________________
 Mini-jeux
 ---------------
 Filature, Collecte, Survivants, Tutoriel combat TPT
-Clément ROUX-BÉNABOU
+Clément ROUX--BÉNABOU
 
 Épreuve de combat (mémorisation), Piège environnemental (démineur), Sauvetage
 Ahmed-Adam REZKALLAH
@@ -72,7 +72,7 @@ Script de la vidéo de présentation (Français & Japonais)
 Alptan KORKMAZ
 
 Corrections et restructuration des dialogues
-Maxime ROUSSEAUX, Clément ROUX-BÉNABOU
+Maxime ROUSSEAUX, Clément ROUX--BÉNABOU
 
 Contributions au script de la vidéo
 Cyril ZHAO
