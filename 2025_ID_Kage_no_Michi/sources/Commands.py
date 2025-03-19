@@ -76,6 +76,9 @@ class Commands:
         elif self.is_money():
             no=self.money()
             return "money",[no]
+        elif self.is_scene:
+            chap,scene = self.scene()
+            return 'scene',[[chap,scene]]
         else:
             print("commande inconnue ou sans argument")
             return "unknown",[]
@@ -330,7 +333,31 @@ class Commands:
                 return -0.1
         print(f"argent mit à {self.cmd[6:]}")
         return int(self.cmd[6:])
-            
+
+    def is_scene (self):
+        command_should = "scene "
+        command_is = self.cmd[:len(command_should)]
+        return command_should == command_is
+    
+    def scene (self):
+        comma_place = 0
+        for char in range(len(self.cmd)):
+            if self.cmd[char] == ',':
+                comma_place = char
+        if comma_place == 0:
+            print("scène incorrecte, mise à en 0,0")
+            return 0,0
+        else:
+            a = int(self.cmd[6:comma_place])
+            b = int(self.cmd[comma_place+1:])
+            print (f"Lancement de la scène {a,b}")
+            return a,b
+        
+
+
+
+
+
 
 if __name__ == '__main__':
     pygame.init()

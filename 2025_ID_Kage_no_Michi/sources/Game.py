@@ -156,6 +156,7 @@ class Game:
         if self.loaded_save == 0:
             self.blank = False
             self.in_gameplay=True
+            self.fighter=self.fight_assets.Takahiro
         
         if self.loaded_save != 0:            
             if self.dead:
@@ -358,7 +359,9 @@ class Game:
         elif command=='money':
             if args[0]!=-0.1:
                 self.money=args[0]
-        
+        elif command=='scene':
+            self.scene=args[0]
+            self.launch_scene()
         self.music.play(fade=500)
     
     def launch_minigame (self,minigame,choices=None,devmode=False):

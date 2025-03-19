@@ -171,7 +171,7 @@ class Path:
     def update_point(self,player_pos):
         point=self.points[self._current_index]
         distance=math.sqrt((player_pos[0]-point.x)**2+(player_pos[1]-point.y)**2)
-        if distance <=50 and not self.over:
+        if distance <=64 and not self.over:
             if self._current_index>=self.lengh-1:
                 self.over=True
             else:
@@ -204,6 +204,11 @@ paths_list = [{'name':'mgm_ine',
                  'sub_paths_names':[],
                  'points_names':['path_mgm1','spawn_tkh'],
                  'order':[[0],[0]]
+                 },
+                {'name':'ASSISTES',
+                 'sub_paths_names':[],
+                 'points_names':['ASSISTES'],
+                 'order':[[0]]
                  }
                 ]
 

@@ -36,7 +36,7 @@ class NPCDialog(Action):
         self.event=Event(type="dialog",data=[self.no])
 
 class NPCTeleport(Action):
-    def __init__(self,new_position:str=(0,0)):
+    def __init__(self,new_position:tuple=(0,0)):
         Action.__init__(self,"NPCTeleport")
         self.position=new_position
 

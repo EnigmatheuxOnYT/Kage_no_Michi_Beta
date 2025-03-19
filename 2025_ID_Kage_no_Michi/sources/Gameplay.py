@@ -307,6 +307,7 @@ class Story:
                                                                    map="main",
                                                                    spawn='spawn_ch1_e3_1',
                                                                    dirs_data=[1,[-1],['next']],
+                                                                   path='ASSISTES',
                                                                    updates=[Update(condition=Condition(type="event_zone",data=['dojo_ine']),effect='next')]
                                                                    ),
                                                             GPPMinigame(name="mimigm_02",
