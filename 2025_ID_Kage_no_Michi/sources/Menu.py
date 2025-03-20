@@ -128,15 +128,36 @@ class Menu:
             self.savemgr.rebuild_folder()
             return False,False,False,False
 
-    def load_savefiles_for_menu (self):
-        ##### Importation des données de sauvegarde pour les afficher #####
-        self.save_data_for_menu = [self.savemgr.load(f"../data/saves/save{save}.json") for save in range(4)]
-        ##### Affichage des sauvegardes #####
-        self.text_saves_main = [self.font_MFMG20.render(f"Sauvegarde {save}",False,(0,0,0)) for save in range(4)]
-        self.text_saves_chapter = [self.font_MFMG15.render(f"Chapitre {self.save_data_for_menu[save]['scene'][0]}",False,(0,0,0)) for save in range(4)]
-        self.text_saves_episode = [self.font_MFMG15.render(f"Épisode {self.save_data_for_menu[save]['scene'][1]}",False,(0,0,0)) for save in range(4)]
-        self.text_saves_level = [self.font_MFMG15.render(f"Niveau {self.save_data_for_menu[save]['tpt']['main'][5] if self.save_data_for_menu[save]['tpt']!=None else 0}",False,(0,0,0)) for save in range(4)]
-        self.text_saves_blank = self.font_MFMG15.render("Nouvelle Sauvegarde",False,(0,0,0))
+    def load_savefiles_for_menu(self):
+        self.save_data_for_menu = [None] * 4
+
+        self.save_data_for_menu[0] = self.savemgr.load("../data/saves/save0.json")
+        self.text_saves_main = [None] * 4
+        self.text_saves_chapter = [None] * 4
+        self.text_saves_episode = [None] * 4
+        self.text_saves_level = [None] * 4
+
+        self.text_saves_main[0] = self.font_MFMG20.render("Sauvegarde dev", False, (0, 0, 0))
+        self.text_saves_chapter[0] = self.font_MFMG15.render(f"Chapitre {self.save_data_for_menu[0]['scene'][0]}", False, (0, 0, 0))
+        self.text_saves_episode[0] = self.font_MFMG15.render(f"Épisode {self.save_data_for_menu[0]['scene'][1]}", False, (0, 0, 0))
+        self.text_saves_level[0] = self.font_MFMG15.render(
+            f"Niveau {self.save_data_for_menu[0]['tpt']['main'][5] if self.save_data_for_menu[0]['tpt'] is not None else 0}",
+            False,
+            (0, 0, 0)
+        )
+
+        for i in range(1, 4):
+            self.save_data_for_menu[i] = self.savemgr.load(f"../data/saves/save{i}.json")
+            self.text_saves_main[i] = self.font_MFMG20.render(f"Sauvegarde {i}", False, (0, 0, 0))
+            self.text_saves_chapter[i] = self.font_MFMG15.render(f"Chapitre {self.save_data_for_menu[i]['scene'][0]}", False, (0, 0, 0))
+            self.text_saves_episode[i] = self.font_MFMG15.render(f"Épisode {self.save_data_for_menu[i]['scene'][1]}", False, (0, 0, 0))
+            self.text_saves_level[i] = self.font_MFMG15.render(
+                f"Niveau {self.save_data_for_menu[i]['tpt']['main'][5] if self.save_data_for_menu[i]['tpt'] is not None else 0}",
+                False,
+                (0, 0, 0)
+            )
+
+        self.text_saves_blank = self.font_MFMG15.render("Nouvelle Sauvegarde", False, (0, 0, 0))
         
     ############### Partie 1 ###############
             
