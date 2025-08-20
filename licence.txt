@@ -1,0 +1,4 @@
+Jusqu'au 31/10/2025 23:59 CET :
+    Le projet est distribué sous licence GPL v3+
+À partir du 01/11/25 00:00 CET :
+    Le projet est sous licence Creative Commons BY-NC-ND, permettant uniquement la consultation du code sans autoriser sa réutilisation ni sa modification.
